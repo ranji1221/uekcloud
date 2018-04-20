@@ -8,7 +8,7 @@
 		<version>1.0</version>
 	</parent>
 
-	<artifactId>jersey</artifactId>
+	<artifactId>volador</artifactId>
 
 	<dependencies>
 		<!-- lemon core -->
