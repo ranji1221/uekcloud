@@ -1,4 +1,4 @@
-package org.ranji.lemon.jersey.controller.auth;
+package org.ranji.lemon.volador.controller.power;
 
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;

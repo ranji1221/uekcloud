@@ -3,16 +3,16 @@ package org.ranji.jersey.test.oauth2;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ranji.lemon.core.util.DateUtil;
-import org.ranji.lemon.jersey.JerseyApplication;
 import org.ranji.lemon.jersey.model.oauth2.Client;
 import org.ranji.lemon.jersey.persist.oauth2.prototype.IClientDao;
 import org.ranji.lemon.jersey.util.GuidUtil;
+import org.ranji.lemon.volador.VoladorApplication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes=JerseyApplication.class)  //-- 指定Spring-Boot的启动类
+@SpringBootTest(classes=VoladorApplication.class)  //-- 指定Spring-Boot的启动类
 public class ClientDaoTest {
 	
 	@Autowired

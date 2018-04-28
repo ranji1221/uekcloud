@@ -4,15 +4,15 @@ import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.ranji.lemon.jersey.JerseyApplication;
 import org.ranji.lemon.jersey.model.auth.Role;
-import org.ranji.lemon.jersey.persist.auth.prototype.IRoleDao;
+import org.ranji.lemon.volador.VoladorApplication;
+import org.ranji.lemon.volador.persist.right.prototype.IRoleDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes=JerseyApplication.class)  //-- 指定Spring-Boot的启动类
+@SpringBootTest(classes=VoladorApplication.class)  //-- 指定Spring-Boot的启动类
 public class RoleDaoTest {
 	
 	@Autowired

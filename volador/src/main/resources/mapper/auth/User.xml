@@ -66,9 +66,6 @@
 		<include refid="paramsSQL"/>
 	</select>
 	
-	
-	
-	
 	<!-- 修改个某条user信息 -->
 	<update id="update" parameterType="JerseyUser">
 		update lemon_jersey_auth_user

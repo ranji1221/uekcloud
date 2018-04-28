@@ -1,10 +1,10 @@
 --
---  lemon jersey auth moduel sql  -- MYSQL
+--  lemon volador auth moduel sql  -- MYSQL
 --
 
 -- user
-DROP TABLE  IF EXISTS lemon_jersey_auth_user;
-CREATE TABLE lemon_jersey_auth_user (
+DROP TABLE  IF EXISTS lemon_volador_auth_user;
+CREATE TABLE lemon_volador_auth_user (
   id int auto_increment primary key,
   guid varchar(255) not null unique,
   createTime datetime,
@@ -15,8 +15,8 @@ CREATE TABLE lemon_jersey_auth_user (
 ) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 
 -- role
-DROP TABLE  IF EXISTS lemon_jersey_auth_role;
-CREATE TABLE lemon_jersey_auth_role (
+DROP TABLE  IF EXISTS lemon_volador_auth_role;
+CREATE TABLE lemon_volador_auth_role (
   id int auto_increment primary key,
   guid varchar(255) not null unique,
   createTime datetime,
@@ -26,8 +26,8 @@ CREATE TABLE lemon_jersey_auth_role (
 ) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 
 -- user_role
-DROP TABLE  IF EXISTS lemon_jersey_auth_user_role;
-CREATE TABLE lemon_jersey_auth_user_role (
+DROP TABLE  IF EXISTS lemon_volador_auth_user_role;
+CREATE TABLE lemon_volador_auth_user_role (
   userId int(11) not null,
   roleId int(11) not null,
   INDEX users_id_index (userId),
@@ -35,8 +35,8 @@ CREATE TABLE lemon_jersey_auth_user_role (
 ) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 
 -- role_permission
-DROP TABLE  IF EXISTS lemon_jersey_auth_role_permission;
-CREATE TABLE lemon_jersey_auth_role_permission (
+DROP TABLE  IF EXISTS lemon_volador_auth_role_permission;
+CREATE TABLE lemon_volador_auth_role_permission (
   roleId int(11) not null,
   permission varchar(255) not null,
   INDEX role_id_index (roleId)
@@ -44,11 +44,11 @@ CREATE TABLE lemon_jersey_auth_role_permission (
 
 
 --
---  lemon jersey oauth2 moduel sql  -- MYSQL
+--  lemon volador oauth2 moduel sql  -- MYSQL
 --
 
-DROP TABLE  IF EXISTS lemon_jersey_oauth2_client;
-CREATE TABLE lemon_jersey_oauth2_client (
+DROP TABLE  IF EXISTS lemon_volador_oauth2_client;
+CREATE TABLE lemon_volador_oauth2_client (
   id int auto_increment primary key,
   guid varchar(255),
   createTime datetime,
@@ -64,8 +64,8 @@ CREATE TABLE lemon_jersey_oauth2_client (
   description varchar(4096)
 );
 
-DROP TABLE  IF EXISTS lemon_jersey_oauth2_access_token;
-CREATE TABLE lemon_jersey_oauth2_access_token (
+DROP TABLE  IF EXISTS lemon_volador_oauth2_access_token;
+CREATE TABLE lemon_volador_oauth2_access_token (
   id int auto_increment primary key,
   guid varchar(255) not null unique,
   createTime datetime,
@@ -80,8 +80,8 @@ CREATE TABLE lemon_jersey_oauth2_access_token (
   
 );
 
-DROP TABLE  IF EXISTS lemon_jersey_oauth2_access_token_code;
-CREATE TABLE lemon_jersey_oauth2_access_token_code (
+DROP TABLE  IF EXISTS lemon_volador_oauth2_access_token_code;
+CREATE TABLE lemon_volador_oauth2_access_token_code (
   id int auto_increment primary key,
   guid varchar(255) not null unique,
   createTime datetime,

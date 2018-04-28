@@ -1,13 +1,8 @@
-package org.ranji.jersey.test.jms;
+package org.ranji.lemon.volador.entity.power;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.ranji.lemon.jersey.JerseyApplication;
-import org.ranji.lemon.jersey.jms.Producer;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
+import org.apache.ibatis.type.Alias;
+import org.ranji.lemon.core.model.AbstractModel;
+import org.ranji.lemon.core.util.JsonUtil;
 /**
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements. See the NOTICE file distributed with this
@@ -24,24 +19,41 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * License for the specific language governing permissions and limitations under
  * the License. Copyright [2017] [RanJi] [Email-jiran1221@163.com]
  * 
- * 测试JMS
+ * auth权限模块的Role类
  * 
  * @author RanJi
- * @date 2017-11-4
+ * @date 2017-10-13
  * @since JDK1.7
  * @version 1.0
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = JerseyApplication.class) // -- 指定Spring-Boot的启动类
-public class JmsTest {
-	@Autowired
-	private Producer producer;
+@Alias("JerseyRole")    //-- 为了避免引入liquid项目中也有Role的别名，而引发mybatis别名设置的冲突
+public class Role extends AbstractModel{
 
-	@Test
-	public void contextLoads() throws InterruptedException {
-		for (int i = 0; i < 1000; i++) {
-			producer.sendMessage();
-		}
-		//Thread.sleep(5000);
+	private static final long serialVersionUID = 8351113134428781458L;
+	
+	private String roleName;
+	private String description;
+	
+	public Role(){
+		
 	}
+	
+	public String getRoleName() {
+		return roleName;
+	}
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
+	@Override
+	public String toString() {
+		return JsonUtil.objectToJson(this);
+	}
+
 }

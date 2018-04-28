@@ -1,4 +1,4 @@
-package org.ranji.lemon.jersey.persist.auth.impl;
+package org.ranji.lemon.volador.persist.right.impl;
 
 import java.util.HashMap;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.Map;
 
 import org.ranji.lemon.core.persist.impl.GenericDaoImpl;
 import org.ranji.lemon.jersey.model.auth.Role;
-import org.ranji.lemon.jersey.persist.auth.prototype.IRoleDao;
+import org.ranji.lemon.volador.persist.right.prototype.IRoleDao;
 import org.springframework.stereotype.Repository;
 
 @Repository("JerseyRoleDaoImpl")	//-- 为解决其他项目中也有项目的类名，则利用@Autowired自动注入冲突的问题

@@ -2,9 +2,9 @@ package org.ranji.jersey.test.auth;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.ranji.lemon.jersey.JerseyApplication;
 import org.ranji.lemon.jersey.model.auth.Role;
 import org.ranji.lemon.jersey.service.auth.prototype.IRoleService;
+import org.ranji.lemon.volador.VoladorApplication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -33,7 +33,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * @version 1.0
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes=JerseyApplication.class)  //-- 指定Spring-Boot的启动类
+@SpringBootTest(classes=VoladorApplication.class)  //-- 指定Spring-Boot的启动类
 public class RoleServiceTest {
 	@Autowired
 	private IRoleService roleService;

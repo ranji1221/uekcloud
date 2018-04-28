@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.ranji.lemon.core.service.impl.GenericServiceImpl;
 import org.ranji.lemon.jersey.model.auth.Role;
-import org.ranji.lemon.jersey.persist.auth.prototype.IRoleDao;
 import org.ranji.lemon.jersey.service.auth.prototype.IRoleService;
+import org.ranji.lemon.volador.persist.right.prototype.IRoleDao;
 import org.springframework.stereotype.Service;
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
