@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.ranji.lemon.volador.model.auth.Role">
-  <insert id="save" parameterType="voladorRole" keyProperty="id" useGeneratedKeys="true">
+  <insert id="save" parameterType="VoladorRole" keyProperty="id" useGeneratedKeys="true">
 		insert into lemon_volador_auth_role (guid,createTime,updateTime,roleName, description) 
 		values (#{guid},#{createTime},#{updateTime},#{roleName}, #{description})
 	</insert>
@@ -32,30 +32,30 @@
 	</select>
 	
 	<!-- 查询根据id -->
-	<select id="find" parameterType="int" resultType="voladorRole">
+	<select id="find" parameterType="int" resultType="VoladorRole">
 		select * from lemon_volador_auth_role where id = #{id}
 	</select>
 	
 	<!-- 查询全部role -->
-	<select id="findAll" resultType="voladorRole" parameterType="Map">
+	<select id="findAll" resultType="VoladorRole" parameterType="Map">
 		select * from lemon_volador_auth_role
 		<include refid="paramsSQL"/>
 	</select>
 	
 	<!-- 分页查询role -->
-	<select id="findPaginated" resultType="voladorRole" parameterType="Map">
+	<select id="findPaginated" resultType="VoladorRole" parameterType="Map">
 		select * from lemon_volador_auth_role
 		<include refid="paramsSQL"/>
 		 limit #{offset}, #{limit}
 	</select>
 	
-	<select id="getTotalOfItems" parameterType="Map" resultType="voladorRole">
+	<select id="getTotalOfItems" parameterType="Map" resultType="VoladorRole">
 		select count(*) from lemon_volador_auth_role
 		<include refid="paramsSQL"/>
 	</select>
 	
 	<!-- 修改个某条role信息 -->
-	<update id="update" parameterType="voladorRole">
+	<update id="update" parameterType="VoladorRole">
 		update lemon_volador_auth_role
 		<set>
 			<if test="roleName != null and roleName != ''">roleName = #{roleName},</if>

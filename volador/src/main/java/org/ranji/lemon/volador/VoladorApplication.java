@@ -17,7 +17,7 @@ public class VoladorApplication extends CoreApplication{
 	@Bean
 	public EmbeddedServletContainerFactory servletContainer() {
 	    TomcatEmbeddedServletContainerFactory factory = new TomcatEmbeddedServletContainerFactory();
-	    factory.setPort(80);
+	    factory.setPort(8090);
 	    factory.setContextPath("/volador");
 	    factory.setSessionTimeout(60, TimeUnit.MINUTES);
 	    return factory;
