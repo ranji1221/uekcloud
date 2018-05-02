@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>User Demo</title>
+	</head>
+	<body>
+		<h1 align="center">User List</h1>
+		<hr/>
+		<table border="1" align="center">
+			<tr>
+				<th>UserName</th>
+				<th>Password</th>
+				<th>CreateTime</th>
+				<th>UpdateTime</th>
+			</tr>
+			<tr th:each="user : ${users}">
+				<td th:text="${user.username}">zhangsan</td>
+				<td th:text="${user.password}">123456</td>
+				<td th:text="${#dates.format(user.createTime,'yyyy-MM-dd HH:mm:ss')}">2018-5-1</td>
+				<td th:text="${#dates.format(user.updateTime,'yyyy-MM-dd HH:mm:ss')}">2018-5-1</td>
+			</tr>
+		</table>
+	</body>
+</html>

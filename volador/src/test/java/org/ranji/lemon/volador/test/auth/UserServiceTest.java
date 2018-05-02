@@ -1,5 +1,7 @@
 package org.ranji.lemon.volador.test.auth;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ranji.lemon.volador.VoladorApplication;
@@ -46,6 +48,16 @@ public class UserServiceTest {
 		userService.save(u);
 		System.out.println(u.getId());	
 	}
+	
+	@Test
+	public void testFindAllUsers() {
+		List<User> users = userService.findAll(null);
+		for (User user : users) {
+			System.out.println(user.getUsername());
+		}
+	}
+	
+	
 	@Test
 	public void testSaveUserAndRoleRelation(){
 		userService.saveUserAndRoleRelation(2, 1);

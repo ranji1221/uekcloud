@@ -42,7 +42,6 @@ public class UserServiceImpl extends GenericServiceImpl<User, Integer> implement
 	@Autowired
 	IRoleService roleService;
 	
-	
 	@Override
 	public void save(User entity) {
 		entity.setPassword(new DefaultPasswordService().encryptPassword(entity.getPassword()));
@@ -81,11 +80,11 @@ public class UserServiceImpl extends GenericServiceImpl<User, Integer> implement
 		if(users!=null && users.size()>0) user = users.get(0);
 		return user;
 	}
-	
+	/*
 	@Override
 	@Cacheable(value="jerseyuser:")
 	public List<User> findAll(){
 		return super.findAll();
-	}
+	}*/
 
 }

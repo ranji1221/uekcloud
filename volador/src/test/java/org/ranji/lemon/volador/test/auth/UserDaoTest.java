@@ -31,6 +31,15 @@ public class UserDaoTest {
 	}
 	
 	@Test
+	public void testFindAllUser() {
+		List<User> users = userDao.findAll(null);
+		for (User user : users) {
+			System.out.println(user.getUsername());
+		}
+	}
+	
+	
+	@Test
 	public void testFindUser(){
 		User u = userDao.find(1);
 		System.out.println(u);
