@@ -27,6 +27,19 @@ public interface ICourseDao extends IGenericDao<Course,Integer>{
      * @param teacher_id 教师
      */
     public void deleteCourseAndTeacherRelation(int course_id,int teacher_id);
+    /**
+     * 储存课程-章节的对应
+     * @param course_id 课程ID
+     * @param chapter_id 章节ID
+     */
+    public void saveCourseAndChapterRelation(int course_id,int chapter_id);
+
+    /**
+     *删除课程-章节的对应
+     * @param course_id 课程Id
+     * @param chapter_id 章节
+     */
+    public void deleteCourseAndChapterRelation(int course_id,int chapter_id);
 
     /**
      *根据课程id查找关联教师

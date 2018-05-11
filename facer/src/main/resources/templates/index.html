@@ -1,0 +1,227 @@
+<!--<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"></meta>
+    <title>优逸客人脸识别系统</title>
+    <link rel="stylesheet" href="css/index.css"></link>
+    <script src="js/jquery-1.9.1.js"></script>
+    <script src="js/tracking-min.js"></script>
+    <script src="js/eye-min.js"></script>
+    <script src="js/mouth-min.js"></script>
+    <script src="js/face-min.js"></script>
+    
+    <script src="js/vue.min.js"> </script>
+</head>
+<body>
+    <div class="container">
+        <div class="info-box-out">
+            <div class="info-box" id="info">
+                <div class="avatar">
+                    <!--<img :src="info.image"> -->
+                    <video id="video" preload autoplay loop muted></video>
+                    <canvas width='568' height="526" id='canvas'></canvas>
+                  
+                </div>
+                <div class="info">
+                    <div class="name">{{info.name}}</div>
+                    <div class="en-name">{{info.enname}}</div>
+                    <div class="worker">职务 - {{info.worker}}</div>
+                    <div class="workid">工号：{{info.workid}}</div>
+                </div>
+            </div>
+            <div class="wecome">
+                <div class="zh">{{msg.zh}}</div>
+                <div class="en">{{msg.en}}</div>
+            </div>
+        </div>
+    </div>
+    
+    <canvas id="shortCut"  width="290" height="218"  style='position:absolute;display:none;left:0px;top:0px' ></canvas>
+    <audio src=""></audio>
+    <script>
+        //初始化数据
+        var initData = {
+            name:"神秘人",
+            enname:"ShenMiRen",
+            image:"images/4.jpeg",
+            worker:"保密",
+            workid:"UEK-YG-00007"
+        }
+        var msg = wecome();
+            
+        var app = new Vue({
+            el:".info-box-out",
+            data:{
+                info:initData,
+                msg:msg
+            }
+        })
+        setInterval(function(){
+            app.msg = wecome();
+        },10000);
+        function wecome(){
+            var date = new Date();
+            var h = date.getHours();
+            var zh = "";
+            var en = ""
+            if(h>7&&h<=9){
+                //早上
+                zh = "早上好,即将开始一天的工作了!";
+                en = "Good morning. It's about to start a day's work!"
+            }else if(h<12&&h>9){
+                //上午
+                zh = "上午好,祝您工作愉快!";
+                en = "Good morning, I wish you a good job!"
+            }else if(h>=12&&h<=14){
+                //中午
+                zh = "中午好,美美的休息一下开始下午工作!";
+                en = "Good afternoon, a beautiful rest to start work in the afternoon!"
+            }else if(h>=15&&h<=18){
+                //下午
+                zh = "下午好,祝您工作愉快!";
+                en = "Good afternoon, I wish you a good job!"
+            }else{
+                //晚上
+                zh = "晚上好,工作一天辛苦了!";
+                en = "Good evening, hard work day!"
+            }
+            return {
+                zh:zh,
+                en:en
+            }
+        }
+        // var socket = io.connect('ws://127.0.0.1:3001');
+        // socket.on("message", function(obj) {
+        //     app.info = obj.data.data;
+        //     var t = setTimeout(function(){
+        //         app.info = initData;
+        //         clearInterval(t);
+        //     },10000);
+        // });
+    
+    </script>
+    <script> 
+          $(function () {
+            var video = document.getElementById('video');
+            var canvas = document.getElementById('canvas');
+            var context = canvas.getContext('2d');
+            var shortCut = document.getElementById('shortCut');
+            var scContext = shortCut.getContext('2d');
+            var time =3000;//向后台发照片的冷却时间
+
+            var tracker = new tracking.ObjectTracker(['face','mouth','eye']);
+            tracker.setInitialScale(4);
+            tracker.setStepSize(2);
+            tracker.setEdgesDensity(0.1);
+
+            tracking.track('#video', tracker, {camera: true});
+            var flag=true;
+            tracker.on('track', function (event) {
+                if (event.data.length === 0) {
+                    context.clearRect(0, 0, canvas.width, canvas.height);
+                }else{
+                    context.clearRect(0, 0, canvas.width, canvas.height);
+                    event.data.forEach(function (rect) {
+                        context.strokeStyle = '#ff0000';
+                        context.strokeRect(rect.x, rect.y, rect.width, rect.height);
+                        context.fillStyle = "#ff0000";
+                        //console.log(rect.x, rect.width, rect.y, rect.height);
+                    });
+                    if(flag){
+                        console.log("拍照1234123");
+                        getPhoto();
+                        flag=false;
+                        // setTimeout(function(){flag=true;},time);
+                    }else{
+                        //console.log("冷却中");
+                    }
+                }
+            });
+
+            function getPhoto() {
+                scContext.drawImage(video,0,0,290,218);
+                var imgStr = shortCut.toDataURL("image/png");
+                //讲拍照的图片数据发送到Servlet，调用百度云，签到，返回签到结果
+                $.ajax({
+                    url:"FaceServlet",
+                    type:"post",
+                    dataType:"json",
+                    data:{
+                        imgStr:imgStr.substring(imgStr.indexOf(",")+1)
+                    },
+                    success:function(result){
+                        if (result.result!=404) {
+                            let num = result.result_no;
+                            getName(num - 1, result.data);
+                        }
+                        else {
+                            initData.name='查无此人';
+                            flag=true;
+                        }
+
+                    }
+                });
+
+            }
+            function getName(num,data){
+            	if(num<0){
+                    flag = true;
+            		return;
+            	}
+                let audio =  $('audio');
+                initData.name = data[num].name;
+                initData.enname = data[num].enname;
+                initData.workid = data[num].workid;
+                initData.worker = data[num].worker;
+                audio.attr('src','/music/'+data[num].workid+'.mp3');
+                audio[0].play();  
+            	setTimeout(function(){
+                    getName(num-1,data);
+            	},4000);
+            }
+
+            // var websocket = null;
+            // //判断当前浏览器是否支持WebSocket
+            // if ('WebSocket' in window) {
+            //     websocket = new WebSocket("ws://localhost:8080/websocket");
+            // } else {
+            //     alert('当前浏览器不支持websocket！请更换浏览器！');
+            // }
+            // //连接发生错误的回调方法
+            // websocket.onerror = function () {
+            //     setMessageInnerHTML("WebSocket连接发生错误");
+            // };
+            // //连接成功建立的回调方法
+            // websocket.onopen = function () {
+            //     setMessageInnerHTML("服务器连接成功，开始签到");
+            // } ;
+
+            // //接收到消息的回调方法
+            // websocket.onmessage = function (event) {
+            //     setMessageInnerHTML(event.data);
+            // };
+            // //连接关闭的回调方法
+            // websocket.onclose = function () {
+            //     setMessageInnerHTML("WebSocket连接关闭");
+            // };
+            // //监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
+            // window.onbeforeunload = function () {
+            //     closeWebSocket();
+            // };
+            // //将消息显示在网页上
+            // function setMessageInnerHTML(innerHTML) {
+            //     document.getElementById('checkinMsg').innerHTML += innerHTML + '<br/>';
+            // }
+            // //关闭WebSocket连接
+            // function closeWebSocket() {
+            //     websocket.close();
+            // }
+            // //发送消息
+            // function send(msg) {
+            //     websocket.send(msg);
+            // }
+        });
+    </script>
+</body>
+</html>
