@@ -9,7 +9,7 @@ import org.ranji.lemon.volador.model.personal.UserInfo;
  * @author 范小亚
  * @date 2018/5/8
  * @since JDK 1.8
- * @version 10
+ * @version 1.0
  *
  */
 public interface IPerDao extends IGenericDao<Per, Integer>{

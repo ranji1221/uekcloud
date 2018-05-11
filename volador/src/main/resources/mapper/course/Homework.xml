@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.ranji.lemon.volador.model.course.Homework">
+  <insert id="save" parameterType="VoladorCourseHomework" keyProperty="id" useGeneratedKeys="true">
+		insert into lemon_volador_course_homework (guid,create_time,update_time,address,name,info,type)
+		values (#{guid},#{createTime},#{updateTime},#{address},#{name},#{info},#{type})
+	</insert>
+	
+	<!-- 删除某条笔记 -->
+	<delete id="delete" parameterType="int" >
+		delete from lemon_volador_course_homework where id = #{id}
+	</delete>
+	
+	<!-- 根据id查询笔记 -->
+	<select id="find" parameterType="int" resultType="VoladorCourseHomework">
+		select * from lemon_volador_course_homework where id = #{id}
+	</select>
+	
+	
+	<!-- 查询全部笔记 -->
+	<select id="findAll" resultType="VoladorCourseHomework" parameterType="Map">
+		select * from lemon_volador_course_homework
+	</select>
+
+	<!-- 修改笔记信息 -->
+	<update id="update" parameterType="VoladorCourseHomework">
+		update lemon_volador_course_homework
+		<set>
+			<if test="address != null and address != ''">address = #{address},</if>
+			<if test="name != null and name != ''">name = #{name},</if>
+			<if test="info != null and info != ''">info = #{info},</if>
+			<if test="type != null and type != ''">type = #{type},</if>
+			<if test="updateTime != null ">update_time = #{updateTime},</if>
+		</set>
+		where id = #{id}
+	</update>
+</mapper>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.ranji.lemon.volador.model.course.Note">
+  <insert id="save" parameterType="VoladorCourseNote" keyProperty="id" useGeneratedKeys="true">
+		insert into lemon_volador_course_note (guid,create_time,update_time,content)
+		values (#{guid},#{createTime},#{updateTime},#{content})
+	</insert>
+	
+	<!-- 删除某条笔记 -->
+	<delete id="delete" parameterType="int" >
+		delete from lemon_volador_course_note where id = #{id}
+	</delete>
+	
+	<!-- 根据id查询笔记 -->
+	<select id="find" parameterType="int" resultType="VoladorCourseNote">
+		select * from lemon_volador_course_note where id = #{id}
+	</select>
+	
+	
+	<!-- 查询全部笔记 -->
+	<select id="findAll" resultType="VoladorCourseNote" parameterType="Map">
+		select * from lemon_volador_course_note
+	</select>
+
+	<!-- 修改笔记信息 -->
+	<update id="update" parameterType="VoladorCourseNote">
+		update lemon_volador_course_note
+		<set>
+			<if test="content != null and content != ''">content = #{content},</if>
+			<if test="updateTime != null ">update_time = #{updateTime},</if>
+		</set>
+		where id = #{id}
+	</update>
+</mapper>
