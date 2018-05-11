@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.ranji.lemon.volador.model.personal.Per">
+
+    <insert id="save" parameterType="VoladorPerUser" keyProperty="id" useGeneratedKeys="true">
+        insert into lemon_volador_personal_user (guid,create_time,update_time,username, password) 
+		values (#{guid},#{createTime},#{updateTime},#{username}, #{password})
+    </insert>
+    
+    <!-- 存储某个用户和用户信息的对应关系 -->
+	<insert id="saveUserAndUserInfoRelation" parameterType="Map" keyProperty="id" useGeneratedKeys="true">
+		insert into lemon_volador_personal_user_userinfo (user_id, userinfo_id) values (#{userId}, #{userinfoId})
+	</insert>
+	
+	<!-- 删除用户和用户信息的对应关系 -->
+	<delete id="deleteUserAndUserInfoRelation" parameterType="Map">
+		delete from lemon_volador_personal_user_userinfo where user_id = #{userId} and userinfo_id = #{userinfoId}
+	</delete>
+	
+	<!-- 删除某条记录 -->
+	<delete id="delete" parameterType="int" >
+		delete from lemon_volador_personal_user where id = #{id}
+	</delete>
+
+	<!-- 根据用户id删除用户和用户信息的对应关系 -->
+	<delete id="deleteUserAndUserInfoRelationByUserId" parameterType="int">
+		delete from lemon_volador_personal_user_userinfo where user_id = #{userId}
+	</delete>
+	
+	<!-- 查询根据id -->
+	<select id="find" parameterType="String" resultType="VoladorPerUser">
+		select * from lemon_volador_personal_user where username = #{username}
+	</select>
+	
+	<!-- 根据用户id查询用户和用户信息的对应关系 -->
+	<select id="findUserUserInfoRelationByUserId" parameterType="int" resultType="Integer">
+		select userinfo_id from lemon_volador_personal_user_userinfo where user_id = #{userId}
+	</select>
+	
+	<!-- 根据用户id查找用户信息 -->
+	<select id="findUserInfoByUserId" parameterType="Integer" resultType ="VoladorUserInfo">
+		SELECT
+			r.*
+		FROM
+			lemon_volador_personal_userinfo r
+		LEFT JOIN lemon_volador_personal_user_info u_r ON r.id = u_r.userinfo_id
+		LEFT JOIN lemon_volador_personal_user u ON u.id = u_r.user_id
+		WHERE
+			u.id = #{id}
+	</select>
+	
+	<!-- 查询全部user -->
+	<select id="findAll" resultType="VoladorPerUser"  parameterType="Map">
+		select * from lemon_volador_personal_user
+		<include refid="paramsSQL"/>
+	</select>
+	
+	<!-- 分页查询user -->
+	<select id="findPaginated" resultType="VoladorPerUser" parameterType="Map">
+		select * from lemon_volador_personal_user
+		<!--<include refid="paramsSQL"/>-->
+		 limit #{offset}, #{limit}
+	</select>
+	
+	<select id="getTotalOfItems" parameterType="Map" resultType="VoladorPerUser">
+		select count(*) from lemon_volador_personal_user
+		<include refid="paramsSQL"/>
+	</select>
+	
+	<!-- 修改个某条user信息 -->
+	<update id="update" parameterType="VoladorPerUser">
+		update lemon_volador_personal_user
+		<set>
+			<if test="username != null and username != ''">username = #{username},</if>
+			<if test="password != null and password != ''">password = #{password},</if>
+			<if test="updateTime != null">update_time = #{updateTime},</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<!-- 通用的设置条件的查询SQL语句 -->
+	<sql id="paramsSQL">
+		<where>
+			<if test=" username != null and username != '' ">
+				and username = #{username}
+			</if>
+			<if test="usernameLike != null and usernameLike != '' ">
+				and username like concat(concat('%', #{usernameLike, jdbcType=VARCHAR}),'%')
+			</if>
+			
+			<if test=" password != null and password != '' ">
+				and password = #{password}
+			</if>
+			<if test="passwordLike != null and passwordLike != '' ">
+				and password like concat(concat('%', #{passwordLike, jdbcType=VARCHAR}),'%')
+			</if>	
+		</where>
+	</sql>
+
+	<!-- 存储某个用户的购买课程记录和课程的对应关系 -->
+	<insert id="saveUserAndBuyCourseRelation" parameterType="Map" keyProperty="id" useGeneratedKeys="true">
+		insert into lemon_volador_personal_buy_record (user_id, course_id) values (#{userId}, #{courseId})
+	</insert>
+	
+	<!-- 根据用户id查找购买课程记录 -->	
+	<select id="findBuyCourseRelationByUserId" parameterType="int" resultType="Integer">
+		select course_id from lemon_volador_personal_buy_record where user_id = #{userId}
+	</select>
+
+	<!-- 根据用户id删除用户和课程的购买关系 -->
+	<delete id="deleteBuyCourseRelationByUserId" parameterType="int">
+		delete from lemon_volador_personal_buy_record where user_id = #{userId}
+	</delete>
+	<!-- 删除用户和课程的购买关系 -->
+	<delete id="deleteBuyCourseRelation" parameterType="Map">
+		delete from lemon_volador_personal_buy_record where user_id = #{userId} and course_id = #{courseId}
+	</delete>
+	
+	<!-- 存储某个用户的收藏课程记录和课程的对应关系 -->
+	<insert id="saveUserAndCollectCourseRelation" parameterType="Map" keyProperty="id" useGeneratedKeys="true">
+		insert into lemon_volador_personal_collect_course (user_id, course_id) values (#{userId}, #{courseId})
+	</insert>
+	
+	<!-- 根据用户id查找收藏课程记录 -->	
+	<select id="findCollectCourseRelationByUserId" parameterType="int" resultType="Integer">
+		select course_id from lemon_volador_personal_collect_course where user_id = #{userId}
+	</select>
+
+	<!-- 根据用户id删除用户和课程的收藏关系 -->
+	<delete id="deleteCollectCourseRelationByUserId" parameterType="int">
+		delete from lemon_volador_personal_collect_course where user_id = #{userId}
+	</delete>
+	<!-- 删除用户和课程的收藏关系 -->
+	<delete id="deleteCollectCourseRelation" parameterType="Map">
+		delete from lemon_volador_personal_collect_course where user_id = #{userId} and course_id = #{courseId}
+	</delete>
+	
+	<!-- 存储某个用户的正在学习课程记录和课程的对应关系 -->
+	<insert id="saveUserAndStudyingCourseRelation" parameterType="Map" keyProperty="id" useGeneratedKeys="true">
+		insert into lemon_volador_personal_studying_course (user_id, course_id) values (#{userId}, #{courseId})
+	</insert>	
+	<!-- 根据用户id查找正在学习课程记录 -->	
+	<select id="findStudyingCourseRelationByUserId" parameterType="int" resultType="Integer">
+		select course_id from lemon_volador_personal_studying_course where user_id = #{userId}
+	</select>
+	<!-- 根据用户id删除用户和课程的正在学习关系 -->
+	<delete id="deleteStudyingCourseRelationByUserId" parameterType="int">
+		delete from lemon_volador_personal_studying_course where user_id = #{userId}
+	</delete>
+	<!-- 删除用户和课程的正在学习关系 -->
+	<delete id="deleteStudyingCourseRelation" parameterType="Map">
+		delete from lemon_volador_personal_studying_course where user_id = #{userId} and course_id = #{courseId}
+	</delete>
+	
+	<!-- 存储某个用户的学习完的课程记录和课程的对应关系 -->
+	<insert id="saveUserAndStudyedCourseRelation" parameterType="Map" keyProperty="id" useGeneratedKeys="true">
+		insert into lemon_volador_personal_studyed_course (user_id, course_id) values (#{userId}, #{courseId})
+	</insert>	
+	<!-- 根据用户id查找学习完的课程记录 -->	
+	<select id="findStudyedCourseRelationByUserId" parameterType="int" resultType="Integer">
+		select course_id from lemon_volador_personal_studyed_course where user_id = #{userId}
+	</select>
+	<!-- 根据用户id删除用户学习完的课程 -->
+	<delete id="deleteStudyedCourseRelationByUserId" parameterType="int">
+		delete from lemon_volador_personal_studyed_course where user_id = #{userId}
+	</delete>
+	<!-- 删除用户和学习完的课程关系 -->
+	<delete id="deleteStudyedCourseRelation" parameterType="Map">
+		delete from lemon_volador_personal_studyed_course where user_id = #{userId} and course_id = #{courseId}
+	</delete>
+	
+	<!-- 存储某个用户与作业的对应关系 -->
+	<insert id="saveUserAndHomeworkRelation" parameterType="Map" keyProperty="id" useGeneratedKeys="true">
+		insert into lemon_volador_personal_user_homework (user_id, homework_id) values (#{userId}, #{homeworkId})
+	</insert>	
+	<!-- 根据用户id查找作业记录 -->	
+	<select id="findHomeworkRelationByUserId" parameterType="int" resultType="Integer">
+		select homework_id from lemon_volador_personal_user_homework where user_id = #{userId}
+	</select>
+	<!-- 根据用户id删除用户作业 -->
+	<delete id="deleteHomeworkRelationByUserId" parameterType="int">
+		delete from lemon_volador_personal_user_homework where user_id = #{userId}
+	</delete>
+	<!-- 删除用户和作业关系 -->
+	<delete id="deleteHomeworkRelation" parameterType="Map">
+		delete from lemon_volador_personal_user_homework where user_id = #{userId} and homework_id = #{homeworkId}
+	</delete>
+	
+</mapper>
