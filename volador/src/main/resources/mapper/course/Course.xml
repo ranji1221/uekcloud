@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.ranji.lemon.volador.model.course.Course">
+  <insert id="save" parameterType="VoladorCourse" keyProperty="id" useGeneratedKeys="true">
+		insert into lemon_volador_course (guid,create_time,update_time,course_name, course_info,course_price,student_count)
+		values (#{guid},#{createTime},#{updateTime},#{course_name}, #{course_info},#{course_price},#{student_count})
+	</insert>
+	
+	<!-- 删除某条记录 -->
+	<delete id="delete" parameterType="int" >
+		delete from lemon_volador_course where id = #{id}
+	</delete>
+	
+	<!-- 存储某个课程和教师的对应关系 -->
+	<insert id="saveCourseAndTeacherRelation" parameterType="Map" keyProperty="id" useGeneratedKeys="true">
+		insert into lemon_volador_course_teacher (course_id, teacher_id) values (#{course_id}, #{teacher_id})
+	</insert>
+	
+	<!-- 删除用户和角色的对应关系 -->
+	<delete id="deleteCourseAndTeacherRelation" parameterType="Map">
+		delete from lemon_volador_course_teacher where course_id = #{course_id} and teacher_id = #{teacher_id}
+	</delete>
+	
+	<!-- 根据课程查找教师 -->
+	<select id="findTeacherbyCourse" parameterType="Integer" resultType ="VoladorTeacher">
+		SELECT
+		t.*
+		FROM
+		lemon_volador_teacher t
+		LEFT JOIN lemon_volador_course_teacher c_t ON t.id = c_t.teacher_id
+		LEFT JOIN lemon_volador_course c ON c.id = c_t.course_id
+		WHERE
+		c.id = #{id}
+	</select>
+	
+	
+	<!-- 查询根据id -->
+	<select id="find" parameterType="int" resultType="VoladorCourse">
+		select * from lemon_volador_course where id = #{id}
+	</select>
+	
+	<!-- 查询全部course -->
+	<select id="findAll" resultType="VoladorCourse" parameterType="Map">
+		select * from lemon_volador_course
+	</select>
+	
+	
+	<!-- 修改个某条course信息 -->
+	<update id="update" parameterType="VoladorCourse">
+		update lemon_volador_course
+		<set>
+			<if test="course_name != null and course_name != ''">course_name = #{course_name},</if>
+			<if test="course_info != null and course_info != ''">course_info = #{course_info},</if>
+			<if test="course_price != null and course_price != ''">course_price = #{course_price},</if>
+			<if test="student_count != null and student_count != ''">student_count = #{student_count},</if>
+			<if test="updateTime != null ">update_time = #{updateTime},</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<!-- 分页查询user -->
+	<select id="findPaginated" resultType="VoladorCourse" parameterType="Map">
+		select * from lemon_volador_course
+		limit #{offset}, #{limit}
+	</select>
+	<!-- 获取总条数 -->
+	<select id="getTotalOfItems" parameterType="Map" resultType="VoladorCourse">
+		select count(*) from lemon_volador_course
+	</select>
+
+	
+
+</mapper>
