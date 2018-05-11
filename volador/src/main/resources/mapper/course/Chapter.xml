@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.ranji.lemon.volador.model.course.Chapter">
+
+	<!--储存一条信息 -->
+  	<insert id="save" parameterType="VoladorChapter" keyProperty="id" useGeneratedKeys="true">
+		insert into lemon_volador_chapter (guid,create_time,update_time,chapter_name, chapter_info,video_address)
+		values (#{guid},#{createTime},#{updateTime},#{chapter_name}, #{chapter_info},#{video_address})
+	</insert>
+	
+	<!-- 删除某条记录 -->
+	<delete id="delete" parameterType="int" >
+		delete from lemon_volador_chapter where id = #{id}
+	</delete>
+	
+	<!-- 查询根据id -->
+	<select id="find" parameterType="int" resultType="VoladorChapter">
+		select * from lemon_volador_chapter where id = #{id}
+	</select>
+	
+	<!-- 查询全部chapter -->
+	<select id="findAll" resultType="VoladorChapter" parameterType="Map">
+		select * from lemon_volador_chapter
+	</select>
+	
+	<!-- 修改个某条chapter信息 -->
+	<update id="update" parameterType="VoladorChapter">
+		update lemon_volador_chapter
+		<set>
+			<if test="chapter_name != null and chapter_name != ''">chapter_name = #{chapter_name},</if>
+			<if test="video_address != null and video_address != ''">video_address = #{video_address},</if>
+			<if test="chapter_info != null and chapter_info != ''">chapter_info = #{chapter_info},</if>
+			<if test="updateTime != null ">update_time = #{updateTime},</if>
+		</set>
+		where id = #{id}
+	</update>
+
+</mapper>
