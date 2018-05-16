@@ -1,0 +1,84 @@
+/*******
+	资料下载
+******/
+.wzq_main_r .wzq_content{
+	background: #fff;
+	padding:30px 30px 170px 36px ;
+	box-sizing: border-box;
+	margin-top: 28px;
+	position: relative;
+}
+.wzq_main_r .wzq_content>img{
+	width: 148px; height: 148px;
+	margin-right: 28px;
+	float: left;
+}
+.wzq_main_r .wzq_content .message{
+	float: left;
+	color: #5d5d5d;
+}
+.wzq_main_r .wzq_content .message h2{
+	font-size: 18px;
+	margin-top: 15px;
+}
+.wzq_main_r .wzq_content .message p{
+	font-size: 14px;
+	margin-top: 15px;
+}
+
+
+/*******
+	邀请码
+******/
+.wzq_content.wqf_invitation{
+	height: 370px;
+	padding-top:0;
+	padding-bottom:0;
+}
+.wzq_main_r .input_code{
+	padding: 30px 40px 25px 30px;
+	background: #fff;
+	font-size: 0;
+}
+.wzq_main_r .input_code input{
+	height: 56px; width: 730px;
+	border:2px solid #f9f9f9;
+	box-sizing: border-box;
+	border-radius: 4px;
+	padding-left: 22px;
+	color: #9a9a9a;
+	font-size: 16px;
+	letter-spacing: 2px;
+}
+.wzq_main_r .input_code button{
+	height: 56px; width: 140px;
+	border-radius: 0 4px 4px 0;
+	background: #fd6756;
+	color: #fff;
+	font-size: 16px;
+	cursor: pointer;
+	letter-spacing: 2px;
+}
+.wzq_main_r .input_code button:hover{
+	background: #fcad86;
+}
+
+.wzq_main_r>.wzq_content>.posit{
+	position: absolute;
+	top: 50%; left: 50%;
+	transform: translate3d(-50%,-50%,0);
+	text-align: center;
+	font-weight: bold;
+}
+.wzq_main_r>.wzq_content>.posit>p{
+	font-size: 18px;
+	color: #7c7c7c;
+	margin-bottom: 10px;
+}
+.wzq_main_r>.wzq_content>.posit>a{
+	font-size: 20px;
+	color: #ff6756;
+}
+.wzq_main_r>.wzq_content>div>a:hover{
+	color: #fcad86;
+}

@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<title>飞鱼平台</title>
+	<meta name="renderer" content="webkit"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+	<meta name="keywords" content="飞鱼平台" />
+	<meta name="description" content="飞鱼平台" />
+	<link rel="shortcut icon" href="favicon.ico" />
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/wqf_index.css">
+	<link rel="stylesheet" href="css/public_header.css">
+	<link rel="stylesheet" href="css/swiper.min.css">
+
+	<link rel="stylesheet" href="http://at.alicdn.com/t/font_614432_35sjs0mry3c8fr.css">
+	<script src="js/jquery.min.js"></script>
+	<script src="js/headerfooter.js"></script>
+
+	<script src="js/wqf_index.js"></script>
+</head>
+<body>
+	<!-- 头部 开始 -->
+	<div id="public_header">
+		<div class="container">
+			<!-- logo -->
+			<a href="javascript:;">
+				<img src="images/header_logo.png" alt="">
+			</a>
+	
+			<!-- 导航 开始 -->
+			<ul class="menu">
+				<li>
+					<a href="javascript:;">
+						<i class="fy_icon">&#xe60c;</i>
+						找课程
+					</a>
+				</li>
+				<li>
+					<a href="javascript:;">职业导航</a>
+				</li>
+				<li>
+					<a href="javascript:;">免费课</a>
+				</li>
+				<li>
+					<a href="javascript:;">
+						直播课
+						<!-- <i class="fy_icon">icon</i> -->
+						<img src="images/header_zhibo.png">
+					</a>
+				</li>
+				<li>
+					<a href="javascript:;">线下课程</a>
+				</li>
+				<li class="search">
+					<input type="text" placeholder="请输入您想要了解的课程">
+	
+					<!-- 点击 按键发送ajax请求进行搜索 -->
+					<i class="fy_icon" id="header_search">&#xe64d;</i>
+					<!-- 点击搜索下方展开的容器 -->
+					<div class="alert_box">
+						<!-- 联想词 -->
+						<div class="association">
+							<a href="javascript:;">UI设计</a>
+							<a href="javascript:;">全栈工程师</a>
+							<a href="javascript:;">产品经理</a>
+							<a href="javascript:;">Python全栈</a>
+						</div>
+						<!-- 历史记录 -->
+						<ul>
+							<li>
+								<a href="javascript:;">全栈工程师</a>
+							</li>
+							<li>
+								<a href="javascript:;">全栈工程师</a>
+							</li>
+							<li>
+								<a href="javascript:;">清除搜索历史</a>
+							</li>
+						</ul>
+					</div>
+				</li>
+			</ul>
+			<!-- 导航 结束 -->
+	
+			<!-- 登录状态 开始-->
+			<div class="is_login">
+				<!-- 已登陆 -->
+				<!-- 包含 类名 active则显示,否则隐藏 -->
+				<div class="login_yes active">
+					<div class="message">
+						<a href="javascript:;" class="fy_icon">&#xe61d;</a>
+						<!-- 消息数 -->
+						<span>2</span>
+						<!-- 消息弹框 -->
+						<div class="message_box">
+							<header>
+								<span>消息中心</span>
+								<span>清空</span>
+							</header>
+							<ul>
+								<li>
+									<a href="javascript:;" class="clear_both">
+										<span>【私信】</span>
+										<span class="hidd_more2">第一届logo设计大赛正式开启</span>
+									</a>
+								</li>
+								<li>
+									<a href="javascript:;" class="clear_both">
+										<span>【通知】</span>
+										<span class="hidd_more2">管理员温馨提示，您已经登陆，快来上课吧。</span>
+									</a>
+								</li>
+								<li>
+									<a href="javascript:;" class="clear_both">
+										<span>【私信】</span>
+										<span class="hidd_more2">第一届logo设计大赛正式开启</span>
+									</a>
+								</li>
+								<li>
+									<a href="javascript:;" class="clear_both">
+										查看全部
+									</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<span class="line"></span>
+					<div class="self">
+						<img src="images/wqf_user.png">
+	
+						<!-- 消息弹框 -->
+						<div class="message_box">
+							<h3>18329864532</h3>
+							<ul>
+								<li>
+									<a href="wzq_jifen.html">我的积分</a>
+								</li>
+								<li>
+									<a href="wzq_list_work_upload.html">我的作业</a>
+								</li>
+								<li>
+									<a href="wqf_learn_now.html">我的课程</a>
+								</li>
+								<li>
+									<a href="wqf_personal_basic.html">我的资料</a>
+								</li>
+							</ul>
+							<h3>退出账号</h3>
+						</div>
+					</div>
+				</div>
+	
+				<!-- 未登录 -->
+				<div class="login_no">
+					<a href="cp_login.html">登录</a>
+					<span class="line"></span>
+					<a href="cp_register.html">注册</a>
+				</div>
+			</div>
+			<!-- 登录状态 结束-->
+	
+		</div>
+	</div>
+	<!-- 头部 结束 -->
+<!--  导航菜单轮播 开始  -->
+	<nav class="wqf_menu clear_both">
+		<div class="wqf_list">
+			<ul>
+				<li>
+					<a href="javascript:;">
+						<img src="images/wqf_ui.png" alt="">
+						<span>UI/UX设计</span>
+						<span class="fy_icon">&#xe604;</span>
+					</a>
+					<!-- 鼠标移入弹出层 -->
+					<div class="more">
+						<!-- 课程列表 -->
+						<div class="classify_item">
+							<ul>
+								<li><a href="javascript:;">UI/UX设计</a></li>
+								<li><a href="javascript:;">软件基础</a></li>
+								<li><a href="javascript:;">sketch</a></li>
+								<li><a href="javascript:;">Axure</a></li>
+								<li><a href="javascript:;">用户体验</a></li>
+							</ul>
+							<ul>
+								<li><a href="javascript:;">WEB界面</a></li>
+								<li><a href="javascript:;">APP界面</a></li>
+								<li><a href="javascript:;">UI\UX设计</a></li>
+							</ul>
+						</div>
+						<!-- 新闻 -->
+						<div class="news_item">
+							<h3>最新发布</h3>
+							<ul>
+								<li><a href="javascript:;" class="hidd_one">交互设计第一步 了解完整的知识体系架构</a></li>
+							</ul>
+						</div>
+					</div>
+				</li>
+				<li>
+					<a href="javascript:;">
+						<img src="images/wqf_web.png" alt="">
+						<span>前端开发</span>
+						<span class="fy_icon">&#xe604;</span>
+					</a>
+					<!-- 鼠标移入弹出层 -->
+					<div class="more">
+						<div class="classify_item">
+							<ul>
+								<li><a href="javascript:;">界面重构</a></li>
+								<li><a href="javascript:;">JavaScript</a></li>
+								<li><a href="javascript:;">jQuery</a></li>
+								<li><a href="javascript:;">PHP</a></li>
+								<li><a href="javascript:;">框架</a></li>
+							</ul>
+						</div>
+						<!-- 最新消息 -->
+						<div class="news_item">
+							<h3>最新发布</h3>
+							<ul>
+								<li><a href="javascript:;" class="hidd_one">交互设计第一步 了解完整的知识体系架构</a></li>
+							</ul>
+						</div>
+					</div>
+				</li>
+				<li>
+					<a href="javascript:;">
+						<img src="images/wqf_py.png" alt="">
+						<span>Python全栈</span>
+						<span class="fy_icon">&#xe604;</span>
+					</a>
+					<!-- 鼠标移入弹出层 -->
+					<div class="more">
+						<div class="classify_item">
+							<ul>
+								<li><a href="javascript:;">界面重构</a></li>
+								<li><a href="javascript:;">JavaScript</a></li>
+								<li><a href="javascript:;">Python</a></li>
+								<li><a href="javascript:;">框架</a></li>
+							</ul>
+						</div>
+						<!-- 最新消息 -->
+						<div class="news_item">
+							<h3>最新发布</h3>
+							<ul>
+								<li><a href="javascript:;" class="hidd_one">交互设计第一步 了解完整的知识体系架构</a></li>
+							</ul>
+						</div>
+					</div>
+				</li>
+				<li>
+					<a href="javascript:;">
+						<img src="images/wqf_rg.png" alt="">
+						<span>人工智能</span>
+						<span class="fy_icon">&#xe604;</span>
+					</a>
+					<!-- 鼠标移入弹出层 -->
+					<div class="more">
+						<div class="classify_item">
+							<ul>
+								<li><a href="javascript:;">界面重构</a></li>
+								<li><a href="javascript:;">java</a></li>
+								<li><a href="javascript:;">Python</a></li>
+								<li><a href="javascript:;">框架</a></li>
+							</ul>
+						</div>
+						<!-- 最新消息 -->
+						<div class="news_item">
+							<h3>最新发布</h3>
+							<ul>
+								<li><a href="javascript:;" class="hidd_one">交互设计第一步 了解完整的知识体系架构</a></li>
+							</ul>
+						</div>
+					</div>
+				</li>
+				<li>
+					<a href="javascript:;">
+						<img src="images/wqf_dt.png" alt="">
+						<span>大数据</span>
+						<span class="fy_icon">&#xe604;</span>
+					</a>
+					<!-- 鼠标移入弹出层 -->
+					<div class="more">
+						<!-- 课程列表 -->
+						<div class="classify_item">
+							<ul>
+								<li><a href="javascript:;">界面重构</a></li>
+								<li><a href="javascript:;">java</a></li>
+								<li><a href="javascript:;">Python</a></li>
+								<li><a href="javascript:;">框架</a></li>
+							</ul>
+						</div>
+						<!-- 最新消息 -->
+						<div class="news_item">
+							<h3>最新发布</h3>
+							<ul>
+								<li><a href="javascript:;" class="hidd_one">交互设计第一步 了解完整的知识体系架构</a></li>
+							</ul>
+						</div>
+					</div>
+				</li>
+				<li>
+					<a href="javascript:;">
+						<img src="images/wqf_dk.png" alt="">
+						<span>大咖来了</span>
+						<span class="fy_icon">&#xe604;</span>
+					</a>
+					<!-- 鼠标移入弹出层 -->
+					<div class="more">
+						<div class="classify_item">
+							<ul>
+								<li><a href="javascript:;">UI大咖</a></li>
+								<li><a href="javascript:;">前端大咖</a></li>
+								<li><a href="javascript:;">Python</a></li>
+								<li><a href="javascript:;">框架</a></li>
+							</ul>
+						</div>
+						<!-- 最新消息 -->
+						<div class="news_item">
+							<h3>最新发布</h3>
+							<ul>
+								<li><a href="javascript:;" class="hidd_one">交互设计第一步 了解完整的知识体系架构</a></li>
+							</ul>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div class="swiper-container wqf_banner">
+			<div class="swiper-wrapper">
+				<div class="swiper-slide" style="background: url(images/wqf_banner1.png) no-repeat center /cover;">
+					<div class="message">
+						<div class="time">
+							<span class="d">22</span> <br>
+							<span class="m">/04</span>
+						</div>
+						<p class="title">
+							每日更新 <br>
+							<span>9.9精品课程</span>
+						</p>
+						<h1 class="hidden_one">UI设计前景如何</h1>
+						<a href="javascript:;">立即参与<span class="fy_icon">&#xe604;</span><span class="fy_icon">&#xe604;</span></a>
+						<p class="mess hidd_more">在驾驶者启动汽车后能够向他们提供到达工作地点的预期时间，并随后提供当日天气信息以及前一晚的体育赛事比分。</p>
+					</div>
+				</div>
+				<div class="swiper-slide" style="background: url(images/wqf_banner1.png) no-repeat center /cover;">
+					<div class="message">
+						<div class="time">
+							<span class="d">22</span>
+							<br>
+							<span class="m">/04</span>
+						</div>
+						<p class="title">
+							每日更新
+							<br>
+							<span>9.9精品课程</span>
+						</p>
+						<h1 class="hidden_one">UI设计前景如何</h1>
+						<a href="javascript:;">立即参与
+							<span class="fy_icon">&#xe604;</span>
+							<span class="fy_icon">&#xe604;</span>
+						</a>
+						<p class="mess hidd_more">在驾驶者启动汽车后能够向他们提供到达工作地点的预期时间，并随后提供当日天气信息以及前一晚的体育赛事比分。</p>
+					</div>
+				</div>
+				<div class="swiper-slide" style="background: url(images/wqf_banner1.png) no-repeat center /cover;">
+					<div class="message">
+						<div class="time">
+							<span class="d">22</span>
+							<br>
+							<span class="m">/04</span>
+						</div>
+						<p class="title">
+							每日更新
+							<br>
+							<span>9.9精品课程</span>
+						</p>
+						<h1 class="hidden_one">UI设计前景如何</h1>
+						<a href="javascript:;">立即参与
+							<span class="fy_icon">&#xe604;</span>
+							<span class="fy_icon">&#xe604;</span>
+						</a>
+						<p class="mess hidd_more">在驾驶者启动汽车后能够向他们提供到达工作地点的预期时间，并随后提供当日天气信息以及前一晚的体育赛事比分。</p>
+					</div>
+				</div>
+			</div>
+			<!-- 如果需要分页器 -->
+			<div class="swiper-pagination"></div>
+		
+			<!-- 如果需要导航按钮 -->
+			<div class="swiper-button-prev"></div>
+			<div class="swiper-button-next"></div>
+		</div>
+		<!-- <div class="wqf_banner">
+			<a href="javascript:;" style="background: url(images/wqf_banner1.png) no-repeat center /cover;">
+			</a>
+			<a href="javascript:;" style="background: url(images/wqf_banner1.png) no-repeat center /cover;">
+			</a>
+		</div> -->
+	</nav>
+<!--  导航菜单轮播 结束  -->
+
+<!-- 导航下方选项 开始-->
+	<div class="wqf_check clear_both">
+		<div class="wqf_want">
+			<a href="javascript:;">
+				<img src="images/wqf_want.png">
+			</a>
+		</div>
+		<ul>
+			<li>
+				<a href="javascript:;">
+					<img src="images/wqf_web.png">
+					<h4>前端开发工程师</h4>
+					<p>互联网时代最火爆的技术</p>
+				</a>
+			</li>
+			<li>
+				<a href="javascript:;">
+					<img src="images/wqf_ui.png">
+					<h4>UI/UX设计师</h4>
+					<p>互联网时代最火爆的技术</p>
+				</a>
+			</li>
+			<li>
+				<a href="javascript:;">
+					<img src="images/wqf_py.png">
+					<h4>Python全栈工程师</h4>
+					<p>互联网时代最火爆的技术</p>
+				</a>
+			</li>
+			<li>
+				<a href="javascript:;">
+					<img src="images/wqf_rg.png">
+					<h4>人工智能开发工程师</h4>
+					<p>互联网时代最火爆的技术</p>
+				</a>
+			</li>
+			<li>
+				<a href="javascript:;">
+					<img src="images/wqf_dt.png">
+					<h4>大数据工程师</h4>
+					<p>互联网时代最火爆的技术</p>
+				</a>
+			</li>
+		</ul>
+	</div>
+<!-- 导航下方选项 结束-->
+
+<!-- 优质课程 开始 -->
+	<div class="wqf_course">
+		<h1>优质课程 免费来袭</h1>
+		<p>独家研发，随时更新，流行技法一网打尽！</p>
+		<a href="javascript:;" class="more">发现更多 <span class="fy_icon">&#xe604;</span> <span class="fy_icon">&#xe604;</span></a>
+		<!-- 课程列表 -->
+		<ul class="class_list clear_both">
+			<li>
+				<a href="javascript:;">
+					<div class="picture" style="background: url(images/wqf_list1.png) no-repeat center /cover;">
+						<!-- <img src="images/wqf_list1.png"> -->
+						<header>
+							<span class="hot"></span>
+							<span class="title">用户体验</span>
+						</header>
+						<div class="time">
+							<span class="fy_icon">&#xe626;</span>
+							20:30
+						</div>
+					</div>
+					<!-- 图片下方的两个灰色底 -->
+					<div class="bg1"></div>
+					<div class="bg2"></div>
+
+					<h3 class="title hidd_more2 fire">理论+实践，构建属于你的机器学习库单 <span class="fy_icon">&#xe606;</span></h3>
+					<p>
+						<span class="price">￥199</span>
+						<span>555人正在学习</span>
+					</p>
+				</a>
+			</li>
+			<li>
+				<a href="javascript:;">
+					<div class="picture" style="background: url(images/wqf_list2.png) no-repeat center /cover;">
+						<!-- <img src="images/wqf_list2.png"> -->
+						<header>
+							<span class="hot"></span>
+							<span class="title">用户体验</span>
+						</header>
+						<div class="time">
+							<span class="fy_icon">&#xe626;</span>
+							20:30
+						</div>
+					</div>
+					<!-- 图片下方的两个灰色底 -->
+					<div class="bg1"></div>
+					<div class="bg2"></div>
+
+					<h3 class="title hidd_more2 fire">理论+实践，构建属于你的机器学习库单 <span class="fy_icon">&#xe606;</span></h3>
+					<p>
+						<span>免费</span>
+						<span>555人正在学习</span>
+					</p>
+				</a>
+			</li>
+			<li>
+				<a href="javascript:;">
+					<div class="picture" style="background: url(images/wqf_list3.png) no-repeat center /cover;">
+						<!-- <img src="images/wqf_list3.png"> -->
+						<header>
+							<span></span>
+							<span class="title">用户体验</span>
+						</header>
+						<div class="time">
+							<span class="fy_icon">&#xe626;</span>
+							20:30
+						</div>
+					</div>
+					<!-- 图片下方的两个灰色底 -->
+					<div class="bg1"></div>
+					<div class="bg2"></div>
+
+					<h3 class="title hidd_more2">理论+实践，构建属于你的机器学习库单 <span class="fy_icon">&#xe606;</span></h3>
+					<p>
+						<span class="price">￥199</span>
+						<span>555人正在学习</span>
+					</p>
+				</a>
+			</li>
+			<li>
+				<a href="javascript:;">
+					<div class="picture" style="background: url(images/wqf_list1.png) no-repeat center /cover;">
+						<!-- <img src="images/wqf_list1.png"> -->
+						<header>
+							<span class="hot"></span>
+							<span class="title">用户体验</span>
+						</header>
+						<div class="time">
+							<span class="fy_icon">&#xe626;</span>
+							20:30
+						</div>
+					</div>
+					<!-- 图片下方的两个灰色底 -->
+					<div class="bg1"></div>
+					<div class="bg2"></div>
+
+					<h3 class="title hidd_more2 fire">理论+实践，构建属于你的机器学习库单 <span class="fy_icon">&#xe606;</span></h3>
+					<p>
+						<span>免费</span>
+						<span>555人正在学习</span>
+					</p>
+				</a>
+			</li>
+		</ul>
+	</div>
+<!-- 优质课程 结束 -->
+
+<!-- 推陈出新 开始 -->
+	<div class="wqf_course wqf_new ">
+		<h1>推陈出新 震撼上市</h1>
+		<p>独家研发，随时更新，流行技法一网打尽！</p>
+		<a href="javascript:;" class="more">发现更多 <span class="fy_icon">&#xe604;</span> <span class="fy_icon">&#xe604;</span></a>
+		
+		<div class="class_list clear_both">
+			<div class="top clear_both">
+				<a href="javascript:;" style="background: url(images/wqf_tu1.png) no-repeat center /cover;">
+				</a>
+				<a href="javascript:;" style="background: url(images/wqf_tu1.png) no-repeat center /cover;">
+				</a>
+			</div>
+			<li>
+				<a href="javascript:;">
+					<div class="picture" style="background: url(images/wqf_list1.png) no-repeat center /cover;">
+						<!-- <img src="images/wqf_list1.png"> -->
+						<header>
+							<span class="hot"></span>
+							<span class="title">用户体验</span>
+						</header>
+						<div class="time">
+							<span class="fy_icon">&#xe626;</span>
+							20:30
+						</div>
+					</div>
+
+					<h3 class="title hidd_more2 fire">理论+实践，构建属于你的机器学习库单 <span class="fy_icon">&#xe606;</span></h3>
+					<p>
+						<span class="price">￥199</span>
+						<span>555人正在学习</span>
+					</p>
+				</a>
+			</li>
+			<li>
+				<a href="javascript:;">
+					<div class="picture" style="background: url(images/wqf_list1.png) no-repeat center /cover;">
+						<!-- <img src="images/wqf_list1.png"> -->
+						<header>
+							<span class="hot"></span>
+							<span class="title">用户体验</span>
+						</header>
+						<div class="time">
+							<span class="fy_icon">&#xe626;</span>
+							20:30
+						</div>
+					</div>
+
+					<h3 class="title hidd_more2 fire">理论+实践，构建属于你的机器学习库单 <span class="fy_icon">&#xe606;</span></h3>
+					<p>
+						<span class="price">￥199</span>
+						<span>555人正在学习</span>
+					</p>
+				</a>
+			</li>
+			<li>
+				<a href="javascript:;">
+					<div class="picture"  style="background: url(images/wqf_list1.png) no-repeat center /cover;">
+						<!-- <img src="images/wqf_list1.png"> -->
+						<header>
+							<span class="hot"></span>
+							<span class="title">用户体验</span>
+						</header>
+						<div class="time">
+							<span class="fy_icon">&#xe626;</span>
+							20:30
+						</div>
+					</div>
+
+					<h3 class="title hidd_more2 fire">理论+实践，构建属于你的机器学习库单 <span class="fy_icon">&#xe606;</span></h3>
+					<p>
+						<span class="price">￥199</span>
+						<span>555人正在学习</span>
+					</p>
+				</a>
+			</li>
+			<li>
+				<a href="javascript:;">
+					<div class="picture"  style="background: url(images/wqf_list1.png) no-repeat center /cover;">
+						<!-- <img src="images/wqf_list1.png"> -->
+						<header>
+							<span class="hot"></span>
+							<span class="title">用户体验</span>
+						</header>
+						<div class="time">
+							<span class="fy_icon">&#xe626;</span>
+							20:30
+						</div>
+					</div>
+
+					<h3 class="title hidd_more2 fire">理论+实践，构建属于你的机器学习库单 <span class="fy_icon">&#xe606;</span></h3>
+					<p>
+						<span class="price">￥199</span>
+						<span>555人正在学习</span>
+					</p>
+				</a>
+			</li>
+		</div>
+
+	</div>
+<!-- 推陈出新 结束-->
+
+
+<!-- 分屏banner 开始 -->
+	<a href="javascript:;" class="wqf_banner2">
+		<img src="images/wqf_fenbanner.png">
+	</a>
+<!-- 分屏banner 结束 -->
+
+
+<!-- 百万课程 开始 -->
+	<div class="wqf_course wqf_new wqf_classes">
+		<h1>百万级人气教程免费学，1键get 1000+优质资源</h1>
+		<p>独家研发，随时更新，流行技法一网打尽！</p>
+		<div class="line"></div>
+		
+		<div class="class_list clear_both">
+			<li>
+				<a href="javascript:;">
+					<div class="picture" style="background: url(images/wqf_list1.png) no-repeat center /cover;">
+						<!-- <img src="images/wqf_list1.png"> -->
+						<header>
+							<span class="hot"></span>
+							<span class="title">用户体验</span>
+						</header>
+						<div class="time">
+							<span class="fy_icon">&#xe626;</span>
+							20:30
+						</div>
+					</div>
+
+					<h3 class="title hidd_more2 fire">理论+实践，构建属于你的机器学习库单 <span class="fy_icon">&#xe606;</span></h3>
+					<p>
+						<span class="price">￥199</span>
+						<span>555人正在学习</span>
+					</p>
+				</a>
+			</li>
+			<li>
+				<a href="javascript:;">
+					<div class="picture" style="background: url(images/wqf_list1.png) no-repeat center /cover;">
+						<!-- <img src="images/wqf_list1.png"> -->
+						<header>
+							<span class="hot"></span>
+							<span class="title">用户体验</span>
+						</header>
+						<div class="time">
+							<span class="fy_icon">&#xe626;</span>
+							20:30
+						</div>
+					</div>
+
+					<h3 class="title hidd_more2 fire">理论+实践，构建属于你的机器学习库单 <span class="fy_icon">&#xe606;</span></h3>
+					<p>
+						<span class="price">￥199</span>
+						<span>555人正在学习</span>
+					</p>
+				</a>
+			</li>
+			<li>
+				<a href="javascript:;">
+					<div class="picture" style="background: url(images/wqf_list1.png) no-repeat center /cover;">
+						<!-- <img src="images/wqf_list1.png"> -->
+						<header>
+							<span class="hot"></span>
+							<span class="title">用户体验</span>
+						</header>
+						<div class="time">
+							<span class="fy_icon">&#xe626;</span>
+							20:30
+						</div>
+					</div>
+
+					<h3 class="title hidd_more2 fire">理论+实践，构建属于你的机器学习库单 <span class="fy_icon">&#xe606;</span></h3>
+					<p>
+						<span class="price">￥199</span>
+						<span>555人正在学习</span>
+					</p>
+				</a>
+			</li>
+			<li>
+				<a href="javascript:;">
+					<div class="picture" style="background: url(images/wqf_list1.png) no-repeat center /cover;">
+						<!-- <img src="images/wqf_list1.png"> -->
+						<header>
+							<span class="hot"></span>
+							<span class="title">用户体验</span>
+						</header>
+						<div class="time">
+							<span class="fy_icon">&#xe626;</span>
+							20:30
+						</div>
+					</div>
+
+					<h3 class="title hidd_more2 fire">理论+实践，构建属于你的机器学习库单 <span class="fy_icon">&#xe606;</span></h3>
+					<p>
+						<span class="price">￥199</span>
+						<span>555人正在学习</span>
+					</p>
+				</a>
+			</li>
+			<li>
+				<a href="javascript:;">
+					<div class="picture" style="background: url(images/wqf_list1.png) no-repeat center /cover;">
+						<!-- <img src="images/wqf_list1.png"> -->
+						<header>
+							<span class="hot"></span>
+							<span class="title">用户体验</span>
+						</header>
+						<div class="time">
+							<span class="fy_icon">&#xe626;</span>
+							20:30
+						</div>
+					</div>
+
+					<h3 class="title hidd_more2 fire">理论+实践，构建属于你的机器学习库单 <span class="fy_icon">&#xe606;</span></h3>
+					<p>
+						<span class="price">￥199</span>
+						<span>555人正在学习</span>
+					</p>
+				</a>
+			</li>
+			<li>
+				<a href="javascript:;">
+					<div class="picture" style="background: url(images/wqf_list1.png) no-repeat center /cover;">
+						<!-- <img src="images/wqf_list1.png"> -->
+						<header>
+							<span class="hot"></span>
+							<span class="title">用户体验</span>
+						</header>
+						<div class="time">
+							<span class="fy_icon">&#xe626;</span>
+							20:30
+						</div>
+					</div>
+
+					<h3 class="title hidd_more2 fire">理论+实践，构建属于你的机器学习库单 <span class="fy_icon">&#xe606;</span></h3>
+					<p>
+						<span class="price">￥199</span>
+						<span>555人正在学习</span>
+					</p>
+				</a>
+			</li>
+			<li>
+				<a href="javascript:;">
+					<div class="picture" style="background: url(images/wqf_list1.png) no-repeat center /cover;">
+						<!-- <img src="images/wqf_list1.png"> -->
+						<header>
+							<span class="hot"></span>
+							<span class="title">用户体验</span>
+						</header>
+						<div class="time">
+							<span class="fy_icon">&#xe626;</span>
+							20:30
+						</div>
+					</div>
+
+					<h3 class="title hidd_more2 fire">理论+实践，构建属于你的机器学习库单 <span class="fy_icon">&#xe606;</span></h3>
+					<p>
+						<span class="price">￥199</span>
+						<span>555人正在学习</span>
+					</p>
+				</a>
+			</li>
+			<li>
+				<a href="javascript:;">
+					<div class="picture" style="background: url(images/wqf_list1.png) no-repeat center /cover;">
+						<!-- <img src="images/wqf_list1.png"> -->
+						<header>
+							<span class="hot"></span>
+							<span class="title">用户体验</span>
+						</header>
+						<div class="time">
+							<span class="fy_icon">&#xe626;</span>
+							20:30
+						</div>
+					</div>
+
+					<h3 class="title hidd_more2 fire">理论+实践，构建属于你的机器学习库单 <span class="fy_icon">&#xe606;</span></h3>
+					<p>
+						<span class="price">￥199</span>
+						<span>555人正在学习</span>
+					</p>
+				</a>
+			</li>
+		</div>
+
+	</div>
+<!-- 百万课程 结束-->
+
+<!-- 直播课 开始 -->
+	<div class="wqf_course  wqf_zhibo">
+		<h1>百万级人气教程免费学，1键get 1000+优质资源</h1>
+		<p>独家研发，随时更新，流行技法一网打尽！</p>
+		<div class="line"></div>
+		
+		<div class="class_list clear_both">
+			<li>
+				<a href="javascript:;">
+					<div class="picture" style="background: url(images/wqf_list1.png) no-repeat center /cover;">
+						<!-- <img src="images/wqf_list1.png"> -->
+						<header>
+							<span class="hot"></span>
+							<span class="title">用户体验</span>
+						</header>
+						<div class="time">
+							<span class="fy_icon">&#xe626;</span>
+							20:30
+						</div>
+					</div>
+					<!-- 图片下方的两个灰色底 -->
+					<div class="bg1"></div>
+					<div class="bg2"></div>
+
+					<h3 class="title hidd_more2 fire">理论+实践，构建属于你的机器学习库单 <span class="fy_icon">&#xe606;</span></h3>
+					<p>
+						<span class="price">￥199</span>
+						<span>555人正在学习</span>
+					</p>
+				</a>
+			</li>
+			<li>
+				<a href="javascript:;">
+					<div class="picture" style="background: url(images/wqf_list2.png) no-repeat center /cover;">
+						<!-- <img src="images/wqf_list2.png"> -->
+						<header>
+							<span class="hot"></span>
+							<span class="title">用户体验</span>
+						</header>
+						<div class="time">
+							<span class="fy_icon">&#xe626;</span>
+							20:30
+						</div>
+					</div>
+					<!-- 图片下方的两个灰色底 -->
+					<div class="bg1"></div>
+					<div class="bg2"></div>
+
+					<h3 class="title hidd_more2 fire">理论+实践，构建属于你的机器学习库单 <span class="fy_icon">&#xe606;</span></h3>
+					<p>
+						<span>免费</span>
+						<span>555人正在学习</span>
+					</p>
+				</a>
+			</li>
+			<li>
+				<a href="javascript:;">
+					<div class="picture" style="background: url(images/wqf_list3.png) no-repeat center /cover;">
+						<!-- <img src="images/wqf_list3.png"> -->
+						<header>
+							<span></span>
+							<span class="title">用户体验</span>
+						</header>
+						<div class="time">
+							<span class="fy_icon">&#xe626;</span>
+							20:30
+						</div>
+					</div>
+					<!-- 图片下方的两个灰色底 -->
+					<div class="bg1"></div>
+					<div class="bg2"></div>
+
+					<h3 class="title hidd_more2">理论+实践，构建属于你的机器学习库单 <span class="fy_icon">&#xe606;</span></h3>
+					<p>
+						<span class="price">￥199</span>
+						<span>555人正在学习</span>
+					</p>
+				</a>
+			</li>
+			<li>
+				<a href="javascript:;">
+					<div class="picture" style="background: url(images/wqf_list1.png) no-repeat center /cover;">
+						<!-- <img src="images/wqf_list1.png"> -->
+						<header>
+							<span class="hot"></span>
+							<span class="title">用户体验</span>
+						</header>
+						<div class="time">
+							<span class="fy_icon">&#xe626;</span>
+							20:30
+						</div>
+					</div>
+					<!-- 图片下方的两个灰色底 -->
+					<div class="bg1"></div>
+					<div class="bg2"></div>
+
+					<h3 class="title hidd_more2 fire">理论+实践，构建属于你的机器学习库单 <span class="fy_icon">&#xe606;</span></h3>
+					<p>
+						<span>免费</span>
+						<span>555人正在学习</span>
+					</p>
+				</a>
+			</li>
+		</div>
+	</div>
+<!-- 直播课 结束-->
+
+<!-- 优秀学员 开始 -->
+	<div class="wqf_course  wqf_classes wqf_students">
+		<h1>优秀就业学员 成长故事在这里展开</h1>
+		<p>独家研发，随时更新，流行技法一网打尽！</p>
+		<div class="line"></div>
+		<div class="wqf_box clear_both">
+			<!-- 学员文章 -->
+			<ul class="student_list clear_both">
+				<li class="message">
+					<p class="type">学员故事</p>
+					<div class="term clear_both">
+						<a href="javascript:;" class="hidd_more">#【花式填坑】第23期#  <br>
+						运维进化篇 成为Python工程师有哪些必备条件？</a>
+						<img src="images/wqf_photo.png">
+					</div>
+					<p class="content hidd_more2">
+						在业务迭代周期内，产品经理和设计师对要做的产品需求和功能点进行需求分析和设计讨论的过程中，有时会出现一些拿捏不定的设计细节处理。
+					</p>
+				</li>
+			</ul>
+			<!-- 学员风采 -->
+						
+			<ul  class="student_list clear_both">
+				<li class="student">
+					<div class="top"   style="background:#fff url(images/wqf_student1.png) no-repeat right /contain;">
+						<p class="type">优秀学员风采</p>
+						<h3>贾童鞋</h3>
+						<p class="place">西安xx科技有限公司</p>
+					</div>
+					<!-- 感言 -->
+					<div class="talk">
+						<h4><i class="fy_icon">&#xe60a;</i>学员感言</h4>
+						<a href="javascript:;" class="title hidd_one" >图标的可用性测试，测的是什么？</a>
+						<p class="hidd_more">在业务迭代周期内，产品经理和设计师对要做的产品需求和功能点进行需求分析和设计讨论的过程中，有时会出现一些拿捏不定的设计细节。</p>
+					</div>
+				</li>
+			</ul>
+			<ul  class="student_list clear_both">
+				<li class="student">
+					<div class="top"   style="background:#fff url(images/wqf_student2.png) no-repeat right /contain;">
+						<p class="type">优秀学员风采</p>
+						<h3>贾童鞋</h3>
+						<p class="place">西安xx科技有限公司</p>
+						<p class="job">任职产品经理</p>
+					</div>
+					<!-- 感言 -->
+					<div class="talk">
+						<h4><i class="fy_icon">&#xe60a;</i>学员感言</h4>
+						<a href="javascript:;" class="title hidd_one">图标的可用性测试，测的是什么？</a>
+						<p class="hidd_more">在业务迭代周期内，产品经理和设计师对要做的产品需求和功能点进行需求分析和设计讨论的过程中，有时会出现一些拿捏不定的设计细节。</p>
+					</div>
+				</li>
+			</ul>
+		</div>
+		
+	</div>
+<!-- 优秀学员 结束-->
+
+<!-- 教师团队 开始 -->
+	<div class="wqf_course  wqf_teacher">
+		<h1>专业团队 业内顶尖</h1>
+		<p>聚集全球的专业领袖，为你带来最前沿的案例剖析，量身定制你的职业发展计划，贡献最极致的成长体验。</p>
+		<p>飞鱼学院是优逸客科技旗下教育品牌，于2017年全面上线，平台目前覆盖了UI设计及Web前端线下课程的80%，意在帮助线下学员巩固实训效果，提升技能。飞鱼学院亦是飞鱼计划的一部分。</p>
+		<a href="javascript:;">进入官网</a>
+
+		<!-- 教师列表 -->
+		<ul class="clear_both">
+			<li style="background: #fff url(images/wqf_teacher1.png) no-repeat right ">
+				<a href="javascript:;">
+					<p class="type">WEB讲师<span>· 星级 ·</span></p>
+					<h2>候宁洲</h2>
+					<p class="hidd_more">阿里巴巴 <br> 资深人工智能开发工程师</p>
+				</a>
+			</li>
+			<li style="background: #fff url(images/wqf_teacher1.png) no-repeat right ">
+				<a href="javascript:;">
+					<p class="type">WEB讲师<span>· 星级 ·</span></p>
+					<h2>候宁洲</h2>
+					<p class="hidd_more">阿里巴巴 <br> 资深人工智能开发工程师</p>
+				</a>
+			</li>
+			<li style="background: #fff url(images/wqf_teacher1.png) no-repeat right ">
+				<a href="javascript:;">
+					<p class="type">WEB讲师<span>· 星级 ·</span></p>
+					<h2>候宁洲</h2>
+					<p class="hidd_more">阿里巴巴 <br> 资深人工智能开发工程师</p>
+				</a>
+			</li>
+			<li style="background: #fff url(images/wqf_teacher1.png) no-repeat right ">
+				<a href="javascript:;">
+					<p class="type">WEB讲师<span>· 星级 ·</span></p>
+					<h2>候宁洲</h2>
+					<p class="hidd_more">阿里巴巴 <br> 资深人工智能开发工程师</p>
+				</a>
+			</li>
+		</ul>
+	</div>
+<!-- 教师团队 结束-->
+
+
+<!-- 合作伙伴 开始 -->
+<ul class="wqf_friend clear_both">
+	<li>
+		<a href="javascript:;">
+			<img src="images/wqf_friend1.png">
+		</a>
+	</li>
+	<li>
+		<a href="javascript:;">
+			<img src="images/wqf_friend2.png">
+		</a>
+	</li>
+	<li>
+		<a href="javascript:;">
+			<img src="images/wqf_friend3.png">
+		</a>
+	</li>
+	<li>
+		<a href="javascript:;">
+			<img src="images/wqf_friend4.png">
+		</a>
+	</li>
+</ul>
+
+<!-- 合作伙伴 结束 -->
+
+
+<!-- 回到顶部 开始-->
+<div class="wqf_totop">
+	<a href="javascript:;" class="qiandao"><img src="images/wqf_qiandao.png" ></a>
+
+	<a href="javascript:;" id="toTop" class="menu fy_icon">&#xe62e;</a>
+	<a href="javascript:;" class="menu fy_icon wqf_hover">&#xe620;
+		<!-- 鼠标移入弹出文字 -->
+		<span>意见反馈 <i></i></span>
+	</a>
+	<a href="javascript:;" class="menu fy_icon wqf_hover">&#xe62d;
+		<!-- 鼠标移入弹出文字 -->
+		<span>有一位老师想和您聊聊 <i></i></span>
+	</a>
+</div>
+<!-- 回到顶部 结束-->
+
+<!-- 底部 开始 -->
+	<div id="public_footer">
+		<div class="container">
+			<!-- 联系方式 -->
+			<div class="tel_message">
+				<p>热线电话</p>
+				<p>029-87566140</p>
+				<p>分享至</p>
+				<p>
+					<a href="javascript:;" class="fy_icon" title="微信">&#xe65b;</a>
+					<a href="javascript:;" class="fy_icon" title="QQ">&#xe60b;</a>
+					<a href="javascript:;" class="fy_icon" title="微博">&#xe62f;</a>
+				</p>
+			</div>
+			
+			<!-- 帮助链接 -->
+			<div class="help_list clear_both">
+				<ul>
+					<li>帮助中心</li>
+					<li><a href="javascript:;">常见问题</a></li>
+					<li><a href="javascript:;">故障反馈</a></li>
+					<li><a href="javascript:;">在线客服</a></li>
+					<li><a href="javascript:;">服务条款</a></li>
+				</ul>
+				<ul>
+					<li>找课程</li>
+					<li><a href="javascript:;">免费课程</a></li>
+					<li><a href="javascript:;">9.9元课</a></li>
+					<li><a href="javascript:;">直播课程</a></li>
+					<li><a href="javascript:;">系列课程</a></li>
+				</ul>
+				<ul>
+					<li>帮助中心</li>
+					<li><a href="javascript:;">常见问题</a></li>
+					<li><a href="javascript:;">故障反馈</a></li>
+					<li><a href="javascript:;">在线客服</a></li>
+					<li><a href="javascript:;">服务条款</a></li>
+				</ul>
+				<ul>
+					<li>找课程</li>
+					<li><a href="javascript:;">免费课程</a></li>
+					<li><a href="javascript:;">9.9元课</a></li>
+					<li><a href="javascript:;">直播课程</a></li>
+					<li><a href="javascript:;">系列课程</a></li>
+				</ul>
+				<ul>
+					<li>找课程</li>
+					<li><a href="javascript:;">免费课程</a></li>
+					<li><a href="javascript:;">9.9元课</a></li>
+					<li><a href="javascript:;">直播课程</a></li>
+					<li><a href="javascript:;">系列课程</a></li>
+				</ul>
+			</div>
+			
+			<!-- 二维码 -->
+			<div class="qr_code">
+				<img src="images/footer_qr.png" >
+				<img src="images/footer_qr.png" >
+			</div>
+			
+		</div>
+		<p class="record">Copyright © 2013 qinxue.com, 湘ICP备13012319号-1</p>
+	</div>
+	<!-- 底部 结束 -->
+</body>
+<script src="js/swiper.min.js"></script>
+<script>        
+	var mySwiper = new Swiper('.swiper-container', {
+		loop: true,
+
+		// 如果需要分页器
+		pagination: '.swiper-pagination',
+
+		// 如果需要前进后退按钮
+		nextButton: '.swiper-button-next',
+		prevButton: '.swiper-button-prev',
+		autoplay: 2000
+	})        
+</script>
+</html>

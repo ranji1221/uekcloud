@@ -1,0 +1,137 @@
+.cp_login{
+	width: 616px;
+	height: 419px;
+	position: absolute;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	top: 0px;
+	margin: auto;
+	border-radius: 20px;
+	background-color: white;
+}
+.cp_login .cp_title{
+	height:85px;
+	background:#FD6755;
+	border-radius: 20px 20px 0px 0px;
+	box-sizing: border-box;
+	padding-top: 35px;
+	padding-left: 43px;
+	color: white;
+	font-size: 24px;
+	font-weight: 500;
+	letter-spacing: 4px;
+}
+.cp_login .cp_form{
+	width: 100%;
+	height:272px;
+	padding-top: 32px;
+	box-sizing:border-box;
+	border-bottom: 2px solid #f9f9f9;
+}
+.cp_login .cp_form form{
+	width: 300px;
+	display: block;
+	margin: 0px auto;
+}
+.cp_login .cp_form .form_control{
+	padding: 9px 0px;
+	position: relative;
+}
+.cp_login .cp_form .form_control i{
+	position: absolute;
+	height: 100%;
+	font-size: 16px;
+	left: 16px;
+	top: 23px;
+}
+.cp_login .cp_form input{
+	display: block;
+	width: 298px;
+	height: 47px;
+	border: 2px solid #f7f7f7;
+	border-radius: 4px;
+	margin: 0px auto;
+	box-sizing: border-box;
+	padding-left:45px;
+}
+.cp_login .cp_form input::-webkit-input-placeholder{
+	color: #878787;
+}
+.cp_login .cp_form .form_pass{
+	overflow: hidden;
+	font-size: 12px;
+	margin-bottom: 6px;
+}
+.cp_login .cp_form .form_pass .btn{
+	width: 10px;
+	height: 10px;
+	border: 2px solid #DCDCDC;
+	box-sizing: border-box;
+	position: relative;
+	border-radius: 4px;
+	float: left;
+	margin-top: 4px;
+	margin-right: 7px;
+	cursor: pointer;
+}
+.cp_login .cp_form .form_pass .btn span{
+	width:4px;
+	height: 4px;
+	background-color: #fd6755;
+	margin: 1px 0px 0px 1px;
+	border-radius: 50%;
+	float: left;
+	display: none;
+}
+.cp_login .cp_form .form_pass .con{
+	cursor: pointer;
+}
+.cp_login .cp_form .form_pass a{
+	float: right;
+}
+.cp_login .cp_form .form_pass input{
+	display: none;
+}
+.cp_login .cp_form .form_control .button{
+	background-color: #FD6755;
+	cursor: pointer;
+	color: white;
+	font-size: 14px;
+	padding: 0px;
+	letter-spacing: 2px;
+	border: none;
+}
+.cp_login .cp_form .form_last{
+	text-align: center;
+	font-size: 12px;
+}
+.cp_login .cp_form .form_last a{
+	color: #FD6755;
+}
+.cp_login .tips{
+	width: 240px;
+	margin: 0px auto;
+	padding-top: 26px;
+	height: 26px;
+	line-height: 26px;
+}
+.cp_login .tips span{
+	float: left;
+	margin-right: 36px;
+	font-size:12px;
+}
+.cp_login .tips a{
+	color: #CECECE;
+	float: left;
+	margin-right:27px;
+}
+.cp_login .tips a:hover{
+	color: #FD6755;
+}
+.cp_login .tips .fy_icon{
+	font-size: 26px;
+}
+.cp_login .tips .last{
+	margin-right: 0px;
+}

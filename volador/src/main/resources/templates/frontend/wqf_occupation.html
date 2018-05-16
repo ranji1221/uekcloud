@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+	<title>飞鱼平台</title>
+	<meta name="renderer" content="webkit" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="keywords" content="飞鱼平台" />
+    <meta name="description" content="飞鱼平台" />
+    <link rel="shortcut icon" href="favicon.ico" />
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/public_header.css">
+	<link rel="stylesheet" href="http://at.alicdn.com/t/font_614432_35sjs0mry3c8fr.css">
+	<script src="js/jquery.min.js"></script>
+	<script src="js/headerfooter.js"></script>
+    <link rel="stylesheet" href="css/wqf_occupation.css">
+    <link rel="stylesheet" href="css/swiper.min.css">
+</head>
+<body>
+        <!-- 头部 开始 -->
+        <div id="public_header">
+            <div class="container">
+                <!-- logo -->
+                <a href="index.html;">
+                    <img src="images/header_logo.png" alt="">
+                </a>
+        
+                <!-- 导航 开始 -->
+                <ul class="menu">
+                    <li>
+                        <a href="javascript:;">
+                            <i class="fy_icon">&#xe60c;</i>
+                            找课程
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:;">职业导航</a>
+                    </li>
+                    <li>
+                        <a href="javascript:;">免费课</a>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            直播课
+                            <!-- <i class="fy_icon">icon</i> -->
+                            <img src="images/header_zhibo.png">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:;">线下课程</a>
+                    </li>
+                    <li class="search">
+                        <input type="text" placeholder="请输入您想要了解的课程">
+        
+                        <!-- 点击 按键发送ajax请求进行搜索 -->
+                        <i class="fy_icon" id="header_search">&#xe64d;</i>
+                        <!-- 点击搜索下方展开的容器 -->
+                        <div class="alert_box">
+                            <!-- 联想词 -->
+                            <div class="association">
+                                <a href="javascript:;">UI设计</a>
+                                <a href="javascript:;">全栈工程师</a>
+                                <a href="javascript:;">产品经理</a>
+                                <a href="javascript:;">Python全栈</a>
+                            </div>
+                            <!-- 历史记录 -->
+                            <ul>
+                                <li>
+                                    <a href="javascript:;">全栈工程师</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:;">全栈工程师</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:;">清除搜索历史</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+                <!-- 导航 结束 -->
+        
+                <!-- 登录状态 开始-->
+                <div class="is_login">
+                    <!-- 已登陆 -->
+                    <!-- 包含 类名 active则显示,否则隐藏 -->
+                    <div class="login_yes active">
+                        <div class="message">
+                            <a href="javascript:;" class="fy_icon">&#xe61d;</a>
+                            <!-- 消息数 -->
+                            <span>2</span>
+                            <!-- 消息弹框 -->
+                            <div class="message_box">
+                                <header>
+                                    <span>消息中心</span>
+                                    <span>清空</span>
+                                </header>
+                                <ul>
+                                    <li>
+                                        <a href="javascript:;" class="clear_both">
+                                            <span>【私信】</span>
+                                            <span class="hidd_more2">第一届logo设计大赛正式开启</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;" class="clear_both">
+                                            <span>【通知】</span>
+                                            <span class="hidd_more2">管理员温馨提示，您已经登陆，快来上课吧。</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;" class="clear_both">
+                                            <span>【私信】</span>
+                                            <span class="hidd_more2">第一届logo设计大赛正式开启</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;" class="clear_both">
+                                            查看全部
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <span class="line"></span>
+                        <div class="self">
+                            <img src="images/wqf_user.png">
+        
+                            <!-- 消息弹框 -->
+                            <div class="message_box">
+                                <h3>18329864532</h3>
+                                <ul>
+                                    <li>
+                                        <a href="wzq_jifen.html">我的积分</a>
+                                    </li>
+                                    <li>
+                                        <a href="wzq_list_work_upload.html">我的作业</a>
+                                    </li>
+                                    <li>
+                                        <a href="wqf_learn_now.html">我的课程</a>
+                                    </li>
+                                    <li>
+                                        <a href="wqf_personal_basic.html">我的资料</a>
+                                    </li>
+                                </ul>
+                                <h3>退出账号</h3>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <!-- 未登录 -->
+                    <div class="login_no">
+                        <a href="cp_login.html">登录</a>
+                        <span class="line"></span>
+                        <a href="cp_register.html">注册</a>
+                    </div>
+                </div>
+                <!-- 登录状态 结束-->
+        
+            </div>
+        </div>
+        <!-- 头部 结束 -->
+
+    <!-- banner  开始     -->
+        <!-- 修改背景图路径即可修改banner背景图片 -->
+    <div class="wqf_banner" style="background:url(images/wqf_banner.png) no-repeat center /cover;">
+        <!-- 背景蒙版 -->
+        <div class="banner_bg"></div>
+        <div class="message">
+            <h1>UI／UX设计师 需要的技能都在这里</h1>
+            <p class="subheading">从入门到实战 助你加薪升职</p>
+            <p class="number">
+                <span>时长<i>1200</i>分钟</span>
+                <span>在学人数<i>1200</i>人</span>
+                <span>价格<i>198</i>元</span>
+            </p>
+
+            <div class="btns">
+                <!-- 此处使用button标签或a标签样式相同 -->
+                <button>看看介绍</button>
+                <button>立即购买</button>
+            </div>
+        </div>
+        
+    </div>
+    <!-- banner  结束    -->
+
+    <!-- 技能演示 开始 -->
+    <div class="wqf_skill">
+        <h1>我能获得那些技能？</h1>
+        <p>五种设计软件、不同的设计思维、多样的创作理念</p>
+        <!-- 背景图片 -->
+        <div class="skill_bg" style=" background:#fff url(images/ui_skill.png) no-repeat center ;"></div>
+
+        <ul class="skill_list clear_both">
+            <li>
+                <p>初级设计师</p>
+                <p class="hidden_one">运营设计、初级UI设计师、薪资5-8K</p>
+                <!-- 课程说明下方的红色短线，虽然不知道是做什么的 -->
+                <span></span>
+            </li>
+            <li>
+                <p>中级设计师</p>
+                <p class="hidden_one">中级UI设计师、交互设计师、薪资8-12K-8K</p>
+                <span></span>
+            </li>
+            <li>
+                <p>高级设计师</p>
+                <p class="hidden_one">高级UI设计师、UX设计师、薪资15-20K-8K</p>
+                <span></span>
+            </li>
+        </ul>
+
+    </div>
+    <!-- 技能演示 结束 -->
+
+    <!-- 为什么选择我们  开始 -->
+    <div class="wqf_why_change wqf_skill">
+        <h1>为什么选择我们？</h1>
+        <p>独家研发，随时更新，流行技法一网打尽！</p>
+        <ul class="advantage clear_both">
+            <li>
+                <img src="images/wqf_why2.png" alt="">
+                <h2>课程体系化</h2>
+                <p>了解用户期望、用户习惯，构架产品设计，从用户角度了解用户期望。</p>
+            </li>
+            <li>
+                <img src="images/wqf_why3.png" alt="">
+                <h2>问答作业1V1</h2>
+                <p>了解用户期望、用户习惯，构架产品设计，从用户角度了解用户期望。</p>
+            </li>
+            <li>
+                <img src="images/wqf_why1.png" alt="">
+                <h2>学练测一体</h2>
+                <p>了解用户期望、用户习惯，构架产品设计，从用户角度了解用户期望。</p>
+            </li>
+        </ul>
+    </div>
+    <!-- 为什么选择我们  结束 -->
+    
+
+    <!-- 课程目录 开始 -->
+    <div class="wqf_curriculum wqf_skill" >
+        <h1>课程目录</h1>
+        <p>独家研发，随时更新，流行技法一网打尽！ </p>
+        <!-- 背景图片 -->
+        <div class="curriculum_list clear_both" >
+            <div class="container right">
+                <img src="images/ui_class1.png" alt="">
+                <div class="content clear_both">
+                    <div class="num">1</div>
+                    <div class="message ">
+                        <h1>基础入门</h1>
+                        <h2>阶段</h2>
+                        <p class="introduce">产品思维是产品经理的灵魂，这一刻你将成为真正的产品经理！本阶段主要培养您的立体化思维、养成产品经理视角，并能够立体化。</p>
+                        <p class="time">
+                            <span>阶段时长 100分钟</span>
+                            <span>在学人数 100人</span>
+                        </p>
+                        <div class="btns">
+                            <a href="javascript:;">购买本章节</a>
+                            <a href="javascript:;"><i class="fy_icon">&#xe602;</i>收藏</a>
+                        </div>
+
+                        <ul class="goods">
+                            <li>
+                                <h2>
+                                    <img src="images/wqf_goods1.png" alt="">
+                                    立体化思维
+                                </h2>
+                                <p>
+                                    <span>线性思维</span>
+                                    <span>面性思维</span>
+                                    <span>立体化思维</span>
+                                    <span>重点难点突破</span>
+                                    <span>极限与方法</span>
+                                    <span>思维应用</span>
+                                </p>
+                            </li>
+                            <li>
+                                <h2>
+                                    <img src="images/wqf_goods1.png" alt=""> 立体化思维
+                                </h2>
+                                <p>
+                                    <span>线性思维</span>
+                                    <span>面性思维</span>
+                                    <span>立体化思维</span>
+                                    <span>重点难点突破</span>
+                                    <span>极限与方法</span>
+                                    <span>思维应用</span>
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container left">
+                <img src="images/ui_class2.png" alt="">
+                
+                <div class="content clear_both">
+                    <div class="num">2</div>
+                    <div class="message">
+                        <h1>功能定位&PRD文档</h1>
+                        <h2>阶段</h2>
+                        <p class="introduce">产品思维是产品经理的灵魂，这一刻你将成为真正的产品经理！本阶段主要培养您的立体化思维、养成产品经理视角，并能够立体化。</p>
+                        <p class="time">
+                            <span>阶段时长 100分钟</span>
+                            <span>在学人数 100人</span>
+                        </p>
+                        <div class="btns">
+                            <a href="javascript:;">购买本章节</a>
+                            <a href="javascript:;">
+                                <i class="fy_icon">&#xe602;</i>收藏</a>
+                        </div>
+            
+                        <ul class="goods">
+                            <li>
+                                <h2>
+                                    <img src="images/wqf_goods3.png" alt=""> 产品精准定位
+                                </h2>
+                                <p>
+                                    <span>线性思维</span>
+                                    <span>面性思维</span>
+                                    <span>立体化思维</span>
+                                    <span>重点难点突破</span>
+                                    <span>极限与方法</span>
+                                    <span>思维应用</span>
+                                </p>
+                            </li>
+                            <li>
+                                <h2>
+                                    <img src="images/wqf_goods4.png" alt=""> 核心功能设计
+                                </h2>
+                                <p>
+                                    <span>线性思维</span>
+                                    <span>面性思维</span>
+                                    <span>立体化思维</span>
+                                    <span>重点难点突破</span>
+                                    <span>极限与方法</span>
+                                    <span>思维应用</span>
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container right">
+                <img src="images/ui_class3.png" style="box-shadow: 0 0 30px 0 #ccc;">
+                <div class="content clear_both">
+                    <div class="num">3</div>
+                    <div class="message ">
+                        <h1>基础入门</h1>
+                        <h2>阶段</h2>
+                        <p class="introduce">产品思维是产品经理的灵魂，这一刻你将成为真正的产品经理！本阶段主要培养您的立体化思维、养成产品经理视角，并能够立体化。</p>
+                        <p class="time">
+                            <span>阶段时长 100分钟</span>
+                            <span>在学人数 100人</span>
+                        </p>
+                        <div class="btns">
+                            <a href="javascript:;">购买本章节</a>
+                            <a href="javascript:;">
+                                <i class="fy_icon">&#xe602;</i>收藏</a>
+                        </div>
+            
+                        <ul class="goods">
+                            <li>
+                                <h2>
+                                    <img src="images/wqf_goods1.png" alt=""> 立体化思维
+                                </h2>
+                                <p>
+                                    <span>线性思维</span>
+                                    <span>面性思维</span>
+                                    <span>立体化思维</span>
+                                    <span>重点难点突破</span>
+                                    <span>极限与方法</span>
+                                    <span>思维应用</span>
+                                </p>
+                            </li>
+                            <li>
+                                <h2>
+                                    <img src="images/wqf_goods1.png" alt=""> 立体化思维
+                                </h2>
+                                <p>
+                                    <span>线性思维</span>
+                                    <span>面性思维</span>
+                                    <span>立体化思维</span>
+                                    <span>重点难点突破</span>
+                                    <span>极限与方法</span>
+                                    <span>思维应用</span>
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container left" style="height:581px;">
+                <img src="images/ui_class4.png" >
+                <div class="content clear_both">
+                    <div class="num">4</div>
+                    <div class="message ">
+                        <h1>职业素养课程</h1>
+                        <h2>阶段</h2>
+                        <p class="introduce">产品思维是产品经理的灵魂，这一刻你将成为真正的产品经理！本阶段主要培养您的立体化思维、养成产品经理视角，并能够立体化。</p>
+                        <p class="time">
+                            <span>阶段时长 100分钟</span>
+                            <span>在学人数 100人</span>
+                        </p>
+                        <div class="btns">
+                            <a href="javascript:;">购买本章节</a>
+                            <a href="javascript:;">
+                                <i class="fy_icon">&#xe602;</i>收藏</a>
+                        </div>
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 课程目录 开始 -->
+    
+
+    <!-- 名师团队 开始 -->
+    <div class="wqf_teacher wqf_skill">
+        <ul class="teacher_list clear_both">
+            <li>
+                <div class="photo" style="background:url(images/wqf_user.png) no-repeat center / cover"></div>
+                <p class="name">候宁洲</p>
+                <p class="message1">奇虎360核心业务高级产品经理，互联网企业资深产品经理。</p>
+                <p class="message2">数次参与国家级项目，并于项目中担任高级产品经理。曾服务于交大、国铁等知名互联网企业，互联网教育产品专家</p>
+                <a href="javascript:;">跟老师聊聊</a>
+            </li>
+            <li>
+                <div class="photo" style="background:url(images/wqf_user.png) no-repeat center / cover"></div>
+                <p class="name">候宁洲</p>
+                <p class="message1">奇虎360核心业务高级产品经理，互联网企业资深产品经理。</p>
+                <p class="message2">数次参与国家级项目，并于项目中担任高级产品经理。曾服务于交大、国铁等知名互联网企业，互联网教育产品专家</p>
+                <a href="javascript:;">跟老师聊聊</a>
+            </li>
+            <li>
+                <div class="photo" style="background:url(images/wqf_user.png) no-repeat center / cover"></div>
+                <p class="name">候宁洲</p>
+                <p class="message1">奇虎360核心业务高级产品经理，互联网企业资深产品经理。</p>
+                <p class="message2">数次参与国家级项目，并于项目中担任高级产品经理。曾服务于交大、国铁等知名互联网企业，互联网教育产品专家</p>
+                <a href="javascript:;">跟老师聊聊</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- 名师团队 开始 -->
+    
+    <!-- 学生评价 开始 -->
+    <div class="wqf_evaluate wqf_skill">
+        <h1>学生评价</h1>
+        <p>独家研发，随时更新，流行技法一网打尽！ </p>
+
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <div class="message">
+                        <h2>图标的可用性测试，测的是什么？</h2>
+                        <p>在业务迭代周期内，产品经理和设计师对要做的产品需求和功能点进行需求分析和设计讨论的过程中，有时会出现一些拿捏不定的设计细节。比如，试图推出某个新功能时所设计的图标，它的应用效果如何？如果你还在头疼诸如此类的问题，那现在就可以take it easy了，因为你即将拥有一个得力助手。</p>
+                        <p>
+                            <span>匿名用户</span>
+                            <span>2018年3月11日</span>
+                        </p>
+                        <!-- 三角形 -->
+                        <div class="triangle"></div>
+                    </div>
+                    <!-- 头像  修改行内样式可更换图片 -->
+                    <div class="photo" style="background:url(images/wqf_user.png) no-repeat center /cover"></div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="message">
+                        <h2>图标的可用性测试，测的是什么？</h2>
+                        <p>在业务迭代周期内，产品经理和设计师对要做的产品需求和功能点进行需求分析和设计讨论的过程中，有时会出现一些拿捏不定的设计细节。比如，试图推出某个新功能时所设计的图标，它的应用效果如何？如果你还在头疼诸如此类的问题，那现在就可以take
+                            it easy了，因为你即将拥有一个得力助手。</p>
+                        <p>
+                            <span>匿名用户</span>
+                            <span>2018年3月11日</span>
+                        </p>
+                        <!-- 三角形 -->
+                        <div class="triangle"></div>
+                    </div>
+                    <!-- 头像 -->
+                    <div class="photo" style="background:url(images/wqf_user.png) no-repeat center /cover"></div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="message">
+                        <h2>图标的可用性测试，测的是什么？</h2>
+                        <p>在业务迭代周期内，产品经理和设计师对要做的产品需求和功能点进行需求分析和设计讨论的过程中，有时会出现一些拿捏不定的设计细节。比如，试图推出某个新功能时所设计的图标，它的应用效果如何？如果你还在头疼诸如此类的问题，那现在就可以take
+                            it easy了，因为你即将拥有一个得力助手。</p>
+                        <p >
+                            <span>匿名用户</span>
+                            <span>2018年3月11日</span>
+                        </p>
+                        <!-- 三角形 -->
+                        <div class="triangle"></div>
+                    </div>
+                    <!-- 头像 -->
+                    <div class="photo" style="background:url(images/wqf_user.png) no-repeat center /cover"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+     <!-- 学生评价 结束     -->
+
+     <!-- 底部购买 开始 -->
+    <div class="wqf_buy">
+        <div class="container">
+            <p>组合购买<br>优惠更多</p>
+            <ul class="type">
+                <li class="active">
+                    <p>组合套餐一</p>
+                    <span>优惠80元</span>
+                </li>   
+                <li>
+                    <p>组合套餐二</p>
+                    <span>优惠80元</span>
+                </li>
+                <li>
+                    <p>组合套餐三</p>
+                    <span>优惠80元</span>
+                </li>
+            </ul>
+
+            <div class="buy">
+                <span>支持花呗分期</span>
+                <a href="javascript:;">立即购买</a>
+            </div>
+        </div>
+    </div>
+    <!-- 底部购买 结束 -->
+     
+</body>
+    <script src="js/swiper.min.js"></script>
+
+<script> 
+// 轮播图       
+    var mySwiper = new Swiper('.swiper-container', {
+        loop: true,
+        spaceBetween: 20,
+        slidesPerView : 2,
+        centeredSlides: true,
+        autoplay:3000
+    })   
+// 购买
+    var buy_btns = $(".wqf_buy .container .type li");
+    buy_btns.click(function(){
+        buy_btns.removeClass("active");
+        $(this).addClass("active")
+    })
+</script>
+</html>

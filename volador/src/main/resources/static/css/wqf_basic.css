@@ -1,0 +1,163 @@
+.wqf_title{
+	height: 65px;
+	line-height: 65px;
+	padding:0 30px;
+	color: #3e3e3e;
+	font-size: 16px;
+	margin-bottom: 10px;
+	background: #fff;
+}
+
+
+/*账号设置 开始*/
+.wqf_set_main{
+	background: #fff;
+	padding:40px 40px 100px;
+}
+.wqf_set_main .set_line{
+	font-size: 20px;
+	line-height: 50px;
+	color: #3e3e3e;
+}
+.wqf_set_main .set_line>span{
+	float: left; 
+	width: 240px;
+}
+.wqf_set_main .set_line>p{
+	float: left;
+}
+.wqf_set_main .set_line>a{
+	float: left;
+	color: #fd6756;
+}
+.wqf_set_main .set_line>p span{
+	display: block;
+}
+.wqf_set_main .set_line>p span i{
+	color: #7c7c7c;
+	margin-right: 16px;
+}
+.wqf_set_main .set_line>p span a{
+	color: #3e3e3e;
+}
+.wqf_set_main .set_line>p span a:hover{
+	transition:none;
+	border-bottom:2px solid #3e3e3e;
+}
+/*账号设置 结束*/
+
+
+
+
+
+/*基本资料  开始*/
+.wqf_basic_main>form{
+	background: #fff;
+	padding:40px;
+}
+.wqf_basic_main>form>ul>li{
+	margin-bottom: 30px;
+	position: relative;
+	font-size: 14px;
+	color: #3e3e3e;
+}
+.wqf_basic_main>form>ul>li .title{
+	width: 96px;
+	display: inline-block;
+	font-size: 14px;
+}
+.wqf_basic_main>form>ul>li.photo input[type=file]{
+	opacity: 0;
+	position: absolute;
+	top: 0; left: 0;
+	z-index: -1;
+}
+.wqf_basic_main>form>ul>li.photo img{
+	vertical-align: middle;
+	border-radius: 50%;
+}
+.wqf_basic_main>form>ul>li.photo>p{
+	display: inline-block;
+	vertical-align: middle;
+}
+.wqf_basic_main>form>ul>li.photo>p label{
+	color: #fd6756;
+	font-weight: bold;
+	cursor: pointer;
+}
+.wqf_basic_main>form>ul>li.photo>label{
+	margin:0 55px 0 25px ;
+	color: #9c9c9c;
+	cursor: pointer;
+}
+.wqf_basic_main>form>ul>li.photo>label>i{
+	font-weight: bold;
+	margin-right: 8px;
+}
+
+
+.wqf_basic_main>form>ul>li.name input{
+	width: 360px; height: 40px;
+	border:1px solid #dbdbdb;
+	border-radius: 4px;
+	padding:0 20px; 
+	box-sizing: border-box;
+	color: #3e3e3e;
+	font-size: 14px;
+}
+
+.wqf_basic_main>form>ul>li.tel span:nth-child(2){
+	margin-left: 15px;
+}
+.wqf_basic_main>form>ul>li.tel a{
+	color: #fd6756;
+	margin-left: 120px;
+	font-weight: bold;
+}
+
+.wqf_basic_main>form>ul>li.sex{
+	font-size: 0;
+}
+.wqf_basic_main>form>ul>li.sex input{
+	cursor: pointer;
+}
+.wqf_basic_main>form>ul>li.sex label{
+	margin-right: 38px;
+	padding-left: 12px;
+	font-size: 14px;
+	cursor: pointer;
+}
+
+.wqf_basic_main>form>ul>li.date select{
+	padding: 10px 50px 10px 24px;
+	border-radius: 5px;
+	border:1px solid #d6d6d6;
+	margin-right: 18px;
+	cursor: pointer;
+	appearance:none;
+	-moz-appearance:none;
+	-webkit-appearance:none;
+	background: url(../images/wqf_jt.png) no-repeat scroll 100px center transparent;
+
+}
+
+.wqf_basic_main>form>ul>li.place>div{
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.wqf_basic_main>.submit{
+	margin-top: 36px;
+    padding-bottom: 30px;
+}
+.wqf_basic_main>.submit button{
+	width: 240px; height: 60px;
+	background: #fd6756;
+	color: #fff;
+	border-radius: 4px;
+	font-size: 18px;
+	font-family: "微软雅黑";
+	font-weight: bold;
+	cursor: pointer;
+}
+/*基本资料  结束*/

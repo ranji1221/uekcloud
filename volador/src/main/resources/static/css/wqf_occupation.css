@@ -1,0 +1,523 @@
+.wqf_banner{
+    width: 100%; height: 565px;
+    position: relative;
+}
+.wqf_banner .banner_bg{
+    width: 100%; height: 100%;
+    position: absolute;
+    background: rgba(3, 7, 27, 0.8);
+}
+.wqf_banner>.message{
+    width: 1140px;
+    margin:0 auto;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    padding-top: 110px;
+}
+.wqf_banner>.message h1{
+    font-size: 48px;
+    color: #fff;
+
+}
+.wqf_banner>.message .subheading{
+    font-size: 30px;
+    color: #ccc;
+    margin-top: 20px;
+}
+.wqf_banner>.message .number{
+    color: #d8d8da;
+    font-size: 24px;
+    margin-top: 60px;
+}
+.wqf_banner>.message .number span{
+    padding: 0 34px;
+    display: inline-block;
+    height: 22px;
+    line-height: 22px;
+}
+.wqf_banner>.message .number span:nth-child(2){
+    border-left: 1px solid #9a9897;
+    border-right: 1px solid #9a9897;
+}
+
+.wqf_banner>.message .number span i{
+    color: #d7d63b;
+    margin:0 3px;
+}
+.wqf_banner>.message .btns{
+    margin-top: 66px;
+    font-size: 0;
+}
+.wqf_banner>.message .btns button,.wqf_banner>.message .btns a{
+    display: inline-block;
+    width: 182px; height: 52px;
+    box-sizing: border-box;
+    border:1px solid #fd6756;
+    border-radius: 40px;
+    font-size: 16px;
+    background: transparent;
+    color: #fd6756;
+    cursor: pointer;
+}
+.wqf_banner>.message .btns button:first-child{
+    margin-right: 37px;
+}
+.wqf_banner>.message .btns button:hover,.wqf_banner>.message .btns a:hover{
+    background: #fd6756;
+    color: #fff;
+}
+
+
+
+/* 技能演示 */
+.wqf_skill{
+    padding:70px 0 60px 0;
+    background: #fff;
+    text-align: center;
+    
+}
+.wqf_skill >h1{
+    font-size: 30px; 
+    color: #5d5d5d;
+    font-weight: normal;
+}
+.wqf_skill > p{
+    font-size: 18px; 
+    color: #5d5d5d;
+    margin-top: 8px;
+}
+.wqf_skill .skill_bg{
+    width: 100%;   height: 508px;
+   
+}
+
+.wqf_skill .skill_list{
+    width: 1140px;
+    margin: auto;
+    text-align: center;
+}
+.wqf_skill .skill_list li{
+    width: 33.333%;
+    float: left;
+}
+.wqf_skill .skill_list li p:first-child{
+    font-size: 24px;
+}
+.wqf_skill .skill_list li p:nth-child(2){
+    font-size: 18px;
+    color:#666666;
+    margin-top: 14px;
+}
+/* 课程说明下方的红色短线 */
+.wqf_skill .skill_list li span{
+    display: block;
+    width: 30px; height: 8px;
+    border-radius: 8px;
+    background: #f45555;
+    margin:18px auto 0;
+    opacity: 0;
+    transition: opacity 0.4s;
+}
+.wqf_skill .skill_list li:hover span{
+    opacity: 1;
+}
+.wqf_skill .skill_list li:nth-child(1) p:first-child{
+    color: #6ad1cc;
+}
+.wqf_skill .skill_list li:nth-child(2n) p:first-child{
+    color: #1ea5f6;
+}
+.wqf_skill .skill_list li:nth-child(3n) p:first-child{
+    color: #f45555;
+}
+
+
+/* 为什么选择我们 */
+.wqf_why_change{
+    padding: 50px 0 82px 0;
+    background: #fbfbfb;
+}
+.wqf_why_change .advantage{
+    width: 1140px;
+    margin: 86px auto 0 ;
+    padding:0 38px;
+    box-sizing: border-box;
+}
+.wqf_why_change .advantage li{
+    background: #fff;
+    width: 285px;
+    padding:5px 30px 60px;
+    margin-right: 104px;
+    box-sizing: border-box;
+    color: #5d5d5d;
+    float: left;
+}
+.wqf_why_change .advantage li:last-child{
+    margin-right: 0;
+}
+.wqf_why_change .advantage li img{
+    height: 164px;
+}
+.wqf_why_change .advantage li h2{
+    font-size: 30px;;
+}
+.wqf_why_change .advantage li p{
+    font-size: 18px;
+    margin-top: 30px;
+}
+
+
+/* 课程目录 */
+.wqf_curriculum{
+    padding: 120px 0 100px 0;
+}
+
+.wqf_curriculum .curriculum_list{
+    margin-top: 70px;
+}
+.wqf_curriculum .curriculum_list>.container{
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 140px;
+}
+.wqf_curriculum .curriculum_list>.container:last-child{
+    margin-bottom: 0;
+}
+.wqf_curriculum .curriculum_list>.container.right .content{
+    float:right;
+}
+.wqf_curriculum .curriculum_list>.container.left .content{
+    float:left;
+}
+.wqf_curriculum .curriculum_list>.container.right>img{
+    position: absolute;
+    left: 50%;
+    transform: translate3d(-50%,0,0);
+    margin-left: -420px;
+}
+.wqf_curriculum .curriculum_list>.container.left>img{
+    position: absolute;
+    left: 50%;
+    transform: translate3d(-50%,0,0);
+    margin-left: 420px;
+}
+.wqf_curriculum .curriculum_list .content{
+    width: 613px;
+    float:right;
+}
+.wqf_curriculum .curriculum_list .content .num{
+    float:left;
+    width: 46px; height: 46px;
+    line-height: 46px;
+    color: #fff;
+    font-size: 24px;
+    background-color: #5390f4;
+    background-image: linear-gradient(to top right,#243eaa,#50b3f4);
+    border-radius: 50% 0 50% 50%;
+    margin-right: 10px;
+}
+.wqf_curriculum .curriculum_list .content .message{
+    width: 555px;
+    float:left;
+    text-align:left;
+    color: #7a7a7a;
+}
+.wqf_curriculum .curriculum_list .content .message>h1{
+    font-size:30px;
+    color: #5d5d5d;
+}
+.wqf_curriculum .curriculum_list .content .message>h2{
+    font-size:18px;
+    color: #5d5d5d;
+}
+.wqf_curriculum .curriculum_list .content .message .introduce{
+    margin-top: 20px;
+    line-height: 30px;
+    font-size:16px;
+}
+.wqf_curriculum .curriculum_list .content .message .time{
+    font-size: 14px;
+    margin-top: 22px;
+}
+.wqf_curriculum .curriculum_list .content .message .time span:first-child{
+    margin-right: 85px;
+}
+
+
+.wqf_curriculum .curriculum_list .content .message >.btns{
+    margin-top: 40px;
+    font-size: 0;
+}
+.wqf_curriculum .curriculum_list .content .message a{
+    display: inline-block;
+    width: 182px; height: 52px;
+    line-height: 52px;
+    text-align: center;
+    box-sizing: border-box;
+    border-radius: 40px;
+    font-size: 16px;
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+    font-weight: bold;
+}
+.wqf_curriculum .curriculum_list .content .message .btns a:first-child{
+    margin-right: 16px;
+    color: #5580f4;
+    background: #fff;
+    box-shadow: 0 5px 20px 0 #ccc;
+    transition: 0.3s;
+}
+.wqf_curriculum .curriculum_list .content .message .btns a:first-child:hover{
+    background: #5580f4;
+    color: #fff;
+    box-shadow:none;
+}
+.wqf_curriculum .curriculum_list .content .message .btns a:last-child{
+    width: 103px;
+    background: #f45555;
+}
+
+.wqf_curriculum .curriculum_list .content .message .btns a:last-child i{
+    margin-right: 5px;
+}
+.wqf_curriculum  .content .message .goods{
+    margin-top: 30px;
+}
+.wqf_curriculum  .content .message .goods>li{
+    width: 260px;
+    background: #fbfbfb;
+    padding:20px 15px;
+    float:left;
+    box-sizing: border-box;
+    margin-right: 30px;
+    border-radius: 5px;
+    position: relative;
+    transition:box-shadow 0.3s;
+}
+
+.wqf_curriculum  .content .message .goods>li:hover{
+    color: #fff;
+    background-image:  linear-gradient(to right,#5579f4,#50b3f4);
+    box-shadow: 40px 0 20px -20px rgba(85, 121, 244, 0.4);
+}
+.wqf_curriculum  .content .message .goods>li:nth-child(2){
+    margin-right: 0;
+}
+.wqf_curriculum  .content .message .goods>li>h2{
+    font-size: 18px;
+}
+.wqf_curriculum  .content .message .goods>li>h2 img{
+    vertical-align: middle;
+}
+.wqf_curriculum  .content .message .goods>li>p{
+    padding-left:43px;
+    font-size: 0;
+    margin-top: 20px;
+}
+.wqf_curriculum  .content .message .goods>li>p span{
+    display: inline-block;
+    width: 50%;
+    font-size: 14px;
+    margin-bottom: 16px;
+}
+
+
+
+/* 名师团队 开始 */
+
+.wqf_teacher{
+    
+    background:url(../images/wqf_teacher.png) no-repeat center /cover;
+    padding: 48px 0 66px 0;
+}
+.wqf_teacher>h1,.wqf_teacher>p{
+    color: #fff;
+}
+.wqf_teacher>.teacher_list{
+    width: 1140px;
+    margin: 45px auto 0;
+}
+.wqf_teacher>.teacher_list li{
+    width: 33.3333%;
+    padding:0 23px;
+    float: left;
+    color: #fff;
+    text-align: center;
+   letter-spacing: 2px;
+   box-sizing: border-box;
+}
+.wqf_teacher>.teacher_list li .photo{
+    width: 92px; height: 92px;
+    border:5px solid #4fb0f4;
+    border-radius: 50%;
+    margin: 0 auto;
+}
+.wqf_teacher>.teacher_list li .name{
+    font-size: 20px;
+    margin:18px 0 22px;
+}
+.wqf_teacher>.teacher_list li .message1{
+    font-size: 20px;
+}
+.wqf_teacher>.teacher_list li .message2{
+    font-size: 14px;
+    margin: 32px 0 24px;
+}
+.wqf_teacher>.teacher_list li  a{
+    display: block;
+    width: 182px; height: 54px;
+    margin:0 auto;
+    line-height: 54px;
+    border-radius:30px;
+    color: #fff;
+    font-weight: bold;
+    background: transparent;
+    transition: background 0.3s;
+}
+.wqf_teacher>.teacher_list li  a:hover{
+    color: #5488f4;
+    background: #fff;
+}
+
+
+/* 学生评价 */
+.wqf_evaluate {
+    background: #f6f6f6;
+}
+.wqf_evaluate .swiper-container{
+    width: 1140px;  height: 330px;
+    padding-top: 72px;
+    margin:0 auto;
+}
+.wqf_evaluate .swiper-container .swiper-slide{
+    /* width: 556px; */
+    height: auto;
+    /* margin:0 15px; */
+    align-self:flex-end;
+    color: #000;
+    /* padding:28px 40px 50px ; */
+    text-align: left;
+}
+.wqf_evaluate .swiper-container .swiper-slide .message{
+    background: #fff;
+    padding:28px 40px 50px ;
+    box-shadow: 0 0 30px 0 #ccc;
+    position:relative;
+}
+.wqf_evaluate .swiper-container .swiper-slide .photo{
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    margin:18px auto 0;
+    display: none;
+}
+.wqf_evaluate .swiper-container .swiper-slide-active .photo{
+    display:block;
+}
+.wqf_evaluate .swiper-container .swiper-slide:not(.swiper-slide-active){
+    transform: translate(0,-82px);
+}
+.wqf_evaluate .swiper-container .swiper-slide .message .triangle{
+    width: 15px; height: 15px;
+    background: #fff;
+    position: absolute;
+    bottom: 0; left: 50%;
+    transform: translate3d(-50%,50%,0) rotate(45deg) ;
+}
+.wqf_evaluate .swiper-container .swiper-slide .message>h2{
+    font-size: 18px;
+    color: #5d5d5d;
+}
+.wqf_evaluate .swiper-container .swiper-slide .message>p:nth-child(2){
+    font-size: 12px;
+    line-height: 26px;
+    margin-top: 15px;
+}
+.wqf_evaluate .swiper-container .swiper-slide .message>p:nth-child(3){
+    font-size: 12px;
+    margin-top: 30px;
+    font-weight: bold;
+}
+.wqf_evaluate .swiper-container .swiper-slide .message>p:nth-child(3) span:last-child{
+    float:right;
+    font-weight: normal;
+}
+.wqf_evaluate .swiper-container  .message>p:nth-child(3){
+    display: none;
+}
+.wqf_evaluate .swiper-container .swiper-slide-active .message>p:nth-child(3){
+    display: block;
+}
+
+
+/* 底部购买 */
+.wqf_buy{
+    height: 96px; width: 100%;
+    box-shadow: 0 0 20px 0 #eee;
+    background: #fff;
+    padding-top: 30px;
+    box-sizing:border-box;
+}
+.wqf_buy .container>p:first-child{
+    font-size: 18px;
+    color: #fd6756;
+    font-weight: bold;
+    float: left;
+    margin-right: 30px;
+}
+.wqf_buy .container .type{
+    float: left;
+}
+.wqf_buy .container .type li{
+    width: 164px; 
+    border:1px solid #efefef;
+    background: #f8f8f8;
+    padding: 8px;
+    box-sizing: border-box;
+    line-height: 100%;
+    cursor: pointer;
+    border-radius: 4px;
+    float: left;
+    margin-right: 24px;
+}
+.wqf_buy .container .type li.active{
+    border-color:#f45454;
+}
+.wqf_buy .container .type li>p{
+    color: #3e3e3e;
+    font-size: 14px;
+}
+
+.wqf_buy .container .type li>span{
+    color: #f45454;
+    font-size: 12px;
+}
+.wqf_buy .container .buy{
+    float: right;
+
+}
+.wqf_buy .container .buy span{
+    font-size: 14px;
+    color: #666666;
+    line-height: 46px;
+    margin-right: 24px;
+    font-weight: bold;
+}
+.wqf_buy .container .buy a{
+    text-align: center;
+    line-height: 52px;
+    width: 182px;
+    height: 52px;
+    color: rgb(255, 255, 255);
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    background: rgb(253, 103, 86);
+    border-radius: 30px;
+    float: right;
+    margin-top: -6px;
+}
+.wqf_buy .container .buy a:hover{
+    background: #fcad86;
+}

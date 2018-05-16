@@ -1,0 +1,190 @@
+.wzq_jifen_box{
+    width: 100%;
+    height: 204px;
+    background: url("../images/wzq_jifen_bg.jpg") no-repeat center/cover;
+    margin-top: 22px;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+}
+.wzq_jifen_num{
+    padding-top: 25px;
+    color: #fff;
+    text-align: center;
+    font-size: 0;
+}
+.wzq_jifen_num b{
+    font-size: 60px;
+}
+.wzq_jifen_num span{
+    font-size: 18px;
+    margin-left: 5px;
+}
+.wzq_jifen_btn{
+    display: block;
+    width: 300px;
+    height: 44px;
+    background: #fff;
+    font-size: 18px;
+    color: #fd6756;
+    text-align: center;
+    line-height: 44px;
+    box-shadow: 0px 0px 18px 0px rgba(12, 3, 7, 0.08);
+    border-radius: 5px;
+    margin:0 auto;
+}
+.wzq_jifen_task{
+    margin-top:25px ;
+    box-sizing: border-box;
+    padding:20px 40px 50px 20px ;
+    background: #fff;
+    border-radius: 5px;
+}
+.wzq_jifen_task .wzq_jifen_tit{
+    font-size: 18px;
+    color: #7c7c7c;
+}
+.wzq_jifen_task .wzq_jifen_tit span{
+    font-size: 14px;
+    margin-left: 10px;
+    vertical-align: bottom;
+}
+.wzq_jifen_tiao{
+    width: 100%;
+    height: 6px;
+    background: #fafafa;
+    border-radius: 6px;
+    margin-top: 52px;
+    margin-bottom: 64px;
+}
+.wzq_jifen_tiao .wzq_jifen_line{
+    width: 50%;
+    height: 100%;
+    background: #fd6756;
+    border-radius: 6px;
+    position: relative;
+}
+.wzq_jifen_tiao .wzq_jifen_line::after{
+    display: block;
+    content: '';
+    width: 10px;
+    height: 10px;
+    background: #fd6756;
+    position: absolute;
+    right: -5px;
+    top: -2px;
+    border-radius: 50%;
+    z-index: 111;
+}
+.wzq_jifen_tiao .wzq_jifen_line::before{
+    display: block;
+    content: '';
+    width: 14px;
+    height: 14px;
+    background: rgba(253,103,86,0.6);
+    position: absolute;
+    right: -7px;
+    top: -4px;
+    border-radius: 50%;
+    z-index: 1;
+}
+.wzq_jifen_tiao .wzq_jifen_line .wzq_jifen_n{
+    display: inline-block;
+    width: auto;
+    padding: 0 12px;
+    background: #fd6756;
+    border-radius: 3px;
+    font-size: 12px;
+    color: #fff;
+    text-align: center;
+    line-height: 24px;
+    position: absolute;
+    right: 0;
+    top: -35px;
+    -webkit-transform: translateX(50%);
+    -moz-transform: translateX(50%);
+    -ms-transform: translateX(50%);
+    -o-transform: translateX(50%);
+    transform: translateX(50%);
+}
+.wzq_jifen_tiao .wzq_jifen_line .wzq_jifen_n i{
+    display: block;
+    width: 0;
+    height: 0;
+    border-width: 4px;
+    border-style: solid;
+    border-color: #fd6756 transparent transparent transparent;
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+.wzq_jifen_task_list{
+    width: 100%;
+    height: auto;
+    box-sizing: border-box;
+    padding-right: 30px;
+}
+.wzq_jifen_task_list .wzq_jifen_task_item{
+    float: left;
+    margin-top: 22px;
+    width: 390px;
+    height: auto;
+    overflow: hidden;
+}
+.wzq_jifen_task_list .wzq_jifen_task_item:nth-child(2n){
+    float: right;
+}
+.wzq_task_item_icon{
+    width:52px;
+    height:52px;
+    float: left;
+    border-radius: 50%;
+    background: #fd6756;
+    text-align: center;
+    line-height: 52px;
+    text-indent: 0.4em;
+}
+.wzq_task_item_icon .fy_icon{
+    color: #fff;
+    font-size: 18px;
+}
+.wzq_task_item_info{
+    width: 180px;
+    float: left;
+    margin-left: 15px;
+}
+.wzq_task_item_info h5{
+    font-size: 16px;
+    color: #7c7c7c;
+    padding-top: 5px;
+}
+.wzq_task_item_info h5 em{
+    color: #fd6756;
+    margin-left: 10px;
+}
+.wzq_task_item_info h6{
+    font-size: 12px;
+    color: #f5a324;
+    padding-top: 5px;
+}
+.wzq_task_item_btn{
+    display: block;
+    width: 118px;
+    height: 42px;
+    float: right;
+    text-align: center;
+    line-height: 42px;
+    border-radius: 3px;
+    margin-top: 8px;
+    background:#fd6756 ;
+    color: #fff;
+    cursor: pointer;
+}
+.wzq_jifen_task_list .wzq_jifen_task_item.wzq_task_item_finish .wzq_task_item_btn{
+    background: #cccccc;
+}
+.wzq_jifen_task_list .wzq_jifen_task_item.wzq_task_item_finish .wzq_task_item_info h6{
+    color: #7ace4c;
+}

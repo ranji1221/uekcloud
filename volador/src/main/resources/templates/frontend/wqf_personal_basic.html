@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>飞鱼平台 - 个人中心</title>
+	<meta name="renderer" content="webkit"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+	<meta name="keywords" content="飞鱼平台" />
+	<meta name="description" content="飞鱼平台" />
+	<link rel="shortcut icon" href="favicon.ico" />
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/wqf_basic.css">
+	<link rel="stylesheet" href="css/wqf_personal.css">
+	<link rel="stylesheet" href="http://at.alicdn.com/t/font_614432_ti3cur983vunmi.css">
+	<link rel="stylesheet" href="css/select-city.css">
+	<script src="js/jquery.min.js"></script>
+</head>
+<body>
+	
+
+	<!-- 基本资料  开始-->
+	<div class="wqf_information_box ">
+		<div class="wqf_information clear_both">
+			<!-- 左侧菜单 -->
+			<ul class="menu_left">
+				<li class="active">
+					<a href="wqf_personal_basic.html" target="main_frame">
+						<img src="images/wqf_set1.png">
+						<span>基本资料</span>
+						<span class="fy_icon">&#xe604;</span>
+					</a>
+				</li>
+				<li>
+					<a href="wqf_personal_set.html" target="main_frame">
+						<img src="images/wqf_set2.png">
+						<span>账号设置</span>
+						<span class="fy_icon">&#xe604;</span>
+					</a>
+				</li>
+			</ul>
+
+			<!-- 右侧主界面 -->
+			<div class="wqf_main">
+				<h1 class="wqf_title">基本资料</h1>
+
+					<div class="wqf_basic_main">
+						<form action="javascript:;">
+							<ul >
+								<li class="clear_both photo">
+									<input type="file" id="photo">
+
+									<span class="title">头像</span>
+									<img src="images/wqf_user.png">
+									<label for="photo"><i class="fy_icon">&#xe663;</i>换一个</label>
+									<p>
+										支持jpg，gif，png或bmp格式的图片，文件须小于1M <br> 
+										<label for="photo">上传头像</label>
+									</p>
+								</li>
+
+								<li class="name">
+									<span class="title">昵称</span>
+									<input type="text" value="18888888888">
+								</li>
+								<li class="name">
+									<span class="title">真实姓名</span>
+									<input type="text">
+								</li>
+								<li class="tel">
+									<span class="title">电话</span>
+									<span>18888888888 (已验证)</span>
+									<a href="javascript:;">修改手机</a>
+								</li>
+								<li class="name">
+									<span class="title">昵称</span>
+									<input type="text">
+								</li>
+								<li class="sex">
+									<span class="title">昵称</span>
+									<input type="radio" name="sex" id="man">
+									<label for="man">男</label>
+
+									<input type="radio" name="sex" id="woman">
+									<label for="woman">女</label>
+								</li>
+								<li class="date">
+									<span class="title">出生日期</span>
+
+									<select name="year" id="year">
+										<option value="">选择年份</option>
+									</select>
+									<select name="month" id="month">
+										<option value="">选择月份</option>
+									</select>
+									<select id="days" class="day">
+										<option value="">选择日期</option>
+									</select>
+								</li>
+								<li class="name">
+									<span class="title">QQ</span>
+									<input type="text">
+								</li>
+								<li class="name">
+									<span class="title">微信</span>
+									<input type="text">
+								</li>
+								<li class="place">
+									<span class="title">现居地</span>
+								    <!--zcityGroup start-->
+								    <div class="zcityGroup" city-range="{'level_start':1,'level_end':3}"></div>
+								    <!--zcityGroup end-->
+								</li>
+							</ul>
+						</form>
+
+						<div class="submit">
+							<button>保存信息</button>
+						</div>
+					</div>
+			</div>
+		</div>
+
+		
+	</div>
+
+</body>
+<script type="text/javascript" src="js/select-city.js"></script>
+	<script type="text/javascript" src="js/select-time.js"></script>
+	<script type="text/javascript">
+		// 城市下拉框
+		zcityrun('.zcityGroup');
+
+		// 日期下拉框
+		$(function(){
+			$(".wqf_basic_main>form .date").selectDate()
+			
+			$(".wqf_basic_main>form .date").focusout(function(){
+				var year = $("#year option:selected").html()
+				var month = $("#month option:selected").html()
+				var day = $("#days option:selected").html()
+				console.log(year+month+day)
+			})
+			
+		})
+	</script>
+</html>

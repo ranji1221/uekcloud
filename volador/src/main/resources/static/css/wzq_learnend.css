@@ -1,0 +1,134 @@
+.wzq_mbx{
+    font-size: 14px;
+    color: #5d5d5d;
+    padding: 30px 0 10px 28px;
+}
+
+/*********
+    wqf_learn_end.html   页面补充样式
+**********/
+.wzq_mbx.clear_both{
+    line-height: 60px;
+}
+.wzq_mbx>a{
+    display: inline-block;
+    text-align: center;
+    line-height: 60px;
+    width: 240px;
+    height: 60px;
+    color: rgb(255, 255, 255);
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-right: 48px;
+    background: rgb(253, 103, 86);
+    border-radius: 4px;
+    float: right;
+}
+.wzq_mbx>a:hover{
+    background: #fcad86;
+}
+.wzq_work_content_list .wqf_bg{
+    width: 100%; height: 100%;
+    background: rgba(253,103,86,0.9);
+    position: absolute;
+    top: 0; right: 0;
+    border-radius: 5px;
+    opacity: 0;
+    transition:opacity 0.4s;
+}
+.wzq_work_content_item:hover .wqf_bg{
+    opacity: 1;
+}
+.wzq_work_content_list .wqf_bg{
+    text-align: center;
+}
+.wzq_work_content_list .wqf_bg>.btn{
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate3d(-50%,-50%,0);
+    color: #fff;
+}
+.wzq_work_content_list .wqf_bg span{
+    float: left;
+    cursor: pointer;
+}
+.wzq_work_content_list .wqf_bg span i{
+    font-size: 20px;
+}
+.wzq_work_content_list .wqf_bg span:nth-child(1){
+    margin-right: 30px;
+}
+/*********
+    wqf_learn_end.html   页面补充样式结束
+**********/
+
+
+.wzq_work_content_list{
+    width: 100%;
+    height: auto;
+    box-sizing: border-box;
+    padding: 30px 0 0 45px;
+    background: #fff;
+}
+.wzq_work_content_item{
+    width: 262px;
+    height: auto;
+    float: left;
+    margin-right: 30px;
+    margin-bottom:40px;
+    position: relative;
+}
+.wzq_work_content_item a{
+    display: block;
+    width: 100%;
+    height: auto;
+}
+.wzq_work_content_item .wzq_work_item_img{
+    width: 100%;
+    height: 144px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+.wzq_work_content_item .wzq_work_item_img img{
+    width: 100%;
+}
+.wzq_work_content_item h5.wzq_work_item_title{
+    font-size: 20px;
+    color: #5d5d5d;
+    font-weight: bold;
+    line-height: 2;
+    height: auto;
+    overflow: hidden;
+}
+.wzq_work_content_item h5.wzq_work_item_title .wzq_learnend_title_l{
+    float: left;
+    max-width: 180px;
+}
+.wzq_work_content_item h5.wzq_work_item_title  .wzq_learnend_title_r{
+    max-width: 70px;
+    float: right;
+    font-size: 12px;
+    color: #5d5d5d;
+    font-weight: normal;
+    margin-left: 10px;
+    margin-top: 14px;
+}
+.wzq_work_content_item  h6.wzq_work_item_state{
+    font-size: 14px;
+    color: #7ace4c;
+    padding: 5px 0;
+}
+.wzq_work_content_item  .wzq_learnend_comment{
+    font-size: 14px;
+    color: #5d5d5d;
+}
+.wzq_work_content_item .wzq_learnend_comment span em{
+    margin-left: 5px;
+}
+.wzq_work_content_item .wzq_learnend_comment span:nth-child(2){
+    margin-left: 50px;
+}
+.wzq_work_content_item  .wzq_learnend_comment .wzq_learnend_biji{
+    color: #f5a324;
+}

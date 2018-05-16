@@ -1,0 +1,53 @@
+.wqf_information_box{
+	background: #fbfbfb;
+	margin-top: 25px;
+}
+.wqf_information{
+	width: 1140px;
+	margin:0 auto ;
+}
+.wqf_information .menu_left{
+	width: 165px;
+	float: left;
+}
+.wqf_information .menu_left>li{
+	width: 100%;height: 65px;
+	background: #fff;
+	line-height: 65px;
+	margin-bottom: 10px;
+	padding:0 15px;
+	box-sizing: border-box;
+	font-weight: bold;
+}
+.wqf_information .menu_left>li a{
+	display: block;
+	color: #7c7c7c;
+	transition:color 0.3s;
+}
+
+.wqf_information .menu_left>li img{
+	vertical-align: middle;
+}
+.wqf_information .menu_left>li .fy_icon{
+	float: right;
+	display: none;
+}
+.wqf_information .menu_left>li.active a{
+	color: #fd6756;
+}
+.wqf_information .menu_left>li.active .fy_icon{
+	display: inline;
+}
+.wqf_information .menu_left>li:hover a{
+	color: #fd6756;
+}
+
+
+/*右侧主界面*/
+.wqf_main{
+	width: 945px; 
+	float: right;
+}
+.wqf_main>iframe{
+	width: 100%;  height: 100%;
+}

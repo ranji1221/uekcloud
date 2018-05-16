@@ -1,0 +1,124 @@
+.cp_login{
+	width: 616px;
+	height: 558px;
+	position: absolute;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	top: 0px;
+	margin: auto;
+	border-radius: 20px;
+	background-color: white;
+}
+.cp_login .cp_title{
+	height:85px;
+	background:#FD6755;
+	border-radius: 20px 20px 0px 0px;
+	box-sizing: border-box;
+	padding-top: 35px;
+	padding-left: 43px;
+	color: white;
+	font-size: 24px;
+	font-weight: 500;
+	letter-spacing: 4px;
+}
+.cp_login .cp_form form{
+	width: 438px;
+	display: block;
+	margin: 0px auto;
+	padding-top: 40px;
+}
+.cp_login .form_control{
+	overflow: hidden;
+}
+.cp_login .form_control .con{
+	width:356px;
+	height: 47px;
+	box-sizing: border-box;
+	border: 2px solid #f7f7f7;
+	border-radius: 4px;
+	float: right;
+	padding-left: 22px;
+}
+.cp_login .form_control input::-webkit-input-placeholder{
+	color: #dedede;
+}
+.cp_login .form_control label{
+	float: left;
+	font-size: 14px;
+	color: #848484;
+	line-height: 43px;
+}
+.cp_login .mid {
+	margin: 21px 0px;
+}
+.cp_login .mid input{
+	height: 47px;
+	box-sizing: border-box;
+	border: 2px solid #f7f7f7;
+	border-radius: 4px;
+	float: right;
+	padding-left: 22px;
+}
+.cp_login .mid .code{
+	width: 210px;
+}
+.cp_login .mid .getCode{
+	width: 138px;
+	padding: 0px;
+	color: #FD6755;
+	background-color: white;
+	margin-left: 8px;
+}
+.cp_login .cp_form .form_pass{
+	padding-top: 19px;
+}
+.cp_login .form_last {
+	padding-top: 49px;
+	padding-bottom: 26px;
+}
+.cp_login .form_last input{
+	width: 212px;
+	height: 44px;
+	color: white;
+	background-color: #FD6755;
+	letter-spacing: 2px;
+	font-size: 14px;
+	display: block;
+	margin: 0px auto;
+	border-radius: 4px;
+	cursor: pointer;
+}
+.cp_login .tips{
+	width: 225px;
+	margin: 0px auto;
+	font-size: 12px;
+	cursor: pointer;
+}
+.cp_login .tips .btn{
+	width: 12px;
+	height: 12px;
+	border-radius: 4px;
+	box-sizing: border-box;
+	border: 2px solid #dcdcdc;
+	float: left;
+	position: relative;
+	margin-top: 3px;
+	margin-right: 5px;
+}
+.cp_login .tips .btn span{
+	width: 5px;
+	height: 5px;
+	border-radius: 50%;
+	background-color: #fd6755;
+	position: absolute;
+	left: 0px;
+	right: 0px;
+	top: 0px;
+	bottom: 0px;
+	margin: auto;
+	display: none;
+}
+.cp_login .cp_form .form_control input:focus{
+	border-color: #dcdcdc;
+}

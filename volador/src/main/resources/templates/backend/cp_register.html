@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+   	<title>新用户注册页</title>
+    <meta name="renderer" content="webkit" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="keywords" content="飞鱼平台" />
+    <meta name="description" content="飞鱼平台" />
+    <link rel="shortcut icon" href="favicon.ico" />
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/cp_register.css">
+    <link rel="stylesheet" href="http://at.alicdn.com/t/font_614432_1smgafue2yg8ehfr.css">
+    <link rel="stylesheet" href="css/easyform.css">
+</head>
+<body>
+    <div class="cp_login">
+        <div class="cp_title noselect">
+            新用户注册
+        </div>
+        <div class="cp_form">
+            <form action="register" id='form' method="POST">
+                <div class="form_control">
+                    <label for="user" class='noselect'>账号</label>
+                    <input type="text" placeholder="请输入您的手机号码"  id='user' class='con'  maxlength="11"  data-message="请输入正确的手机号" data-easytip="position:right;class:easy-red"  data-easyform="regex:^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\d{8}$;real-time;"  name='username'>
+                </div>
+                <div class="form_control mid" >
+                    <label for="coded" class='noselect' >验证码</label>
+                     <input type="button"  class='getCode'  value='获取验证码' id='code'>
+                    <input type="text"  maxlength="10" placeholder="请输入您的手机验证码"  class='code'  id='coded'  data-message="请输入验证码"  data-easytip="position:right;class:easy-red"  data-easyform="regex:^\d{4}$;real-time;"  name='code' >
+                </div>
+
+
+                <div class="form_control">
+                    <label for="pass1" class='noselect' >设置密码</label>
+                    <input type="password" placeholder="建议至少使用两种字符组合" class='con'  data-message='建议使用字母、数字和符号两种及以上的组合，6-20个字符"' data-easyform="regex:^[^\s]{6,20}$;real-time;" data-easytip="position:right;class:easy-red"   id='pass1'  name='pass1'>
+                </div>
+                
+
+                <div class="form_control form_pass">
+                    <label for="pass2" class='noselect' >确认密码</label>
+                    <input type="password" placeholder="8-20位，区分大小写，不支持空格" class='con' data-easyform="equal:#pass1;real-time;"  data-message='两次密码不一致'  data-easytip="position:right;class:easy-red"   id='pass2' name='pass2' >
+                </div>
+                
+
+                <div class="form_control form_last">
+                    <input type="submit"  value='立即注册' style='background-color: #ccc' disabled='disabled'/>
+                    <!-- <a href="login"><input type="submit"  value='立即注册' style='background-color: #ccc' disabled='disabled'  ></a> -->
+                </div>
+            </form>
+            <div class="tips noselect" >
+                <div class="btn">
+                    <span></span>
+                </div>
+                我已阅读并同意《飞鱼学院用户协议》
+            </div>
+        </div>
+    </div>
+    <script src='js/jquery.min.js'></script>
+    <script src='js/easyform.js'></script>
+    <script>
+        // 忘记密码按钮选中设置
+        let flag = false;
+        let sub = $('.form_last input');
+        $('.tips ').click(function(){
+            if(!flag){
+                $('span',this).css('display','block');
+            }else{
+                $('span',this).css('display','none');
+
+            }
+            flag = !flag;
+            if(flag){
+                sub.css('background','#FD6755').removeAttr('disabled');
+            }else{
+                sub.css('background','#ccc').attr('disabled','disabled');
+            }
+        });
+
+
+        // 验证码的开关
+        let flag1 = true;
+        let num = 10;
+        let code =$('#code');
+        code.click(function(){
+            if(!flag1){return};
+            flag1=false;
+            code.val(num+'s后重新获取');
+            let t = setInterval(function(){
+                num--;
+                if(num>0){
+                    code.val(num+'s后重新获取');
+                }else{
+                    clearInterval(t);
+                    num=10;
+                    code.val('获取验证码');
+                    flag1=true;
+                }
+            },1000);
+        });
+
+        // 表单验证
+        let ef = $("#form").easyform({
+            success:function(q){
+
+            },
+            error:function(){
+
+            }
+        });
+        $('#user,#coded').keyup(function(event) {
+            /* Act on the event */
+            let con = $(this).val().replace(/[^\d]/g,'');
+            $(this).val(con);
+        });
+    </script>
+</body>
+</html>

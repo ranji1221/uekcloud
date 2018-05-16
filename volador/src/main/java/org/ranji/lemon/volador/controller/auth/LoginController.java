@@ -41,7 +41,7 @@ public class LoginController {
 		return "test2";
 	}
 	
-	
+	/*
 	@RequestMapping(value="/login", method=RequestMethod.GET)
 	public ModelAndView loginPage(){
 		ModelAndView mv = new ModelAndView();
@@ -69,4 +69,5 @@ System.out.println(session.getId());
 		} 
 		return mv;
 	}
+	*/
 }

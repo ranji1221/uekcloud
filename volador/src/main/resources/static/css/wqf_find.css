@@ -1,0 +1,271 @@
+/*面包屑导航*/
+.wqf_navigation{
+	width: 1140px; 
+	margin:0 auto;
+	color: #5d5d5d;
+	font-size: 12px;
+	line-height: 52px;
+}
+.wqf_navigation>a{
+	color: #5d5d5d;
+}
+
+/*课程分类选项*/
+.wqf_class_select{
+	width: 1140px; 
+	margin:7px auto 0; 
+	padding: 0 15px;
+	box-sizing: border-box;
+}
+.wqf_class_select>ul{
+	width: 100%; height: 34px;
+	padding: 23px 0;
+	line-height: 34px;
+}
+.wqf_class_select>ul>li{
+	float: left;
+	color: #5d5d5d;
+	font-size: 14px;
+	padding:0 20px;
+	cursor: pointer;
+	margin-right: 15px;
+	font-weight: bold;
+}
+.wqf_class_select>ul>li:first-child{
+	padding-left: 0;
+}
+.wqf_class_select>ul>li.active{
+	background: #fd6756;
+	color: #fff;
+	border-radius: 4px;
+}
+.wqf_class_select>ul>li.more{
+	font-size: 12px;
+	background: #fbfbfb;
+	border-radius: 6px;
+	padding:0 13px;
+	font-weight: normal;
+}
+.wqf_class_select>ul>li.more:hover{
+	background: #eee;
+}
+.wqf_class_select>.sort{
+	padding:8px 15px 8px 0;
+	border:1px solid #f7f7f7;
+	color: #5d5d5d;
+	font-size: 12px;
+}
+.wqf_class_select>.sort .item{
+	padding:0 20px;
+	line-height: 22px;
+	float: left;
+	cursor: pointer;
+	border-right:1px solid #f7f7f7;
+}
+.wqf_class_select>.sort .item .jiantou{
+	float: right;
+	margin-top: 3px;
+	margin-left: 8px;
+}
+.wqf_class_select>.sort .item .jiantou span:nth-child(1),.wqf_class_select>.sort .item .jiantou span:nth-child(2){
+	display: block;
+	font-size: 12px;
+	height: 9px;
+	line-height: 6px;
+}
+.wqf_class_select>.sort .page{
+	float: right;
+
+}
+.wqf_class_select>.sort .page .select{
+	padding:0 15px;
+}
+.wqf_class_select>.sort .page .select:nth-of-type(1){
+	border-right:1px solid #f7f7f7;
+}
+.wqf_class_select>.sort .page .jt{
+	font-size: 14px;
+	cursor: pointer;
+}
+.wqf_class_select>.sort .page .jt:hover{
+	color: #f5a320;
+}
+
+
+
+
+/*优质课程*/
+.wqf_course{
+	width: 100%; 
+	margin-top: 22px;
+	background: #f8f8f8;
+	text-align: center;
+	padding:72px 0 72px;
+}
+.wqf_course>h1{
+	font-size: 30px; 
+	color: #848484;
+	font-weight: normal;
+}
+.wqf_course>p{
+	font-size: 20px; 
+	color: #d1d1d1;
+	margin-top: 12px;
+	margin-bottom: 10px;
+}
+.wqf_course>.more{
+	font-size: 14px;
+	color: #fd6755;
+	font-weight: bold;
+}
+.wqf_course>.more span{
+	display: inline-block;
+	width: 5px;
+}
+.wqf_course>.more span:nth-child(1){
+	color: #f5a41c;
+}
+.wqf_course>.more span:nth-child(2){
+	color: #febc15;
+}
+
+	/*课程列表*/
+.wqf_course>.class_list{
+	width: 1140px; 
+	margin:0 auto ;
+}
+.wqf_course>.class_list>li{
+	width: 262px;
+	float: left;
+	margin-right: 30px;
+	background: #fff;
+    margin-bottom: 18px;
+}
+.wqf_course>.class_list>li:nth-of-type(4n){
+	margin-right: 0;
+}
+.wqf_course>.class_list>li>a{
+	display: block;
+	position: relative;
+	transition: box-shadow 0.4s;
+	border-radius: 4px;
+    padding-bottom: 22px;
+}
+.wqf_course>.class_list>li>a .picture{
+	width: 100%; height: 146px;
+	position: relative;
+	z-index: 3;
+	top: 0;
+	transition: top 0.3s;
+}
+.wqf_course>.class_list>li>a .picture img{
+	width: 100%;
+	border-radius: 4px;
+}
+.wqf_course>.class_list>li>a .picture>header{
+	position: absolute;
+	top: 10px; left: 16px;
+	line-height: 30px;
+}
+.wqf_course>.class_list>li>a .picture>header span:nth-of-type(1){
+	width: 30px; height: 30px;
+	border:2px solid #fff;
+	border-radius: 50%;
+	color: #fff;
+	font-size: 14px;
+	box-shadow: 0 8px 10px 0 rgba(0,0,0,0.3);
+	display: none;
+}
+.wqf_course>.class_list>li>a .picture>header  span:nth-of-type(1).new{
+	background: #f5a31e;
+	display: inline-block;
+}
+.wqf_course>.class_list>li>a .picture>header  span:nth-of-type(1).new::after{
+	content: "new";
+}
+.wqf_course>.class_list>li>a .picture>header  span:nth-of-type(1).hot{
+	background: #f56122;
+	background-image: linear-gradient(to right,#f55021,#f67223); 
+	display: inline-block;
+}
+.wqf_course>.class_list>li>a .picture>header  span:nth-of-type(1).hot::after{
+	content: "hot";
+}
+.wqf_course>.class_list>li>a .picture>header .title{
+	display: inline-block;
+	height: 30px;
+	padding:0 10px;
+	border:2px solid rgba(255,255,255,0.6);
+	border-radius: 30px;
+	color: #fff;
+	font-size: 14px;
+	background: rgba(0,0,0,0.3);
+}
+.wqf_course>.class_list>li>a .picture .time{
+	position: absolute;
+	right: 18px; bottom: 13px;
+	font-size: 14px;
+	color: #fff;
+	text-shadow: 0 0 5px #999;
+}
+.wqf_course>.class_list>li>a .picture .time .fy_icon{
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.wqf_course>.class_list>li>a .bg1{
+	width: 239px; height: 146px;
+	background: rgba(112,112,112,0.4);
+	position: absolute;
+	top: 7px; left: 11px;
+	z-index: 2;
+	border-radius: 4px;
+	transition: top 0.3s;
+}
+.wqf_course>.class_list>li>a .bg2{
+	width: 217px; height: 146px;
+	background: rgba(112,112,112,0.2);
+	position: absolute;
+	top: 14px; left: 22px;
+	z-index: 2;
+	border-radius: 4px;
+    padding: 0 12px;
+}
+
+.wqf_course>.class_list>li>a:hover .picture{
+	top:-3px;
+}
+.wqf_course>.class_list>li>a:hover .bg1{
+	top:6px;
+}
+
+.wqf_course>.class_list>li>a>.title{
+	font-size: 18px;
+	color: #5d5d5d;
+	text-align: left;
+	margin-top: 28px;
+	min-height: 50px;
+	padding: 0 12px;
+}
+.wqf_course>.class_list>li>a>.title .fy_icon{
+	display: none;
+}
+.wqf_course>.class_list>li>a>.title.fire .fy_icon{
+	display: inline;
+	color: #f65321;
+}
+.wqf_course>.class_list>li>a>p{
+	color: #5d5d5d;
+	font-size: 14px;
+	text-align: left;
+	margin-top: 5px;
+	padding: 0 12px;
+}
+.wqf_course>.class_list>li>a>p>span:nth-child(2){
+	float: right;
+}
+.wqf_course>.class_list>li>a>p .price{
+	color: #fd6755;
+	font-size: 18px;
+}
+

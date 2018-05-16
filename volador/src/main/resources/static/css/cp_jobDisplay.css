@@ -1,0 +1,30 @@
+.wzq_show_comment_more{
+    width: 100%;
+    text-align: center;
+    padding-bottom: 110px;
+    padding-top: 10px;
+}
+.wzq_show_more{
+    display: inline-block;
+    line-height: 36px;
+    font-size: 18px;
+    color:#fd6756;
+    cursor: pointer;
+}
+.wzq_show_comment_more .fy_icon{
+    font-size: 24px;
+    line-height: 36px;
+    vertical-align: middle;
+}
+.wzq_work_content_item{
+	width: 230px;
+	margin-bottom:35px;
+}
+.wzq_work_content_item .wzq_work_item_img{
+	height:130px;
+    overflow: hidden;
+}
+.wzq_work_content_item .wzq_work_item_img img{
+    width:100%;
+    display: block;
+}

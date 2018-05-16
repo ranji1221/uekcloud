@@ -1,0 +1,139 @@
+
+.wzq_content_course{
+    box-sizing: border-box;
+    padding: 36px 28px 10px;
+    margin-top: 18px;
+    background: #fff;
+}
+.wzq_course_time{
+    width: 69px;
+    min-height: 136px;
+    float: left;
+    border-right: 1px solid #f5f5f5;
+    color: #7c7c7c;
+    margin-right: 28px;
+    position: relative;
+}
+.wzq_course_time::after{
+    display: block;
+    content: '';
+    width: 8px;
+    height: 8px;
+    background: #f5f5f5;
+    border-radius: 50%;
+    position: absolute;
+    right: -4px;
+    top: 0;
+}
+.wzq_course_time b{
+    display: block;
+    font-size: 20px;
+    line-height: 1.6;
+}
+.wzq_course_time span{
+    display: block;
+    font-size: 12px;
+}
+.wzq_course_list{
+    overflow: hidden;
+}
+.wzq_course_item{
+    padding-bottom: 28px;
+}
+.wzq_course_item:not(:first-child){
+    border-top:1px solid #f5f5f5;
+    padding-top: 30px;
+}
+.wzq_course_item::after{
+    display: block;
+    content: '';
+    clear: both;
+}
+.wzq_coursea_item_img{
+    width: 184px;
+    height: 108px;
+    float: left;
+    margin-right: 28px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+.wzq_coursea_item_img img{
+    width: 100%;
+}
+.wzq_course_item_info{
+    height: 108px;
+    overflow: hidden;
+    position: relative;
+    float: left;
+}
+.wzq_course_item_info .wzq_course_info_tit{
+    font-size: 18px;
+    color: #5d5d5d;
+    padding-top: 8px;
+}
+.wzq_course_item_info .wzq_course_info_tit span{
+    font-size: 12px;
+    color: #5d5d5d;
+    font-weight: normal;
+    margin-left: 15px;
+}
+.wzq_course_item_info .wzq_course_statu{
+    font-size: 14px;
+    color: #5d5d5d;
+    padding-top: 15px;
+}
+.wzq_course_item_info .wzq_course_statu em{
+    color: #f5a324;
+    margin-right: 25px;
+    font-style: normal;
+}
+.wzq_course_item_info  .wzq_course_comment{
+    padding-top: 25px;
+    height: auto;
+    overflow: hidden;
+    position: absolute;
+    bottom: 0;
+}
+.wzq_course_item_info  .wzq_course_comment span{
+    float: left;
+    margin-right: 60px;
+    font-size: 14px;
+    color: #5d5d5d;
+}
+.wzq_course_item_info  .wzq_course_comment span em{
+    margin-left: 5px;
+}
+
+/*********
+    wqf_learn_now.html   页面补充样式
+**********/
+.wzq_course_list>.wzq_course_item .button{
+    float: right;
+}
+.wzq_course_list>.wzq_course_item .button a{
+    display: inline-block;
+    text-align: center;
+    line-height: 60px;
+    width: 170px;
+    height: 55px;
+    color: rgb(255, 255, 255);
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    background: #7ace4c;
+    border-radius: 4px;
+}
+.wzq_course_list>.wzq_course_item .button a:first-child{
+    margin-bottom: 15px;
+    background: rgb(253, 103, 86);
+}
+.wzq_course_list>.wzq_course_item .button a:first-child:hover{
+    background: #fcad86;
+}
+.wzq_course_list>.wzq_course_item .button a:last-child:hover{
+    background: #93d8ac;
+}
+
+/*********
+    wqf_learn_now.html   页面补充样式结束
+**********/

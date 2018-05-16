@@ -14,7 +14,7 @@ public interface IPerService extends IGenericService<Per, Integer>{
 	/**
 	 * 根据用户名查找用户
 	 * @param userName
-	 * @return
+	 * @return 用户
 	 */
 	public Per findByUserName(String userName);
 	

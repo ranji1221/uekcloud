@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>飞鱼平台 - 个人中心</title>
+	<meta name="renderer" content="webkit"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+	<meta name="keywords" content="飞鱼平台" />
+	<meta name="description" content="飞鱼平台" />
+	<link rel="shortcut icon" href="favicon.ico" />
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/wqf_basic.css">
+	<link rel="stylesheet" href="css/wqf_personal.css">
+	<link rel="stylesheet" href="http://at.alicdn.com/t/font_614432_ti3cur983vunmi.css">
+	<script src="js/jquery.min.js"></script>
+</head>
+<body>
+	
+
+	<!-- 基本资料  开始-->
+	<div class="wqf_information_box ">
+		<div class="wqf_information clear_both">
+			<!-- 左侧菜单 -->
+			<ul class="menu_left">
+				<li>
+					<a href="personal_basic" target="main_frame">
+						<img src="images/wqf_set1.png">
+						<span>基本资料</span>
+						<span class="fy_icon">&#xe604;</span>
+					</a>
+				</li>
+				<li class="active">
+					<a href="personal_set" target="main_frame">
+						<img src="images/wqf_set2.png">
+						<span>账号设置</span>
+						<span class="fy_icon">&#xe604;</span>
+					</a>
+				</li>
+			</ul>
+
+			<!-- 右侧主界面 -->
+			<div class="wqf_main">
+				<h1 class="wqf_title">账号设置</h1>
+
+					<div class="wqf_set_main clear_both">
+						<div class="set_line clear_both">
+							<span>飞鱼账号</span>
+							<p th:text="${userName}">18888888888</p>
+						</div>
+						<div class="set_line clear_both">
+							<span>密码</span>
+							<a href="javascript:;">修改密码</a>
+						</div>
+						<div class="set_line clear_both">
+							<span>邮箱</span>
+							<a href="javascript:;">新增邮箱</a>
+						</div>
+						<div class="set_line clear_both">
+							<span>账号绑定</span>
+							<p>
+								<span><i class="fy_icon">&#xe65b;</i>未绑定 <a href="javascript:;">立刻绑定</a></span>
+								<span><i class="fy_icon">&#xe60b;</i>未绑定 <a href="javascript:;">立刻绑定</a></span>
+							</p>
+						</div>
+
+					</div>
+			</div>
+		</div>
+
+		
+	</div>
+
+</body>
+
+</html>

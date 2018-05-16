@@ -1,0 +1,124 @@
+body{
+	font-family: "微软雅黑";
+	background: #fbfbfb;
+}
+body,h1,h2,h3,h4,h5,h6,p,pre,ul,li,ol,input{
+	margin: 0;
+	padding: 0;
+}
+ul,ol,input,button{
+	padding:0;
+}
+img,button,input,textarea{
+	border:0;
+}
+button,input,textarea,select{
+	outline:0;
+	font-family: "微软雅黑";
+	transition:background 0.3s;
+}
+a{
+	text-decoration: none;
+	color: #3e3e3e;
+	-webkit-transition: color 0.1s linear,border 0.3s linear;
+	-moz-transition: color 0.1s linear,border 0.3s linear ;
+	-ms-transition: color 0.1s linear,border 0.3s linear ;
+	-o-transition: color 0.1s linear,border 0.3s linear ;
+	transition: color 0.1s linear,border 0.3s linear ;
+	-webkit-tap-highlight-color: transparent;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+}
+ul,ol,li{
+	list-style-type: none;
+}
+em,i{
+	font-style: normal;
+}
+textarea{
+	resize: none;
+}
+input::-ms-expand { display: none; }
+
+
+
+input::-webkit-input-placeholder{
+	color: #8b8b8b;
+	font-size: 12px;
+}
+
+
+
+
+input:focus{
+	border: 0;
+	outline: none;
+}
+
+/*内宽*/
+.container{
+	width: 1140px;
+	margin-left:auto;
+	margin-right:auto;
+}
+.container::after{
+	content: "";
+	display: block;
+	clear: both;
+}
+
+/* 单行文字超出显示省略号 */
+.hidden_one{
+	overflow:hidden;
+	text-overflow:ellipsis;
+	white-space:nowrap; 
+}
+
+/* 多行文字超出显示省略号 */
+.hidd_more{
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 3;     /* 固定显示3行*/
+	overflow: hidden;
+	/* 要求容器不能固定高度 */
+}
+.hidd_more2{
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;     /* 固定显示2行*/
+	overflow: hidden;
+	/* 要求容器不能固定高度 */
+}
+.clear_both::after{
+	content: "";
+	display: block;
+	clear: both;
+}
+
+/*禁止文字选中*/
+.noselect {
+	-webkit-touch-callout: none; /* iOS Safari */
+	-webkit-user-select: none; /* Chrome/Safari/Opera */
+	-khtml-user-select: none; /* Konqueror */
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* Internet Explorer/Edge */
+	user-select: none; /* Non-prefixed version, currently
+not supported by any browser */
+}
+
+@font-face {
+  font-family: 'fy_icon';  /* project id 614432 */
+  src: url('http://at.alicdn.com/t/font_614432_k2h5744260uul3di.eot');
+  src: url('http://at.alicdn.com/t/font_614432_k2h5744260uul3di.eot?#iefix') format('embedded-opentype'),
+  url('http://at.alicdn.com/t/font_614432_k2h5744260uul3di.woff') format('woff'),
+  url('http://at.alicdn.com/t/font_614432_k2h5744260uul3di.ttf') format('truetype'),
+  url('http://at.alicdn.com/t/font_614432_k2h5744260uul3di.svg#fy_icon') format('svg');
+}
+.fy_icon {
+	font-family:"fy_icon" !important;
+	font-size:16px;
+	font-style:normal;
+	-webkit-font-smoothing: antialiased;
+	-webkit-text-stroke-width: 0.2px;
+	-moz-osx-font-smoothing: grayscale;
+}

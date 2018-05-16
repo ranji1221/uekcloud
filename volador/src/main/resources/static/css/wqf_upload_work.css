@@ -1,0 +1,117 @@
+.wqf_main{
+	width: 946px;
+    height: auto;
+    float: right;
+}
+.wqf_content{
+	background: #fff;
+	padding-bottom: 40px;
+	margin-bottom: 20px;
+}
+.wqf_title{
+	height: 65px;
+	line-height: 65px;
+	padding:0 30px;
+	color: #3e3e3e;
+	font-size: 16px;
+	margin-bottom: 10px;
+	background: #fff;
+}
+.wqf_main>.wqf_content .wqf_title{
+	border-bottom: 1px solid #f4f4f4;
+	margin-bottom: 28px;
+}.wqf_main>.wqf_content .wqf_title span{
+	color: #b5b5b5;
+	font-size: 12px;
+	font-weight: normal;
+	margin-left: 15px; 
+}
+.wqf_main>.wqf_content input[type=text]{
+	display: block;
+	width: 740px; height: 40px;
+	border:1px solid #f4f4f4;
+	border-radius: 4px;
+	padding:0 15px;
+	margin:0 auto;
+	box-sizing: border-box;
+	font-family: "微软雅黑";
+}
+.wqf_main>.wqf_content>div{
+	width: 740px;
+	margin:28px auto 0;
+}
+.wqf_main>.wqf_content select{
+	width: 140px; height: 40px;
+	border:1px solid #f4f4f4;
+	color: #999;
+	padding:0 15px;
+	box-sizing: border-box;
+	float: left;
+}
+.wqf_main>.wqf_content div>input[type=text]{
+	width: 575px; height: 40px;
+	border:1px solid #f4f4f4;
+	padding:0 15px ;
+	box-sizing: border-box;
+	float: right;
+	color: #999;
+}
+
+.wqf_main>.wqf_content{
+	position: relative;
+}
+
+.wqf_main>.wqf_content input[type=file]{
+	position: absolute;
+	top: 0; left: 0;
+	opacity: 0;
+	z-index: -1;
+}
+.wqf_main>.wqf_content label{
+	display: block;
+	width: 240px; height: 166px;
+	border:1px solid #f4f4f4;
+	border-radius: 4px;
+	color: #7f7f7f;
+	text-align: center;
+	cursor: pointer;
+	margin-left: 52px;
+}
+.wqf_main>.wqf_content label:hover{
+	border-color: #ccc;
+}
+.wqf_main>.wqf_content label p:nth-child(1){
+	font-weight: bold;
+	margin-top: 45px;
+}
+.wqf_main>.wqf_content label p:nth-child(2){
+	width: 140px;
+	font-size: 12px;
+	margin:15px auto 0;
+	color: #b0b0b0;
+}
+
+.wqf_main>.submit{
+	margin-top: 36px;
+    padding-bottom: 30px;
+}
+.wqf_main>.submit button{
+	width: 240px; height: 60px;
+	background: #fd6756;
+	color: #fff;
+	border-radius: 4px;
+	font-size: 18px;
+	font-weight: bold;
+	cursor: pointer;
+	margin-right: 15px;
+}
+.wqf_main>.submit button:nth-child(2){
+	background: #7ace4c;
+}
+
+.wqf_main>.submit button:nth-child(1):hover{
+	background: #fcad86;
+}
+.wqf_main>.submit button:nth-child(2):hover{
+	background: #93d8ac;
+}
