@@ -2,29 +2,29 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.ranji.lemon.volador.model.course.Teacher">
   <insert id="save" parameterType="VoladorTeacher" keyProperty="id" useGeneratedKeys="true">
-		insert into lemon_volador_teacher (guid,create_time,update_time,teacher_name, teacher_info,teacher_position,teacher_image)
+		insert into lemon_volador_course_teacher (guid,create_time,update_time,teacher_name, teacher_info,teacher_position,teacher_image)
 		values (#{guid},#{createTime},#{updateTime},#{teacher_name}, #{teacher_info},#{teacher_position},#{teacher_image})
 	</insert>
 	
 	<!-- 删除某条教师 -->
 	<delete id="delete" parameterType="int" >
-		delete from lemon_volador_teacher where id = #{id}
+		delete from lemon_volador_course_teacher where id = #{id}
 	</delete>
 	
 	<!-- 查询根据id -->
 	<select id="find" parameterType="int" resultType="VoladorTeacher">
-		select * from lemon_volador_teacher where id = #{id}
+		select * from lemon_volador_course_teacher where id = #{id}
 	</select>
 	
 	
 	<!-- 查询全部Teacher -->
 	<select id="findAll" resultType="VoladorTeacher" parameterType="Map">
-		select * from lemon_volador_teacher
+		select * from lemon_volador_course_teacher
 	</select>
 
 	<!-- 修改个某位教师信息 -->
 	<update id="update" parameterType="VoladorTeacher">
-		update lemon_volador_teacher
+		update lemon_volador_course_teacher
 		<set>
 			<if test="teacher_name != null and teacher_name != ''">teacher_name = #{teacher_name},</if>
 			<if test="teacher_info != null and teacher_info != ''">teacher_info = #{teacher_info},</if>

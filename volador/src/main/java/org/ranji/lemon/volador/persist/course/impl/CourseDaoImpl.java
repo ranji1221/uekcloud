@@ -43,7 +43,27 @@ public class CourseDaoImpl extends GenericDaoImpl<Course,Integer> implements ICo
     }
 
     @Override
-    public List<Chapter> findChapterbyCourse(int courseId) {
-        return null;
+    public List<Chapter> findChapterbyCourse(int course_id) {
+    	return sqlSessionTemplate.selectList(typeNameSpace + ".findChapterbyCourse", course_id);
     }
+
+	@Override
+	public void saveCourseAndChapterRelation(int course_id, int chapter_id) {
+		// TODO Auto-generated method stub
+		Map<String,Object> params=new HashMap<String,Object>();
+        params.put("course_id",course_id);
+        params.put("chapter_id",chapter_id);
+        sqlSessionTemplate.insert(typeNameSpace+".saveCourseAndChapterRelation",params);
+		
+	}
+
+	@Override
+	public void deleteCourseAndChapterRelation(int course_id, int chapter_id) {
+		// TODO Auto-generated method stub
+		Map<String,Object> params=new HashMap<String,Object>();
+        params.put("course_id",course_id);
+        params.put("chapter_id",chapter_id);
+        sqlSessionTemplate.delete(typeNameSpace+".deleteCourseAndChapterRelation",params);
+		
+	}
 }

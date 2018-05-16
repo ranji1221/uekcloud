@@ -4,28 +4,28 @@
 
 	<!--储存一条信息 -->
   	<insert id="save" parameterType="VoladorChapter" keyProperty="id" useGeneratedKeys="true">
-		insert into lemon_volador_chapter (guid,create_time,update_time,chapter_name, chapter_info,video_address)
+		insert into lemon_volador_course_chapter (guid,create_time,update_time,chapter_name, chapter_info,video_address)
 		values (#{guid},#{createTime},#{updateTime},#{chapter_name}, #{chapter_info},#{video_address})
 	</insert>
 	
 	<!-- 删除某条记录 -->
 	<delete id="delete" parameterType="int" >
-		delete from lemon_volador_chapter where id = #{id}
+		delete from lemon_volador_course_chapter where id = #{id}
 	</delete>
 	
 	<!-- 查询根据id -->
 	<select id="find" parameterType="int" resultType="VoladorChapter">
-		select * from lemon_volador_chapter where id = #{id}
+		select * from lemon_volador_course_chapter where id = #{id}
 	</select>
 	
 	<!-- 查询全部chapter -->
 	<select id="findAll" resultType="VoladorChapter" parameterType="Map">
-		select * from lemon_volador_chapter
+		select * from lemon_volador_course_chapter
 	</select>
 	
 	<!-- 修改个某条chapter信息 -->
 	<update id="update" parameterType="VoladorChapter">
-		update lemon_volador_chapter
+		update lemon_volador_course_chapter
 		<set>
 			<if test="chapter_name != null and chapter_name != ''">chapter_name = #{chapter_name},</if>
 			<if test="video_address != null and video_address != ''">video_address = #{video_address},</if>

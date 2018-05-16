@@ -1,6 +1,7 @@
 package org.ranji.lemon.volador.service.course.prototype;
 
 import org.ranji.lemon.core.service.prototype.IGenericService;
+import org.ranji.lemon.volador.model.course.Chapter;
 import org.ranji.lemon.volador.model.course.Course;
 import org.ranji.lemon.volador.model.course.Teacher;
 
@@ -27,6 +28,20 @@ public interface ICourseService extends IGenericService<Course,Integer> {
      * @param teacher_id
      */
     public void deleteCourseAndTeacherRelation(int course_id,int teacher_id);
+    
+    /**
+     * 存储课程与章节关系
+     * @param course_id
+     * @param chapter_id
+     */
+    public void saveCourseAndChapterRelation(int course_id,int chapter_id);
+
+    /**
+     * 删除课程与章节的对应关系
+     * @param course_id
+     * @param chapter_id
+     */
+    public void deleteCourseAndChapterRelation(int course_id,int chapter_id);
 
     /**
      * 根据课程ID查找Teacher
@@ -34,4 +49,11 @@ public interface ICourseService extends IGenericService<Course,Integer> {
      * @return 教师列表
      */
     public List<Teacher> findTeacherbyCourse(int course_id);
+    
+    /**
+     * 根据课程ID查找Teacher
+     * @param course_id 课程ID
+     * @return 教师列表
+     */
+    public List<Chapter> findChapterbyCourse(int course_id);
 }
