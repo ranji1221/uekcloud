@@ -11,5 +11,6 @@ import org.ranji.lemon.volador.model.course.Note;
  *
  */
 public interface INoteDao extends IGenericDao<Note, Integer>{
+	
 
 }

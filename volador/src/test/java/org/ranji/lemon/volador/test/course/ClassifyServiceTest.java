@@ -8,6 +8,7 @@ import org.ranji.lemon.volador.VoladorApplication;
 import org.ranji.lemon.volador.model.auth.User;
 import org.ranji.lemon.volador.model.course.Classify;
 import org.ranji.lemon.volador.service.auth.prototype.IUserService;
+import org.ranji.lemon.volador.service.course.prototype.IChapterService;
 import org.ranji.lemon.volador.service.course.prototype.IClassifyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -40,13 +41,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @SpringBootTest(classes=VoladorApplication.class)  //-- 指定Spring-Boot的启动类
 public class ClassifyServiceTest {
 	@Autowired
-	private IClassifyService classifyService;
+	private IChapterService chapterService;
 	
 	@Test
 	public void testAddUser(){
-		Classify calssify = new Classify();
-		calssify.setClassify_name("大数据");
-		classifyService.save(calssify);
+//		chapterService.saveChapterAndStudentNoteRelation(1, 1);
+		chapterService.deleteChapterAndStudentNoteRelation(1, 1);
 
 	}
 }
