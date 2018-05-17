@@ -21,6 +21,29 @@
 		select * from lemon_volador_course_classify
 	</select>
 	
+	
+	<!-- 存储某个课程分类和课程的对应关系 -->
+	<insert id="saveClassifyAndCourseRelation" parameterType="Map" keyProperty="id" useGeneratedKeys="true">
+		insert into lemon_volador_course_course_classify (course_id, classify_id) values (#{course_id}, #{classify_id})
+	</insert>
+	
+	<!-- 删除课程分类和课程的对应关系 -->
+	<delete id="deleteClassifyAndCourseRelation" parameterType="Map">
+		delete from lemon_volador_course_course_classify where course_id = #{course_id} and classify_id = #{classify_id}
+	</delete>
+	
+	<!-- 根据课程分类查找课程列表 -->
+	<select id="findCoursebyClassify" parameterType="Integer" resultType ="VoladorCourse">
+		SELECT
+		t.*
+		FROM
+		lemon_volador_course_course t
+		LEFT JOIN lemon_volador_course_course_classify c_t ON t.id = c_t.course_id
+		LEFT JOIN lemon_volador_course_classify c ON c.id = c_t.classify_id
+		WHERE
+		c.id = #{id}
+	</select>
+	
 	<!-- 修改个某条calssify信息 -->
 	<update id="update" parameterType="VoladorClassify">
 		update lemon_volador_course_classify
