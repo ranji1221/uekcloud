@@ -10,6 +10,7 @@ import java.util.Map;
 import org.apache.shiro.authc.credential.DefaultPasswordService;
 import org.ranji.lemon.core.service.impl.GenericServiceImpl;
 import org.ranji.lemon.volador.model.personal.Per;
+import org.ranji.lemon.volador.model.personal.UserInfo;
 import org.ranji.lemon.volador.persist.personal.prototype.IPerDao;
 import org.ranji.lemon.volador.service.personal.prototype.IPerService;
 /**
@@ -24,6 +25,12 @@ import org.ranji.lemon.volador.service.personal.prototype.IPerService;
 public class PerServiceImpl extends GenericServiceImpl<Per, Integer> implements IPerService{
 
 	
+	@Override
+	public UserInfo findUserInfoByUserId(int userId) {
+		List <UserInfo> userInfoList = ((IPerDao) dao).findUserInfoByUserId(userId);
+		return userInfoList.get(0);
+	}
+
 	public void save(Per entity) {
 		entity.setPassword(new DefaultPasswordService().encryptPassword(entity.getPassword()));
 		super.save(entity);

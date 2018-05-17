@@ -31,6 +31,14 @@ public class UserInfo extends AbstractModel{
 		return gender;
 	}
 
+	public String getQq() {
+		return qq;
+	}
+
+	public void setQq(String qq) {
+		this.qq = qq;
+	}
+
 	public void setGender(String gender) {
 		this.gender = gender;
 	}

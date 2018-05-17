@@ -8,7 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.ranji.lemon.volador.model.personal.Per;
+import org.ranji.lemon.volador.model.personal.UserInfo;
 import org.ranji.lemon.volador.service.personal.prototype.IPerService;
+import org.ranji.lemon.volador.service.personal.prototype.IUserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +22,10 @@ import org.springframework.web.servlet.ModelAndView;
 public class RegisterController {
 
 	@Autowired
-	private IPerService userService;
+	private IPerService personalService;
+	
+	@Autowired
+	private IUserInfoService userInfoService;
 		
 	@RequestMapping(value="/register", method=RequestMethod.GET)
 	public ModelAndView registerPage(){
@@ -49,7 +54,7 @@ public class RegisterController {
 			return mv;
 		}
 		//查看用户是否已经注册
-		Per user = userService.findByUserName(username);
+		Per user = personalService.findByUserName(username);
 		if(null != user){
 			mv.addObject("message", "用户已经注册");	
 			mv.setViewName("redirect:/register");
@@ -60,7 +65,15 @@ public class RegisterController {
 			user.setUsername(username);
 			user.setPassword(password1);
 			try{
-				userService.save(user);
+				personalService.save(user);
+				
+				//保存用户对应的用户信息，默认为空
+				UserInfo userInfo = new UserInfo();
+				userInfoService.save(userInfo);
+				
+				//保存用户关系表
+				personalService.saveUserAndUserInfoRelation(user.getId(), userInfo.getId());
+				
 				mv.setViewName("redirect:/login");
 			} catch (Exception e){
 				mv.addObject("message", "register errors");

@@ -59,24 +59,24 @@
 								</li>
 
 								<li class="name">
-									<span class="title">账号</span>
-									<input type="text" value="18888888888" name="username">
+									<span class="title">账号</span>									
+									<input type="text" value="18888888888" name="username" readonly="value" th:value="${userName}">
 								</li>
 								<li class="name">
 									<span class="title">真实姓名</span>
-									<input type="text" name="realname">
+									<input type="text" name="realname" th:value="${userInfo.real_name}">
 								</li>
 								<li class="tel">
 									<span class="title">电话</span>
-									<span>18888888888 (已验证)</span>
+									<span th:text="${userName}">18888888888 (已验证)</span>
 									<a href="javascript:;">修改手机</a>
 								</li>
 								<li class="name">
 									<span class="title">昵称</span>
-									<input type="text" name="nickname">
+									<input type="text" name="nickname" th:value="${userInfo.nickname}">
 								</li>
 								<li class="sex">
-									<span class="title">昵称</span>
+									<span class="title">性别</span>
 									<input type="radio" name="sex" id="man">
 									<label for="man">男</label>
 
@@ -98,11 +98,11 @@
 								</li>
 								<li class="name">
 									<span class="title">QQ</span>
-									<input type="text" name="qq">
+									<input type="text" name="qq" th:value="${userInfo.qq}">
 								</li>
 								<li class="name">
 									<span class="title">微信</span>
-									<input type="text" name="wechat">
+									<input type="text" name="wechat" th:value="${userInfo.wechat}">
 								</li>
 								<li class="place">
 									<span class="title">现居地</span>

@@ -3,6 +3,7 @@ import java.util.List;
 
 import org.ranji.lemon.core.service.prototype.IGenericService;
 import org.ranji.lemon.volador.model.personal.Per;
+import org.ranji.lemon.volador.model.personal.UserInfo;
 /**
  * personal模块中IUserService接口
  * @author 范小亚
@@ -44,6 +45,13 @@ public interface IPerService extends IGenericService<Per, Integer>{
 	 * @return 用户信息ID集合
 	 */
 	public List<Integer> findUserUserInfoRelationByUserId(int userId);
+	
+	/**
+	 * 根据用户ID查找用户信息
+	 * @param userId  用户ID
+	 * @return  用户信息
+	 */
+	public UserInfo findUserInfoByUserId(int userId);
 	
 	/**
 	 * 存储用户购买课程--与课程ID对应
@@ -166,6 +174,8 @@ public interface IPerService extends IGenericService<Per, Integer>{
 	 * @return 作业ID列表
 	 */
 	public List<Integer> findHomeworkRelationByUserId(int userId);
+	
+	
 	
 	/**
 	 * 根据用户ID删除作业的记录
