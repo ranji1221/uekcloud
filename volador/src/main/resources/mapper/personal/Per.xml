@@ -43,7 +43,7 @@
 			r.*
 		FROM
 			lemon_volador_personal_userinfo r
-		LEFT JOIN lemon_volador_personal_userinfo u_r ON r.id = u_r.userinfo_id
+		LEFT JOIN lemon_volador_personal_user_userinfo u_r ON r.id = u_r.userinfo_id
 		LEFT JOIN lemon_volador_personal_user u ON u.id = u_r.user_id
 		WHERE
 			u.id = #{id}

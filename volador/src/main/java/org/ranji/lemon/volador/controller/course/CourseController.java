@@ -35,5 +35,52 @@ public class CourseController {
 		mv.setViewName("/backend/wqf_find");
 		return mv;
 	}
+	
+	//课程章节
+	@RequestMapping(value="/course_chapter", method=RequestMethod.GET)
+	public ModelAndView chapterPage(){
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/backend/wqf_chapter");
+		return mv;
+	}
+	
+	//课程评论页面
+	@RequestMapping(value="/course_comment", method=RequestMethod.GET)
+	public ModelAndView commentPage(){
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/backend/cp_comment");
+		return mv;
+	}
+	
+	//作业展示页面
+	@RequestMapping(value="/course_jobDisplay", method=RequestMethod.GET)
+	public ModelAndView jobDisplayPage(){
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/backend/cp_jobDisplay");
+		return mv;
+	}
 
+	//视频播放页面
+	@RequestMapping(value="/course_video", method=RequestMethod.GET)
+	public ModelAndView videoPage(){
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/backend/cp_video");
+		return mv;
+	}
+	
+	//视频笔记页面
+	@RequestMapping(value="/course_chapterNote", method=RequestMethod.GET)
+	public ModelAndView videoWorkPage(){
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/backend/cp_videoWork");
+		return mv;
+	}
+	
+	//视频章节页面
+	@RequestMapping(value="/course_videoChapter", method=RequestMethod.GET)
+	public ModelAndView videoChapterPage(){
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/backend/cp_videoWork");
+		return mv;
+	}
 }

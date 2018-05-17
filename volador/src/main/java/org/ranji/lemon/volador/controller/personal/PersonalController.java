@@ -3,16 +3,12 @@ package org.ranji.lemon.volador.controller.personal;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
 import org.ranji.lemon.volador.model.personal.Per;
 import org.ranji.lemon.volador.model.personal.UserInfo;
 import org.ranji.lemon.volador.service.personal.prototype.IPerService;
 import org.ranji.lemon.volador.service.personal.prototype.IUserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,8 +25,14 @@ public class PersonalController {
 	@RequestMapping(value="/index", method=RequestMethod.GET)
 	public ModelAndView indexPage(HttpServletRequest request ){
 		ModelAndView mv = new ModelAndView();
-		String userName = request.getSession().getAttribute("userName").toString();
-		mv.addObject("userName", userName);
+		try{
+			String userName = request.getSession().getAttribute("userName").toString();
+			mv.addObject("userName", userName);
+		}
+		catch (Exception e) {
+			mv.addObject("userName", "游客");
+		}
+
 		mv.setViewName("/backend/index");
 		return mv;
 	}
@@ -103,12 +105,20 @@ public class PersonalController {
 		String userName = request.getSession().getAttribute("userName").toString();
 		
 		//获取用户
-		Per person = personalService.findByUserName(userName);
+		//Per person = personalService.findByUserName(userName);
 		
 		
 		mv.addObject("userName", userName);
 		mv.addObject("head_image", "F:\\图片\\1524414791235.jpg");
 		mv.setViewName("/backend/wqf_personal_set");
+		return mv;
+	}
+	
+	//点击课程，跳转到章节页面
+	@RequestMapping(value="course", method=RequestMethod.GET)
+	public ModelAndView coursePage(HttpServletRequest request){
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("redirect:/course/chapter");
 		return mv;
 	}
 

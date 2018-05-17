@@ -58,6 +58,20 @@ public class PerLoginController {
 		return mv;
 	}
 	
+	//退出登录
+	@RequestMapping(value="/logout", method=RequestMethod.GET)
+	public ModelAndView logout(HttpServletRequest request){
+		
+		ModelAndView mv = new ModelAndView();
+		HttpSession session =  request.getSession();
+		if(null != session){
+			session.removeAttribute("userName");
+		}
+
+		mv.setViewName("redirect:/index");
+		return mv;
+	}
+	
 	/**
 	 * 参数有效性检查
 	 * @param username  用户名
