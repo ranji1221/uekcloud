@@ -20,11 +20,11 @@
         <div class="wzq_user wzq_clear">
             <div class="wzq_user_img" style="background:url(images/wqf_user.png) no-repeat center /cover;"></div>
             <div class="wzq_user_info">
-                <h3 class="wzq_user_info_name"><span id="wzq_user_name">杉泽小哥</span></h3>
+                <h3 class="wzq_user_info_name"><span th:text="${user_name}" id="wzq_user_name">杉泽小哥</span></h3>
                 <h4 class="wzq_user_info_con">
-                    <span>男</span>|
-                    <span>泸州</span>|
-                    <span>艺术工作者</span>
+                    <span th:text="${gender}">男</span>|
+                    <span th:text="${address}">泸州</span>|
+<!--                     <span>艺术工作者</span> -->
                 </h4>
             </div>
         </div>
@@ -126,7 +126,7 @@
                     <span>03月24日</span>
                 </div>
                 <!--某个时间段内的学习课程列表开始-->
-                <ul class="wzq_course_list">
+                <ul th:each="courseList : ${courseList}" class="wzq_course_list">
                     <li class="wzq_course_item">
                         <!-- 
                             只需更换行内 图片地址即可更换 用户课程背景图片
@@ -134,7 +134,7 @@
                         <div class="wzq_coursea_item_img" style="background: url(images/wzq_coursea_item_img.jpg) no-repeat center /cover;">
                         </div>
                         <div class="wzq_course_item_info">
-                            <h3 class="wzq_course_info_tit">Python课程初探 <span>更新至13-1</span></h3>
+                            <h3 th:text="${courseList.course_name}" class="wzq_course_info_tit">Python课程初探 <th:text="${courseList.course_name}" span>更新至13-1</span></h3>
                             <div class="wzq_course_statu hidd_more"><em>正在学习</em><span>学习至1-1Python课程初探</span></div>
                             <div class="wzq_course_comment"><span>笔记<em>0</em></span><span>评论<em>0</em></span></div>
                         </div>
@@ -146,47 +146,7 @@
                 </ul>
                 <!--某个时间段内的学习课程列表结束-->
             </div>
-            <div class="wzq_content_course wzq_clear">
-                <div class="wzq_course_time">
-                    <b>2017</b>
-                    <span>03月24日</span>
-                </div>
-                <ul class="wzq_course_list">
-                    <li class="wzq_course_item">
-                        <!-- 
-                            只需更换行内 图片地址即可更换 用户课程背景图片
-                         -->
-                        <div class="wzq_coursea_item_img" style="background: url(images/wzq_coursea_item_img.jpg) no-repeat center /cover;">
-                        </div>
-                        <div class="wzq_course_item_info">
-                            <h3 class="wzq_course_info_tit">Python课程初探 <span>更新至13-1</span></h3>
-                            <div class="wzq_course_statu hidd_more"><em>正在学习</em><span>学习至1-1Python课程初探</span></div>
-                            <div class="wzq_course_comment"><span>笔记<em>0</em></span><span>评论<em>0</em></span></div>
-                        </div>
-                        <div class="button">
-                            <a href="javascript:;">继续学习</a><br>
-                            <a href="javascript:;">上传作业</a>
-                        </div>
-                    </li>
-                    <li class="wzq_course_item">
-                        <!-- 
-                            只需更换行内 图片地址即可更换 用户课程背景图片
-                         -->
-                        <div class="wzq_coursea_item_img" style="background: url(images/wzq_coursea_item_img.jpg) no-repeat center /cover;">
-                        </div>
-                        <div class="wzq_course_item_info">
-                            <h3 class="wzq_course_info_tit">Python课程初探 <span>更新至13-1</span></h3>
-                            <div class="wzq_course_statu hidd_more"><em>正在学习</em><span>学习至1-1Python课程初探</span></div>
-                            <div class="wzq_course_comment"><span>笔记<em>0</em></span><span>评论<em>0</em></span></div>
-                        </div>
-
-                        <div class="button">
-                            <a href="javascript:;">继续学习</a><br>
-                            <a href="javascript:;">上传作业</a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+ 
             <!--根据时间排序，课程列表结束-->
             <!--分页开始-->
             <div class="wzq_page">

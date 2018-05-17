@@ -1,5 +1,16 @@
 package org.ranji.lemon.volador.controller.personal;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.ranji.lemon.volador.model.course.Course;
+import org.ranji.lemon.volador.model.personal.UserInfo;
+import org.ranji.lemon.volador.service.course.prototype.ICourseService;
+import org.ranji.lemon.volador.service.personal.prototype.IPerService;
+import org.ranji.lemon.volador.service.personal.prototype.IUserInfoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -7,6 +18,15 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class PersonalCenterController {
+	
+	@Autowired
+	private IPerService personalService;
+	
+	@Autowired
+	private ICourseService courseService;
+	
+	@Autowired
+	private IUserInfoService userInfoService ;
 	
 	/*
 	 * 个人中心 - 评论留言
@@ -33,9 +53,37 @@ public class PersonalCenterController {
 	 * 个人中心 - 正在学习的课程 
 	 * */
 	@RequestMapping(value="/personalCenter_learning", method=RequestMethod.GET)
-	public ModelAndView personalCenterLearn_now(){
+	public ModelAndView personalCenterLearn_now(HttpServletRequest request){
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("/backend/wqf_learn_now");
+		//异常处理，当没有获取到登录信息时，跳转到登录页面
+		try {
+			//根据session获取userId，查询正在学习课程，查询当前用户信息
+			int userId=(int) request.getSession().getAttribute("userId");
+			List<Integer> listCourseId= personalService.findStudyingCourseRelationByUserId(userId);
+			List<Course> courseList = new ArrayList<Course>() ;
+			for(int i=0;i<listCourseId.size();i++){
+				try {
+					courseList.add(courseService.find(listCourseId.get(i)));
+				}catch (NullPointerException e) {
+					// TODO: handle exception
+					break;
+				}
+			}
+			mv.addObject(courseList);
+			
+			List<Integer> userinfo_idList=personalService.findUserUserInfoRelationByUserId(userId);
+			List<UserInfo> userInfoList =new ArrayList<UserInfo>();
+			userInfoList.add(userInfoService.find(userinfo_idList.get(0)));
+			mv.addObject("user_name",userInfoList.get(0).getNickname());
+			mv.addObject("gender", userInfoList.get(0).getGender());
+			mv.addObject("address",userInfoList.get(0).getAddress());
+			
+			
+			mv.setViewName("/backend/wqf_learn_now");
+		} catch (Exception e) {
+			// TODO: handle exception
+			mv.setViewName("/backend/cp_login");
+		}
 		return mv;
 	}
 	
