@@ -66,6 +66,7 @@ public class PerLoginController {
 		HttpSession session =  request.getSession();
 		if(null != session){
 			session.removeAttribute("userName");
+			session.removeAttribute("userId");
 		}
 
 		mv.setViewName("redirect:/index");

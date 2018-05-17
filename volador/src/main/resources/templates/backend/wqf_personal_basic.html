@@ -44,13 +44,13 @@
 				<h1 class="wqf_title">基本资料</h1>
 
 					<div class="wqf_basic_main">
-						<form action="personal_basic" method="post">
+						<form action="personal_basic" method="post" enctype="multipart/form-data">
 							<ul >
 								<li class="clear_both photo">
-									<input type="file" id="photo" name="photo">
-
+									<input type="file" id="photo"  name="photo">
+									
 									<span class="title">头像</span>
-									<img src="images/wqf_user.png">
+									<img th:src="${userInfo.head_image}">
 									<label for="photo"><i class="fy_icon">&#xe663;</i>换一个</label>
 									<p>
 										支持jpg，gif，png或bmp格式的图片，文件须小于1M <br> 
@@ -111,12 +111,12 @@
 								    <!--zcityGroup end-->
 								</li>
 							</ul>
-							<div class="submit">
+							 <div class="submit">
 							     <button>保存信息</button>
-						    </div>
+						    </div> 
 						</form>
 
-						<div class="submit">
+						<div class="submit" >
 							<button>保存信息</button>
 						</div>
 					</div>
@@ -145,5 +145,32 @@
 			})
 			
 		})
+		var t = document.querySelector(".submit")
+		var f = document.querySelector("form")
+		t.onclick = function(){
+			  $("#submit").click(function () {
+		            var a = new FormData();
+		            a.append("photo", $("#photo")[0].files[0]);
+		            a.append("id", 1);
+		            $.ajax({
+		                url:"personal_basic",
+		                xhrFields:{
+		                        withCredentials:true
+		                },
+		                type: "POST",
+		                cache: false,
+		                data: a,
+		                processData: false,
+		                contentType:false,
+		                async: false,
+		                success: function (result) {
+							console.log(result)
+		                }
+		                //cache 上传文件不需要缓存，所以设置false
+		                //processData 因为data值是FormData对象，不需要对数据处理
+		                //contentType 因为是由form表单构造的FormData对象，且已声明了属性enctype，所以为false
+		            })
+		        })
+		}
 	</script>
 </html>

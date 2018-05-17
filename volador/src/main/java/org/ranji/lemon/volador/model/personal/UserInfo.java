@@ -22,6 +22,7 @@ public class UserInfo extends AbstractModel{
 	private String address;
 	private String wechat;
 	private String qq;
+	private String birthday;
 	
 	public UserInfo(){
 		
@@ -110,6 +111,14 @@ public class UserInfo extends AbstractModel{
 	@Override
 	public String toString(){
 		return JsonUtil.objectToJson(this);
+	}
+
+	public String getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(String birthday) {
+		this.birthday = birthday;
 	}
 	
 		
