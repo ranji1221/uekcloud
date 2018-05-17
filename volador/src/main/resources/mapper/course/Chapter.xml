@@ -18,6 +18,27 @@
 		select * from lemon_volador_course_chapter where id = #{id}
 	</select>
 	
+	<!-- 存储某个章节和附件的对应关系 -->
+	<insert id="saveChapterAndAccessoryRelation" parameterType="Map" keyProperty="id" useGeneratedKeys="true">
+		insert into lemon_volador_course_chapter_accessory (chapter_id, accessory_id) values (#{chapter_id}, #{accessory_id})
+	</insert>
+	
+	<!-- 删除课程分类和附件的对应关系 -->
+	<delete id="deleteChapterAndAccessoryRelation" parameterType="Map">
+		delete from lemon_volador_course_chapter_accessory where chapter_id = #{chapter_id} and accessory_id = #{accessory_id}
+	</delete>
+	
+	<!-- 存储某个章节和学生笔记的对应关系 -->
+	<insert id="saveChapterAndStudentNoteRelation" parameterType="Map" keyProperty="id" useGeneratedKeys="true">
+		insert into lemon_volador_course_chapter_note (chapter_id, note_id) values (#{chapter_id}, #{note_id})
+	</insert>
+	
+	<!-- 删除课程章节和学生笔记的对应关系 -->
+	<delete id="deleteChapterAndStudentNoteRelation" parameterType="Map">
+		delete from lemon_volador_course_chapter_note where chapter_id = #{chapter_id} and note_id = #{note_id}
+	</delete>
+	
+	
 	<!-- 查询全部chapter -->
 	<select id="findAll" resultType="VoladorChapter" parameterType="Map">
 		select * from lemon_volador_course_chapter
