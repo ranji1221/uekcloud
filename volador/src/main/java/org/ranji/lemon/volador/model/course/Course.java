@@ -17,12 +17,22 @@ public class Course extends AbstractModel {
     private String course_info;
     private double course_price;
     private int student_count;
+    private String course_image_address;
 
-    public String getCourse_name() {
+
+	public String getCourse_name() {
         return course_name;
     }
 
-    public void setCourse_name(String course_name) {
+    public String getCourse_image_address() {
+		return course_image_address;
+	}
+
+	public void setCourse_image_address(String course_image_address) {
+		this.course_image_address = course_image_address;
+	}
+
+	public void setCourse_name(String course_name) {
         this.course_name = course_name;
     }
 

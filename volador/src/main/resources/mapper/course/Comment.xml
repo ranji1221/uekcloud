@@ -25,7 +25,7 @@
 	<select id="findAll" resultType="VoladorComment">
 	select * from lemon_volador_comment
 	</select>
-	
+
 	<!-- 删除用户评论之间关系 -->
 	<delete id="deleteCommentAndUserRelation" parameterType="Map">
 		delete from  lemon_volador_user_comment where user_id=#{userId} and comment_id=#{commentId}

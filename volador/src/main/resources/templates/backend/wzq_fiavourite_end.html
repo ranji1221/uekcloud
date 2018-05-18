@@ -116,39 +116,15 @@
             </a>
         </div>
         <!--三种学习状态导航结束-->
-        <div class="wzq_content">
+        <div  class="wzq_content">
             <!--收藏课程列表开始-->
-            <ul class="wzq_fiav_list">
+            <ul th:each="courseList : ${courseList}"class="wzq_fiav_list">
                 <li class="wzq_fiav_item wzq_fiav_item_learning">
                     <div class="wzq_fiav_item_img">
                         <img src="images/wzq_coursea_item_img.jpg" alt="">
                     </div>
                     <div class="wzq_fiav_item_info">
-                        <h3 class="wzq_course_info_tit">Python课程初探 <span>更新至13-1</span></h3>
-                        <div class="wzq_course_statu hidd_more"><em>正在学习</em><span>学习至1-1Python课程初探</span></div>
-                        <div class="wzq_course_comment"><span>笔记<em>0</em></span><span>评论<em>0</em></span></div>
-                    </div>
-                    <span class="wzq_fiav_item_remove">取消收藏</span>
-                    <a href="" class="wzq_fiav_item_link">继续学习</a>
-                </li>
-                <li class="wzq_fiav_item wzq_fiav_item_learning">
-                    <div class="wzq_fiav_item_img">
-                        <img src="images/wzq_coursea_item_img.jpg" alt="">
-                    </div>
-                    <div class="wzq_fiav_item_info">
-                        <h3 class="wzq_course_info_tit">Python课程初探 <span>更新至13-1</span></h3>
-                        <div class="wzq_course_statu hidd_more"><em>正在学习</em><span>学习至1-1Python课程初探</span></div>
-                        <div class="wzq_course_comment"><span>笔记<em>0</em></span><span>评论<em>0</em></span></div>
-                    </div>
-                    <span class="wzq_fiav_item_remove">取消收藏</span>
-                    <a href="" class="wzq_fiav_item_link">继续学习</a>
-                </li>
-                <li class="wzq_fiav_item wzq_fiav_item_learning">
-                    <div class="wzq_fiav_item_img">
-                        <img src="images/wzq_coursea_item_img.jpg" alt="">
-                    </div>
-                    <div class="wzq_fiav_item_info">
-                        <h3 class="wzq_course_info_tit">Python课程初探 <span>更新至13-1</span></h3>
+                        <h3 th:text="${courseList.course_name}" class="wzq_course_info_tit">Python课程初探 <span>更新至13-1</span></h3>
                         <div class="wzq_course_statu hidd_more"><em>正在学习</em><span>学习至1-1Python课程初探</span></div>
                         <div class="wzq_course_comment"><span>笔记<em>0</em></span><span>评论<em>0</em></span></div>
                     </div>

@@ -6,8 +6,10 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.ranji.lemon.volador.model.course.Course;
+import org.ranji.lemon.volador.model.course.Homework;
 import org.ranji.lemon.volador.model.personal.UserInfo;
 import org.ranji.lemon.volador.service.course.prototype.ICourseService;
+import org.ranji.lemon.volador.service.course.prototype.IHomeworkService;
 import org.ranji.lemon.volador.service.personal.prototype.IPerService;
 import org.ranji.lemon.volador.service.personal.prototype.IUserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,9 @@ public class PersonalCenterController {
 	
 	@Autowired
 	private IUserInfoService userInfoService ;
+	
+	@Autowired
+	private IHomeworkService homeworkService ;
 	
 	/*
 	 * 个人中心 - 评论留言
@@ -140,13 +145,28 @@ public class PersonalCenterController {
 	/*
 	 * 个人中心 - 收藏课程 
 	 * */
-	@RequestMapping(value="/personalCenter_fiavourite_course", method=RequestMethod.GET)
+	@RequestMapping(value="/personalCenter_collect_course", method=RequestMethod.GET)
 	public ModelAndView personalCenterFiavourite_course(HttpServletRequest request){
 		ModelAndView mv = new ModelAndView();
 		
-		
+		//异常处理，当没有获取到登录信息时候，跳转到登录页面
 		try {
 			int userId=(int) request.getSession().getAttribute("userId");
+			List<Integer> listCourseId= personalService.findCollectCourseRelationByUserId(userId);
+			List<Course> courseList = new ArrayList<Course>() ;
+			for(int i=0;i<listCourseId.size();i++){
+				//当查询信息为空时，异常处理
+				try {
+					courseList.add(courseService.find(listCourseId.get(i)));
+				}catch (NullPointerException e) {
+					// TODO: handle exception
+					break;
+					}
+			}
+			mv.addObject("courseCount",listCourseId.size());
+			mv.addObject(courseList);
+			
+			//查询当前用户信息，并传递页面需要的用户信息
 			UserInfo userInfo=personalService.findUserInfoByUserId(userId);
 			mv.addObject("user_name",userInfo.getNickname());
 			mv.addObject("gender", userInfo.getGender());
@@ -156,9 +176,6 @@ public class PersonalCenterController {
 			// TODO: handle exception
 			mv.setViewName("redirect:/login");
 		}
-		//查询当前用户信息
-		
-		
 		return mv;
 	}
 	
@@ -224,6 +241,25 @@ public class PersonalCenterController {
 		ModelAndView mv = new ModelAndView();
 		try {
 			int userId=(int) request.getSession().getAttribute("userId");
+			List<Integer> homeworkIdList=personalService.findHomeworkRelationByUserId(userId);
+			List<Homework> homeworkList=new ArrayList<Homework>();
+			for(int i=0;i<homeworkIdList.size();i++){
+				//当查询信息为空时，异常处理
+				try {
+					homeworkList.add(homeworkService.find(homeworkIdList.get(i)));
+				}catch (NullPointerException e) {
+					// TODO: handle exception
+					break;
+					}
+			}
+			mv.addObject(homeworkList);
+			
+			//查询当前用户信息
+			UserInfo userInfo=personalService.findUserInfoByUserId(userId);
+			mv.addObject("user_name",userInfo.getNickname());
+			mv.addObject("gender", userInfo.getGender());
+			mv.addObject("address",userInfo.getAddress());
+			
 			mv.setViewName("/backend/wzq_list_work_upload");
 		} catch (Exception e) {
 			// TODO: handle exception
