@@ -69,6 +69,9 @@ public class RegisterController {
 				
 				//保存用户对应的用户信息，默认为空
 				UserInfo userInfo = new UserInfo();
+				
+				//设置默认头像
+				userInfo.setHead_image("photos\\wqf_user.png");
 				userInfoService.save(userInfo);
 				
 				//保存用户关系表

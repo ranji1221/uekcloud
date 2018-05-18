@@ -50,7 +50,8 @@
 									<input type="file" id="photo"  name="photo">
 									
 									<span class="title">头像</span>
-									<img th:src="${userInfo.head_image}">
+									<img th:src="${userInfo.head_image}" src= "images/wqf_user.png" style="width:90px; height:90px;">
+									<!-- <div th:style="'display:inline-block;width:90px; height:90px;background:url('+${userInfo.head_image}+') no-repeat center /cover'"></div> -->
 									<label for="photo"><i class="fy_icon">&#xe663;</i>换一个</label>
 									<p>
 										支持jpg，gif，png或bmp格式的图片，文件须小于1M <br> 
@@ -77,23 +78,24 @@
 								</li>
 								<li class="sex">
 									<span class="title">性别</span>
-									<input type="radio" name="sex" id="man">
+									<input type="radio" name="sex" id="man" value="man" checked="checked">
 									<label for="man">男</label>
 
-									<input type="radio" name="sex" id="woman">
+									<input type="radio" name="sex" id="woman" value="woman">
 									<label for="woman">女</label>
 								</li>
 								<li class="date">
+									<input type="date" name="year" value="">
 									<span class="title">出生日期</span>
 
 									<select name="year" id="year">
-										<option value="">选择年份</option>
+										<option>选择年份</option>
 									</select>
 									<select name="month" id="month">
-										<option value="">选择月份</option>
+										<option value="month">选择月份</option>
 									</select>
 									<select id="days" class="day">
-										<option value="">选择日期</option>
+										<option value="days">选择日期</option>
 									</select>
 								</li>
 								<li class="name">
@@ -111,14 +113,12 @@
 								    <!--zcityGroup end-->
 								</li>
 							</ul>
-							 <div class="submit">
-							     <button>保存信息</button>
-						    </div> 
+							 <div class="submit" >
+								<button>保存信息</button>
+							</div>
 						</form>
 
-						<div class="submit" >
-							<button>保存信息</button>
-						</div>
+						
 					</div>
 			</div>
 		</div>
@@ -172,5 +172,6 @@
 		            })
 		        })
 		}
+		
 	</script>
 </html>

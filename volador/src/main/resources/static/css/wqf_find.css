@@ -1,4 +1,4 @@
-/*面包屑导航*/
+/*闈㈠寘灞戝鑸�*/
 .wqf_navigation{
 	width: 1140px; 
 	margin:0 auto;
@@ -10,7 +10,7 @@
 	color: #5d5d5d;
 }
 
-/*课程分类选项*/
+/*璇剧▼鍒嗙被閫夐」*/
 .wqf_class_select{
 	width: 1140px; 
 	margin:7px auto 0; 
@@ -94,7 +94,7 @@
 
 
 
-/*优质课程*/
+/*浼樿川璇剧▼*/
 .wqf_course{
 	width: 100%; 
 	margin-top: 22px;
@@ -129,7 +129,7 @@
 	color: #febc15;
 }
 
-	/*课程列表*/
+	/*璇剧▼鍒楄〃*/
 .wqf_course>.class_list{
 	width: 1140px; 
 	margin:0 auto ;
@@ -268,4 +268,12 @@
 	color: #fd6755;
 	font-size: 18px;
 }
-
+.newprice{
+	float:left;
+	color: #fd6755;
+    font-size: 20px;
+}
+.newpeople{
+	float:right;
+	
+}

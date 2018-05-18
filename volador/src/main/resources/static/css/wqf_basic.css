@@ -9,7 +9,7 @@
 }
 
 
-/*账号设置 开始*/
+/*璐﹀彿璁剧疆 寮�濮�*/
 .wqf_set_main{
 	background: #fff;
 	padding:40px 40px 100px;
@@ -44,13 +44,13 @@
 	transition:none;
 	border-bottom:2px solid #3e3e3e;
 }
-/*账号设置 结束*/
+/*璐﹀彿璁剧疆 缁撴潫*/
 
 
 
 
 
-/*基本资料  开始*/
+/*鍩烘湰璧勬枡  寮�濮�*/
 .wqf_basic_main>form{
 	background: #fff;
 	padding:40px;
@@ -146,18 +146,18 @@
 	vertical-align: middle;
 }
 
-.wqf_basic_main>.submit{
+.wqf_basic_main>form .submit{
 	margin-top: 36px;
     padding-bottom: 30px;
 }
-.wqf_basic_main>.submit button{
+.wqf_basic_main>form  .submit button{
 	width: 240px; height: 60px;
 	background: #fd6756;
 	color: #fff;
 	border-radius: 4px;
 	font-size: 18px;
-	font-family: "微软雅黑";
+	font-family: "寰蒋闆呴粦";
 	font-weight: bold;
 	cursor: pointer;
 }
-/*基本资料  结束*/
+/*鍩烘湰璧勬枡  缁撴潫*/

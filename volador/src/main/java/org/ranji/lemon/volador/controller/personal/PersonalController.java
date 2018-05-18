@@ -75,19 +75,24 @@ public class PersonalController {
 			@RequestParam(value="sex",required=false) String sex,
 			@RequestParam(value="qq",required=false) String qq,
 			@RequestParam(value="wechat",required=false) String wechat,
+			@RequestParam(value="year",required=false) String year,
+			@RequestParam(value="place",required=false) String place,
 			HttpServletRequest request){
-		
-		
-		
+				
 		ModelAndView mv = new ModelAndView();
-		if (null != username){
+		if (null != username && !username.isEmpty()){
 			Per user = personalService.findByUserName(username);
 			if(null != user){
 
 				UserInfo userinfo = personalService.findUserInfoByUserId(user.getId());
-				String head_image = saveFile(username, file);
-				userinfo.setHead_image(head_image);
-				userinfo.setGender(sex.equals("on")?"男":"女");
+				
+				//如果用户上传文件
+				if(!file.getName().equals("")){
+					String head_image = saveFile(username, file);
+					userinfo.setHead_image(head_image);
+				}
+				
+				userinfo.setGender(sex.equals("man")?"男":"女");
 				userinfo.setNickname(nickname);
 				userinfo.setQQ(qq);
 				userinfo.setReal_name(realname);
@@ -98,9 +103,13 @@ public class PersonalController {
 				
 				mv.addObject(userinfo);			
 			}
-		}			
+			mv.setViewName("/backend/wqf_personal_basic");
+		}
+		else{
+			mv.setViewName("redirect:/login");
+		}
 	
-		mv.setViewName("/backend/wqf_personal_basic");
+		
 		return mv;
 	}
 
@@ -114,12 +123,16 @@ public class PersonalController {
             try {
             	//获取文件后缀名
             	String fileName = file.getName();
-        		String suffix = fileName.substring(fileName.lastIndexOf(".") + 1);
+        		//String suffix = fileName.substring(fileName.lastIndexOf(".") + 1);
+            	String suffix = ".png";
+        		/*
         		//如果用户未登录或session过期则给默认头像
                 if(null == username || ("").equals(username)){
                 	username = "wqf_user";
                 	suffix = ".png";
                 }
+                */
+        		
             	filePath = "photos\\" + username+ suffix;
                
                 File saveDir = new File("E:\\JAVA_WORKSPACE\\UNIQUE\\uekcloud\\volador\\src\\main\\resources\\static\\" + filePath);
@@ -142,7 +155,6 @@ public class PersonalController {
 
 		String userName = request.getSession().getAttribute("userName").toString();
 		mv.addObject("userName", userName);
-		mv.addObject("head_image", "F:\\图片\\1524414791235.jpg");
 		mv.setViewName("/backend/wqf_personal_set");
 		return mv;
 	}
@@ -155,10 +167,8 @@ public class PersonalController {
 		
 		//获取用户
 		//Per person = personalService.findByUserName(userName);
-		
-		
+				
 		mv.addObject("userName", userName);
-		mv.addObject("head_image", "F:\\图片\\1524414791235.jpg");
 		mv.setViewName("/backend/wqf_personal_set");
 		return mv;
 	}

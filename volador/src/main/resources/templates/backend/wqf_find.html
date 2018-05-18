@@ -34,10 +34,10 @@
 			<li>大数据</li>
 			<li>大咖来了</li>
 		</ul>
-		<ul>
+		<ul th:each="classfy:${classfyList}">
 			<li>分类：</li>
-			<li>全部</li>
-			<li class="active">AI</li>
+			<liclass="active" >全部</li>
+			<li th:text="${classfy.classify_name}">AI</li>
 			<li>平面设计</li>
 			<li>移动界面</li>
 			<li>商业插画</li>
@@ -92,7 +92,8 @@
 	<!-- 百万课程 开始 -->
 	<div class="wqf_course">
 		<div class="class_list clear_both">
-			<li>
+		
+		    <li th:each="course:${courseList}">
 				<a href="javascript:;">
 					<!-- 
 					    只需更换行内 图片地址即可更换 课程封面
@@ -100,7 +101,7 @@
 					<div class="picture" style="background: url(images/wqf_list1.png) no-repeat center/cover">
 						<header>
 							<span class="hot"></span>
-							<span class="title">用户体验</span>
+							<span class="title" th:text="${course.course_name}">用户体验</span>
 						</header>
 						<div class="time">
 							<span class="fy_icon">&#xe626;</span>
@@ -108,181 +109,17 @@
 						</div>
 					</div>
 
-					<h3 class="title hidd_more fire">理论+实践，构建属于你的机器学习库单 <span class="fy_icon">&#xe606;</span></h3>
+					<h3 class="title hidd_more fire" th:text="${course.course_info}">理论+实践，构建属于你的机器学习库单 <span class="fy_icon">&#xe606;</span></h3>
 					<p>
-						<span class="price">￥199</span>
-						<span>555人正在学习</span>
+						<div class="newprice">￥<span class="price" th:text="${course.course_price}">199</span></div>
+						<div class="newpeople"><span th:text="${course.student_count}">555</span>人正在学习</div>
+						
 					</p>
 				</a>
-			</li>
-			<li>
-				<a href="javascript:;">
-					<!-- 
-					    只需更换行内 图片地址即可更换 课程封面
-					 -->
-					<div class="picture" style="background: url(images/wqf_list1.png) no-repeat center/cover">
-						<header>
-							<span class="hot"></span>
-							<span class="title">用户体验</span>
-						</header>
-						<div class="time">
-							<span class="fy_icon">&#xe626;</span>
-							20:30
-						</div>
-					</div>
-
-					<h3 class="title hidd_more fire">理论+实践，构建属于你的机器学习库单 <span class="fy_icon">&#xe606;</span></h3>
-					<p>
-						<span class="price">￥199</span>
-						<span>555人正在学习</span>
-					</p>
-				</a>
-			</li>
-			<li>
-				<a href="javascript:;">
-					<!-- 
-					    只需更换行内 图片地址即可更换 课程封面
-					 -->
-					<div class="picture" style="background: url(images/wqf_list1.png) no-repeat center/cover">
-						<header>
-							<span class="hot"></span>
-							<span class="title">用户体验</span>
-						</header>
-						<div class="time">
-							<span class="fy_icon">&#xe626;</span>
-							20:30
-						</div>
-					</div>
-
-					<h3 class="title hidd_more fire">理论+实践，构建属于你的机器学习库单 <span class="fy_icon">&#xe606;</span></h3>
-					<p>
-						<span class="price">￥199</span>
-						<span>555人正在学习</span>
-					</p>
-				</a>
-			</li>
-			<li>
-				<a href="javascript:;">
-					<!-- 
-					    只需更换行内 图片地址即可更换 课程封面
-					 -->
-					<div class="picture" style="background: url(images/wqf_list1.png) no-repeat center/cover">
-						<header>
-							<span class="hot"></span>
-							<span class="title">用户体验</span>
-						</header>
-						<div class="time">
-							<span class="fy_icon">&#xe626;</span>
-							20:30
-						</div>
-					</div>
-
-					<h3 class="title hidd_more fire">理论+实践，构建属于你的机器学习库单 <span class="fy_icon">&#xe606;</span></h3>
-					<p>
-						<span class="price">￥199</span>
-						<span>555人正在学习</span>
-					</p>
-				</a>
-			</li>
-			<li>
-				<a href="javascript:;">
-					<!-- 
-					    只需更换行内 图片地址即可更换 课程封面
-					 -->
-					<div class="picture" style="background: url(images/wqf_list1.png) no-repeat center/cover">
-						<header>
-							<span class="hot"></span>
-							<span class="title">用户体验</span>
-						</header>
-						<div class="time">
-							<span class="fy_icon">&#xe626;</span>
-							20:30
-						</div>
-					</div>
-
-					<h3 class="title hidd_more fire">理论+实践，构建属于你的机器学习库单 <span class="fy_icon">&#xe606;</span></h3>
-					<p>
-						<span class="price">￥199</span>
-						<span>555人正在学习</span>
-					</p>
-				</a>
-			</li>
-			<li>
-				<a href="javascript:;">
-					<!-- 
-					    只需更换行内 图片地址即可更换 课程封面
-					 -->
-					<div class="picture" style="background: url(images/wqf_list1.png) no-repeat center/cover">
-						<header>
-							<span class="hot"></span>
-							<span class="title">用户体验</span>
-						</header>
-						<div class="time">
-							<span class="fy_icon">&#xe626;</span>
-							20:30
-						</div>
-					</div>
-
-					<h3 class="title hidd_more fire">理论+实践，构建属于你的机器学习库单 <span class="fy_icon">&#xe606;</span></h3>
-					<p>
-						<span class="price">￥199</span>
-						<span>555人正在学习</span>
-					</p>
-				</a>
-			</li>
-			<li>
-				<a href="javascript:;">
-					<!-- 
-					    只需更换行内 图片地址即可更换 课程封面
-					 -->
-					<div class="picture" style="background: url(images/wqf_list1.png) no-repeat center/cover">
-						<header>
-							<span class="hot"></span>
-							<span class="title">用户体验</span>
-						</header>
-						<div class="time">
-							<span class="fy_icon">&#xe626;</span>
-							20:30
-						</div>
-					</div>
-
-					<h3 class="title hidd_more fire">理论+实践，构建属于你的机器学习库单 <span class="fy_icon">&#xe606;</span></h3>
-					<p>
-						<span class="price">￥199</span>
-						<span>555人正在学习</span>
-					</p>
-				</a>
-			</li>
-			<li>
-				<a href="javascript:;">
-					<!-- 
-					    只需更换行内 图片地址即可更换 课程封面
-					 -->
-					<div class="picture" style="background: url(images/wqf_list1.png) no-repeat center/cover">
-						<header>
-							<span class="hot"></span>
-							<span class="title">用户体验</span>
-						</header>
-						<div class="time">
-							<span class="fy_icon">&#xe626;</span>
-							20:30
-						</div>
-					</div>
-
-					<h3 class="title hidd_more fire">理论+实践，构建属于你的机器学习库单 <span class="fy_icon">&#xe606;</span></h3>
-					<p>
-						<span class="price">￥199</span>
-						<span>555人正在学习</span>
-					</p>
-				</a>
-			</li>
+			</li>			
 		</div>
-
 	</div>
 <!-- 百万课程 结束-->
-
-
-
 
 	<script src="js/wqf_find.js"></script>
 </body>
