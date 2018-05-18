@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.ranji.lemon.volador.model.course.Course">
   <insert id="save" parameterType="VoladorCourse" keyProperty="id" useGeneratedKeys="true">
-		insert into lemon_volador_course_course (guid,create_time,update_time,course_name, course_info,course_price,student_count)
-		values (#{guid},#{createTime},#{updateTime},#{course_name}, #{course_info},#{course_price},#{student_count})
+		insert into lemon_volador_course_course (guid,create_time,update_time,course_name, course_info,course_price,student_count,course_image_address)
+		values (#{guid},#{createTime},#{updateTime},#{course_name}, #{course_info},#{course_price},#{student_count},#{course_image_address})
 	</insert>
 	
 	<!-- 删除某条记录 -->
