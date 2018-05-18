@@ -137,16 +137,16 @@
         <div class="wzq_mbx">
             <span>共发布11组作业</span>
         </div>
-        <div class="wzq_content">
+        <div  class="wzq_content">
             <!--作业列表开始-->
-            <ul class="wzq_work_content_list wzq_clear">
-                <li class="wzq_work_content_item">
+            <ul  class="wzq_work_content_list wzq_clear">
+                <li th:each="homeworkList : ${homeworkList}" class="wzq_work_content_item">
                     <a href="">
                         <div class="wzq_work_item_img">
                             <img src="images/wzq_work_img.jpg" alt="">
                         </div>
-                        <h5 class="wzq_work_item_title hidden_one">飞鱼平台网页</h5>
-                        <h6 class="wzq_work_item_info"><span>网页-企业官网</span> <span>2018.03.11</span></h6>
+                        <h5 th:text="${homeworkList.name}" class="wzq_work_item_title hidden_one">飞鱼平台网页</h5>
+                        <h6 th:text="${homeworkList.info} "class="wzq_work_item_info"><span>网页-企业官网</span> <span>2018.03.11</span></h6>
                     </a>
                     <p class="wzq_work_item_status">
                         <span class="wzq_work_comment"><i class="fy_icon">&#xe679;</i>2</span>
@@ -163,8 +163,6 @@
                         </div>
                     </div>
                 </li>
-
-
             </ul>
             <!--作业列表结束-->
             <!--分页开始-->
@@ -181,7 +179,9 @@
                 <a href="" class="wzq_page_last">尾页</a>
             </div>
             <!--分页结束-->
+
         </div>
+
     </div>
 </div>
 
