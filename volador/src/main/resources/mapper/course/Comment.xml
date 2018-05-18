@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.ranji.lemon.volador.model.course.Comment">
+  <insert id="save" parameterType="VoladorComment" keyProperty="id" useGeneratedKeys="true">
+		insert into lemon_volador_comment (guid,content,create_time,update_time) 
+		values (#{guid},#{content},#{createTime},#{updateTime})
+	</insert>
+	
+	<!-- 存储某个用户和评论的对应关系 -->
+	<insert id="savaCommentAndUserRelation" parameterType="Map" keyProperty="id" useGeneratedKeys="true">
+		insert into lemon_volador_user_comment (user_id, comment_id) values (#{userId}, #{commentId})
+	</insert>
+	
+	<!-- 存储某个章节和评论的对应关系 -->
+	<insert id="saveCommentAndChapterRelation" parameterType="Map" keyProperty="id" useGeneratedKeys="true">
+		insert into lemon_volador_chapter_comment(chapter_id,comment_id) values(#{chapterId},#{commentId})
+	</insert>
+	
+	<!-- 根据id删除评论 -->
+	<delete id="delete" parameterType="int">
+	    delete from  lemon_volador_comment where id = #{id}
+	</delete>
+	
+	<!-- 查询所有评论 -->
+	<select id="findAll" resultType="VoladorComment">
+	select * from lemon_volador_comment
+	</select>
+	
+	<!-- 删除用户评论之间关系 -->
+	<delete id="deleteCommentAndUserRelation" parameterType="Map">
+		delete from  lemon_volador_user_comment where user_id=#{userId} and comment_id=#{commentId}
+	</delete>
+	
+	<!-- 删除章节评论之间的关系 -->
+	<delete id="deleteCommentAndChapterRelation" parameterType="Map">
+		delete from  lemon_volador_chapter_comment where chapter_id=#{chapterId} and comment_id=#{commentId}
+	</delete>
+	
+</mapper>

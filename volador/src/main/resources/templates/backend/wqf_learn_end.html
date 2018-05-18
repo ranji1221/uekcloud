@@ -20,10 +20,10 @@
         <div class="wzq_user wzq_clear">
             <div class="wzq_user_img" style="background:url(images/wqf_user.png) no-repeat center /cover;"></div>
             <div class="wzq_user_info">
-                <h3 class="wzq_user_info_name"><span id="wzq_user_name">杉泽小哥</span></h3>
+                <h3 class="wzq_user_info_name"><span th:text="${user_name}"id="wzq_user_name">杉泽小哥</span></h3>
                 <h4 class="wzq_user_info_con">
-                    <span>男</span>|
-                    <span>泸州</span>|
+                    <span th:text="${gender}">男</span>|
+                    <span th:text="${address}">泸州</span>|
                     <span>艺术工作者</span>
                 </h4>
             </div>
@@ -118,21 +118,21 @@
         </div>
         <!--状态导航结束-->
         <div class="wzq_mbx clear_both">
-            <span>全部课程 20</span>
+            <span th:text="'全部课程  '+${courseCount}">全部课程 20</span>
 
-            <a href="javascript:;">提交作业</a>
+            <a href="personalCenter_uploadHomework">提交作业</a>
         </div>
         <div class="wzq_content">
             <!--作业列表开始-->
-            <ul class="wzq_work_content_list wzq_clear">
-                <li class="wzq_work_content_item">
+            <ul  class="wzq_work_content_list wzq_clear">
+                <li th:each="courseList : ${courseList}" class="wzq_work_content_item">
                     <a href="">
                         <!-- 
                             只需更换行内 图片地址即可更换 用户课程背景图片
                          -->
                         <div class="wzq_work_item_img" style="background: url(images/wzq_work_img.jpg) no-repeat center /cover;">
                         </div>
-                        <h5 class="wzq_work_item_title "><span class="wzq_learnend_title_l hidden_one">Python课程初探</span> <span class="wzq_learnend_title_r hidden_one">更新至13-1</span></h5>
+                        <h5 class="wzq_work_item_title "><span th:text="${courseList.course_name}" class="wzq_learnend_title_l hidden_one">Python课程初探</span> <span class="wzq_learnend_title_r hidden_one">更新至13-1</span></h5>
                         <h6 class="wzq_work_item_state">已学完</h6>
                         <div class="wzq_learnend_comment">
                             <span>笔记<em>0</em></span>
@@ -146,111 +146,10 @@
                         </div>
                     </div>
                 </li>
-                <li class="wzq_work_content_item">
-                    <a href="">
-                        <!-- 
-                            只需更换行内 图片地址即可更换 用户课程背景图片
-                         -->
-                        <div class="wzq_work_item_img" style="background: url(images/wzq_work_img.jpg) no-repeat center /cover;">
-                        </div>
-                        <h5 class="wzq_work_item_title "><span class="wzq_learnend_title_l hidden_one">Python课程初探</span> <span class="wzq_learnend_title_r hidden_one">更新至13-1</span></h5>
-                        <h6 class="wzq_work_item_state">已学完</h6>
-                        <div class="wzq_learnend_comment">
-                            <span class="wzq_learnend_biji">笔记<em>0</em></span>
-                            <span>评论<em>0</em></span>
-                        </div>
-                    </a>
-                    <div class="wqf_bg">
-                        <div class="btn clear_both">
-                            <span><i class="fy_icon">&#xe663;</i><br>回看</span>
-                            <span><i class="fy_icon">&#xe637;</i><br>清除</span>
-                        </div>
-                    </div>
-                </li>
-                <li class="wzq_work_content_item">
-                    <a href="">
-                        <!-- 
-                            只需更换行内 图片地址即可更换 用户课程背景图片
-                         -->
-                        <div class="wzq_work_item_img" style="background: url(images/wzq_work_img.jpg) no-repeat center /cover;">
-                        </div>
-                        <h5 class="wzq_work_item_title "><span class="wzq_learnend_title_l hidden_one">Python课程初探</span> <span class="wzq_learnend_title_r hidden_one">更新至13-1</span></h5>
-                        <h6 class="wzq_work_item_state">已学完</h6>
-                        <div class="wzq_learnend_comment">
-                            <span>笔记<em>0</em></span>
-                            <span>评论<em>0</em></span>
-                        </div>
-                    </a>
-                    <div class="wqf_bg">
-                        <div class="btn clear_both">
-                            <span><i class="fy_icon">&#xe663;</i><br>回看</span>
-                            <span><i class="fy_icon">&#xe637;</i><br>清除</span>
-                        </div>
-                    </div>
-                </li>
-                <li class="wzq_work_content_item">
-                    <a href="">
-                        <!-- 
-                            只需更换行内 图片地址即可更换 用户课程背景图片
-                         -->
-                        <div class="wzq_work_item_img" style="background: url(images/wzq_work_img.jpg) no-repeat center /cover;">
-                        </div>
-                        <h5 class="wzq_work_item_title "><span class="wzq_learnend_title_l hidden_one">Python课程初探</span> <span class="wzq_learnend_title_r hidden_one">更新至13-1</span></h5>
-                        <h6 class="wzq_work_item_state">已学完</h6>
-                        <div class="wzq_learnend_comment">
-                            <span>笔记<em>0</em></span>
-                            <span>评论<em>0</em></span>
-                        </div>
-                    </a>
-                    <div class="wqf_bg">
-                        <div class="btn clear_both">
-                            <span><i class="fy_icon">&#xe663;</i><br>回看</span>
-                            <span><i class="fy_icon">&#xe637;</i><br>清除</span>
-                        </div>
-                    </div>
-                </li>
-                <li class="wzq_work_content_item">
-                    <a href="">
-                        <!-- 
-                            只需更换行内 图片地址即可更换 用户课程背景图片
-                         -->
-                        <div class="wzq_work_item_img" style="background: url(images/wzq_work_img.jpg) no-repeat center /cover;">
-                        </div>
-                        <h5 class="wzq_work_item_title "><span class="wzq_learnend_title_l hidden_one">Python课程初探</span> <span class="wzq_learnend_title_r hidden_one">更新至13-1</span></h5>
-                        <h6 class="wzq_work_item_state">已学完</h6>
-                        <div class="wzq_learnend_comment">
-                            <span>笔记<em>0</em></span>
-                            <span>评论<em>0</em></span>
-                        </div>
-                    </a>
-                    <div class="wqf_bg">
-                        <div class="btn clear_both">
-                            <span><i class="fy_icon">&#xe663;</i><br>回看</span>
-                            <span><i class="fy_icon">&#xe637;</i><br>清除</span>
-                        </div>
-                    </div>
-                </li>
-                <li class="wzq_work_content_item">
-                    <a href="">
-                        <!-- 
-                            只需更换行内 图片地址即可更换 用户课程背景图片
-                         -->
-                        <div class="wzq_work_item_img" style="background: url(images/wzq_work_img.jpg) no-repeat center /cover;">
-                        </div>
-                        <h5 class="wzq_work_item_title "><span class="wzq_learnend_title_l hidden_one">Python课程初探</span> <span class="wzq_learnend_title_r hidden_one">更新至13-1</span></h5>
-                        <h6 class="wzq_work_item_state">已学完</h6>
-                        <div class="wzq_learnend_comment">
-                            <span>笔记<em>0</em></span>
-                            <span>评论<em>0</em></span>
-                        </div>
-                    </a>
-                    <div class="wqf_bg">
-                        <div class="btn clear_both">
-                            <span><i class="fy_icon">&#xe663;</i><br>回看</span>
-                            <span><i class="fy_icon">&#xe637;</i><br>清除</span>
-                        </div>
-                    </div>
-                </li>
+
+
+
+
             </ul>
             <!--作业列表结束-->
             <!--分页开始-->

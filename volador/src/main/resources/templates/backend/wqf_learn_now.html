@@ -120,13 +120,13 @@
 
         <div class="wzq_content">
             <!--根据时间排序，课程列表开始-->
-            <div class="wzq_content_course wzq_clear">
-                <div class="wzq_course_time">
+            <div  th:each="courseList : ${courseList}"  class="wzq_content_course wzq_clear">
+<!--                 <div class="wzq_course_time">
                     <b>2018</b>
                     <span>03月24日</span>
-                </div>
+                </div> -->
                 <!--某个时间段内的学习课程列表开始-->
-                <ul th:each="courseList : ${courseList}" class="wzq_course_list">
+                <ul class="wzq_course_list">
                     <li class="wzq_course_item">
                         <!-- 
                             只需更换行内 图片地址即可更换 用户课程背景图片
