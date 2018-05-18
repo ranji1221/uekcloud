@@ -19,10 +19,10 @@
         <div class="wzq_user wzq_clear">
             <div class="wzq_user_img" style="background:url(images/wqf_user.png) no-repeat center /cover;"></div>
             <div class="wzq_user_info">
-                <h3 class="wzq_user_info_name"><span id="wzq_user_name">杉泽小哥</span></h3>
+                <h3 class="wzq_user_info_name"><span th:text="${user_name}" id="wzq_user_name">杉泽小哥</span></h3>
                 <h4 class="wzq_user_info_con">
-                    <span>男</span>|
-                    <span>泸州</span>|
+                    <span th:text="${gender}">男</span>|
+                    <span th:text="${address}">泸州</span>|
                     <span>艺术工作者</span>
                 </h4>
             </div>

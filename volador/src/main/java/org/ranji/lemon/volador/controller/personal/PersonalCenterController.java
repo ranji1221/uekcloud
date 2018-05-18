@@ -57,7 +57,7 @@ public class PersonalCenterController {
 		ModelAndView mv = new ModelAndView();
 		//异常处理，当没有获取到登录信息时，跳转到登录页面
 		try {
-			//根据session获取userId，查询正在学习课程，查询当前用户信息
+			//根据session获取userId，查询正在学习课程
 			int userId=(int) request.getSession().getAttribute("userId");
 			List<Integer> listCourseId= personalService.findStudyingCourseRelationByUserId(userId);
 			List<Course> courseList = new ArrayList<Course>() ;
@@ -71,18 +71,23 @@ public class PersonalCenterController {
 			}
 			mv.addObject(courseList);
 			
-			List<Integer> userinfo_idList=personalService.findUserUserInfoRelationByUserId(userId);
-			List<UserInfo> userInfoList =new ArrayList<UserInfo>();
-			userInfoList.add(userInfoService.find(userinfo_idList.get(0)));
-			mv.addObject("user_name",userInfoList.get(0).getNickname());
-			mv.addObject("gender", userInfoList.get(0).getGender());
-			mv.addObject("address",userInfoList.get(0).getAddress());
+			//查询当前用户信息
+			UserInfo userInfo=personalService.findUserInfoByUserId(userId);
+			mv.addObject("user_name",userInfo.getNickname());
+			mv.addObject("gender", userInfo.getGender());
+			mv.addObject("address",userInfo.getAddress());
+			
+			//查询学习时长
 			
 			
+			//查询我的积分
+			
+			
+			//查询签到天数
 			mv.setViewName("/backend/wqf_learn_now");
 		} catch (Exception e) {
 			// TODO: handle exception
-			mv.setViewName("/backend/cp_login");
+			mv.setViewName("redirect:/login");
 		}
 		return mv;
 	}
@@ -91,9 +96,44 @@ public class PersonalCenterController {
 	 * 个人中心 - 已学习完的课程 
 	 * */
 	@RequestMapping(value="/personalCenter_learn_end", method=RequestMethod.GET)
-	public ModelAndView personalCenterLearn_end(){
+	public ModelAndView personalCenterLearn_end(HttpServletRequest request){
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("/backend/wqf_learn_end");
+		//异常处理，当没有获取到登录信息时，跳转到登录页面
+		try {
+			//根据session获取userId，查询已学习，并查询当前用户信息
+			int userId=(int) request.getSession().getAttribute("userId");
+			List<Integer> listCourseId= personalService.findStudyedCourseRelationByUserId(userId);
+			List<Course> courseList = new ArrayList<Course>() ;
+			for(int i=0;i<listCourseId.size();i++){
+				try {
+					courseList.add(courseService.find(listCourseId.get(i)));
+				}catch (NullPointerException e) {
+					// TODO: handle exception
+					break;
+				}
+			}
+			mv.addObject("courseCount",listCourseId.size());
+			mv.addObject(courseList);
+			
+			//查询当前用户信息
+			UserInfo userInfo=personalService.findUserInfoByUserId(userId);
+			mv.addObject("user_name",userInfo.getNickname());
+			mv.addObject("gender", userInfo.getGender());
+			mv.addObject("address",userInfo.getAddress());
+			
+			//查询学习时长
+			
+			
+			//查询我的积分
+			
+			
+			//查询签到天数
+			
+			mv.setViewName("/backend/wqf_learn_end");
+		} catch (Exception e) {
+			// TODO: handle exception
+			mv.setViewName("redirect:/login");
+		}
 		return mv;
 	}
 	
@@ -101,9 +141,24 @@ public class PersonalCenterController {
 	 * 个人中心 - 收藏课程 
 	 * */
 	@RequestMapping(value="/personalCenter_fiavourite_course", method=RequestMethod.GET)
-	public ModelAndView personalCenterFiavourite_course(){
+	public ModelAndView personalCenterFiavourite_course(HttpServletRequest request){
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("/backend/wzq_fiavourite_end");
+		
+		
+		try {
+			int userId=(int) request.getSession().getAttribute("userId");
+			UserInfo userInfo=personalService.findUserInfoByUserId(userId);
+			mv.addObject("user_name",userInfo.getNickname());
+			mv.addObject("gender", userInfo.getGender());
+			mv.addObject("address",userInfo.getAddress());
+			mv.setViewName("/backend/wzq_fiavourite_end");
+		} catch (Exception e) {
+			// TODO: handle exception
+			mv.setViewName("redirect:/login");
+		}
+		//查询当前用户信息
+		
+		
 		return mv;
 	}
 	
@@ -111,9 +166,26 @@ public class PersonalCenterController {
 	 * 个人中心 - 资料下载 
 	 * */
 	@RequestMapping(value="/personalCenter_data_download", method=RequestMethod.GET)
-	public ModelAndView personalCenterData_download(){
+	public ModelAndView personalCenterData_download(HttpServletRequest request){
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("/backend/wqf_data_download");
+		try {
+			//获取userId
+			int userId=(int) request.getSession().getAttribute("userId");
+			//查询当前用户信息
+			UserInfo userInfo=personalService.findUserInfoByUserId(userId);
+			mv.addObject("user_name",userInfo.getNickname());
+			mv.addObject("gender", userInfo.getGender());
+			mv.addObject("address",userInfo.getAddress());
+			
+			mv.setViewName("/backend/wqf_data_download");
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			mv.setViewName("redirect:/login");
+		}
+
+		
+
 		return mv;
 	}
 	
@@ -121,9 +193,16 @@ public class PersonalCenterController {
 	 * 个人中心 - 积分页面
 	 * */
 	@RequestMapping(value="/personalCenter_jifen", method=RequestMethod.GET)
-	public ModelAndView personalCenterJifen(){
+	public ModelAndView personalCenterJifen(HttpServletRequest request){
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("/backend/wzq_jifen");
+		try {
+			int userId=(int) request.getSession().getAttribute("userId");
+			mv.setViewName("/backend/wzq_jifen");
+		} catch (Exception e) {
+			// TODO: handle exception
+			mv.setViewName("redirect:/login");
+		}
+		
 		return mv;
 	}
 	
@@ -141,9 +220,16 @@ public class PersonalCenterController {
 	 * 个人中心 - 我的作业
 	 * */
 	@RequestMapping(value="/personalCenter_homework", method=RequestMethod.GET)
-	public ModelAndView personalCenterHomework(){
+	public ModelAndView personalCenterHomework(HttpServletRequest request){
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("/backend/wzq_list_work_upload");
+		try {
+			int userId=(int) request.getSession().getAttribute("userId");
+			mv.setViewName("/backend/wzq_list_work_upload");
+		} catch (Exception e) {
+			// TODO: handle exception
+			mv.setViewName("redirect:/login");
+		}
+
 		return mv;
 	}
 	
