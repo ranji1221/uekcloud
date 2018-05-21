@@ -255,6 +255,7 @@ public class PersonalCenterController {
 			}
 			mv.addObject(homeworkList);
 			
+			
 			//查询当前用户信息
 			UserInfo userInfo=personalService.findUserInfoByUserId(userId);
 			mv.addObject("user_name",userInfo.getNickname());
