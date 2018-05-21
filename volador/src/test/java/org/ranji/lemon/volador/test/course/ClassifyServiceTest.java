@@ -41,12 +41,15 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @SpringBootTest(classes=VoladorApplication.class)  //-- 指定Spring-Boot的启动类
 public class ClassifyServiceTest {
 	@Autowired
-	private IChapterService chapterService;
+	private IClassifyService classifyService;
 	
 	@Test
 	public void testAddUser(){
 //		chapterService.saveChapterAndStudentNoteRelation(1, 1);
-		chapterService.deleteChapterAndStudentNoteRelation(1, 1);
+		Classify classify=new Classify();
+		classify.setClassify_name("AI");
+		classifyService.save(classify);
+		//chapterService.deleteChapterAndStudentNoteRelation(1, 1);
 
 	}
 }

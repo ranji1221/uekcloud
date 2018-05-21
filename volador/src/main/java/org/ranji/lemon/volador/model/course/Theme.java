@@ -38,8 +38,8 @@ public class Theme extends AbstractModel{
 		return description;
 	}
 
-	public void setDescribe(String describe) {
-		this.description = describe;
+	public void setDescribe(String description) {
+		this.description = description;
 	}
 	
 	@Override

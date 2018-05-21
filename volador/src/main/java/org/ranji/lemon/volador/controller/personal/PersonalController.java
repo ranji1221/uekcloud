@@ -2,13 +2,21 @@ package org.ranji.lemon.volador.controller.personal;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.ranji.lemon.volador.model.course.Classify;
+import org.ranji.lemon.volador.model.course.Course;
+import org.ranji.lemon.volador.model.course.Theme;
 import org.ranji.lemon.volador.model.personal.Per;
 import org.ranji.lemon.volador.model.personal.UserInfo;
+import org.ranji.lemon.volador.service.course.prototype.IClassifyService;
+import org.ranji.lemon.volador.service.course.prototype.ICourseService;
+import org.ranji.lemon.volador.service.course.prototype.IThemeService;
 import org.ranji.lemon.volador.service.personal.prototype.IPerService;
 import org.ranji.lemon.volador.service.personal.prototype.IUserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +34,12 @@ public class PersonalController {
 	private IPerService personalService;
 	@Autowired
 	private IUserInfoService userInfoService;
+	@Autowired
+	private IThemeService themeService;
+	@Autowired
+	private ICourseService courseService;
+	@Autowired
+	private IClassifyService classifyService;
 	
 	//首页
 	@RequestMapping(value="/index", method=RequestMethod.GET)
@@ -34,9 +48,38 @@ public class PersonalController {
 		try{
 			String userName = request.getSession().getAttribute("userName").toString();
 			mv.addObject("userName", userName);
+			
+			//获取首页动态显示课程列表
+			Map <String, Object> paramCourse= new HashMap<String, Object>();
+			List<Course> classifyCourseList = new ArrayList<>();
+			
+			List<Classify> classifyList = classifyService.findAll();
+			for(Classify classify:classifyList){
+				classifyCourseList = classifyService.findCourseByClassify(classify.getId());
+				paramCourse.put("Classify"+Integer.toString(classify.getId()), classifyCourseList);
+			}
+			mv.addAllObjects(paramCourse);
+			
+			Map <String, Object> params= new HashMap<String, Object>();
+			
+			//首页显示课程分类
+			List<Theme> themeList = themeService.findAll();
+			
+			//查找课程分类对应的课程
+			for (Theme theme:themeList){
+				//返回课程分类
+				params.put("theme" + Integer.toString(theme.getId()), theme);
+				//返回分类下的课程
+				List<Course> courseList = themeService.findCourseAndThemeRelationByCourseId(theme.getId());
+				params.put("themeCourse" + Integer.toString(theme.getId()), courseList);
+				
+			}
+			mv.addAllObjects(params);	
 		}
 		catch (Exception e) {
 			mv.addObject("userName", "游客");
+			mv.setViewName("redirect:/login");
+			return mv;
 		}
 
 		mv.setViewName("/backend/index");
@@ -61,6 +104,8 @@ public class PersonalController {
 		catch (Exception e) {
 			mv.addObject("userName", "游客");
 			mv.addObject(new UserInfo());
+			mv.setViewName("redirect:/login");
+			return mv;
 		}		
 		
 		mv.setViewName("/backend/wqf_personal_basic");
