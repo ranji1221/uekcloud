@@ -16,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -75,7 +77,6 @@ public class PersonalCenterController {
 				}
 			}
 			mv.addObject(courseList);
-			
 			//查询当前用户信息
 			UserInfo userInfo=personalService.findUserInfoByUserId(userId);
 			mv.addObject("user_name",userInfo.getNickname());
@@ -270,10 +271,39 @@ public class PersonalCenterController {
 	}
 	
 	/*
-	 * 个人中心 - 作业上传
+	 * 个人中心 - 跳转到作业上传页面
 	 * */
 	@RequestMapping(value="/personalCenter_uploadHomework", method=RequestMethod.GET)
-	public ModelAndView personalCenterUploadHomework(){
+	public ModelAndView uploadHomeworkPage(HttpServletRequest request){
+		ModelAndView mv = new ModelAndView();
+		//判断是否登录
+		try {
+			int userId=(int) request.getSession().getAttribute("userId");
+			
+			//查询当前用户信息
+			UserInfo userInfo=personalService.findUserInfoByUserId(userId);
+			mv.addObject("user_name",userInfo.getNickname());
+			mv.addObject("gender", userInfo.getGender());
+			mv.addObject("address",userInfo.getAddress());
+			
+			
+			
+			mv.setViewName("/backend/wqf_upload_work");
+		} catch (Exception e) {
+			// TODO: handle exception
+			mv.setViewName("redirect:/login");
+		}
+		return mv;
+	}
+	
+	/*
+	 * 个人中心 - 作业上传
+	 * */
+	@RequestMapping(value="/personalCenter_uploadHomework", method=RequestMethod.POST)
+	public ModelAndView uploadHomework(			
+			@RequestParam(value="pic",required=false) MultipartFile file,
+			@RequestParam(value="name",required=false) String name,
+			@RequestParam(value="info",required=false) String info){
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("/backend/wqf_upload_work");
 		return mv;
