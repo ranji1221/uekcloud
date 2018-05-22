@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.ranji.lemon.volador.model.global.Announcement">
+
+    <insert id="save" parameterType="VoladorAnnouncement" keyProperty="id" useGeneratedKeys="true">
+		insert into lemon_volador_global_announcement (guid,create_time,update_time,announcement_title,announce_content) 
+		values (#{guid},#{createTime},#{updateTime},#{announcementTitle},#{announcementContent})
+	</insert>
+	
+	<!-- 删除某条记录 -->
+	<delete id="delete" parameterType="int" >
+		delete from lemon_volador_global_announcement where id = #{id}
+	</delete>
+	
+
+	
+	<!-- 查询根据id -->
+	<select id="find" parameterType="int" resultType="VoladorAnnouncement">
+		select * from lemon_volador_global_announcement where id = #{id}
+	</select>
+	
+	<!-- 查询全部用户信息
+	<select id="findAll" resultType="VoladorIntegral" >
+		select * from lemon_volador_personal_integral
+		<include refid="paramsSQL"/>
+	</select> -->
+	
+</mapper>
