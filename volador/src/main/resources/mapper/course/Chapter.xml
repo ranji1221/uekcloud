@@ -38,6 +38,18 @@
 		delete from lemon_volador_course_chapter_note where chapter_id = #{chapter_id} and note_id = #{note_id}
 	</delete>
 	
+	<!-- 根据章节id查找评论列表 -->
+	<select id="findCommentListByChapter" parameterType="Integer" resultType ="VoladorComment">
+		SELECT
+		t.*
+		FROM
+		lemon_volador_comment t
+		LEFT JOIN lemon_volador_chapter_comment c_t ON t.id = c_t.comment_id
+		LEFT JOIN lemon_volador_course_chapter c ON c.id = c_t.chapter_id
+		WHERE
+		c.id = #{id}
+	</select>
+	
 	
 	<!-- 查询全部chapter -->
 	<select id="findAll" resultType="VoladorChapter" parameterType="Map">

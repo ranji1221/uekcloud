@@ -1,7 +1,10 @@
 package org.ranji.lemon.volador.service.course.impl;
 
+import java.util.List;
+
 import org.ranji.lemon.core.service.impl.GenericServiceImpl;
 import org.ranji.lemon.volador.model.course.Chapter;
+import org.ranji.lemon.volador.model.course.Comment;
 import org.ranji.lemon.volador.persist.course.prototype.IChapterDao;
 import org.ranji.lemon.volador.persist.course.prototype.ICourseDao;
 import org.ranji.lemon.volador.service.course.prototype.IChapterService;
@@ -42,5 +45,17 @@ public class ChapterServiceImpl extends GenericServiceImpl<Chapter,Integer> impl
 		// TODO Auto-generated method stub
 		((IChapterDao) dao).deleteChapterAndStudentNoteRelation(chapter_id, note_id);
 		
+	}
+
+	@Override
+	public List<Comment> findCommentListByChapter(int chapter_id) {
+		// TODO Auto-generated method stub
+		return ((IChapterDao) dao).findCommentListByChapter(chapter_id);
+	}
+
+	@Override
+	public List<Integer> finCommentIdListByChapter(int chapter_id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

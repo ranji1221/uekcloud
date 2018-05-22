@@ -1,7 +1,10 @@
 package org.ranji.lemon.volador.persist.course.prototype;
 
+import java.util.List;
+
 import org.ranji.lemon.core.persist.prototype.IGenericDao;
 import org.ranji.lemon.volador.model.course.Chapter;
+import org.ranji.lemon.volador.model.course.Comment;
 
 /**
  * @author sertion
@@ -38,5 +41,22 @@ public interface IChapterDao extends IGenericDao<Chapter,Integer> {
      * @param note_id 教师
      */
     public void deleteChapterAndStudentNoteRelation(int chapter_id,int note_id);
+    
+    
+    /**
+     * 根据章节id查找评论列表
+     * @param chapter_id 章节ID
+     * @return 评论列表
+     */
+    public List<Comment> findCommentListByChapter(int chapter_id);
+    
+    /**
+     * 根据章节id查找评论id列表
+     * @param chapter_id 章节ID
+     * @return 评论id列表
+     */
+    public List<Integer> finCommentIdListByChapter(int chapter_id);
+    
+    
 
 }

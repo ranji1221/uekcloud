@@ -87,7 +87,7 @@
 			<div class="is_login">
 				<!-- 已登陆 -->
 				<!-- 包含 类名 active则显示,否则隐藏 -->
-				<div class="login_yes active">
+				<div class="login_yes active" th:class="${login_yes}">
 					<div class="message">
 						<a href="javascript:;" class="fy_icon">&#xe61d;</a>
 						<!-- 消息数 -->
@@ -127,7 +127,7 @@
 					</div>
 					<span class="line"></span>
 					<div class="self">
-						<img src="images/wqf_user.png">
+						<img src="images/wqf_user.png" th:src="${head_image}">
 	
 						<!-- 消息弹框 -->
 						<div class="message_box">
@@ -152,7 +152,7 @@
 				</div>
 	
 				<!-- 未登录 -->
-				<div class="login_no">
+				<div class="login_no" th:class="${login_no}">
 					<a href="login">登录</a>
 					<span class="line"></span>
 					<a href="register">注册</a>

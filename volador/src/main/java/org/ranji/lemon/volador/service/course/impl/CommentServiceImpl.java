@@ -1,5 +1,7 @@
 package org.ranji.lemon.volador.service.course.impl;
 
+import java.util.List;
+
 import org.ranji.lemon.core.service.impl.GenericServiceImpl;
 import org.ranji.lemon.volador.model.course.Comment;
 import org.ranji.lemon.volador.persist.course.prototype.ICommentDao;
@@ -38,6 +40,12 @@ public class CommentServiceImpl extends GenericServiceImpl<Comment, Integer> imp
 		// TODO Auto-generated method stub
 		((ICommentDao)dao).deleteCommentAndChapterRelation(commentid, chapterid);
 		
+	}
+
+	@Override
+	public List<Integer> findUserIdByCommentId(int commentId) {
+		// TODO Auto-generated method stub
+		return ((ICommentDao)dao).findUserIdByCommentId(commentId);
 	}
 
 

@@ -20,10 +20,10 @@
         <div class="wzq_user wzq_clear">
             <div class="wzq_user_img"><img src="images/wqf_user.png" alt=""></div>
             <div class="wzq_user_info">
-                <h3 class="wzq_user_info_name"><span id="wzq_user_name">杉泽小哥</span></h3>
+                <h3 class="wzq_user_info_name"><span th:text="${user_name}" id="wzq_user_name">杉泽小哥</span></h3>
                 <h4 class="wzq_user_info_con">
-                    <span>男</span>|
-                    <span>泸州</span>|
+                    <span th:text="${gender}">男</span>|
+                    <span th:text="${address}">泸州</span>|
                     <span>艺术工作者</span>
                 </h4>
             </div>
@@ -98,17 +98,17 @@
     <!--左侧导航结束-->
     
     <!-- 主界面 开始 -->
-    <div class="wqf_main">
+    <form action="personalCenter_uploadHomework" method="post" class="wqf_main">
         <h1 class="wqf_title">上传作业</h1>
         <div class="wqf_content">
             <h1 class="wqf_title">作业信息</h1>
-            <input type="text" placeholder="请输入作品信息">
+            <input type="text" placeholder="请输入作品名称" name="name">
             <div class="clear_both">
                 <select name="">
                     <option value="">作品类型</option>
                 </select>
                 <!-- <textarea name="" placeholder="作品说明"></textarea> -->
-                <input type="text" placeholder="作品说明"></input>
+                <input type="text" placeholder="作品说明" name="info"></input>
             </div>
         </div>
         <div class="wqf_content">
@@ -116,8 +116,8 @@
                 作业信息
                 <span>注：不要在图片上放置设计师商业推广信息（除案例信息外），不超过100张，支持批量上传。</span>
             </h1>
-            <input type="file" id="photo_file">
-                
+<!--             <input type="file" id="photo_file" name="pic"  multiple> -->
+            <input type="file" id="photo_file" name="pic" >    
             <label for="photo_file">
                 <p>点击添加图片</p>
                 <p>支持jpg／gif／png格式 RGB模式，不超过10m</p>
@@ -128,7 +128,7 @@
             <button>提交作业</button>
             <button>预览作品</button>
         </div>
-    </div>
+    </form>
     <!-- 主界面 开始 -->
 
 </div>

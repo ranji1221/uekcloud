@@ -1,6 +1,7 @@
 package org.ranji.lemon.volador.persist.course.impl;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.ranji.lemon.core.persist.impl.GenericDaoImpl;
@@ -48,6 +49,15 @@ public class CommentDaoImpl extends GenericDaoImpl<Comment,Integer> implements I
 		map.put("chapterid", chapterid);
 		sqlSessionTemplate.delete(typeNameSpace+".deleteCommentAndChapterRelation", map);
 		
+	}
+
+
+	@Override
+	public List<Integer> findUserIdByCommentId(int commentId) {
+		// TODO Auto-generated method stub
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("commentId", commentId);
+		return sqlSessionTemplate.selectList(typeNameSpace+".findUserIdByCommentId", map);
 	}
 	
 

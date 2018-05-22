@@ -45,26 +45,38 @@ public class PersonalController {
 	@RequestMapping(value="/index", method=RequestMethod.GET)
 	public ModelAndView indexPage(HttpServletRequest request ){
 		ModelAndView mv = new ModelAndView();
+		
+		//检测是否登录
 		try{
-			String userName = request.getSession().getAttribute("userName").toString();
+			//登录成功，返回userName及head_image
+			String userName=(String) request.getSession().getAttribute("userName");
+			int userId=(int) request.getSession().getAttribute("userId");
+			UserInfo userInfo=personalService.findUserInfoByUserId(userId);
+			mv.addObject("head_image",userInfo.getHead_image());
+			mv.addObject("login_yes","login_yes active");
+			mv.addObject("login_no","login_no");
 			mv.addObject("userName", userName);
-			
+		}
+		catch (Exception e) {
+			mv.addObject("login_yes","login_yes");
+			mv.addObject("login_no","login_no active");
+		}
+		
+		Map <String, Object> paramCourse= new HashMap<String, Object>();
+		List<Course> classifyCourseList = new ArrayList<>();
+		List<Theme> themeList = themeService.findAll();
+		Map <String, Object> params= new HashMap<String, Object>();
+		
+		//空指针异常处理，当未获取到数据时候，前台显示资料为空
+		try {
 			//获取首页动态显示课程列表
-			Map <String, Object> paramCourse= new HashMap<String, Object>();
-			List<Course> classifyCourseList = new ArrayList<>();
-			
 			List<Classify> classifyList = classifyService.findAll();
 			for(Classify classify:classifyList){
 				classifyCourseList = classifyService.findCourseByClassify(classify.getId());
 				paramCourse.put("Classify"+Integer.toString(classify.getId()), classifyCourseList);
 			}
-			mv.addAllObjects(paramCourse);
-			
-			Map <String, Object> params= new HashMap<String, Object>();
 			
 			//首页显示课程分类
-			List<Theme> themeList = themeService.findAll();
-			
 			//查找课程分类对应的课程
 			for (Theme theme:themeList){
 				//返回课程分类
@@ -74,16 +86,18 @@ public class PersonalController {
 				params.put("themeCourse" + Integer.toString(theme.getId()), courseList);
 				
 			}
-			mv.addAllObjects(params);	
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
-		catch (Exception e) {
-			mv.addObject("userName", "游客");
-			return mv;
-		}
+		
+		mv.addAllObjects(paramCourse);
+		mv.addAllObjects(params);	
+
 
 		mv.setViewName("/backend/index");
 		return mv;
 	}
+	
 	//基本资料
 	@RequestMapping(value="/personal_basic", method=RequestMethod.GET)
 	public ModelAndView personalBasicPage(HttpServletRequest request){

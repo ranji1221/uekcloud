@@ -152,12 +152,14 @@
             <div class="wzq_page">
                 <a href="" class="wzq_page_index">首页</a>
                 <a href="" class="wzq_page_prev">上一页</a>
-                <a href="" class="wzq_page_active">1</a>
+                <a href="" th:each="a : ${courseList}" th:text="${a.course_name}">1</a>
+                
+<!--                 <a href="" class="wzq_page_active">1</a>
                 <a href="">2</a>
                 <a href="">3</a>
                 <a href="">4</a>
                 <a href="">5</a>
-                <a href="">6</a>
+                <a href="">6</a> -->
                 <a href="" class="wzq_page_next">下一页</a>
                 <a href="" class="wzq_page_last">尾页</a>
             </div>

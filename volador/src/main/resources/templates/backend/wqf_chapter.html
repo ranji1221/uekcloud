@@ -19,7 +19,7 @@
         <div class="cp_breadCrumb">
             <a href="index">首页</a>
             <i class='fy_icon'>&#xe604;</i>
-            <a href="#">找课程</a>
+            <a href="findCourse">找课程</a>
             <i class='fy_icon'>&#xe604;</i>
             <a href="#">课程详情</a>
         </div>
@@ -30,12 +30,12 @@
 	<div class="cp_product">
 		<div class="con_left">
             <a href="#">
-                <img src="images/cp_10.png">
+                <img src="images/cp_10.png" th:src="${course.course_image_address}">
             </a>  
         </div>
         <div class="con_right">
             <div class="con_son1">
-                <h3>Python课程初探</h3>
+                <h3  th:text="${course.course_name}" >Python课程初探</h3>
                 <a href="#" class='group'>
                     <img src="images/cp_11.png">
                     <span>
@@ -55,17 +55,17 @@
                     </a>
                 </div>
             </div>
-            <div class="con_son2">
+            <div th:text="${course.course_info}" class="con_son2" >
                 Python是什么？豆瓣和Youtube是用它开发的；美国最流行的三大服务器开发语言之一，最工整最严谨的编程语言，取代Java和PHP的开源趋势语言。 
             </div>
             <div class="con_son3">
                 <span>
                     学习人数
-                    <b>899</b>
+                    <b th:text="${course.student_count}">899</b>
                 </span>
                 <span>
                     课程时长
-                    <b>160分钟</b>
+                    <b >160分钟</b>
                 </span>
                 <span>
                     点赞
@@ -73,16 +73,16 @@
                 </span>
             </div>
             <div class="con_son4">
-               本节价格<b>300</b><span>元</span>
+               本节价格<b th:text="${course.course_price == 0 ? '免费':course.course_price}">300</b><span th:text="${course.course_price == 0 ? '':'元'}">元</span>
             </div>
             <div class="con_son5">
-               <a href="#" class='putchase'>
+               <a href="#" class='putchase' th:class="${course.course_price == 0 ? '':'putchase'}" th:text="${course.course_price == 0 ? '':'立即购买'}">
                    立刻购买
                </a>
                <a href="#" class='study'>
                    去学习
                </a>
-               <a href="#">试听5分钟</a>
+               <a href="#" th:text="${course.course_price == 0 ? '':'试听一节课'}">试听5分钟</a>
             </div>
         </div>
 
@@ -96,14 +96,17 @@
                 <a href="#"><span>章节</span></a>
                 <div class="wzq_tit_bor"></div>
             </div>
-            <div class="wzq_tit_item">
+<!-- 课程评论    未实现 -- >
+<!--		<div class="wzq_tit_item">
                 <a href="course_comment"><span>评论</span></a>
                 <div class="wzq_tit_bor"></div>
-            </div>
-            <div class="wzq_tit_item">
+            </div> -->
+            
+<!-- 作业展示   未实现 -->
+<!--        <div class="wzq_tit_item">
                 <a href="course_jobDisplay"><span>作业展示</span></a>
                 <div class="wzq_tit_bor"></div>
-            </div>
+            </div> -->
         </div>
     </div>
     <!-- 状态导航结束-->
@@ -196,11 +199,11 @@
                 <!-- 
                     只需更换行内 图片地址即可更换 用户头像
                  -->
-                <div class="head_img" style="background: url(images/wqf_user.png) no-repeat center /cover;">
+                <div class="head_img" style="background: url(images/wqf_user.png) no-repeat center /cover;" th:style="'background: url('+${teacher.teacher_image}+') no-repeat center /cover;'">
                 </div>
-                <h2>王起帆</h2>
-                <p class="type">全栈工程师</p>
-                <p class="message">基本必备：JAVA基础，spring基础，对json，redis有一定的了解
+                <h2 th:text="${teacher.teacher_name}">王起帆</h2>
+                <p class="type" th:text="${teacher.teacher_position}">全栈工程师</p>
+                <p class="message" th:text="${teacher.teacher_info}">基本必备：JAVA基础，spring基础，对json，redis有一定的了解
                 老师告诉你能学到什么？
                 了解springboot如何从零搭开始搭建一个工程。
                 springboot系统架构体系            

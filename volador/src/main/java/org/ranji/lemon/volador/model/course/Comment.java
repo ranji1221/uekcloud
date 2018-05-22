@@ -8,6 +8,24 @@ import org.ranji.lemon.core.util.JsonUtil;
 public class Comment extends AbstractModel {
 	
 	private String content;
+	private String nickName;
+	private String head_image;
+
+	public String getNickName() {
+		return nickName;
+	}
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
+
+	public String getHead_image() {
+		return head_image;
+	}
+
+	public void setHead_image(String head_image) {
+		this.head_image = head_image;
+	}
 
 	public String getContent() {
 		return content;

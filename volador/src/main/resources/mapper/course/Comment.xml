@@ -36,4 +36,10 @@
 		delete from  lemon_volador_chapter_comment where chapter_id=#{chapterId} and comment_id=#{commentId}
 	</delete>
 	
+	
+	<!-- 根据评论id查找用户id -->
+	<select id="findUserIdByCommentId" parameterType="Integer" resultType ="int">
+		select user_id from lemon_volador_user_comment where comment_id = #{commentId}
+	</select>
+	
 </mapper>

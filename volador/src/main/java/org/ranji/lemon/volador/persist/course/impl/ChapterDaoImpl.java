@@ -1,10 +1,12 @@
 package org.ranji.lemon.volador.persist.course.impl;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.ranji.lemon.core.persist.impl.GenericDaoImpl;
 import org.ranji.lemon.volador.model.course.Chapter;
+import org.ranji.lemon.volador.model.course.Comment;
 import org.ranji.lemon.volador.persist.course.prototype.IChapterDao;
 import org.springframework.stereotype.Repository;
 
@@ -54,6 +56,18 @@ public class ChapterDaoImpl extends GenericDaoImpl<Chapter,Integer> implements I
         params.put("note_id",note_id);
         sqlSessionTemplate.insert(typeNameSpace+".deleteChapterAndStudentNoteRelation",params);
 		
+	}
+
+	@Override
+	public List<Comment> findCommentListByChapter(int chapter_id) {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectList(typeNameSpace+".findCommentListByChapter",chapter_id);
+	}
+
+	@Override
+	public List<Integer> finCommentIdListByChapter(int chapter_id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	

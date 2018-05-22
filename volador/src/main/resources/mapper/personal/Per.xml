@@ -186,4 +186,11 @@
 		delete from lemon_volador_personal_user_homework where user_id = #{userId} and homework_id = #{homeworkId}
 	</delete>
 	
+	<!--根据用户id查询已完成课程列表 -->
+	<select id="findFinishCourseInfo" parameterType="Integer" resultType="Map">
+		select * from lemon_volador_course_course 
+		left join lemon_volador_personal_studyed_course on lemon_volador_course_course.id = lemon_volador_personal_studyed_course.course_id 
+		where lemon_volador_personal_studyed_course.user_id = #{userId}
+	</select>
+	
 </mapper>

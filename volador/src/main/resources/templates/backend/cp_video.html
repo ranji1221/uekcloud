@@ -43,13 +43,14 @@
 			<a href="#">
 				<i class='fy_icon'>&#xe63d;</i>
 			</a>
-			<a href="#" class='sign'>
+			<a href="personalCenter_notice" class='sign'>
 				<span>1</span>
 				<i class='fy_icon'>&#xe628;</i>
 			</a>
 			<span class='cp_line'></span>
-			<a href="#" class='image'>
-				<img src="images/cp_14.png" alt="">
+			<a href="personalCenter_notice" class='image'>
+				<img src="images/cp_14.png" alt="" th:src="${userInfo.head_image}">
+				
 			</a>
 		</div>
 	</div>
@@ -171,20 +172,21 @@
     <!-- tab分类内容 -->
     <div class="cp_tabCon">
         <div class="tips">
-            全部评论 <span>20</span>
+            全部评论 <span th:text="${commentCount}">20</span>
         </div>
         <div class="container">
             <div class="col_left">
                 <!--添加评论列表开始-->
                 <div class="wzq_show_comment_add">
-                    <form action="" class="wzq_add_form wzq_clear">
+                    <form action="course_chapter_comment" class="wzq_add_form wzq_clear" mothod="post">
                         <div class="wzq_clear">
                             <div class="wzq_user_img">
-                                <img src="images/wzq_user_img.jpg" alt="">
+                                <img src="images/wzq_user_img.jpg" alt="" th:src="${userInfo.head_image}">
                             </div>
                             <div class="wzq_textarea">
-                                <textarea name="" id="wzq_textarea" onfocus="if(value=='快来发布评论吧...') {value=''}" onblur="if(value=='') {value='快来发布评论吧...'}">快来发布评论吧...</textarea>
+                                <textarea name="content" id="wzq_textarea" onfocus="if(value=='快来发布评论吧...') {value=''}" onblur="if(value=='') {value='快来发布评论吧...'}">快来发布评论吧...</textarea>
                             </div>
+                            <input type="hidden" th:value="chapter.id" name="chapterId"> 
                         </div>
                         <div class="wzq_icon_add">
                             <span data-icon-flag="true">添加表情</span>
@@ -199,58 +201,17 @@
 
                 <!--评论列表开始-->
                 <ul class="wzq_show_comment_list wqf_comment">
-                    <li class="wzq_show_comment_item">
+                    <li th:each="CL : ${commentList}"class="wzq_show_comment_item">
                         <div class="wzq_clear">
                             <div class="wzq_user_img">
-                                <img src="images/wzq_user_img.jpg" alt="">
+                                <img src="images/wzq_user_img.jpg" alt="" th:src="${CL.head_image}">
                             </div>
                             <!--评论区内容开始，回复评论区时候，添加此节点-->
                             <div class="wzq_comment_item_info">
-                                <h6 class="wzq_comment_item_title">也入耳朵</h6>
+                                <h6 th:text="${CL.nickName}" class="wzq_comment_item_title">也入耳朵</h6>
                                 <span class="wzq_comment_item_time">5小时前</span>
                                 <div class="wzq_comment_item_des">
-                                    <p class="hidd_more">向手写大佬低头～向手写大佬低头～向手写大佬低头～效果图？太牛了吧。什么软件做的？？？？效果图？太牛了吧。什么软件做的？？？？</p>
-                                    <div class="wzq_comment_reply">
-                                        <span class="wzq_jubao"><i class="fy_icon">&#xe652;</i>举报</span>
-                                        <span title="回复" class="wzq_comment_replys" data-flag="true"><i class="fy_icon">&#xe679;</i></span>
-                                        <span class="wzq_comment_zan wzq_comment_zanend"><i class="fy_icon">&#xe6b3;</i></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--评论区内容结束-->
-                        </div>
-                        <!--评论区回复表单开始-->
-                        <div class="wzq_reply">
-                            <form action="" class="wzq_reply_form">
-                                <div class="wzq_reply_text">
-                                    <span>回复</span>
-                                    <em class="wzq_reply_user hidden_one">小灰灰灰</em>
-                                    <textarea class="wzq_reply_textarea" name="" onfocus="if(value=='请回复...') {value=''}" onblur="if(value=='') {value='请回复...'}">请回复...</textarea>
-                                </div>
-                                <div class="wzq_clear">
-                                    <div class="wzq_icon_add">
-                                        <span data-icon-flag="true">添加表情</span>
-                                        <div class="wzq_icon_box">
-
-                                        </div>
-                                    </div>
-                                    <div class="wzq_reply_submit"><input type="submit" value="回复"></div>
-                                </div>
-                            </form>
-                        </div>
-                        <!--评论区回复表单结束-->
-                    </li>
-                    <li class="wzq_show_comment_item">
-                        <div class="wzq_clear">
-                            <div class="wzq_user_img">
-                                <img src="images/wzq_user_img.jpg" alt="">
-                            </div>
-                            <!--评论区内容开始，回复评论区时候，添加此节点-->
-                            <div class="wzq_comment_item_info">
-                                <h6 class="wzq_comment_item_title">也入耳朵</h6>
-                                <span class="wzq_comment_item_time">5小时前</span>
-                                <div class="wzq_comment_item_des">
-                                    <p class="hidd_more">向手写大佬低头～向手写大佬低头～向手写大佬低头～效果图？太牛了吧。什么软件做的？？？？效果图？太牛了吧。什么软件做的？？？？</p>
+                                    <p th:text="${CL.content}" class="hidd_more">向手写大佬低头～向手写大佬低头～向手写大佬低头～效果图？太牛了吧。什么软件做的？？？？效果图？太牛了吧。什么软件做的？？？？</p>
                                     <div class="wzq_comment_reply">
                                         <span class="wzq_jubao"><i class="fy_icon">&#xe652;</i>举报</span>
                                         <span title="回复" class="wzq_comment_replys" data-flag="true"><i class="fy_icon">&#xe679;</i></span>
@@ -318,7 +279,7 @@
                 </a>
                 <div class="con">
                 	<h3>本节课程介绍</h3>
-                	<p class="hidd_more">
+                	<p th:text="${chapter.chapter_info}" class="hidd_more">
                 		直线段工具、实时上色工具的综合应用，以及绘制过程中坚持的“三角形原则”。
                 	</p>
                 </div>
@@ -370,13 +331,13 @@
         return false;
 	});
 </script>
-<script type="text/javascript">
+<script type="text/javascript" th:inline="javascript">
 			var videoObject = {
 				container: '#video', //容器的ID或className
 				variable: 'player',//播放函数名称
 				// poster:'material/poster.jpg',//封面图片
 				//flashplayer:true,
-				video:'video/王菲 - 匆匆那年.mp4'//视频地址
+				video:[[${chapter.video_address}]]//视频地址
 		};
 		var player = new ckplayer(videoObject);
 </script>

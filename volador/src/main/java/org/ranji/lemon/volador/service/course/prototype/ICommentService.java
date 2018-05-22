@@ -1,5 +1,7 @@
 package org.ranji.lemon.volador.service.course.prototype;
 
+import java.util.List;
+
 import org.ranji.lemon.core.service.prototype.IGenericService;
 import org.ranji.lemon.volador.model.course.Comment;
 
@@ -33,5 +35,12 @@ public interface ICommentService extends IGenericService<Comment, Integer>{
 	 * @param chapterid 章节id
 	 */
 	public void  deleteCommentAndChapterRelation(int commentid,int chapterid);
+	
+	/**
+	 * 根据评论id查询用户id
+	 * @param commentid 评论id
+	 * @return 用户id
+	 */
+	public List<Integer> findUserIdByCommentId(int commentId);
 	
 }

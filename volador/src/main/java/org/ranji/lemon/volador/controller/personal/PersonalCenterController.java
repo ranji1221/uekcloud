@@ -36,7 +36,7 @@ public class PersonalCenterController {
 	private IHomeworkService homeworkService ;
 	
 	/*
-	 * 个人中心 - 评论留言
+	 * 个人中心 - 通知公告
 	 * */
 	@RequestMapping(value="/personalCenter_notice", method=RequestMethod.GET)
 	public ModelAndView personalCenterNotice(){

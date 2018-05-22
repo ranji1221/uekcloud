@@ -1,7 +1,11 @@
 package org.ranji.lemon.volador.service.course.prototype;
 
+import java.util.List;
+
 import org.ranji.lemon.core.service.prototype.IGenericService;
 import org.ranji.lemon.volador.model.course.Chapter;
+import org.ranji.lemon.volador.model.course.Comment;
+import org.ranji.lemon.volador.model.course.Teacher;
 
 /**
  * @author sertion
@@ -38,5 +42,22 @@ public interface IChapterService extends IGenericService<Chapter,Integer> {
      * @param note_id 教师
      */
     public void deleteChapterAndStudentNoteRelation(int chapter_id,int note_id);
+    
+    /**
+     * 根据章节id查找评论列表
+     * @param chapter_id 章节ID
+     * @return 评论列表
+     */
+    public List<Comment> findCommentListByChapter(int chapter_id);
+    
+    /**
+     * 根据章节id查找评论id列表
+     * @param chapter_id 章节ID
+     * @return 评论id列表
+     */
+    public List<Integer> finCommentIdListByChapter(int chapter_id);
+    
+    
+    
 	
 }
