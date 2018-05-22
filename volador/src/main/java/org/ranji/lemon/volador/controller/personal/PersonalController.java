@@ -78,7 +78,6 @@ public class PersonalController {
 		}
 		catch (Exception e) {
 			mv.addObject("userName", "游客");
-			mv.setViewName("redirect:/login");
 			return mv;
 		}
 
