@@ -79,6 +79,8 @@ public class RegisterController {
 					
 					//设置默认头像
 					userInfo.setHead_image("photos\\wqf_user.png");
+					//设置默认昵称
+					userInfo.setNickname("飞鱼学员" + String.valueOf((int)(Math.random()*1000)));
 					userInfoService.save(userInfo);
 					
 					//保存用户关系表

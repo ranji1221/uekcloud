@@ -1,11 +1,14 @@
 package org.ranji.lemon.volador.controller.course;
 
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.ranji.lemon.core.util.JsonUtil;
 import org.ranji.lemon.volador.model.course.Chapter;
 import org.ranji.lemon.volador.model.course.ChapterTitle;
 import org.ranji.lemon.volador.model.course.Classify;
@@ -67,21 +70,6 @@ public class CourseController {
 	@RequestMapping(value="/findCourse", method=RequestMethod.GET)
 	public ModelAndView findCoursePage(){
 		ModelAndView mv = new ModelAndView();
-		
-		//添加课程---测试
-		Course course = new Course();
-		course.setCourse_name("PYTHON");
-		course.setCourse_info("优美的PYTHON");
-		course.setCourse_price(888);
-		course.setStudent_count(999);
-		
-		course.setCourse_name("JAVA");
-		course.setCourse_info("厉害的JAVA");
-		course.setCourse_price(666);
-		course.setStudent_count(777);
-		
-		//courseService.save(course);
-		addCourseClassify();
 		
 		//界面显示所有分类
 		List<Classify> classfyList = classifyService.findAll();
@@ -192,6 +180,7 @@ public class CourseController {
 			int userId=(int) request.getSession().getAttribute("userId");
 			UserInfo userInfo=personalService.findUserInfoByUserId(userId);
 			mv.addObject(userInfo);
+			mv.addObject("userId", userId);
 			mv.addObject("login_yes","login_yes active");
 			mv.addObject("login_no","login_no");
 		} catch (Exception e) {
@@ -239,23 +228,51 @@ public class CourseController {
 	
 	
 	//发表评论
-	@RequestMapping(value="/course_chapter_comment",method=RequestMethod.GET)
+	@RequestMapping(value="/course_chapter_comment",method=RequestMethod.POST)
 	public void comment(@RequestParam(value="content", required=false) String content,
 			@RequestParam(value="chapterId", required=false) String chapterId,
-			HttpServletRequest request){
-		try {
-			int userId=(int) request.getSession().getAttribute("userId");
+			@RequestParam(value="userId", required=false) String userId,
+			HttpServletRequest request,
+			HttpServletResponse response){
+		
+		String info="用户未登录，请登录！";
+		Map<String,Object> map=new HashMap<String,Object>();
+		
+		try {			
+			System.out.println(userId);
+			
 			Comment comment=new Comment();
 			
 			//保存评论
 			comment.setContent(content);
 			commentService.save(comment);
 			
-			//保存和用户关系，保存和章节的关系
+			//保存评论和章节的关系
+			commentService.saveCommentAndChapterRelation(comment.getId(), Integer.parseInt(chapterId.toString()));
 			
-		} catch (Exception e) {
-			// TODO: handle exception
+			//保存评论和用户关系
+			commentService.savaCommentAndUserRelation(comment.getId(), Integer.parseInt(userId.toString()));
+			
+			info = "评论发布成功！";
+			map.put("info", info);
+			
+			PrintWriter writer = response.getWriter();
+			writer.print(JsonUtil.toJsonByProperties(map)); 
+	        writer.flush();  
+	        writer.close();
+			
+		} catch (NullPointerException e){
+			e.printStackTrace();
+			info = "空指针异常！";
+			map.put("info",info);
+		}catch (NumberFormatException e){
+			e.printStackTrace();
+		}catch (Exception e) {
+			info = "异常！";
+			map.put("info",info);
+			e.printStackTrace();
 		}
+
 	}
 	
 	//视频笔记页面
@@ -270,18 +287,7 @@ public class CourseController {
 	@RequestMapping(value="/course_videoChapter", method=RequestMethod.GET)
 	public ModelAndView videoChapterPage(){
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("/backend/cp_videoWork");
+		mv.setViewName("/backend/cp_videoChapter");
 		return mv;
-	}
-	
-	//添加课程分类
-	public void addCourseClassify(){
-		Classify classfy = new Classify();
-		classfy.setClassify_name("AI");
-		classifyService.save(classfy);
-		classfy.setClassify_name("平面设计");
-		classifyService.save(classfy);
-		classfy.setClassify_name("移动界面");
-		classifyService.save(classfy);
 	}
 }

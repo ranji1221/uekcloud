@@ -178,7 +178,7 @@
             <div class="col_left">
                 <!--添加评论列表开始-->
                 <div class="wzq_show_comment_add">
-                    <form action="course_chapter_comment" class="wzq_add_form wzq_clear" mothod="post">
+                    <form action="javascript:;" class="wzq_add_form wzq_clear" mothod="post">
                         <div class="wzq_clear">
                             <div class="wzq_user_img">
                                 <img src="images/wzq_user_img.jpg" alt="" th:src="${userInfo.head_image}">
@@ -186,7 +186,8 @@
                             <div class="wzq_textarea">
                                 <textarea name="content" id="wzq_textarea" onfocus="if(value=='快来发布评论吧...') {value=''}" onblur="if(value=='') {value='快来发布评论吧...'}">快来发布评论吧...</textarea>
                             </div>
-                            <input type="hidden" th:value="chapter.id" name="chapterId"> 
+                            <input type="hidden" th:value="${chapter.id}" name="chapterId" id="chapterId">
+                            <input type="hidden" th:value="${userId}" name="userId" id="userId"> 
                         </div>
                         <div class="wzq_icon_add">
                             <span data-icon-flag="true">添加表情</span>
@@ -194,7 +195,7 @@
 
                             </div>
                         </div>
-                        <div class="wzq_add_submit"><input type="submit" value="发表评论" id="tijiao"></div>
+                        <div class="wzq_add_submit"><input type="submit" value="发表评论" id="publish"></div>
                     </form>
                 </div>
                 <!--添加评论列表开结束-->
@@ -331,16 +332,35 @@
         return false;
 	});
 	
-/* 	$("#tijiao").click(function(){
-		$.ajax({
-			url:"",
-			method:"",
-			date:{
-				name: $("[name=content]").val(),
-				pwd:  $("[name=content]").val()
-			}
-		})
-	}) */
+
+	//发表评论
+	$("#publish").click(function(){
+		var content=$("#wzq_textarea").val();
+		var chapterId=$("#chapterId").val();
+		var userId = $("#userId").val();
+		if(content!=undefined&&content.length>0){
+			$.ajax({  
+                type:"post",//type可以为post也可以为get  
+                url:"course_chapter_comment",  
+                data:{
+               	 "content":content,
+               	 "chapterId":chapterId,
+               	 "userId":userId
+                },
+                //这行不能省略，如果没有数据向后台提交也要写成data:{}的形式  
+                //这里要注意如果后台返回的数据不是json格式，那么就会进入到error:function(data){}中  
+                success:function(data){
+                	alert(data.info);
+                },  
+                error:function(data){  
+                    alert("提交评论出现了错误！");  
+                }  
+            });
+		}else{
+			alert("评论输入为空！")  
+            return false;
+		}
+	}) 
 	
 </script>
 <script type="text/javascript" th:inline="javascript">
