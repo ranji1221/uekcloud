@@ -91,7 +91,7 @@
 					<div class="message">
 						<a href="javascript:;" class="fy_icon">&#xe61d;</a>
 						<!-- 消息数 -->
-						<span>2</span>
+						<span th:text="${notificationSize}">2</span>
 						<!-- 消息弹框 -->
 						<div class="message_box">
 							<header>
@@ -99,13 +99,13 @@
 								<span>清空</span>
 							</header>
 							<ul>
-								<li>
+								<li th:each="notification:${notificationList}">
 									<a href="javascript:;" class="clear_both">
-										<span>【私信】</span>
-										<span class="hidd_more2">第一届logo设计大赛正式开启</span>
+										<span th:text="${notification.notification_type} == 0 ? '【通知】' : '【公告】'">【私信】</span>
+										<span class="hidd_more2" th:text="${notification.notification_content}">第一届logo设计大赛正式开启</span>
 									</a>
 								</li>
-								<li>
+								<!-- <li>
 									<a href="javascript:;" class="clear_both">
 										<span>【通知】</span>
 										<span class="hidd_more2">管理员温馨提示，您已经登陆，快来上课吧。</span>
@@ -116,7 +116,7 @@
 										<span>【私信】</span>
 										<span class="hidd_more2">第一届logo设计大赛正式开启</span>
 									</a>
-								</li>
+								</li> -->
 								<li>
 									<a href="javascript:;" class="clear_both">
 										查看全部

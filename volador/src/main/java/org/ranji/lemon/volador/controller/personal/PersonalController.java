@@ -17,6 +17,7 @@ import org.ranji.lemon.volador.model.personal.UserInfo;
 import org.ranji.lemon.volador.service.course.prototype.IClassifyService;
 import org.ranji.lemon.volador.service.course.prototype.ICourseService;
 import org.ranji.lemon.volador.service.course.prototype.IThemeService;
+import org.ranji.lemon.volador.service.global.prototype.INotificationService;
 import org.ranji.lemon.volador.service.personal.prototype.IPerService;
 import org.ranji.lemon.volador.service.personal.prototype.IUserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,17 +41,20 @@ public class PersonalController {
 	private ICourseService courseService;
 	@Autowired
 	private IClassifyService classifyService;
+	@Autowired
+	private INotificationService notificationService;
 	
 	//首页
 	@RequestMapping(value="/index", method=RequestMethod.GET)
 	public ModelAndView indexPage(HttpServletRequest request ){
 		ModelAndView mv = new ModelAndView();
-		
+		List<Map> notificationList = new ArrayList<>();
+		int userId = 0;
 		//检测是否登录
 		try{
 			//登录成功，返回userName及head_image
 			String userName=(String) request.getSession().getAttribute("userName");
-			int userId=(int) request.getSession().getAttribute("userId");
+			userId=(int) request.getSession().getAttribute("userId");
 			UserInfo userInfo=personalService.findUserInfoByUserId(userId);
 			mv.addObject("head_image",userInfo.getHead_image());
 			mv.addObject("login_yes","login_yes active");
@@ -86,13 +90,26 @@ public class PersonalController {
 				params.put("themeCourse" + Integer.toString(theme.getId()), courseList);
 				
 			}
+			
+			//绑定用户未忽略的信息
+			
+			int ignoreNitificationNumber = 0;
+			Map map = notificationService.findIgnoreNotificationByUser(userId);
+			if(map!=null&&!map.isEmpty()){
+				ignoreNitificationNumber = Integer.parseInt(map.get("ignore_notification_number").toString());
+			}
+			int startIgnNotificationNumber = ignoreNitificationNumber+1;
+			int endIgnNotificationNumber = notificationService.getTotalOfItems();
+			notificationList = notificationService.findTop3Notification(startIgnNotificationNumber, endIgnNotificationNumber);
+			
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 		
 		mv.addAllObjects(paramCourse);
 		mv.addAllObjects(params);	
-
+		mv.addObject("notificationList", notificationList);
+		mv.addObject("notificationSize", notificationList.size());
 
 		mv.setViewName("/backend/index");
 		return mv;

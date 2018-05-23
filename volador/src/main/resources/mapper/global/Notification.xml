@@ -3,9 +3,16 @@
 <mapper namespace="org.ranji.lemon.volador.model.global.Notification">
 
     <insert id="save" parameterType="VoladorNotification" keyProperty="id" useGeneratedKeys="true">
-		insert into lemon_volador_global_notification (guid,create_time,update_time,notification_title,notification_content) 
-		values (#{guid},#{createTime},#{updateTime},#{notificationTitle},#{notificationContent})
+		insert into lemon_volador_global_notification (guid,create_time,update_time,notification_title,notification_content,notification_type) 
+		values (#{guid},#{createTime},#{updateTime},#{notificationTitle},#{notificationContent},#{notificationType})
 	</insert>
+	<!--  添加用户忽略消息/公告关系表 -->
+	<insert id="saveUserAndIgnoreNotificationRelation" parameterType="Map">
+	  insert into lemon_volador_personal_user_ignore_notification(user_id,ignore_notification_number)
+	  values(#{userId},#{ignoreNotificationNumber})
+	</insert>
+	
+	
 	
 	<!-- 删除某条记录 -->
 	<delete id="delete" parameterType="int" >
@@ -19,10 +26,25 @@
 		select * from lemon_volador_global_notification where id = #{id}
 	</select>
 	
+	
+	<select id="getTotalOfItems"  resultType="int">
+		select count(*) from lemon_volador_global_notification
+	</select>
+	
 	<!-- 查询全部用户信息
 	<select id="findAll" resultType="VoladorIntegral" >
 		select * from lemon_volador_personal_integral
 		<include refid="paramsSQL"/>
 	</select> -->
+	
+	<!-- 查询用户前三条未读消息 -->
+	<select id="findTop3Notification" parameterType="Map" resultType="Map">
+	SELECT * from lemon_volador_global_notification where id BETWEEN #{startIgnNotificationNumber} and #{endIgnNotificationNumber} ORDER BY  create_time DESC LIMIT 3 
+	</select>
+	
+	<!-- 根据用户id查询忽略的消息/公告信息 -->
+	<select id="findIgnoreNotificationByUser" parameterType="int" resultType="Map">
+	SELECT * FROM lemon_volador_personal_user_ignore_notification where user_id = #{userId}
+	</select>
 	
 </mapper>

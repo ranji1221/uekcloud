@@ -11,6 +11,8 @@ public class Notification extends AbstractModel {
 	private String notificationTitle;
 	
 	private String notificationContent;
+	
+	private int    notificationType;
 
 	public String getNotificationTitle() {
 		return notificationTitle;
@@ -30,6 +32,14 @@ public class Notification extends AbstractModel {
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public int getNotificationType() {
+		return notificationType;
+	}
+
+	public void setNotificationType(int notificationType) {
+		this.notificationType = notificationType;
 	}
 	
 	
