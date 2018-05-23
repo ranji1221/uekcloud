@@ -2,6 +2,7 @@ package org.ranji.lemon.volador.persist.course.prototype;
 
 import org.ranji.lemon.core.persist.prototype.IGenericDao;
 import org.ranji.lemon.volador.model.course.Chapter;
+import org.ranji.lemon.volador.model.course.ChapterTitle;
 import org.ranji.lemon.volador.model.course.Course;
 import org.ranji.lemon.volador.model.course.Teacher;
 
@@ -55,4 +56,11 @@ public interface ICourseDao extends IGenericDao<Course,Integer>{
      * @return 章节集合
      */
     public List<Chapter> findChapterbyCourse(int course_id);
+    
+    /**
+     * 根据课程id查找章节标题列表
+     * @param course_id 课程Id
+     * @return 章节标题集合
+     */
+    public List<ChapterTitle> findChapterTitleByCourse(int course_id);
 }

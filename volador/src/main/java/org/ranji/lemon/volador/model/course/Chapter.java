@@ -16,8 +16,26 @@ public class Chapter extends AbstractModel {
     private String chapter_name;
     private String video_address;
     private String chapter_info;
+    private int chapter_title_id;
+    private int chapter_order;
 
-    public String getChapter_info() {
+    public int getChapter_title_id() {
+		return chapter_title_id;
+	}
+
+	public void setChapter_title_id(int chapter_title_id) {
+		this.chapter_title_id = chapter_title_id;
+	}
+
+	public int getChapter_order() {
+		return chapter_order;
+	}
+
+	public void setChapter_order(int chapter_order) {
+		this.chapter_order = chapter_order;
+	}
+
+	public String getChapter_info() {
 		return chapter_info;
 	}
 

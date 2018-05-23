@@ -7,10 +7,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ranji.lemon.volador.VoladorApplication;
 import org.ranji.lemon.volador.model.course.Chapter;
+import org.ranji.lemon.volador.model.course.Comment;
 import org.ranji.lemon.volador.model.course.Course;
 import org.ranji.lemon.volador.model.course.Teacher;
 import org.ranji.lemon.volador.model.personal.UserInfo;
 import org.ranji.lemon.volador.service.auth.prototype.IUserService;
+import org.ranji.lemon.volador.service.course.prototype.IChapterService;
+import org.ranji.lemon.volador.service.course.prototype.IClassifyService;
+import org.ranji.lemon.volador.service.course.prototype.ICommentService;
 import org.ranji.lemon.volador.service.course.prototype.ICourseService;
 import org.ranji.lemon.volador.service.personal.prototype.IPerService;
 import org.ranji.lemon.volador.service.personal.prototype.IUserInfoService;
@@ -26,9 +30,17 @@ public class CourseService {
 	private ICourseService courseService;
 	
 	@Autowired
-	private IPerService personalService;
+	private IChapterService chapterService;
+	
 	@Autowired
-	private IUserInfoService userInfoService;
+	private IClassifyService classifyService;
+	
+	@Autowired
+	private IPerService personalService;
+	
+	@Autowired
+	private ICommentService commentService;
+	
 //	private ICourseService courseService;
 //	
 //	@Test
@@ -47,7 +59,7 @@ public class CourseService {
 //		listTeacher=courseService.findTeacherbyCourse(3);
 //		courseService.deleteCourseAndChapterRelation(1, 1);
 //		courseService.saveCourseAndChapterRelation(2, 1);
-		int userId=32;
+//		int userId=32;
 //		List<Integer> listCourseId= personalService.findStudyingCourseRelationByUserId(userId);
 //		List<Course> courseList = new ArrayList<Course>() ;
 //		for(int i=0;i<listCourseId.size();i++){
@@ -55,13 +67,37 @@ public class CourseService {
 //			courseList.add(course);
 //			System.out.println(courseList.get(0).getCourse_name());
 //		}
+		int chapterId=1;
+//		//查询章节信息
+//		Chapter chapter=chapterService.find(chapterId);
+//		
+//		//根据章节id获取评论列表
+//		List<Comment> commentList = chapterService.findCommentListByChapter(chapterId);
 		
-		List<Integer> userinfo_idList=personalService.findUserUserInfoRelationByUserId(userId);
-		List<UserInfo> userInfoList =new ArrayList<UserInfo>();
-		userInfoList.add(userInfoService.find(userinfo_idList.get(0)));
+		Chapter chapter=chapterService.find(chapterId);
+		
+		//根据章节id获取评论列表
+		List<Comment> commentList = chapterService.findCommentListByChapter(chapterId);
+		
+		int commentId=commentList.get(1).getId();
+		int user_Id=commentService.findUserIdByCommentId(commentId).get(0);
+//		int as=commentService.findUserIdByCommentId(3).get(0);
+//		for(int i=0;i<commentList.size();i++){
+//			int commentId=commentList.get(i).getId();
+//			int user_Id=commentService.findUserIdByCommentId(commentId).get(0);
+//			UserInfo userInfo=personalService.findUserInfoByUserId(user_Id);
+//			commentList.get(i).setNickName(userInfo.getNickname());
+//			commentList.get(i).setHead_image(userInfo.getHead_image());
+//		}
+		
+//		List<Integer> userinfo_idList=personalService.findUserUserInfoRelationByUserId(userId);
+//		List<UserInfo> userInfoList =new ArrayList<UserInfo>();
+//		userInfoList.add(userInfoService.find(userinfo_idList.get(0)));
 //		List<Chapter> chapterlist=courseService.findChapterbyCourse(2);
 //		System.out.println(chapterlist.get(0).getChapter_name());
 //		System.out.println(listTeacher.get(0).getTeacher_name());
+		
+		
 	}
 
 }

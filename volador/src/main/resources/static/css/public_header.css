@@ -11,7 +11,7 @@
 	float: left;
 }
 
-/*导航*/
+/*瀵艰埅*/
 #public_header>.container>.menu{
 	float: left;
 	font-size: 14px;
@@ -107,7 +107,7 @@
 
 
 
-/*登录状态*/
+/*鐧诲綍鐘舵��*/
 #public_header>.container .is_login{
 	float: right;
     font-size: 14px;
@@ -146,7 +146,7 @@
 	text-align: center;
 	border:1px solid #fff;
 }
-/*消息弹框*/
+/*娑堟伅寮规*/
 #public_header>.container .login_yes>.message .message_box{
 	width: 300px; height: 254px;
 	background: #fff;
@@ -207,7 +207,7 @@
 	color: #fd6756;
 }
 
-/*个人中心消息弹框*/
+/*涓汉涓績娑堟伅寮规*/
 #public_header>.container .login_yes>.self .message_box{
 	width: 157px;
 	background: #fff;
@@ -268,6 +268,8 @@
 }
 #public_header>.container .is_login .login_yes img{
 	width: 31px; 
+	    height: 31px;
+    border-radius: 50%;
 }
 #public_header>.container .is_login .login_no{
 	display: none;

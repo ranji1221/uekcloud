@@ -1,16 +1,20 @@
 package org.ranji.lemon.volador.controller.course;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.ranji.lemon.volador.model.course.Chapter;
+import org.ranji.lemon.volador.model.course.ChapterTitle;
 import org.ranji.lemon.volador.model.course.Classify;
 import org.ranji.lemon.volador.model.course.Comment;
 import org.ranji.lemon.volador.model.course.Course;
 import org.ranji.lemon.volador.model.course.Teacher;
 import org.ranji.lemon.volador.model.personal.UserInfo;
 import org.ranji.lemon.volador.service.course.prototype.IChapterService;
+import org.ranji.lemon.volador.service.course.prototype.IChapterTitleService;
 import org.ranji.lemon.volador.service.course.prototype.IClassifyService;
 import org.ranji.lemon.volador.service.course.prototype.ICommentService;
 import org.ranji.lemon.volador.service.course.prototype.ICourseService;
@@ -35,6 +39,9 @@ public class CourseController {
 	
 	@Autowired
 	private IPerService personalService;
+	
+	@Autowired
+	private IChapterTitleService chapterTitleService;
 	
 	@Autowired
 	private ICommentService commentService;
@@ -128,7 +135,16 @@ public class CourseController {
 			//返回教师信息
 			mv.addObject(teacher);
 			
+			//根据课程id查询章节标题集合
+			List<ChapterTitle> chapterTitleList=courseService.findChapterTitleByCourse(courseId);
+			Map<String,Object> chapterListMap=new HashMap<String,Object>();
+			for(int i=0;i<chapterTitleList.size();i++){
+				//根据章节标题id查询章节
+				chapterListMap.put("chapter"+i,chapterTitleService.findChapterByChapterTitle(chapterTitleList.get(i).getId()));
+			}
 			
+			mv.addAllObjects(chapterListMap);
+			mv.addObject(chapterTitleList);
 			//根据课程ID查询章节
 //			List <Chapter> chapterList = courseService.findChapterbyCourse(courseId);
 //			//将章节列表返回给前台
@@ -230,13 +246,16 @@ public class CourseController {
 		try {
 			int userId=(int) request.getSession().getAttribute("userId");
 			Comment comment=new Comment();
+			
+			//保存评论
 			comment.setContent(content);
 			commentService.save(comment);
+			
+			//保存和用户关系，保存和章节的关系
+			
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		
-		
 	}
 	
 	//视频笔记页面

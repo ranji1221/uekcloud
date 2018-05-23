@@ -128,7 +128,7 @@
 					</li>
 				</ul>
 			</div>
-			<form action="" class='cp_tab'>
+			<form action="javascript:;" class='cp_tab'>
 				<!-- 未登录提示 -->
 				<!-- <p>
 					请<a href="#">登陆</a>后 
@@ -137,7 +137,7 @@
 				</p> -->
 
 				<!-- 未登录后状态 -->
-				<input type="text" placeholder="请输入笔记标题">
+				<input type="text" placeholder="请输入笔记标题" name="login" >
 				<textarea name="" placeholder="请输入笔记内容" id="" cols="30" rows="10"></textarea>
 			</form>
 			
@@ -194,7 +194,7 @@
 
                             </div>
                         </div>
-                        <div class="wzq_add_submit"><input type="submit" value="发表评论"></div>
+                        <div class="wzq_add_submit"><input type="submit" value="发表评论" id="tijiao"></div>
                     </form>
                 </div>
                 <!--添加评论列表开结束-->
@@ -330,6 +330,18 @@
        
         return false;
 	});
+	
+/* 	$("#tijiao").click(function(){
+		$.ajax({
+			url:"",
+			method:"",
+			date:{
+				name: $("[name=content]").val(),
+				pwd:  $("[name=content]").val()
+			}
+		})
+	}) */
+	
 </script>
 <script type="text/javascript" th:inline="javascript">
 			var videoObject = {

@@ -2,6 +2,7 @@ package org.ranji.lemon.volador.persist.course.impl;
 
 import org.ranji.lemon.core.persist.impl.GenericDaoImpl;
 import org.ranji.lemon.volador.model.course.Chapter;
+import org.ranji.lemon.volador.model.course.ChapterTitle;
 import org.ranji.lemon.volador.model.course.Course;
 import org.ranji.lemon.volador.model.course.Teacher;
 import org.ranji.lemon.volador.persist.course.prototype.ICourseDao;
@@ -66,4 +67,12 @@ public class CourseDaoImpl extends GenericDaoImpl<Course,Integer> implements ICo
         sqlSessionTemplate.delete(typeNameSpace+".deleteCourseAndChapterRelation",params);
 		
 	}
+
+	@Override
+	public List<ChapterTitle> findChapterTitleByCourse(int course_id) {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectList(typeNameSpace + ".findChapterTitleByCourse", course_id);
+	}
+	
+	
 }

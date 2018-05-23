@@ -2,6 +2,7 @@ package org.ranji.lemon.volador.service.course.prototype;
 
 import org.ranji.lemon.core.service.prototype.IGenericService;
 import org.ranji.lemon.volador.model.course.Chapter;
+import org.ranji.lemon.volador.model.course.ChapterTitle;
 import org.ranji.lemon.volador.model.course.Course;
 import org.ranji.lemon.volador.model.course.Teacher;
 
@@ -56,4 +57,11 @@ public interface ICourseService extends IGenericService<Course,Integer> {
      * @return 教师列表
      */
     public List<Chapter> findChapterbyCourse(int course_id);
+    
+    /**
+     * 根据课程id查找章节标题列表
+     * @param course_id 课程Id
+     * @return 章节标题集合
+     */
+    public List<ChapterTitle> findChapterTitleByCourse(int course_id);
 }

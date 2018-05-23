@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.ranji.lemon.core.service.impl.GenericServiceImpl;
 import org.ranji.lemon.volador.model.course.Chapter;
+import org.ranji.lemon.volador.model.course.ChapterTitle;
 import org.ranji.lemon.volador.model.course.Course;
 import org.ranji.lemon.volador.model.course.Teacher;
 import org.ranji.lemon.volador.persist.course.prototype.ICourseDao;
@@ -59,6 +60,12 @@ public class CourseServiceImpl extends GenericServiceImpl<Course,Integer> implem
 	public void deleteCourseAndChapterRelation(int course_id, int chapter_id) {
 		// TODO Auto-generated method stub
 		((ICourseDao) dao).deleteCourseAndChapterRelation(course_id, chapter_id);
+	}
+
+	@Override
+	public List<ChapterTitle> findChapterTitleByCourse(int course_id) {
+		// TODO Auto-generated method stub
+		return ((ICourseDao) dao).findChapterTitleByCourse(course_id);
 	}
 
 

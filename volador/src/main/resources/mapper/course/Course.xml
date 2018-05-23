@@ -21,6 +21,11 @@
 		delete from lemon_volador_course_course_teacher where course_id = #{course_id} and teacher_id = #{teacher_id}
 	</delete>
 	
+	<!-- 根据课程id查找章节标题列表 -->
+	<select id="findChapterTitleByCourse" parameterType="Integer" resultType ="VoladorChapterTitle">
+		select * from lemon_volador_course_chapter_title where course_id= #{course_id} order by chapter_title_order
+	</select>
+	
 	<!-- 根据课程id查找教师列表 -->
 	<select id="findTeacherbyCourse" parameterType="Integer" resultType ="VoladorTeacher">
 		SELECT

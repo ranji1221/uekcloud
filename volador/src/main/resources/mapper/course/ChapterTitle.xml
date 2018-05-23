@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.ranji.lemon.volador.model.course.ChapterTitle">
+
+	<!--插入章节标题 -->
+  	<insert id="save" parameterType="VoladorChapterTitle" keyProperty="id" useGeneratedKeys="true">
+		insert into lemon_volador_course_chapter_title (guid,create_time,update_time,chapter_title,course_id,chapter_title_order) 
+		values (#{guid},#{createTime},#{updateTime},#{chapter_title}, #{course_id},#{chapter_title_order})
+	</insert>
+	
+	<!-- 删除某条章节标题 -->
+	<delete id="delete" parameterType="int" >
+		delete from lemon_volador_course_chapter_title where id = #{id}
+	</delete>
+	
+	<!-- 根据id查询章节标题 -->
+	<select id="find" parameterType="int" resultType="VoladorChapterTitle">
+		select * from lemon_volador_course_chapter_title where id = #{id}
+	</select>
+	
+	<!-- 根据章节标题id查询章节对象 -->
+	<select id="findChapterByChapterTitle"  parameterType="int" resultType="VoladorChapter">
+		select * from lemon_volador_course_chapter where chapter_title_id = #{chapter_title_id} order by chapter_order
+	</select>
+	
+	<!-- 查询全部章节标题 -->
+	<select id="findAll" resultType="VoladorChapterTitle" parameterType="Map">
+		select * from lemon_volador_course_chapter_title
+	</select>
+
+	<!-- 修改章节标题信息 -->
+	<update id="update" parameterType="VoladorChapterTitle">
+		update lemon_volador_course_chapter_title
+		<set>
+			<if test="chapter_title != null and chapter_title != ''">chapter_title = #{chapter_title},</if>
+			<if test="course_id != null and course_id != ''">course_id = #{course_id},</if>
+			<if test="chapter_title_order != null and chapter_title_order != ''">chapter_title_order = #{chapter_title_order},</if>
+			<if test="updateTime != null ">update_time = #{updateTime},</if>
+		</set>
+		where id = #{id}
+	</update>
+</mapper>

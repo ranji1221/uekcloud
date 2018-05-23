@@ -115,16 +115,16 @@
     <div class="wqf_chapter clear_both">
         <div class="container">
             <ul class="wqf_chapter_list"> 
-                <li>
+                <li th:each="hd,iterStat:${chapterTitleList}">
                     <h2 class="title">
                         <i class="icon">=</i>
-                        <span>第一章 SpringBoot简介</span>
+                        <span th:text="${hd.chapter_title}">第一章 SpringBoot简介</span>
                     </h2>
                     <ul class="list">
-                        <li>
+                        <li th:each="c:${chapter0}">
                             <a href="course_video">
                                 <i class="fy_icon">&#xe629;</i>
-                                1-1 SpringBoot简介
+                                <span th:text="${c.chapter_name}">1-1 SpringBoot简介</span>
                                 <span class="time">20:20</span>
                                 <span class="tishi">免费试听5分钟 <i>→</i></span>
                             </a>
