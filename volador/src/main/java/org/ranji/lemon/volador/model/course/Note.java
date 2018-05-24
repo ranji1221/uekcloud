@@ -14,6 +14,13 @@ public class Note extends AbstractModel{
 	 */
 	private static final long serialVersionUID = 4676610472713565395L;
 	String content;
+	String title;
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
 	public Note(){
 		
 	}

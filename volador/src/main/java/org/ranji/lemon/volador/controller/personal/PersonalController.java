@@ -89,6 +89,7 @@ public class PersonalController {
 			}
 		}
 		catch (Exception e) {
+			e.printStackTrace();
 			mv.addObject("login_yes","login_yes");
 			mv.addObject("login_no","login_no active");
 		}

@@ -124,7 +124,7 @@
 					</li>
 				</ul>
 			</div>
-			<form action="" class='cp_tab'>
+			<form action="addNotes" class='cp_tab'>
 				<!-- 未登录提示 -->
 				<!-- <p>
 					请<a href="#">登陆</a>后 
@@ -133,10 +133,11 @@
 				</p> -->
 
 				<!-- 未登录后状态 -->
-				<input type="text" placeholder="请输入笔记标题">
-				<textarea name="" placeholder="请输入笔记内容" id="" cols="30" rows="10"></textarea>
+				<input type="hidden" th:value="${userId}" name="userId" id="userId">
+				<input type="text" name="noteTitle" placeholder="请输入笔记标题" id="noteTitle">
+				<textarea name="noteContent" placeholder="请输入笔记内容" id="noteContent" cols="30" rows="10"></textarea>
+				<input type="submit" value="发表笔记" id="submitnote">
 			</form>
-			
 		</div>
 	</div>
 
@@ -305,6 +306,31 @@
        
         return false;
 	});
+	
+	//笔记提交代码
+	$(function(){
+		var $noteTitle = $('#noteTitle');
+		var $noteContent = $("#noteContent");
+		var $submitNote = $("#submitnote");
+		
+		$submitNote.click(function(){
+			var title = $noteTitle.val();
+			var content = $noteContent.val();
+			var userId = $("#userId").val();
+			$.ajax({
+				url:"addNotes",
+				type:"post",
+				data:{
+					noteTitle:title,
+					noteContent:content,
+					userId:userId
+				},
+				success:function(){
+					
+				}
+			})
+		})
+	})
 </script>
 <script type="text/javascript">
 			var videoObject = {

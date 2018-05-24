@@ -14,6 +14,7 @@ import org.ranji.lemon.volador.model.course.ChapterTitle;
 import org.ranji.lemon.volador.model.course.Classify;
 import org.ranji.lemon.volador.model.course.Comment;
 import org.ranji.lemon.volador.model.course.Course;
+import org.ranji.lemon.volador.model.course.Note;
 import org.ranji.lemon.volador.model.course.Teacher;
 import org.ranji.lemon.volador.model.personal.UserInfo;
 import org.ranji.lemon.volador.service.course.prototype.IChapterService;
@@ -21,6 +22,7 @@ import org.ranji.lemon.volador.service.course.prototype.IChapterTitleService;
 import org.ranji.lemon.volador.service.course.prototype.IClassifyService;
 import org.ranji.lemon.volador.service.course.prototype.ICommentService;
 import org.ranji.lemon.volador.service.course.prototype.ICourseService;
+import org.ranji.lemon.volador.service.course.prototype.INoteService;
 import org.ranji.lemon.volador.service.personal.prototype.IPerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -48,6 +50,9 @@ public class CourseController {
 	
 	@Autowired
 	private ICommentService commentService;
+	
+	@Autowired
+	private INoteService noteService;
 	
 	
 	//职业导航
@@ -386,10 +391,44 @@ public class CourseController {
 	
 	//视频笔记页面
 	@RequestMapping(value="/course_chapterNote", method=RequestMethod.GET)
-	public ModelAndView videoWorkPage(){
+	public ModelAndView videoWorkPage(HttpServletRequest request){
+		
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("/backend/cp_videoWork");
+		try{
+			int userId=(int) request.getSession().getAttribute("userId");
+			mv.addObject("userId", userId);
+			mv.setViewName("/backend/cp_videoWork");
+		}catch (Exception e){
+			e.printStackTrace();
+			mv.setViewName("redirect:/login");
+		}
+	
 		return mv;
+	}
+	
+	@RequestMapping(value="/addNotes", method=RequestMethod.POST)
+	public ModelAndView addNotes(@RequestParam(value="noteTitle", required=false) String noteTitle,
+			@RequestParam(value="noteContent", required=false) String noteContent,
+			@RequestParam(value="userId", required=false) String userId,
+			HttpServletRequest request){
+		ModelAndView mv = new ModelAndView();
+		try{
+			//保存笔记
+			Note note = new Note();
+			note.setTitle(noteTitle);
+			note.setContent(noteContent);
+			noteService.save(note);
+
+			//保存用户与笔记的关系
+			noteService.saveNoteAndUserRelation(note.getId(), Integer.valueOf(userId));
+			mv.setViewName("/backend/cp_videoWork");
+		} catch (Exception e){
+			e.printStackTrace();
+			mv.setViewName("/backend/login");
+		}
+		
+		return mv;
+		
 	}
 	
 	//视频章节页面

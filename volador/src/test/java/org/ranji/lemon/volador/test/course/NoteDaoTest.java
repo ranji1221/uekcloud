@@ -37,14 +37,14 @@ public class NoteDaoTest {
 //		System.out.print(notes.toString());
 //	}
 //	
-	@Test
-	public void updateNote(){
-		List<Note> notes = noteservice.findAll();
-		String after = notes.get(0).getContent();
-		notes.get(0).setContent("modify conment.");
-		noteservice.update(notes.get(0));
-		System.out.print(after +" 修改为 " + notes.get(0).getContent());
-	}
+//	@Test
+//	public void updateNote(){
+//		List<Note> notes = noteservice.findAll();
+//		String after = notes.get(0).getContent();
+//		notes.get(0).setContent("modify conment.");
+//		noteservice.update(notes.get(0));
+//		System.out.print(after +" 修改为 " + notes.get(0).getContent());
+//	}
 	
 //	@Test
 //	public void deleteNote(){
@@ -52,4 +52,16 @@ public class NoteDaoTest {
 //		noteservice.delete(notes.get(0).getId());
 //		System.out.print("删除：" + notes.get(0).getContent());
 //	}
+	@Test
+	public void addNoteAndUserRelation(){
+//		Note note = new Note();
+//		note.setContent("It is second content./n");
+//		noteservice.save(note);
+//		
+		System.out.print(noteservice.findNoteByUserId(40).toString());
+		//noteservice.deleteNoteAndUserRelationByNoteId(2);
+		noteservice.delete(2);
+//		noteservice.saveNoteAndUserRelation(2, 40);
+//		System.out.print(note.toString());
+	}
 }

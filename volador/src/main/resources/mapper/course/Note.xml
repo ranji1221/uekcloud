@@ -2,8 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.ranji.lemon.volador.model.course.Note">
   <insert id="save" parameterType="VoladorCourseNote" keyProperty="id" useGeneratedKeys="true">
-		insert into lemon_volador_course_note (guid,createTime,updateTime,content)
-		values (#{guid},#{createTime},#{updateTime},#{content})
+		insert into lemon_volador_course_note (guid,createTime,updateTime,title,content)
+		values (#{guid},#{createTime},#{updateTime},#{title},#{content})
+	</insert>
+	
+	<!-- 存储某个用户和笔记信息的对应关系 -->
+	<insert id="saveNoteAndUserRelation" parameterType="Map" keyProperty="id" useGeneratedKeys="true">
+		insert into lemon_volador_course_user_note (note_id, user_id) values (#{noteId}, #{userId})
 	</insert>
 	
 	<!-- 删除某条笔记 -->
@@ -11,11 +16,27 @@
 		delete from lemon_volador_course_note where id = #{id}
 	</delete>
 	
+	<!-- 根据某个用户和笔记信息的对应关系 -->
+	<delete id="deleteNoteAndUserRelationByNoteId" parameterType="int">
+		delete from lemon_volador_course_user_note where note_id = #{noteId}
+	</delete>
+	
 	<!-- 根据id查询笔记 -->
 	<select id="find" parameterType="int" resultType="VoladorCourseNote">
 		select * from lemon_volador_course_note where id = #{id}
 	</select>
 	
+	<!-- 根据用户id查找笔记 -->
+	<select id="findNoteByUserId" parameterType="Integer" resultType ="VoladorCourseNote">
+		SELECT
+			r.*
+		FROM
+			lemon_volador_course_note r
+		LEFT JOIN lemon_volador_course_user_note u_r ON r.id = u_r.note_id
+		LEFT JOIN lemon_volador_personal_user u ON u.id = u_r.user_id
+		WHERE
+			u.id = #{id}
+	</select>
 	
 	<!-- 查询全部笔记 -->
 	<select id="findAll" resultType="VoladorCourseNote" parameterType="Map">
@@ -26,6 +47,7 @@
 	<update id="update" parameterType="VoladorCourseNote">
 		update lemon_volador_course_note
 		<set>
+		    <if test="title != null and title != ''">title = #{title},</if>
 			<if test="content != null and content != ''">content = #{content},</if>
 			<if test="updateTime != null ">updateTime = #{updateTime},</if>
 		</set>
