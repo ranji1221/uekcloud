@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.ranji.lemon.volador.model.course.Theme">
   <insert id="save" parameterType="VoladorCourseTheme" keyProperty="id" useGeneratedKeys="true">
-		insert into lemon_volador_course_theme (guid,create_time,update_time,title,description)
+		insert into lemon_volador_course_theme (guid,createTime,updateTime,title,description)
 		values (#{guid},#{createTime},#{updateTime},#{title},#{description})
 	</insert>
 	
@@ -60,7 +60,7 @@
 		<set>
 			<if test="title != null and title != ''">title = #{title},</if>
 			<if test="description != null and description != ''">description = #{description},</if>
-			<if test="updateTime != null ">update_time = #{updateTime},</if>
+			<if test="updateTime != null ">updateTime = #{updateTime},</if>
 		</set>
 		where id = #{id}
 	</update>

@@ -3,7 +3,7 @@
 <mapper namespace="org.ranji.lemon.volador.model.global.Notification">
 
     <insert id="save" parameterType="VoladorNotification" keyProperty="id" useGeneratedKeys="true">
-		insert into lemon_volador_global_notification (guid,create_time,update_time,notification_title,notification_content,notification_type) 
+		insert into lemon_volador_global_notification (guid,createTime,updateTime,notification_title,notification_content,notification_type) 
 		values (#{guid},#{createTime},#{updateTime},#{notificationTitle},#{notificationContent},#{notificationType})
 	</insert>
 	<!--  添加用户忽略消息/公告关系表 -->
@@ -39,7 +39,7 @@
 	
 	<!-- 查询用户前三条未读消息 -->
 	<select id="findTop3Notification" parameterType="Map" resultType="Map">
-	SELECT * from lemon_volador_global_notification where id BETWEEN #{startIgnNotificationNumber} and #{endIgnNotificationNumber} ORDER BY  create_time DESC LIMIT 3 
+	SELECT * from lemon_volador_global_notification where id BETWEEN #{startIgnNotificationNumber} and #{endIgnNotificationNumber} ORDER BY  createTime DESC LIMIT 3 
 	</select>
 	
 	<!-- 根据用户id查询忽略的消息/公告信息 -->

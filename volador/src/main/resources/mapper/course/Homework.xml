@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.ranji.lemon.volador.model.course.Homework">
   <insert id="save" parameterType="VoladorCourseHomework" keyProperty="id" useGeneratedKeys="true">
-		insert into lemon_volador_course_homework (guid,create_time,update_time,address,name,info,type)
+		insert into lemon_volador_course_homework (guid,createTime,updateTime,address,name,info,type)
 		values (#{guid},#{createTime},#{updateTime},#{address},#{name},#{info},#{type})
 	</insert>
 	
@@ -30,7 +30,7 @@
 			<if test="name != null and name != ''">name = #{name},</if>
 			<if test="info != null and info != ''">info = #{info},</if>
 			<if test="type != null and type != ''">type = #{type},</if>
-			<if test="updateTime != null ">update_time = #{updateTime},</if>
+			<if test="updateTime != null ">updateTime = #{updateTime},</if>
 		</set>
 		where id = #{id}
 	</update>

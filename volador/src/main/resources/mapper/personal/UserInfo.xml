@@ -3,7 +3,7 @@
 <mapper namespace="org.ranji.lemon.volador.model.personal.UserInfo">
 
     <insert id="save" parameterType="VoladorUserInfo" keyProperty="id" useGeneratedKeys="true">
-		insert into lemon_volador_personal_userinfo (guid,create_time,update_time,gender,email,nickname,head_image,real_name,idcard,address,wechat,qq) 
+		insert into lemon_volador_personal_userinfo (guid,createTime,updateTime,gender,email,nickname,head_image,real_name,idcard,address,wechat,qq) 
 		values (#{guid},#{createTime},#{updateTime},#{gender},#{email}, #{nickname},#{head_image},#{real_name},#{idcard},#{address},#{wechat},#{qq})
 	</insert>
 	
@@ -47,7 +47,7 @@
 			<if test="email != null and email != ''">email = #{email},</if>
 			<if test="gender != null and gender != ''">gender = #{gender},</if>
 			<if test="nickname != null and nickname != ''">nickname = #{nickname},</if>
-			<if test="updateTime != null">update_time = #{updateTime},</if>
+			<if test="updateTime != null">updateTime = #{updateTime},</if>
 			<if test="head_image != null and head_image != ''">head_image = #{head_image},</if>
 			<if test="real_name != null and real_name != ''">real_name = #{real_name},</if>
 			<if test="idcard != null and idcard != ''">idcard = #{idcard},</if>

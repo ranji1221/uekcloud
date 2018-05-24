@@ -3,7 +3,7 @@
 <mapper namespace="org.ranji.lemon.volador.model.personal.StudyTime">
 
     <insert id="save" parameterType="VoladorStudyTime" keyProperty="id" useGeneratedKeys="true">
-		insert into lemon_volador_personal_studytime (guid,create_time,update_time,study_time,user_id) 
+		insert into lemon_volador_personal_studytime (guid,createTime,updateTime,study_time,user_id) 
 		values (#{guid},#{createTime},#{updateTime},#{studyTime},#{userId})
 	</insert>
 	

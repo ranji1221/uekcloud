@@ -108,11 +108,13 @@
 							20:30
 						</div>
 					</div>
+					<div class="bg1"></div>
+					<div class="bg2"></div>
 
 					<h3 class="title hidd_more fire" th:text="${course.course_info}">理论+实践，构建属于你的机器学习库单 <span class="fy_icon">&#xe606;</span></h3>
 					<p>
-						<div class="newprice">￥<span class="price" th:text="${course.course_price}">199</span></div>
-						<div class="newpeople"><span th:text="${course.student_count}">555</span>人正在学习</div>
+						<span th:text="${course.course_price} == 0 ? '免费' : '￥'+${course.course_price}" class="price">￥199</span>
+						<span th:text="${course.student_count} + '人正在学习'">555人正在学习</span>
 						
 					</p>
 				</a>

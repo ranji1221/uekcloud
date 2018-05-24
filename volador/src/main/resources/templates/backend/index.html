@@ -443,8 +443,8 @@
 					<div class="bg2"></div>
 					<h3 class="title hidd_more2 fire" th:text="${course.course_name}">理论+实践，构建属于你的机器学习库单 <span class="fy_icon">&#xe606;</span></h3>
 					<p>
-						<span th:text="${course.course_price}" class="price">￥199</span>
-						<span th:text="${course.student_count}">555人正在学习</span>
+						<span th:text="${course.course_price} == 0 ? '免费' : '￥'+${course.course_price}" class="price">￥199</span>
+						<span th:text="${course.student_count} + '人正在学习'">555人正在学习</span>
 					</p>
 				</a>
 			</li>                                    
@@ -680,7 +680,7 @@
 
 <!-- 回到顶部 开始-->
 <div class="wqf_totop">
-	<a href="javascript:;" class="qiandao"><img src="images/wqf_qiandao.png" ></a>
+	<a href="personSignIn" class="qiandao"><img th:src="${isSignIn}== 'done'?'':'images/wqf_qiandao.png'"></a>
 
 	<a href="javascript:;" id="toTop" class="menu fy_icon">&#xe62e;</a>
 	<a href="javascript:;" class="menu fy_icon wqf_hover">&#xe620;

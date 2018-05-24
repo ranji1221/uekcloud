@@ -4,7 +4,7 @@
 
 	<!--插入章节标题 -->
   	<insert id="save" parameterType="VoladorChapterTitle" keyProperty="id" useGeneratedKeys="true">
-		insert into lemon_volador_course_chapter_title (guid,create_time,update_time,chapter_title,course_id,chapter_title_order) 
+		insert into lemon_volador_course_chapter_title (guid,createTime,updateTime,chapter_title,course_id,chapter_title_order) 
 		values (#{guid},#{createTime},#{updateTime},#{chapter_title}, #{course_id},#{chapter_title_order})
 	</insert>
 	
@@ -35,7 +35,7 @@
 			<if test="chapter_title != null and chapter_title != ''">chapter_title = #{chapter_title},</if>
 			<if test="course_id != null and course_id != ''">course_id = #{course_id},</if>
 			<if test="chapter_title_order != null and chapter_title_order != ''">chapter_title_order = #{chapter_title_order},</if>
-			<if test="updateTime != null ">update_time = #{updateTime},</if>
+			<if test="updateTime != null ">updateTime = #{updateTime},</if>
 		</set>
 		where id = #{id}
 	</update>

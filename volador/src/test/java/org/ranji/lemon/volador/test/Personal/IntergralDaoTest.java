@@ -1,7 +1,9 @@
 package org.ranji.lemon.volador.test.Personal;
+import java.util.Date;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.ranji.lemon.core.util.DateUtil;
 import org.ranji.lemon.volador.VoladorApplication;
 import org.ranji.lemon.volador.model.global.Announcement;
 import org.ranji.lemon.volador.model.global.Notification;
@@ -80,19 +82,29 @@ public class IntergralDaoTest {
 		
 	}*/
 	
+//	@Test
+//	public void addNotification(){
+//		Notification notification = new Notification();
+//		notification.setNotificationTitle("系统维护");
+//		notification.setNotificationContent("今晚18点系统将要进行维护");
+//		notificationService.save(notification);
+//	}
+//	
+//	@Test
+//	public void addAnnouncement(){
+//		Announcement announcement = new Announcement();
+//		announcement.setAnnouncementTitle("公告");
+//		announcement.setAnnouncementContent("系统将于今天开始暂停更新");
+//	    announcementService.save(announcement);
+//	}
 	@Test
-	public void addNotification(){
-		Notification notification = new Notification();
-		notification.setNotificationTitle("系统维护");
-		notification.setNotificationContent("今晚18点系统将要进行维护");
-		notificationService.save(notification);
-	}
-	
-	@Test
-	public void addAnnouncement(){
-		Announcement announcement = new Announcement();
-		announcement.setAnnouncementTitle("公告");
-		announcement.setAnnouncementContent("系统将于今天开始暂停更新");
-	    announcementService.save(announcement);
+    public void findIntergralAndSignin(){
+		
+		Integral integral = integralService.findIntegralByUserId(40);
+		System.out.println(integral.toString());
+		
+		SignIn signIn = signInService.findSignInByUserId(40);
+		System.out.println(signIn.toString());
+				
 	}
 }
