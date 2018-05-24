@@ -1,16 +1,22 @@
 package org.ranji.lemon.volador.controller.personal;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.ranji.lemon.volador.model.course.Course;
 import org.ranji.lemon.volador.model.course.Homework;
+import org.ranji.lemon.volador.model.personal.Integral;
+import org.ranji.lemon.volador.model.personal.SignIn;
 import org.ranji.lemon.volador.model.personal.UserInfo;
 import org.ranji.lemon.volador.service.course.prototype.ICourseService;
 import org.ranji.lemon.volador.service.course.prototype.IHomeworkService;
+import org.ranji.lemon.volador.service.personal.prototype.IIntegralService;
 import org.ranji.lemon.volador.service.personal.prototype.IPerService;
+import org.ranji.lemon.volador.service.personal.prototype.ISignInService;
 import org.ranji.lemon.volador.service.personal.prototype.IUserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,6 +40,15 @@ public class PersonalCenterController {
 	
 	@Autowired
 	private IHomeworkService homeworkService ;
+	
+	@Autowired
+	private ISignInService signInService;
+	
+	@Autowired
+	private IIntegralService integralService;
+	
+	//用户签到获得的积分
+	private Integer SIGNIN_INTRGRAL_NUM = 20;
 	
 	/*
 	 * 个人中心 - 通知公告
@@ -87,9 +102,13 @@ public class PersonalCenterController {
 			
 			
 			//查询我的积分
-			
+			Integral integral = integralService.findIntegralByUserId(userId);
+			mv.addObject("integralNum", integral.getIntegralNumber());
 			
 			//查询签到天数
+			SignIn signIn = signInService.findSignInByUserId(userId);
+			mv.addObject("siginDay", signIn.getDay());
+			
 			mv.setViewName("/backend/wqf_learn_now");
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -98,6 +117,53 @@ public class PersonalCenterController {
 		return mv;
 	}
 	
+	/*
+	 * 用户签到
+	 */
+	@RequestMapping(value="/personSignIn", method=RequestMethod.GET)
+	public ModelAndView personSignIn(HttpServletRequest request){
+		ModelAndView mv =new ModelAndView();
+		try{
+			
+			int userId = (int) request.getSession().getAttribute("userId");
+			
+			//获取用户签到表
+			SignIn signIn = signInService.findSignInByUserId(userId);
+			//获取用户积分表
+			Integral integral = integralService.findIntegralByUserId(userId);
+			
+			/*判断用户是否已经签到*/
+			//日期格式化
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+			
+			//格式化需要判断的日期
+			String strNeedCheckDate = simpleDateFormat.format(signIn.getUpdateTime());
+			
+			//格式化当前日期
+			Date currentDate = new Date();
+			String strCurrentDate = simpleDateFormat.format(currentDate);
+			
+			//比较是否在同一天
+			if(!strNeedCheckDate.equals(strCurrentDate)){
+				//如果不在同一天，用户签到
+				signIn.setUpdateTime(currentDate);
+				signIn.setDay(signIn.getDay() + 1);
+				signInService.update(signIn);
+				
+				//积分增加20 
+				integral.setUpdateTime(currentDate);
+				integral.setIntegralNumber(integral.getIntegralNumber()+SIGNIN_INTRGRAL_NUM);
+				integralService.update(integral);
+			}
+			
+			mv.setViewName("redirect:/index");
+			
+		} catch (Exception e){
+			e.printStackTrace();
+			mv.setViewName("redirect:/login");
+		}
+		return mv;
+	}
 	/*
 	 * 个人中心 - 已学习完的课程 
 	 * */

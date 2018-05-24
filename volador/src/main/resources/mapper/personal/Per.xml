@@ -3,7 +3,7 @@
 <mapper namespace="org.ranji.lemon.volador.model.personal.Per">
 
     <insert id="save" parameterType="VoladorPerUser" keyProperty="id" useGeneratedKeys="true">
-        insert into lemon_volador_personal_user (guid,create_time,update_time,username, password) 
+        insert into lemon_volador_personal_user (guid,createTime,updateTime,username, password) 
 		values (#{guid},#{createTime},#{updateTime},#{username}, #{password})
     </insert>
     
@@ -73,7 +73,7 @@
 		<set>
 			<if test="username != null and username != ''">username = #{username},</if>
 			<if test="password != null and password != ''">password = #{password},</if>
-			<if test="updateTime != null">update_time = #{updateTime},</if>
+			<if test="updateTime != null">updateTime = #{updateTime},</if>
 		</set>
 		where id = #{id}
 	</update>

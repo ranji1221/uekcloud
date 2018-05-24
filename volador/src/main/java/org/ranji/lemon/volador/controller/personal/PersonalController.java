@@ -1,7 +1,9 @@
 package org.ranji.lemon.volador.controller.personal;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,12 +15,14 @@ import org.ranji.lemon.volador.model.course.Classify;
 import org.ranji.lemon.volador.model.course.Course;
 import org.ranji.lemon.volador.model.course.Theme;
 import org.ranji.lemon.volador.model.personal.Per;
+import org.ranji.lemon.volador.model.personal.SignIn;
 import org.ranji.lemon.volador.model.personal.UserInfo;
 import org.ranji.lemon.volador.service.course.prototype.IClassifyService;
 import org.ranji.lemon.volador.service.course.prototype.ICourseService;
 import org.ranji.lemon.volador.service.course.prototype.IThemeService;
 import org.ranji.lemon.volador.service.global.prototype.INotificationService;
 import org.ranji.lemon.volador.service.personal.prototype.IPerService;
+import org.ranji.lemon.volador.service.personal.prototype.ISignInService;
 import org.ranji.lemon.volador.service.personal.prototype.IUserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -43,6 +47,8 @@ public class PersonalController {
 	private IClassifyService classifyService;
 	@Autowired
 	private INotificationService notificationService;
+	@Autowired
+	private ISignInService signInService;
 	
 	//首页
 	@RequestMapping(value="/index", method=RequestMethod.GET)
@@ -60,6 +66,27 @@ public class PersonalController {
 			mv.addObject("login_yes","login_yes active");
 			mv.addObject("login_no","login_no");
 			mv.addObject("userName", userName);
+			
+			//查看用户是否已经签到
+			//获取用户签到表
+			SignIn signIn = signInService.findSignInByUserId(userId);
+			//日期格式化
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+			
+			//格式化需要判断的日期
+			String strNeedCheckDate = simpleDateFormat.format(signIn.getUpdateTime());
+			
+			//格式化当前日期
+			Date currentDate = new Date();
+			String strCurrentDate = simpleDateFormat.format(currentDate);
+			
+			//比较是否在同一天
+			if(strNeedCheckDate.equals(strCurrentDate)){
+				//如果是同一天说明用户已经签到
+				mv.addObject("isSignIn", "done");
+			}else{
+				mv.addObject("isSignIn", "no");
+			}
 		}
 		catch (Exception e) {
 			mv.addObject("login_yes","login_yes");

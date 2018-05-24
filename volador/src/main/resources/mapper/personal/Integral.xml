@@ -3,7 +3,7 @@
 <mapper namespace="org.ranji.lemon.volador.model.personal.Integral">
 
     <insert id="save" parameterType="VoladorIntegral" keyProperty="id" useGeneratedKeys="true">
-		insert into lemon_volador_personal_integral (guid,create_time,update_time,integral_number,user_id) 
+		insert into lemon_volador_personal_integral (guid,createTime,updateTime,integral_number,user_id) 
 		values (#{guid},#{createTime},#{updateTime},#{integralNumber},#{userId})
 	</insert>
 	
@@ -18,6 +18,21 @@
 	<select id="find" parameterType="int" resultType="VoladorIntegral">
 		select * from lemon_volador_personal_integral where id = #{id}
 	</select>
+	
+	<!-- 根据用户id查询积分信息 -->
+	<select id="findIntegralByUserId" parameterType="int" resultType="VoladorIntegral">
+		select * from lemon_volador_personal_integral where user_id = #{userId}
+	</select>
+	
+	<!-- 修改个某条信息 -->
+	<update id="update" parameterType="VoladorIntegral">
+		update lemon_volador_personal_integral
+		<set>
+			<if test="integralNumber != null and integralNumber != ''">integral_number = #{integralNumber},</if>
+			<if test="updateTime != null">updateTime = #{updateTime},</if>
+		</set>
+		where id = #{id}
+	</update>
 	
 	<!-- 查询全部用户信息
 	<select id="findAll" resultType="VoladorIntegral" >

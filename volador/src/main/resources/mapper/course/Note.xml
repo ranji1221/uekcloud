@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.ranji.lemon.volador.model.course.Note">
   <insert id="save" parameterType="VoladorCourseNote" keyProperty="id" useGeneratedKeys="true">
-		insert into lemon_volador_course_note (guid,create_time,update_time,content)
+		insert into lemon_volador_course_note (guid,createTime,updateTime,content)
 		values (#{guid},#{createTime},#{updateTime},#{content})
 	</insert>
 	
@@ -27,7 +27,7 @@
 		update lemon_volador_course_note
 		<set>
 			<if test="content != null and content != ''">content = #{content},</if>
-			<if test="updateTime != null ">update_time = #{updateTime},</if>
+			<if test="updateTime != null ">updateTime = #{updateTime},</if>
 		</set>
 		where id = #{id}
 	</update>

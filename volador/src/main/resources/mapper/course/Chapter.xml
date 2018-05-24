@@ -4,7 +4,7 @@
 
 	<!--储存一条信息 -->
   	<insert id="save" parameterType="VoladorChapter" keyProperty="id" useGeneratedKeys="true">
-		insert into lemon_volador_course_chapter (guid,create_time,update_time,chapter_name, chapter_info,video_address,chapter_title_id,chapter_order)
+		insert into lemon_volador_course_chapter (guid,createTime,updateTime,chapter_name, chapter_info,video_address,chapter_title_id,chapter_order)
 		values (#{guid},#{createTime},#{updateTime},#{chapter_name}, #{chapter_info},#{video_address},#{chapter_title_id},#{chapter_order})
 	</insert>
 	
@@ -65,7 +65,7 @@
 			<if test="chapter_info != null and chapter_info != ''">chapter_info = #{chapter_info},</if>
 			<if test="chapter_title_id != null and chapter_title_id != ''">chapter_title_id = #{chapter_title_id},</if>
 			<if test="chapter_order != null and chapter_order != ''">chapter_order = #{chapter_order},</if>
-			<if test="updateTime != null ">update_time = #{updateTime},</if>
+			<if test="updateTime != null ">updateTime = #{updateTime},</if>
 		</set>
 		where id = #{id}
 	</update>

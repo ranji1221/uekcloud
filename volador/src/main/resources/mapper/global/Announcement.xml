@@ -3,7 +3,7 @@
 <mapper namespace="org.ranji.lemon.volador.model.global.Announcement">
 
     <insert id="save" parameterType="VoladorAnnouncement" keyProperty="id" useGeneratedKeys="true">
-		insert into lemon_volador_global_announcement (guid,create_time,update_time,announcement_title,announce_content) 
+		insert into lemon_volador_global_announcement (guid,createTime,updateTime,announcement_title,announce_content) 
 		values (#{guid},#{createTime},#{updateTime},#{announcementTitle},#{announcementContent})
 	</insert>
 	

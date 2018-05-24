@@ -8,9 +8,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.ranji.lemon.volador.model.personal.Integral;
 import org.ranji.lemon.volador.model.personal.Per;
+import org.ranji.lemon.volador.model.personal.SignIn;
 import org.ranji.lemon.volador.model.personal.UserInfo;
+import org.ranji.lemon.volador.service.personal.prototype.IIntegralService;
 import org.ranji.lemon.volador.service.personal.prototype.IPerService;
+import org.ranji.lemon.volador.service.personal.prototype.ISignInService;
 import org.ranji.lemon.volador.service.personal.prototype.IUserInfoService;
 import org.ranji.lemon.volador.util.SmsBase;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +33,12 @@ public class RegisterController {
 	
 	@Autowired
 	private IUserInfoService userInfoService;
+	
+	@Autowired
+	private ISignInService signInService;
+	
+	@Autowired
+	private IIntegralService integralService;
 		
 	@RequestMapping(value="/register", method=RequestMethod.GET)
 	public ModelAndView registerPage(){
@@ -85,6 +95,19 @@ public class RegisterController {
 					
 					//保存用户关系表
 					personalService.saveUserAndUserInfoRelation(user.getId(), userInfo.getId());
+					
+					//初始化签到表
+					SignIn sigIn = new SignIn();
+					sigIn.setUserId(user.getId());
+					sigIn.setDay(0);
+					signInService.save(sigIn);
+					
+					//初始化积分表
+					Integral integral = new Integral();
+					integral.setUserId(user.getId());
+					integral.setIntegralNumber(0);
+					integralService.save(integral);
+					
 					mv.setViewName("redirect:/login");	
 					//用户注册成功，返回登录就界面
 					return mv;					

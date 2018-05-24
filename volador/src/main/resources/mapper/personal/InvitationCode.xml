@@ -3,7 +3,7 @@
 <mapper namespace="org.ranji.lemon.volador.model.personal.InvitationCode">
 
     <insert id="save" parameterType="VoladorInvitationCode" keyProperty="id" useGeneratedKeys="true">
-		insert into lemon_volador_personal_invitationcode (guid,create_time,update_time,invitation_code,user_id) 
+		insert into lemon_volador_personal_invitationcode (guid,createTime,updateTime,invitation_code,user_id) 
 		values (#{guid},#{createTime},#{updateTime},#{invitationCode},#{userId})
 	</insert>
 	
