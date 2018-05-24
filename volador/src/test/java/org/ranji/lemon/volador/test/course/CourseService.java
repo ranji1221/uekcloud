@@ -55,6 +55,12 @@ public class CourseService {
 //	
 	@Test
 	public void testFindTeacherbyCourse(){
+		
+		Course course=new Course();
+		course.setCourse_name("大数据阿萨德阿萨德");
+		course.setCourse_price(222);
+		course.setCourse_info("asdasd");
+		courseService.save(course);
 //		List<Teacher> listTeacher;
 //		listTeacher=courseService.findTeacherbyCourse(3);
 //		courseService.deleteCourseAndChapterRelation(1, 1);
@@ -67,20 +73,20 @@ public class CourseService {
 //			courseList.add(course);
 //			System.out.println(courseList.get(0).getCourse_name());
 //		}
-		int chapterId=1;
+//		int chapterId=1;
 //		//查询章节信息
 //		Chapter chapter=chapterService.find(chapterId);
 //		
 //		//根据章节id获取评论列表
 //		List<Comment> commentList = chapterService.findCommentListByChapter(chapterId);
 		
-		Chapter chapter=chapterService.find(chapterId);
+//		Chapter chapter=chapterService.find(chapterId);
+//		
+//		//根据章节id获取评论列表
+//		List<Comment> commentList = chapterService.findCommentListByChapter(chapterId);
 		
-		//根据章节id获取评论列表
-		List<Comment> commentList = chapterService.findCommentListByChapter(chapterId);
-		
-		int commentId=commentList.get(1).getId();
-		int user_Id=commentService.findUserIdByCommentId(commentId).get(0);
+//		int commentId=commentList.get(1).getId();
+//		int user_Id=commentService.findUserIdByCommentId(commentId).get(0);
 //		int as=commentService.findUserIdByCommentId(3).get(0);
 //		for(int i=0;i<commentList.size();i++){
 //			int commentId=commentList.get(i).getId();

@@ -20,7 +20,7 @@ import org.springframework.stereotype.Service;
 @Service("VoladorChapterServiceImpl")
 public class ChapterServiceImpl extends GenericServiceImpl<Chapter,Integer> implements IChapterService{
     @Autowired
-    IChapterService chapterService;
+    private IChapterService chapterService;
 
 	@Override
 	public void saveChapterAndAccessoryRelation(int chapter_id, int accessory_id) {

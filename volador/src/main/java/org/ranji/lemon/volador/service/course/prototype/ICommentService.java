@@ -43,4 +43,18 @@ public interface ICommentService extends IGenericService<Comment, Integer>{
 	 */
 	public List<Integer> findUserIdByCommentId(int commentId);
 	
+	/**
+	 * 删除课程与评论关系
+	 * @param courseId 课程id
+	 * @param commentId 章节id
+	 */
+	public void deleteCourseAndCommentRelation(int commentId,int courseId);
+	
+	/**
+	 * 增加章节评论关系
+	 * @param commentid 评论id
+	 * @param courseId 课程id
+	 */
+	public void saveCourseAndCommentRelation(int commentId,int courseId);
+	
 }

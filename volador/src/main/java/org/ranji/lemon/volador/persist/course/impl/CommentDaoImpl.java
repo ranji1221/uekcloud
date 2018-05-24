@@ -59,6 +59,26 @@ public class CommentDaoImpl extends GenericDaoImpl<Comment,Integer> implements I
 		map.put("commentId", commentId);
 		return sqlSessionTemplate.selectList(typeNameSpace+".findUserIdByCommentId", map);
 	}
+
+
+	@Override
+	public void deleteCourseAndCommentRelation(int commentId,int courseId) {
+		// TODO Auto-generated method stub
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("courseId", courseId);
+		map.put("commentId", commentId);
+		sqlSessionTemplate.delete(typeNameSpace+".deleteCourseAndCommentRelation", map);
+	}
+
+
+	@Override
+	public void saveCourseAndCommentRelation(int commentId,int courseId) {
+		// TODO Auto-generated method stub
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("courseId", courseId);
+		map.put("commentId", commentId);
+		sqlSessionTemplate.insert(typeNameSpace+".saveCourseAndCommentRelation", map);
+	}
 	
 
 }

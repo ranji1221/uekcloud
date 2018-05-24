@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.ranji.lemon.volador.model.course.Comment">
   <insert id="save" parameterType="VoladorComment" keyProperty="id" useGeneratedKeys="true">
-		insert into lemon_volador_comment (guid,content,create_time,update_time) 
+		insert into lemon_volador_comment (guid,content,createTime,updateTime) 
 		values (#{guid},#{content},#{createTime},#{updateTime})
 	</insert>
 	
@@ -34,6 +34,17 @@
 	<!-- 删除章节评论之间的关系 -->
 	<delete id="deleteCommentAndChapterRelation" parameterType="Map">
 		delete from  lemon_volador_chapter_comment where chapter_id=#{chapterId} and comment_id=#{commentId}
+	</delete>
+	
+	
+	<!-- 存储某个课程和评论的对应关系 -->
+	<insert id="saveCourseAndCommentRelation" parameterType="Map" keyProperty="id" useGeneratedKeys="true">
+		insert into lemon_volador_chapter_comment(course_id,comment_id) values(#{courseId},#{commentId})
+	</insert>
+	
+	<!-- 删除课程与评论之间的关系 -->
+	<delete id="deleteCourseAndCommentRelation" parameterType="Map">
+		delete from  lemon_volador_chapter_comment where course_id=#{courseId} and comment_id=#{commentId}
 	</delete>
 	
 	

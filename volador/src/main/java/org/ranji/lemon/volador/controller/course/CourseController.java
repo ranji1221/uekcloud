@@ -141,7 +141,7 @@ public class CourseController {
 		}
 		else{
 			//重定向到跳转到404
-			mv.setViewName("/backend/wqf_chapter");
+			mv.setViewName("redirect:/index");
 //			mv.addObject("error", "operate error!");
 		}
 												
@@ -150,11 +150,119 @@ public class CourseController {
 	
 	//课程评论页面
 	@RequestMapping(value="/course_comment", method=RequestMethod.GET)
-	public ModelAndView commentPage(){
+	public ModelAndView commentPage(@RequestParam(value="courseId", required=false) Integer courseId,
+			HttpServletRequest request){
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("/backend/cp_comment");
+		//检测是否登录,并获取用户信息
+		try{
+			String userName = request.getSession().getAttribute("userName").toString();
+			int userId=(int) request.getSession().getAttribute("userId");
+			UserInfo userInfo=personalService.findUserInfoByUserId(userId);
+			mv.addObject(userInfo);
+			mv.addObject("userId", userId);
+			mv.addObject("login_yes","login_yes active");
+			mv.addObject("login_no","login_no");
+			mv.addObject("userName", userName);
+		}
+		catch (Exception e) {
+			mv.addObject("login_yes","login_yes");
+			mv.addObject("login_no","login_no active");
+		}
+		if(null != courseId){
+			//查询课程
+			Course course=courseService.find(courseId);
+			
+			if(course.getCourse_image_address()==null){
+				course.setCourse_image_address("images/cp_10.png");
+			}
+			//将课程信息返回
+			mv.addObject(course);
+			
+			//查找课程对应教师
+			Teacher teacher=courseService.findTeacherbyCourse(courseId).get(0);
+			
+			//返回教师信息
+			mv.addObject(teacher);
+			
+			
+			
+			//根据课程id获取评论列表
+			List<Comment> commentList = courseService.findCommentListByCourse(courseId);
+			//根据评论获取用户信息
+			for(int i=0;i<commentList.size();i++){
+				int commentId=commentList.get(i).getId();
+				int user_Id=commentService.findUserIdByCommentId(commentId).get(0);
+				UserInfo userInfo=personalService.findUserInfoByUserId(user_Id);
+				commentList.get(i).setNickName(userInfo.getNickname());
+				commentList.get(i).setHead_image(userInfo.getHead_image());
+			}
+			
+			mv.addObject("commentCount",commentList.size());
+			mv.addObject(commentList);
+			mv.setViewName("/backend/cp_comment");
+		}else{
+			mv.setViewName("redirect:/index");
+		}
+		
+		
+		
 		return mv;
 	}
+	
+	//课程发表评论
+		@RequestMapping(value="/course_addcomment",method=RequestMethod.POST)
+		public void courseComment(@RequestParam(value="content", required=false) String content,
+				@RequestParam(value="chapterId", required=false) String courseId,
+				@RequestParam(value="userId", required=false) String userId,
+				HttpServletRequest request,
+				HttpServletResponse response){
+			//设置返回格式
+			response.setHeader("Content-Type", "application/json;charset=utf-8");
+			
+			String info="用户未登录，请登录！";
+			Map<String,Object> map=new HashMap<String,Object>();
+			
+			try {			
+				System.out.println(userId);
+				
+				Comment comment=new Comment();
+				
+				//保存评论
+				comment.setContent(content);
+				commentService.save(comment);
+				
+				//保存评论和课程的关系
+				commentService.saveCourseAndCommentRelation(comment.getId(), Integer.parseInt(courseId.toString()));
+				
+				//保存评论和用户关系
+				commentService.savaCommentAndUserRelation(comment.getId(), Integer.parseInt(userId.toString()));
+				
+				info = "评论发布成功！";
+				map.put("info", info);
+				
+				PrintWriter writer = response.getWriter();
+				writer.print(JsonUtil.toJsonByProperties(map)); 
+		        writer.flush();  
+		        writer.close();
+				
+			} catch (NullPointerException e){
+				e.printStackTrace();
+				info = "空指针异常！";
+				map.put("info",info);
+			}catch (NumberFormatException e){
+				e.printStackTrace();
+			}catch (Exception e) {
+				info = "异常！";
+				map.put("info",info);
+				e.printStackTrace();
+			}
+
+		}
+	
+	
+	
+	
+	
 	
 	//作业展示页面
 	@RequestMapping(value="/course_jobDisplay", method=RequestMethod.GET)
@@ -198,6 +306,7 @@ public class CourseController {
 			
 			//根据章节id获取评论列表
 			List<Comment> commentList = chapterService.findCommentListByChapter(chapterId);
+			//根据评论获取用户信息
 			for(int i=0;i<commentList.size();i++){
 				int commentId=commentList.get(i).getId();
 				int user_Id=commentService.findUserIdByCommentId(commentId).get(0);
@@ -227,9 +336,9 @@ public class CourseController {
 	}
 	
 	
-	//发表评论
+	//章节发表评论
 	@RequestMapping(value="/course_chapter_comment",method=RequestMethod.POST)
-	public void comment(@RequestParam(value="content", required=false) String content,
+	public void chapterComment(@RequestParam(value="content", required=false) String content,
 			@RequestParam(value="chapterId", required=false) String chapterId,
 			@RequestParam(value="userId", required=false) String userId,
 			HttpServletRequest request,

@@ -48,5 +48,19 @@ public class CommentServiceImpl extends GenericServiceImpl<Comment, Integer> imp
 		return ((ICommentDao)dao).findUserIdByCommentId(commentId);
 	}
 
+	@Override
+	public void deleteCourseAndCommentRelation(int commentId, int courseId) {
+		// TODO Auto-generated method stub
+		((ICommentDao) dao).deleteCourseAndCommentRelation(commentId, courseId);
+	}
+
+	@Override
+	public void saveCourseAndCommentRelation(int commentId, int courseId) {
+		// TODO Auto-generated method stub
+		((ICommentDao)dao).saveCourseAndCommentRelation(commentId, courseId);
+	}
+
+
+
 
 }

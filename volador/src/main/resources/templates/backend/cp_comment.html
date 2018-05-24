@@ -17,9 +17,9 @@
 	<!-- 面包屑导航 -->
     <div class="cp_head">
         <div class="cp_breadCrumb">
-            <a href="index.html">首页</a>
+            <a href="index">首页</a>
             <i class='fy_icon'>&#xe604;</i>
-            <a href="#">找课程</a>
+            <a href=""findCourse"">找课程</a>
             <i class='fy_icon'>&#xe604;</i>
             <a href="#">课程详情</a>
         </div>
@@ -32,12 +32,12 @@
         <div class="cp_product">
             <div class="con_left">
                 <a href="#">
-                    <img src="images/cp_10.png">
+                    <img src="images/cp_10.png" th:src="${course.course_image_address}">
                 </a>  
             </div>
             <div class="con_right">
                 <div class="con_son1">
-                    <h3 class="hidden_one">Python课程初探</h3>
+                    <h3 class="hidden_one" th:text="${course.course_name}">Python课程初探</h3>
                     <a href="#" class='group'>
                         <img src="images/cp_11.png">
                         <span>
@@ -57,13 +57,13 @@
                         </a>
                     </div>
                 </div>
-                <div class="con_son2 hidd_more2">
+                <div th:text="${course.course_info}" class="con_son2 hidd_more2">
                     Python是什么？豆瓣和Youtube是用它开发的；美国最流行的三大服务器开发语言之一，最工整最严谨的编程语言，取代Java和PHP的开源趋势语言。 
                 </div>
                 <div class="con_son3">
                     <span>
                         学习人数
-                        <b>899</b>
+                        <b th:text="${course.student_count}">899</b>
                     </span>
                     <span>
                         课程时长
@@ -75,16 +75,16 @@
                     </span>
                 </div>
                 <div class="con_son4">
-                   本节价格<b>300</b><span>元</span>
+                   本节价格<b th:text="${course.course_price == 0 ? '免费':course.course_price}">300</b><span th:text="${course.course_price == 0 ? '':'元'}">元</span>
                 </div>
                 <div class="con_son5">
-                   <a href="cp_kefu.html" class='putchase'>
-                       立刻购买
+                   <a href="#" class='putchase' th:class="${course.course_price == 0 ? '':'putchase'}" th:text="${course.course_price == 0 ? '':'立即购买'}">
+                   立刻购买
                    </a>
                    <a href="#" class='study'>
                        去学习
                    </a>
-                   <a href="#">试听5分钟</a>
+                   <a href="#" th:text="${course.course_price == 0 ? '':'试听一节课'}">试听5分钟</a>
                 </div>
             </div>
         </div>
@@ -93,7 +93,7 @@
         <!-- tab分类布局 -->
         <ul class="cp_tabBox">
             <li>
-                <a href="course_chapter">
+                <a href="course_chapter" th:href="'course_chapter?courseId='+${course.id}">
                     章节
                 </a>
             </li>
@@ -102,11 +102,12 @@
                     评论
                 </a>
             </li>
-            <li>
+<!-- 作业展示 未实现 -->
+<!--             <li>
                 <a href="course_jobDisplay">
                     作业展示
                 </a>
-            </li>
+            </li> -->
         </ul>
         <!-- tab分类布局结束 -->
     </div>
@@ -115,20 +116,22 @@
     <!-- tab分类内容 -->
     <div class="cp_tabCon">
         <div class="tips">
-            全部评论 <span>20</span>
+            全部评论 <span th:text="${commentCount}">20</span>
         </div>
         <div class="container">
             <div class="col_left">
                 <!--添加评论列表开始-->
                 <div class="wzq_show_comment_add">
-                    <form action="" class="wzq_add_form wzq_clear">
+                    <form action="javascript:;" class="wzq_add_form wzq_clear">
                         <div class="wzq_clear">
                             <div class="wzq_user_img">
-                                <img src="images/wzq_user_img.jpg" alt="">
+                                <img src="images/wzq_user_img.jpg" th:src="${userInfo.head_image} == null? 'images/wzq_user_img.jpg': ${userInfo.head_image}" alt="">
                             </div>
                             <div class="wzq_textarea">
                                 <textarea name="" id="wzq_textarea" onfocus="if(value=='快来发布评论吧...') {value=''}" onblur="if(value=='') {value='快来发布评论吧...'}">快来发布评论吧...</textarea>
                             </div>
+                            <input type="hidden" th:value="${course.id}" name="courseId" id="courserId">
+                            <input type="hidden" th:value="${userId}" name="userId" id="userId"> 
                         </div>
                         <div class="wzq_icon_add">
                             <span data-icon-flag="true">添加表情</span>
@@ -136,24 +139,24 @@
 
                             </div>
                         </div>
-                        <div class="wzq_add_submit"><input type="submit" value="发表评论"></div>
+                        <div class="wzq_add_submit"><input type="button" value="发表评论"></div>
                     </form>
                 </div>
                 <!--添加评论列表开结束-->
 
                 <!--评论列表开始-->
                 <ul class="wzq_show_comment_list wqf_comment">
-                    <li class="wzq_show_comment_item">
+                    <li class="wzq_show_comment_item" th:each="c:${commentList}">
                         <div class="wzq_clear">
                             <div class="wzq_user_img">
-                                <img src="images/wzq_user_img.jpg" alt="">
+                                <img src="images/wzq_user_img.jpg"  th:src="${c.head_image}" alt="">
                             </div>
                             <!--评论区内容开始，回复评论区时候，添加此节点-->
                             <div class="wzq_comment_item_info">
-                                <h6 class="wzq_comment_item_title">也入耳朵</h6>
+                                <h6 class="wzq_comment_item_title" th:text="${c.nickName}">也入耳朵</h6>
                                 <span class="wzq_comment_item_time">5小时前</span>
                                 <div class="wzq_comment_item_des">
-                                    <p class="hidd_more">向手写大佬低头～向手写大佬低头～向手写大佬低头～效果图？太牛了吧。什么软件做的？？？？效果图？太牛了吧。什么软件做的？？？？</p>
+                                    <p class="hidd_more" th:text="${c.content}">向手写大佬低头～向手写大佬低头～向手写大佬低头～效果图？太牛了吧。什么软件做的？？？？效果图？太牛了吧。什么软件做的？？？？</p>
                                     <div class="wzq_comment_reply">
                                         <span class="wzq_jubao"><i class="fy_icon">&#xe652;</i>举报</span>
                                         <span title="回复" class="wzq_comment_replys" data-flag="true"><i class="fy_icon">&#xe679;</i></span>
@@ -183,48 +186,6 @@
                             </form>
                         </div>
                         <!--评论区回复表单结束-->
-                    </li>
-                    <li class="wzq_show_comment_item">
-                        <div class="wzq_clear">
-                            <div class="wzq_user_img">
-                                <img src="images/wzq_user_img.jpg" alt="">
-                            </div>
-                            <!--评论区内容开始，回复评论区时候，添加此节点-->
-                            <div class="wzq_comment_item_info">
-                                <h6 class="wzq_comment_item_title">也入耳朵</h6>
-                                <span class="wzq_comment_item_time">5小时前</span>
-                                <div class="wzq_comment_item_des">
-                                    <p class="hidd_more">向手写大佬低头～向手写大佬低头～向手写大佬低头～效果图？太牛了吧。什么软件做的？？？？效果图？太牛了吧。什么软件做的？？？？</p>
-                                    <div class="wzq_comment_reply">
-                                        <span class="wzq_jubao"><i class="fy_icon">&#xe652;</i>举报</span>
-                                        <span title="回复" class="wzq_comment_replys" data-flag="true"><i class="fy_icon">&#xe679;</i></span>
-                                        <span class="wzq_comment_zan wzq_comment_zanend"><i class="fy_icon">&#xe6b3;</i></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--评论区内容结束-->
-                        </div>
-                        <!--评论区回复表单开始-->
-                        <div class="wzq_reply">
-                            <form action="" class="wzq_reply_form">
-                                <div class="wzq_reply_text">
-                                    <span>回复</span>
-                                    <em class="wzq_reply_user hidden_one">小灰灰灰</em>
-                                    <textarea class="wzq_reply_textarea" name="" onfocus="if(value=='请回复...') {value=''}" onblur="if(value=='') {value='请回复...'}">请回复...</textarea>
-                                </div>
-                                <div class="wzq_clear">
-                                    <div class="wzq_icon_add">
-                                        <span data-icon-flag="true">添加表情</span>
-                                        <div class="wzq_icon_box">
-
-                                        </div>
-                                    </div>
-                                    <div class="wzq_reply_submit"><input type="submit" value="回复"></div>
-                                </div>
-                            </form>
-                        </div>
-                        <!--评论区回复表单结束-->
-                    </li>
                 </ul>
                 <!--评论列表结束-->
                 
@@ -254,16 +215,16 @@
 
             </div>
             <div class="col_right">
-                <div class="photo" style="background:url('images/cp_12.png') no-repeat center ;">
+                <div class="photo" style="background:url('images/cp_12.png') no-repeat center ;"  th:style="'background: url('+${teacher.teacher_image}+') no-repeat center /cover;'">
                    <!--  <img src="images/cp_12.png" alt=""> -->
                     <span>
                         V
                     </span>
                 </div>
-                <h3>讲师姓名</h3>
-                <h4>全栈工程师</h4>
+                <h3 th:text="${teacher.teacher_name}">讲师姓名</h3>
+                <h4 th:text="${teacher.teacher_position}">全栈工程师</h4>
                 <div class="line"></div>
-                <p>基本必备：JAVA基础，spring基础，对json，redis有一定的了解老师告诉你能学到什么？了解springboot如何从零搭开始搭建一个工程。
+                <p th:text="${teacher.teacher_info}">基本必备：JAVA基础，spring基础，对json，redis有一定的了解老师告诉你能学到什么？了解springboot如何从零搭开始搭建一个工程。
                 </p>
             </div>
         </div>

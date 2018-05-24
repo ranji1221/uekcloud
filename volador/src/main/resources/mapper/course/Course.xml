@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.ranji.lemon.volador.model.course.Course">
   <insert id="save" parameterType="VoladorCourse" keyProperty="id" useGeneratedKeys="true">
-		insert into lemon_volador_course_course (guid,create_time,update_time,course_name, course_info,course_price,student_count,course_image_address)
+		insert into lemon_volador_course_course (guid,createTime,updateTime,course_name, course_info,course_price,student_count,course_image_address)
 		values (#{guid},#{createTime},#{updateTime},#{course_name}, #{course_info},#{course_price},#{student_count},#{course_image_address})
 	</insert>
 	
@@ -33,6 +33,18 @@
 		FROM
 		lemon_volador_course_teacher t
 		LEFT JOIN lemon_volador_course_course_teacher c_t ON t.id = c_t.teacher_id
+		LEFT JOIN lemon_volador_course_course c ON c.id = c_t.course_id
+		WHERE
+		c.id = #{id}
+	</select>
+	
+	<!-- 根据课程id查找评论列表 -->
+	<select id="findCommentListByCourse" parameterType="Integer" resultType ="VoladorComment">
+		SELECT
+		t.*
+		FROM
+		lemon_volador_comment t
+		LEFT JOIN lemon_volador_course_comment c_t ON t.id = c_t.comment_id
 		LEFT JOIN lemon_volador_course_course c ON c.id = c_t.course_id
 		WHERE
 		c.id = #{id}
@@ -83,7 +95,7 @@
 			<if test="course_info != null and course_info != ''">course_info = #{course_info},</if>
 			<if test="course_price != null and course_price != ''">course_price = #{course_price},</if>
 			<if test="student_count != null and student_count != ''">student_count = #{student_count},</if>
-			<if test="updateTime != null ">update_time = #{updateTime},</if>
+			<if test="updateTime != null ">updateTime = #{updateTime},</if>
 		</set>
 		where id = #{id}
 	</update>
