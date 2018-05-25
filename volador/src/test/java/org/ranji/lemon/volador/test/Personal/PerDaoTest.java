@@ -212,11 +212,11 @@ public class PerDaoTest {
 //		System.out.println( "saveUserAndHomeworkRelation");
 //	}
 	
-	@Test
-	public void deleteHomeworkRelationByUserId(){
-		userservice.deleteHomeworkRelationByUserId(1);
-		System.out.println( "deleteHomeworkRelationByUserId");
-	}
+//	@Test
+//	public void deleteHomeworkRelationByUserId(){
+//		userservice.deleteHomeworkRelationByUserId(1);
+//		System.out.println( "deleteHomeworkRelationByUserId");
+//	}
 //	@Test
 //	public void deleteHomeworkRelation(){
 //		userservice.deleteHomeworkRelation(1,1);
@@ -228,4 +228,9 @@ public class PerDaoTest {
 //		System.out.println( "findHomeworkRelationByUserId HomeworkId:" + lists.toString());
 //	}
 
+	@Test
+	public void findUserInfoByNoteId(){
+		UserInfo userInfo = userservice.findUserInfoByNoteId(7);
+		System.out.println( userInfo.toString());
+	}
 }

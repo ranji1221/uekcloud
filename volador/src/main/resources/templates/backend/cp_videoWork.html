@@ -169,30 +169,30 @@
     <!-- tab分类内容 -->
     <div class="cp_tabCon">
         <div class="tips">
-            全部笔记 <span>30</span>
+            全部笔记 <span  th:text="${noteCount}">30</span>
             <form class="cp_search">
                 <input type="text" placeholder="请输入您需要查看的笔记">
                 <button><i class='fy_icon'>&#xe64d;</i></button>
             </form>
         </div>
         <div class="container">
-            <div class="col_left">
-                <ul class='cp_note'>
-                    <li>
-                        <div class="left"><span>2018年</span><br><span>3月15日</span>
+            <div class="col_left" >
+                <ul class='cp_note' >
+                    <li th:each="note:${noteList}">
+                        <div class="left"><span th:text="${note.createTime}">2018年</span><br>
                         </div>
                         <div class="middle">
                             <div class="line"></div>
                         </div>
                         <div class="right">
-                            <p class='hidden_one'>在我的BGM中没人能够打败我</p>
-                            <p class='hidd_more2' >反向生成失败 RuntimeException 和 报 tk.mybatis.mapper.generator.MapperPlugin 类为找到的错误。有遇到这个问题的朋友吗？在下愚钝，未能解决...</p>
-                            <p>
+                            <p class='hidden_one' th:text="${note.title}">在我的BGM中没人能够打败我</p>
+                            <p class='hidd_more2' th:text="${note.content}" >反向生成失败 RuntimeException 和 报 tk.mybatis.mapper.generator.MapperPlugin 类为找到的错误。有遇到这个问题的朋友吗？在下愚钝，未能解决...</p>
+                           <!--  <p>
                                 源自<span>1-1Python课程初探</span>
-                            </p>
+                            </p> -->
                         </div>
                     </li>
-                     <li class="active">
+                     <!-- <li class="active">
                         <div class="left"><span>2018年</span><br><span>3月15日</span>
                         </div>
                         <div class="middle">
@@ -218,7 +218,7 @@
                                 源自<span>1-1Python课程初探</span>
                             </p>
                         </div>
-                    </li>
+                    </li> -->
                 </ul>
                 
 

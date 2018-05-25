@@ -173,6 +173,19 @@ public class PerDaoImpl extends GenericDaoImpl<Per, Integer> implements IPerDao{
 		params.put("homeworkId", homeworkId);
 		sqlSessionTemplate.insert(typeNameSpace+".deleteHomeworkRelation", params);
 	}
+
+	@Override
+	public UserInfo findUserInfoByNoteId(int noteId) {
+		
+		//根据笔记ID查找用户
+		List<Per> personList = sqlSessionTemplate.selectList(typeNameSpace+".findUserByNoteId", noteId);
+		
+		int userId = personList.get(0).getId();
+		
+		//根据用户ID查找用户信息
+		List<UserInfo> userInfoList = sqlSessionTemplate.selectList(typeNameSpace+".findUserInfoByUserId", userId);
+		return userInfoList.get(0);
+	}
 	
 	
 }

@@ -37,7 +37,7 @@ public class UserInfoDaoTest {
 //		userinfo.setGender("woman");
 //		userinfo.setIdcard("620123489632514785");
 //		userinfo.setNickname("修改前");
-		userinfo.setQQ("1056684096");
+		userinfo.setQq("1056684096");
 		userinfo.setReal_name("真实姓名");
 		userinfo.setWechat("wechat");
 		userinfoservice.saveUserInfo(userinfo);

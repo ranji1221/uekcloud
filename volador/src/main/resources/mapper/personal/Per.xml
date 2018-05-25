@@ -192,5 +192,15 @@
 		left join lemon_volador_personal_studyed_course on lemon_volador_course_course.id = lemon_volador_personal_studyed_course.course_id 
 		where lemon_volador_personal_studyed_course.user_id = #{userId}
 	</select>
-	
+	<!-- 根据笔记d查找用户 -->
+	<select id="findUserByNoteId" parameterType="Integer" resultType ="VoladorPerUser">
+		SELECT
+			r.*
+		FROM
+			lemon_volador_personal_user r
+		LEFT JOIN lemon_volador_course_user_note u_r ON r.id = u_r.user_id
+		LEFT JOIN lemon_volador_course_note u ON u.id = u_r.note_id
+		WHERE
+			u.id = #{id}
+	</select>
 </mapper>

@@ -190,4 +190,10 @@ public interface IPerService extends IGenericService<Per, Integer>{
 	 */
 	public void deleteHomeworkRelation(int userId, int homeworkId);
 	
+	/**
+	 * 根据笔记ID查找对应用户
+	 * @param noteId  笔记ID
+	 * @return        用户信息
+	 */
+	public UserInfo findUserInfoByNoteId(int noteId);
 }

@@ -167,5 +167,10 @@ public class PerServiceImpl extends GenericServiceImpl<Per, Integer> implements 
 	@Override
 	public void deleteHomeworkRelation(int userId, int homeworkId) {
 		((IPerDao) dao).deleteHomeworkRelation(userId, homeworkId);	
+	}
+
+	@Override
+	public UserInfo findUserInfoByNoteId(int noteId) {
+		return ((IPerDao) dao).findUserInfoByNoteId(noteId);
 	}	
 }

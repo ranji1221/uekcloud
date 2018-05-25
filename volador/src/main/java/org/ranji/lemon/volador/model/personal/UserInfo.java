@@ -100,14 +100,6 @@ public class UserInfo extends AbstractModel{
 		this.wechat = wechat;
 	}
 
-	public String getQQ() {
-		return qq;
-	}
-
-	public void setQQ(String qQ) {
-		qq = qQ;
-	}
-
 	@Override
 	public String toString(){
 		return JsonUtil.objectToJson(this);

@@ -1,6 +1,9 @@
 package org.ranji.lemon.volador.controller.course;
 
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,6 +11,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.assertj.core.util.DateUtil;
 import org.ranji.lemon.core.util.JsonUtil;
 import org.ranji.lemon.volador.model.course.Chapter;
 import org.ranji.lemon.volador.model.course.ChapterTitle;
@@ -397,10 +401,16 @@ public class CourseController {
 		try{
 			int userId=(int) request.getSession().getAttribute("userId");
 			mv.addObject("userId", userId);
+			
+			//查询用户所有用户笔记
+			List<Note> noteList = noteService.findNoteByUserId(userId);
+												
+			mv.addObject(noteList);
+			mv.addObject("noteCount", noteList.size());
 			mv.setViewName("/backend/cp_videoWork");
 		}catch (Exception e){
 			e.printStackTrace();
-			mv.setViewName("redirect:/login");
+			mv.setViewName("redirect:/index");
 		}
 	
 		return mv;
@@ -422,9 +432,12 @@ public class CourseController {
 			//保存用户与笔记的关系
 			noteService.saveNoteAndUserRelation(note.getId(), Integer.valueOf(userId));
 			mv.setViewName("/backend/cp_videoWork");
-		} catch (Exception e){
+		} catch (NullPointerException e){
 			e.printStackTrace();
 			mv.setViewName("/backend/login");
+		}catch (Exception e){
+			e.printStackTrace();
+			mv.setViewName("/backend/index");
 		}
 		
 		return mv;

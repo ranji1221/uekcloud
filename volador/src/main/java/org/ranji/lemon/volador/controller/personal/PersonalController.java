@@ -197,7 +197,7 @@ public class PersonalController {
 				
 				userinfo.setGender(sex.equals("man")?"男":"女");
 				userinfo.setNickname(nickname);
-				userinfo.setQQ(qq);
+				userinfo.setQq(qq);
 				userinfo.setReal_name(realname);
 				userinfo.setWechat(wechat);
 				
