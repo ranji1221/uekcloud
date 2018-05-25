@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.ranji.lemon.volador.model.personal.SignIn">
-
+	<resultMap type="VoladorSignIn" id="signInResultMap">        
+        <result column="user_id" property="userId" />        
+     </resultMap>  
     <insert id="save" parameterType="VoladorSignIn" keyProperty="id" useGeneratedKeys="true">
 		insert into lemon_volador_personal_signin (guid,createTime,updateTime,day,user_id) 
 		values (#{guid},#{createTime},#{updateTime},#{day},#{userId})
@@ -15,12 +17,12 @@
 
 	
 	<!-- 查询根据id -->
-	<select id="find" parameterType="int" resultType="VoladorSignIn">
+	<select id="find" parameterType="int" resultMap="signInResultMap">
 		select * from lemon_volador_personal_signin where id = #{id}
 	</select>
 	
 	<!-- 根据用户id查询签到信息 -->
-	<select id="findSignInByUserId" parameterType="int" resultType="VoladorSignIn">
+	<select id="findSignInByUserId" parameterType="int" resultMap="signInResultMap">
 		select * from lemon_volador_personal_signin where user_id = #{userId}
 	</select>
 	

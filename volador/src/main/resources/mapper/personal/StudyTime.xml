@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.ranji.lemon.volador.model.personal.StudyTime">
-
+	<resultMap type="VoladorStudyTime" id="studyTimeResultMap">        
+        <result column="user_id" property="userId" />  
+        <result column="study_time" property="studyTime" />
+              
+     </resultMap> 
     <insert id="save" parameterType="VoladorStudyTime" keyProperty="id" useGeneratedKeys="true">
 		insert into lemon_volador_personal_studytime (guid,createTime,updateTime,study_time,user_id) 
 		values (#{guid},#{createTime},#{updateTime},#{studyTime},#{userId})
@@ -9,14 +13,14 @@
 	
 	<!-- 删除某条记录 -->
 	<delete id="delete" parameterType="int" >
-		delete from lemon_volador_personal_integral where id = #{id}
+		delete from lemon_volador_personal_studytime where id = #{id}
 	</delete>
 	
 
 	
 	<!-- 查询根据id -->
-	<select id="find" parameterType="int" resultType="VoladorStudyTime">
-		select * from lemon_volador_personal_integral where id = #{id}
+	<select id="find" parameterType="int" resultMap="studyTimeResultMap">
+		select * from lemon_volador_personal_studytime where id = #{id}
 	</select>
 	
 	<!-- 查询全部用户信息

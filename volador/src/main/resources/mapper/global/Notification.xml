@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.ranji.lemon.volador.model.global.Notification">
-
+	<resultMap type="VoladorNotification" id="notificationResultMap">        
+        <result column="notification_title" property="notificationTitle" />  
+        <result column="notification_content" property="notificationContent" /> 
+        <result column="notification_type" property="notificationType" />        
+     </resultMap>  
     <insert id="save" parameterType="VoladorNotification" keyProperty="id" useGeneratedKeys="true">
 		insert into lemon_volador_global_notification (guid,createTime,updateTime,notification_title,notification_content,notification_type) 
 		values (#{guid},#{createTime},#{updateTime},#{notificationTitle},#{notificationContent},#{notificationType})
@@ -22,7 +26,7 @@
 
 	
 	<!-- 查询根据id -->
-	<select id="find" parameterType="int" resultType="VoladorNotification">
+	<select id="find" parameterType="int" resultMap="notificationResultMap">
 		select * from lemon_volador_global_notification where id = #{id}
 	</select>
 	

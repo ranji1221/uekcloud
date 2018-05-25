@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.ranji.lemon.volador.model.personal.InvitationCode">
-
+	<resultMap type="VoladorInvitationCode" id="invitationCodeResultMap">        
+        <result column="user_id" property="userId" />  
+        <result column="invitation_code" property="invitationCode" />        
+     </resultMap>  
     <insert id="save" parameterType="VoladorInvitationCode" keyProperty="id" useGeneratedKeys="true">
 		insert into lemon_volador_personal_invitationcode (guid,createTime,updateTime,invitation_code,user_id) 
 		values (#{guid},#{createTime},#{updateTime},#{invitationCode},#{userId})
@@ -15,7 +18,7 @@
 
 	
 	<!-- 查询根据id -->
-	<select id="find" parameterType="int" resultType="VoladorInvitationCode">
+	<select id="find" parameterType="int" resultMap="invitationCodeResultMap">
 		select * from lemon_volador_personal_invitationcode where id = #{id}
 	</select>
 	
