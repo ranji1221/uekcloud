@@ -1,5 +1,6 @@
 package org.ranji.lemon.volador.controller.course;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -219,15 +220,15 @@ public class CourseController {
 	}
 	
 	//课程发表评论
-		@RequestMapping(value="/course_addcomment",method=RequestMethod.POST)
-		public void courseComment(@RequestParam(value="content", required=false) String content,
-				@RequestParam(value="chapterId", required=false) String courseId,
+	@RequestMapping(value="/course_addcomment",method=RequestMethod.POST)
+	public void courseComment(@RequestParam(value="content", required=false) String content,
+				@RequestParam(value="courseId", required=false) String courseId,
 				@RequestParam(value="userId", required=false) String userId,
 				HttpServletRequest request,
-				HttpServletResponse response){
+				HttpServletResponse response) throws IOException{
 			//设置返回格式
 			response.setHeader("Content-Type", "application/json;charset=utf-8");
-			
+			PrintWriter writer = response.getWriter();
 			String info="用户未登录，请登录！";
 			Map<String,Object> map=new HashMap<String,Object>();
 			
@@ -235,28 +236,24 @@ public class CourseController {
 				System.out.println(userId);
 				
 				Comment comment=new Comment();
+				int courseid=Integer.parseInt(request.getParameter("courseId"));
 				
 				//保存评论
 				comment.setContent(content);
 				commentService.save(comment);
-				
+				int commentId=comment.getId();
 				//保存评论和课程的关系
-				commentService.saveCourseAndCommentRelation(comment.getId(), Integer.parseInt(courseId.toString()));
+				commentService.saveCourseAndCommentRelation(commentId, Integer.parseInt(courseId.toString()));
 				
 				//保存评论和用户关系
 				commentService.savaCommentAndUserRelation(comment.getId(), Integer.parseInt(userId.toString()));
 				
-				info = "评论发布成功！";
+				info = "success";
 				map.put("info", info);
-				
-				PrintWriter writer = response.getWriter();
-				writer.print(JsonUtil.toJsonByProperties(map)); 
-		        writer.flush();  
-		        writer.close();
 				
 			} catch (NullPointerException e){
 				e.printStackTrace();
-				info = "空指针异常！";
+				info = "未登录";
 				map.put("info",info);
 			}catch (NumberFormatException e){
 				e.printStackTrace();
@@ -265,6 +262,11 @@ public class CourseController {
 				map.put("info",info);
 				e.printStackTrace();
 			}
+			
+			
+			writer.print(JsonUtil.toJsonByProperties(map)); 
+	        writer.flush();  
+	        writer.close();
 
 		}
 	

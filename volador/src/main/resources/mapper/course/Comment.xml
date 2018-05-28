@@ -39,12 +39,12 @@
 	
 	<!-- 存储某个课程和评论的对应关系 -->
 	<insert id="saveCourseAndCommentRelation" parameterType="Map" keyProperty="id" useGeneratedKeys="true">
-		insert into lemon_volador_chapter_comment(course_id,comment_id) values(#{courseId},#{commentId})
+		insert into lemon_volador_course_comment(course_id,comment_id) values(#{courseId},#{commentId})
 	</insert>
 	
 	<!-- 删除课程与评论之间的关系 -->
 	<delete id="deleteCourseAndCommentRelation" parameterType="Map">
-		delete from  lemon_volador_chapter_comment where course_id=#{courseId} and comment_id=#{commentId}
+		delete from  lemon_volador_course_comment where course_id=#{courseId} and comment_id=#{commentId}
 	</delete>
 	
 	

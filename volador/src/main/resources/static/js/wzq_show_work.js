@@ -36,8 +36,10 @@ $(function () {
 
     // 发表评论判断与ajax数据发送
     let con = $('#wzq_textarea');
-    $('.wzq_add_submit>input').click(function(){
-        if(con.val().trim()){
+    console.log($('.wzq_add_submit input'))
+    $('.wzq_add_submit input').click(function(){
+   
+        if(!con.val().trim()){
             alert("内容不能为空");
         }else{
             let content = con.val();
@@ -50,10 +52,10 @@ $(function () {
                 	"userId":userId},
                 type:'post',
                 success:function(data){
-                    if(data=='未登录'){
+                    if(data.info =='未登录'){
                         alert('请登陆');
                         location.href = '登陆页面的路径';
-                    }else if(data=='success'){
+                    }else if(data.info =='success'){
                         alert('评论成功');
                         // 评论成功后创建节点，添加刚才评论的内容
                         $('<li class="wzq_show_comment_item">').html(`

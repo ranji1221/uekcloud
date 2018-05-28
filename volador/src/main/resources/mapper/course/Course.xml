@@ -47,7 +47,7 @@
 		LEFT JOIN lemon_volador_course_comment c_t ON t.id = c_t.comment_id
 		LEFT JOIN lemon_volador_course_course c ON c.id = c_t.course_id
 		WHERE
-		c.id = #{id}
+		c.id = #{id} order by createTime desc
 	</select>
 	
 	<!-- 存储某个课程和章节的对应关系 -->
