@@ -6,7 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.ranji.lemon.core.pagination.PagerModel;
 import org.ranji.lemon.core.persist.impl.GenericDaoImpl;
+import org.ranji.lemon.volador.model.course.Course;
 import org.ranji.lemon.volador.model.personal.Per;
 import org.ranji.lemon.volador.model.personal.UserInfo;
 import org.ranji.lemon.volador.persist.personal.prototype.IPerDao;
@@ -185,6 +187,54 @@ public class PerDaoImpl extends GenericDaoImpl<Per, Integer> implements IPerDao{
 		//根据用户ID查找用户信息
 		List<UserInfo> userInfoList = sqlSessionTemplate.selectList(typeNameSpace+".findUserInfoByUserId", userId);
 		return userInfoList.get(0);
+	}
+
+	@Override
+	public List<Course> findPageStudyingCourseByUser(int userId, int page, int limit) {
+		// TODO Auto-generated method stub
+		Map<String,Object> params=new HashMap<String,Object>();
+		params.put("userId", userId);
+		params.put("offset", (page-1)*limit);
+		params.put("limit", limit);
+		return sqlSessionTemplate.selectList(typeNameSpace+".findPageStudyingCourseByUser", params);
+	}
+
+	@Override
+	public int findStudyingCourseCountByUser(int userId) {
+		// TODO Auto-generated method stub
+		return (int) sqlSessionTemplate.selectList(typeNameSpace+".findStudyingCourseCountByUser",userId).get(0);
+	}
+
+	@Override
+	public List<Course> findPageFinishCourseByUser(int userId, int page, int limit) {
+		// TODO Auto-generated method stub
+		Map<String,Object> params=new HashMap<String,Object>();
+		params.put("userId", userId);
+		params.put("offset", (page-1)*limit);
+		params.put("limit", limit);
+		return sqlSessionTemplate.selectList(typeNameSpace+".findPageFinishCourseByUser", params);
+	}
+
+	@Override
+	public int findFinishCourseCountByUser(int userId) {
+		// TODO Auto-generated method stub
+		return (int) sqlSessionTemplate.selectList(typeNameSpace+".findFinishCourseCountByUser",userId).get(0);
+	}
+
+	@Override
+	public List<Course> findPageCollectCourseByUser(int userId, int page, int limit) {
+		// TODO Auto-generated method stub
+		Map<String,Object> params=new HashMap<String,Object>();
+		params.put("userId", userId);
+		params.put("offset", (page-1)*limit);
+		params.put("limit", limit);
+		return sqlSessionTemplate.selectList(typeNameSpace+".findPageCollectCourseByUser", params);
+	}
+
+	@Override
+	public int findStudyingCollectCountByUser(int userId) {
+		// TODO Auto-generated method stub
+		return (int) sqlSessionTemplate.selectList(typeNameSpace+".findStudyingCollectCountByUser",userId).get(0);
 	}
 	
 	

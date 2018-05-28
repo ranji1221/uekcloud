@@ -1,7 +1,9 @@
 package org.ranji.lemon.volador.persist.personal.prototype;
 import java.util.List;
 
+import org.ranji.lemon.core.pagination.PagerModel;
 import org.ranji.lemon.core.persist.prototype.IGenericDao;
+import org.ranji.lemon.volador.model.course.Course;
 import org.ranji.lemon.volador.model.personal.Per;
 import org.ranji.lemon.volador.model.personal.UserInfo;
 /**
@@ -189,5 +191,54 @@ public interface IPerDao extends IGenericDao<Per, Integer>{
 	 * @return        用户信息
 	 */
 	public UserInfo findUserInfoByNoteId(int noteId);
+	
+	
+	/**
+	 * 根据用户ID分页查找正在学习课程
+	 * @param userId	  用户id	 
+	 * @param page  	  页码
+	 * @param page 		 偏移量
+	 * @return        课程列表
+	 */
+	public List<Course> findPageStudyingCourseByUser(int userId,int page,int limit);
+	
+	/**
+	 * 根据用户ID查找正在学习课程总数
+	 * @param userId	  用户id	 
+	 * @return        总数列表
+	 */
+	public int findStudyingCourseCountByUser(int userId);
+	
+	/**
+	 * 根据用户ID分页查找已完成课程
+	 * @param userId	  用户id	 
+	 * @param page  	  页码
+	 * @param page 		 偏移量
+	 * @return        课程列表
+	 */
+	public List<Course> findPageFinishCourseByUser(int userId,int page, int limit);
+	
+	/**
+	 * 根据用户ID查找已完成课程总数
+	 * @param userId	  用户id	 
+	 * @return        总数列表
+	 */
+	public int findFinishCourseCountByUser(int userId);
+	
+	/**
+	 * 根据用户ID分页查找收藏课程
+	 * @param userId	  用户id	 
+	 * @param page  	  页码
+	 * @param page 		 偏移量
+	 * @return        课程列表
+	 */
+	public List<Course> findPageCollectCourseByUser(int userId,int page, int limit);
+	
+	/**
+	 * 根据用户ID查找已完成课程总数
+	 * @param userId	  用户id	 
+	 * @return        总数列表
+	 */
+	public int findStudyingCollectCountByUser(int userId);
 
 }

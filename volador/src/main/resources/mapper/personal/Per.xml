@@ -187,11 +187,48 @@
 	</delete>
 	
 	<!--根据用户id查询已完成课程列表 -->
-	<select id="findFinishCourseInfo" parameterType="Integer" resultType="Map">
+	<select id="findFinishCourseInfo" parameterType="Integer" resultType="VoladorCourse">
 		select * from lemon_volador_course_course 
 		left join lemon_volador_personal_studyed_course on lemon_volador_course_course.id = lemon_volador_personal_studyed_course.course_id 
 		where lemon_volador_personal_studyed_course.user_id = #{userId}
 	</select>
+	
+	<!--根据用户id分页查询已完成课程列表 -->
+	<select id="findPageFinishCourseByUser" parameterType="map" resultType="VoladorCourse">
+		select * from lemon_volador_course_course 
+		left join lemon_volador_personal_studyed_course on lemon_volador_course_course.id = lemon_volador_personal_studyed_course.course_id 
+		where lemon_volador_personal_studyed_course.user_id = #{userId} order by updateTime desc limit #{offset},#{limit}
+	</select>
+	
+	<!--根据用户id分页查询正在学习课程列表 -->
+	<select id="findPageStudyingCourseByUser" parameterType="map" resultType="VoladorCourse">
+		select * from lemon_volador_course_course 
+		left join lemon_volador_personal_studying_course on lemon_volador_course_course.id = lemon_volador_personal_studying_course.course_id 
+		where lemon_volador_personal_studying_course.user_id = #{userId} order by updateTime desc limit #{offset},#{limit}
+	</select>
+	
+	<!--根据用户id分页查询收藏课程列表 -->
+	<select id="findPageCollectCourseByUser" parameterType="map" resultType="VoladorCourse">
+		select * from lemon_volador_course_course 
+		left join lemon_volador_personal_collect_course on lemon_volador_course_course.id = lemon_volador_personal_collect_course.course_id 
+		where lemon_volador_personal_collect_course.user_id = #{userId} order by updateTime desc limit #{offset},#{limit}
+	</select>
+	
+	<!--根据用户id查询收藏课程总数 -->
+	<select id="findStudyingCollectCountByUser" parameterType="int" resultType="Integer">
+		select count(*) from lemon_volador_personal_collect_course where user_id=#{userId}
+	</select>
+	
+	<!--根据用户id查询正在学习课程总数 -->
+	<select id="findStudyingCourseCountByUser" parameterType="int" resultType="Integer">
+		select count(*) from lemon_volador_personal_studying_course where user_id=#{userId}
+	</select>
+	
+	<!--根据用户id查询以完成课程总数 -->
+	<select id="findFinishCourseCountByUser" parameterType="int" resultType="Integer">
+		select count(*) from lemon_volador_personal_studyed_course where user_id=#{userId}
+	</select>
+	
 	<!-- 根据笔记d查找用户 -->
 	<select id="findUserByNoteId" parameterType="Integer" resultType ="VoladorPerUser">
 		SELECT

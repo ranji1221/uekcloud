@@ -474,8 +474,8 @@
 					<div class="bg2"></div>
 					<h3 class="title hidd_more2 fire" th:text="${course.course_name}">理论+实践，构建属于你的机器学习库单 <span class="fy_icon">&#xe606;</span></h3>
 					<p>
-						<span th:text="${course.course_price}" class="price">￥199</span>
-						<span th:text="${course.student_count}">555人正在学习</span>
+						<span th:text="${course.course_price} == 0 ? '免费' : '￥'+${course.course_price}" class="price">￥199</span>
+						<span th:text="${course.student_count} + '人正在学习'">555人正在学习</span>
 					</p>
 				</a>
 			</li>                                    
@@ -510,8 +510,8 @@
 					<div class="bg2"></div>
 					<h3 class="title hidd_more2 fire" th:text="${course.course_name}">理论+实践，构建属于你的机器学习库单 <span class="fy_icon">&#xe606;</span></h3>
 					<p>
-						<span th:text="${course.course_price}" class="price">￥199</span>
-						<span th:text="${course.student_count}">555人正在学习</span>
+						<span th:text="${course.course_price} == 0 ? '免费' : '￥'+${course.course_price}" class="price">￥199</span>
+						<span th:text="${course.student_count} + '人正在学习'">555人正在学习</span>
 					</p>
 				</a>
 			</li>                                    
@@ -541,8 +541,8 @@
 					<div class="bg2"></div>
 					<h3 class="title hidd_more2 fire" th:text="${course.course_name}">理论+实践，构建属于你的机器学习库单 <span class="fy_icon">&#xe606;</span></h3>
 					<p>
-						<span th:text="${course.course_price}" class="price">￥199</span>
-						<span th:text="${course.student_count}">555人正在学习</span>
+						<span th:text="${course.course_price} == 0 ? '免费' :'￥'+${course.course_price}" class="price">￥199</span>
+						<span th:text="${course.student_count} + '人正在学习'">555人正在学习</span>
 					</p>
 				</a>
 			</li>                                    
@@ -614,7 +614,7 @@
 		<h1>专业团队 业内顶尖</h1>
 		<p>聚集全球的专业领袖，为你带来最前沿的案例剖析，量身定制你的职业发展计划，贡献最极致的成长体验。</p>
 		<p>飞鱼学院是优逸客科技旗下教育品牌，于2017年全面上线，平台目前覆盖了UI设计及Web前端线下课程的80%，意在帮助线下学员巩固实训效果，提升技能。飞鱼学院亦是飞鱼计划的一部分。</p>
-		<a href="javascript:;">进入官网</a>
+		<a href="http://www.ui029.com/">进入官网</a>
 
 		<!-- 教师列表 -->
 		<ul class="clear_both">

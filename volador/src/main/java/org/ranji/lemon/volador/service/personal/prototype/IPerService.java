@@ -1,7 +1,9 @@
 package org.ranji.lemon.volador.service.personal.prototype;
 import java.util.List;
 
+import org.ranji.lemon.core.pagination.PagerModel;
 import org.ranji.lemon.core.service.prototype.IGenericService;
+import org.ranji.lemon.volador.model.course.Course;
 import org.ranji.lemon.volador.model.personal.Per;
 import org.ranji.lemon.volador.model.personal.UserInfo;
 /**
@@ -196,4 +198,32 @@ public interface IPerService extends IGenericService<Per, Integer>{
 	 * @return        用户信息
 	 */
 	public UserInfo findUserInfoByNoteId(int noteId);
+	
+	
+	/**
+	 * 根据用户ID分页查找正在学习课程
+	 * @param userId	  用户id	 
+	 * @param page  	  页码
+	 * @param page 		 偏移量
+	 * @return        课程列表pageModel
+	 */
+	public PagerModel<Course> findPageStudyingCourseByUser(int userId,int page,int limit);
+	
+	/**
+	 * 根据用户ID分页查找已学习课程
+	 * @param userId	  用户id	 
+	 * @param page  	  页码
+	 * @param page 		 偏移量
+	 * @return        课程列表
+	 */
+	public PagerModel<Course> findPageFinishCourseByUser(int userId,int page,int limit);
+	
+	/**
+	 * 根据用户ID分页查找收藏课程
+	 * @param userId	  用户id	 
+	 * @param page  	  页码
+	 * @param page 		 偏移量
+	 * @return        课程列表
+	 */
+	public PagerModel<Course> findPageCollectCourseByUser(int userId,int page,int limit);
 }

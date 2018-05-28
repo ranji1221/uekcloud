@@ -122,8 +122,8 @@
             <!--根据时间排序，课程列表开始-->
             <div  th:each="courseList : ${courseList}"  class="wzq_content_course wzq_clear">
                  <div class="wzq_course_time">
-                    <b>2018</b>
-                    <span>03月24日</span>
+                    <b th:text="${#calendars.format(courseList.updateTime,'yyyy')}">2018</b>
+                    <span th:text="${#calendars.format(courseList.updateTime,'MMMM dd')}+'日'">03月24日</span>
                 </div>
                 <!--某个时间段内的学习课程列表开始-->
                 <ul class="wzq_course_list">
@@ -148,18 +148,12 @@
             </div>
  
             <!--根据时间排序，课程列表结束-->
+            <!--作业列表结束-->
             <!--分页开始-->
             <div class="wzq_page">
                 <a href="" class="wzq_page_index">首页</a>
                 <a href="" class="wzq_page_prev">上一页</a>
-                <a href="" th:each="a : ${courseList}" th:text="${a.course_name}">1</a>
-                
-<!--                 <a href="" class="wzq_page_active">1</a>
-                <a href="">2</a>
-                <a href="">3</a>
-                <a href="">4</a>
-                <a href="">5</a>
-                <a href="">6</a> -->
+                <!-- 页码会自动追加到这里 -->
                 <a href="" class="wzq_page_next">下一页</a>
                 <a href="" class="wzq_page_last">尾页</a>
             </div>
@@ -173,7 +167,18 @@
 <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')</script>
 <script src="js/wzq_work.js"></script>
+//分页初值
+<script type="text/javascript" th:inline="javascript">
+    // 分页功能
+    var page_date = {
+        pageCount: [[${pageCount}]],      // 总页数
+        TotalNumber: [[${TotalNumber}]],   // 总条数
+        currentPage: [[${currentPage}]],      // 当前页码
+    	interfaceName: [[${interfaceName}]]
+    }
 
+</script>
+<script src="js/wqf_paging.js"></script>    <!-- 分页功能 -->
 <script>
     $(".wzq_work_content_item").click(function(){
 

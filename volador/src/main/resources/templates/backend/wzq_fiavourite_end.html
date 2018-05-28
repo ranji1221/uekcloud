@@ -137,12 +137,7 @@
             <div class="wzq_page">
                 <a href="" class="wzq_page_index">首页</a>
                 <a href="" class="wzq_page_prev">上一页</a>
-                <a href="" class="wzq_page_active">1</a>
-                <a href="">2</a>
-                <a href="">3</a>
-                <a href="">4</a>
-                <a href="">5</a>
-                <a href="">6</a>
+                <!-- 页码会自动追加到这里 -->
                 <a href="" class="wzq_page_next">下一页</a>
                 <a href="" class="wzq_page_last">尾页</a>
             </div>
@@ -156,5 +151,17 @@
 <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')</script>
 <script src="js/wzq_work.js"></script>
+//分页初值
+<script type="text/javascript" th:inline="javascript">
+    // 分页功能
+    var page_date = {
+        pageCount: [[${pageCount}]],      // 总页数
+        TotalNumber: [[${TotalNumber}]],   // 总条数
+        currentPage: [[${currentPage}]],      // 当前页码
+    	interfaceName: [[${interfaceName}]]
+    }
+
+</script>
+<script src="js/wqf_paging.js"></script>    <!-- 分页功能 -->
 </body>
 </html>

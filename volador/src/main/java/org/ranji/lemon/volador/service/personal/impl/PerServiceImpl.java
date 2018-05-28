@@ -8,7 +8,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.shiro.authc.credential.DefaultPasswordService;
+import org.ranji.lemon.core.pagination.PagerModel;
 import org.ranji.lemon.core.service.impl.GenericServiceImpl;
+import org.ranji.lemon.volador.model.course.Course;
 import org.ranji.lemon.volador.model.personal.Per;
 import org.ranji.lemon.volador.model.personal.UserInfo;
 import org.ranji.lemon.volador.persist.personal.prototype.IPerDao;
@@ -172,5 +174,32 @@ public class PerServiceImpl extends GenericServiceImpl<Per, Integer> implements 
 	@Override
 	public UserInfo findUserInfoByNoteId(int noteId) {
 		return ((IPerDao) dao).findUserInfoByNoteId(noteId);
+	}
+
+	@Override
+	public PagerModel<Course> findPageStudyingCourseByUser(int userId, int page, int limit) {
+		// TODO Auto-generated method stub
+		PagerModel<Course> pagerModel =new PagerModel<Course>();
+		pagerModel.setData(((IPerDao) dao).findPageStudyingCourseByUser(userId, page, limit));
+		pagerModel.setTotal(((IPerDao) dao).findStudyingCourseCountByUser(userId));
+		return pagerModel;
+	}
+
+	@Override
+	public PagerModel<Course> findPageFinishCourseByUser(int userId, int page, int limit) {
+		// TODO Auto-generated method stub
+		PagerModel<Course> pagerModel =new PagerModel<Course>();
+		pagerModel.setData(((IPerDao) dao).findPageFinishCourseByUser(userId, page, limit));
+		pagerModel.setTotal(((IPerDao) dao).findFinishCourseCountByUser(userId));
+		return pagerModel;
+	}
+
+	@Override
+	public PagerModel<Course> findPageCollectCourseByUser(int userId, int page, int limit) {
+		// TODO Auto-generated method stub
+		PagerModel<Course> pagerModel =new PagerModel<Course>();
+		pagerModel.setData(((IPerDao) dao).findPageCollectCourseByUser(userId, page, limit));
+		pagerModel.setTotal(((IPerDao) dao).findStudyingCollectCountByUser(userId));
+		return pagerModel;
 	}	
 }

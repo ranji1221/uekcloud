@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.ranji.lemon.core.pagination.PagerModel;
 import org.ranji.lemon.volador.model.course.Course;
 import org.ranji.lemon.volador.model.course.Homework;
 import org.ranji.lemon.volador.model.personal.Integral;
@@ -81,17 +82,26 @@ public class PersonalCenterController {
 		try {
 			//根据session获取userId，查询正在学习课程
 			int userId=(int) request.getSession().getAttribute("userId");
-			List<Integer> listCourseId= personalService.findStudyingCourseRelationByUserId(userId);
-			List<Course> courseList = new ArrayList<Course>() ;
-			for(int i=0;i<listCourseId.size();i++){
-				try {
-					courseList.add(courseService.find(listCourseId.get(i)));
-				}catch (NullPointerException e) {
-					// TODO: handle exception
-					break;
-				}
+			
+			//获取参数page,如果为空，page=1
+			int page;
+			if(request.getParameter("page") == null){
+				 page= 1;
+			}else{
+				page=Integer.parseInt(request.getParameter("page"));
 			}
+			
+			//查询相应页数Course列表，及总条数
+			PagerModel<Course> pageCourse=personalService.findPageStudyingCourseByUser(userId, page, 3);
+
+			//将course列表及分页信息返回
+			List<Course> courseList = pageCourse.getData();
 			mv.addObject(courseList);
+			mv.addObject("TotalNumber",pageCourse.getTotal());
+			mv.addObject("currentPage",page);
+			mv.addObject("pageCount",pageCourse.getTotal()/3);
+			mv.addObject("interfaceName","personalCenter_learning");
+			
 			//查询当前用户信息
 			UserInfo userInfo=personalService.findUserInfoByUserId(userId);
 			mv.addObject("user_name",userInfo.getNickname());
@@ -174,24 +184,30 @@ public class PersonalCenterController {
 		try {
 			//根据session获取userId，查询已学习，并查询当前用户信息
 			int userId=(int) request.getSession().getAttribute("userId");
-			List<Integer> listCourseId= personalService.findStudyedCourseRelationByUserId(userId);
-			List<Course> courseList = new ArrayList<Course>() ;
-			for(int i=0;i<listCourseId.size();i++){
-				try {
-					courseList.add(courseService.find(listCourseId.get(i)));
-				}catch (NullPointerException e) {
-					// TODO: handle exception
-					break;
-				}
+			//获取参数page,如果为空，page=1
+			int page;
+			if(request.getParameter("page") == null){
+				page=1;
+			}else{
+				page=Integer.parseInt(request.getParameter("page"));
 			}
-			mv.addObject("courseCount",listCourseId.size());
+			
+			//查询相应页数Course列表及总条数
+			PagerModel<Course> pageCourse=personalService.findPageFinishCourseByUser(userId, page, 6);
+
+			//将course列表及分页信息返回
+			List<Course> courseList = pageCourse.getData();
 			mv.addObject(courseList);
+			mv.addObject("TotalNumber",pageCourse.getTotal());
+			mv.addObject("currentPage",page);
+			mv.addObject("pageCount",(pageCourse.getTotal()/6)+1);
 			
 			//查询当前用户信息
 			UserInfo userInfo=personalService.findUserInfoByUserId(userId);
 			mv.addObject("user_name",userInfo.getNickname());
 			mv.addObject("gender", userInfo.getGender());
 			mv.addObject("address",userInfo.getAddress());
+			mv.addObject("interfaceName","personalCenter_learn_end");
 			
 			//查询学习时长
 			
@@ -219,19 +235,22 @@ public class PersonalCenterController {
 		//异常处理，当没有获取到登录信息时候，跳转到登录页面
 		try {
 			int userId=(int) request.getSession().getAttribute("userId");
-			List<Integer> listCourseId= personalService.findCollectCourseRelationByUserId(userId);
-			List<Course> courseList = new ArrayList<Course>() ;
-			for(int i=0;i<listCourseId.size();i++){
-				//当查询信息为空时，异常处理
-				try {
-					courseList.add(courseService.find(listCourseId.get(i)));
-				}catch (NullPointerException e) {
-					// TODO: handle exception
-					break;
-					}
+			int page;
+			if(request.getParameter("page") == null){
+				page=1;
+			}else{
+				page=Integer.parseInt(request.getParameter("page"));
 			}
-			mv.addObject("courseCount",listCourseId.size());
+			
+			//查询相应页数Course列表及总条数
+			PagerModel<Course> pageCourse=personalService.findPageCollectCourseByUser(userId, page, 3);
+
+			//将course列表及分页信息返回
+			List<Course> courseList = pageCourse.getData();
 			mv.addObject(courseList);
+			mv.addObject("TotalNumber",pageCourse.getTotal());
+			mv.addObject("currentPage",page);
+			mv.addObject("pageCount",(pageCourse.getTotal()/3)+1);
 			
 			//查询当前用户信息，并传递页面需要的用户信息
 			UserInfo userInfo=personalService.findUserInfoByUserId(userId);
