@@ -81,6 +81,11 @@
 		select * from lemon_volador_course_course where id = #{id}
 	</select>
 	
+	<!-- 查询根据价格 -->
+	<select id="findCourseByPrice" parameterType="double" resultType="VoladorCourse">
+		select * from lemon_volador_course_course where course_price = #{price}
+	</select>
+	
 	<!-- 查询全部course -->
 	<select id="findAll" resultType="VoladorCourse" parameterType="Map">
 		select * from lemon_volador_course_course

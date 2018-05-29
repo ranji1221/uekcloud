@@ -24,34 +24,23 @@
 	
 	<!-- 课程分类选项 开始 -->
 	<div class="wqf_class_select noselect">
-		<ul>
-			<li>方向：</li>
-			<li class="active">全部</li>
-			<li>UI设计</li>
-			<li>UX设计</li>
-			<li>Python全栈</li>
-			<li>人工智能</li>
-			<li>大数据</li>
-			<li>大咖来了</li>
+		<ul >
+		    <li>方向：</li>
+			<a th:class="${session.directionId} ?'':active" href="findCourse">全部</a>	
+			<a name="directionId" th:each="direction:${directionList}" th:text="${direction.name}" th:href="'findCourse?directionId='+${direction.id}" th:class="${session.directionId} == ${direction.id} ? active:''" >UI设计</a>
 		</ul>
-		<ul th:each="classfy:${classfyList}">
-			<li>分类：</li>
-			<liclass="active" >全部</li>
-			<li th:text="${classfy.classify_name}">AI</li>
-			<li>平面设计</li>
-			<li>移动界面</li>
-			<li>商业插画</li>
-			<li>游戏UI</li>
-			<li>web界面</li>
-			<li>JavaScript</li>
-			<li class="more">+ 查看更多</li>
-		</ul>
-		<ul>
+		<ul >
+		    <li>分类：</li>
+			<a th:class="${session.classfyId}?'':active" href="findCourse">全部</a>	
+			<a th:each="classfy:${classfyList}" th:text="${classfy.classify_name}" th:href="'findCourse?classfyId='+${classfy.id}" th:class="${session.classfyId} == ${classfy.id} ? active:''" >AI</a>
+		</ul>		
+		<ul >
 			<li>类型：</li>
-			<li>免费课</li>
-			<li class="active">9.9元课</li>
-			<li>直播课</li>
-			<li>系列课</li>
+			<a class="active" href="findCourse">全部</a>
+			<a href="findCourse?price=0">免费课</a>
+			<a href="findCourse?price=9.9">9.9元课</a>
+			<a>直播课</a>
+			<a>系列课</a>
 		</ul>
 		
 		<div class="sort clear_both">

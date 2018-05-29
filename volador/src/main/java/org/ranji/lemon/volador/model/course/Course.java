@@ -20,6 +20,9 @@ public class Course extends AbstractModel {
     private String course_image_address;
 
 
+    public Course(){
+    	this.course_image_address = "images/cp_10.png";
+    }
 	public String getCourse_name() {
         return course_name;
     }

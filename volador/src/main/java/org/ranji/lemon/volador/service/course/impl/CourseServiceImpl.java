@@ -11,7 +11,6 @@ import org.ranji.lemon.volador.model.course.Teacher;
 import org.ranji.lemon.volador.persist.course.prototype.ICourseDao;
 import org.ranji.lemon.volador.service.course.prototype.ICourseService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 /**
@@ -75,12 +74,8 @@ public class CourseServiceImpl extends GenericServiceImpl<Course,Integer> implem
 		return ((ICourseDao) dao).findCommentListByCourse(course_id);
 	}
 
-
-	
-
-	
-
-	
-
-
+	@Override
+	public List<Course> findCourseByPrice(double price) {
+		return ((ICourseDao) dao).findCourseByPrice(price);
+	}
 }

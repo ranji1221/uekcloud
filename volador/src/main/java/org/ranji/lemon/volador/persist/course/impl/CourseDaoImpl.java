@@ -80,6 +80,11 @@ public class CourseDaoImpl extends GenericDaoImpl<Course,Integer> implements ICo
 		// TODO Auto-generated method stub
 		return sqlSessionTemplate.selectList(typeNameSpace+".findCommentListByCourse", course_id);
 	}
+
+	@Override
+	public List<Course> findCourseByPrice(double price) {
+		return sqlSessionTemplate.selectList(typeNameSpace+".findCourseByPrice", price);
+	}
 	
 	
 }

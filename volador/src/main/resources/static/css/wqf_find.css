@@ -18,11 +18,13 @@
 	box-sizing: border-box;
 }
 .wqf_class_select>ul{
-	width: 100%; height: 34px;
+	width: 100%; 
+	height: auto;
+	overflow:hidden;
 	padding: 23px 0;
 	line-height: 34px;
 }
-.wqf_class_select>ul>li{
+.wqf_class_select>ul>li,.wqf_class_select>ul a{
 	float: left;
 	color: #5d5d5d;
 	font-size: 14px;
@@ -34,7 +36,7 @@
 .wqf_class_select>ul>li:first-child{
 	padding-left: 0;
 }
-.wqf_class_select>ul>li.active{
+.wqf_class_select>ul>a.active{
 	background: #fd6756;
 	color: #fff;
 	border-radius: 4px;

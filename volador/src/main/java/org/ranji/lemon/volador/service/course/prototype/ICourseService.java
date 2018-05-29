@@ -72,4 +72,11 @@ public interface ICourseService extends IGenericService<Course,Integer> {
      * @return 评论集合
      */
     public List<Comment> findCommentListByCourse(int course_id);
+    
+    /**
+     * 根据课程价格查询课程
+     * @param price    课程价格
+     * @return
+     */
+    public List<Course> findCourseByPrice(double price);
 }

@@ -19,6 +19,7 @@ import org.ranji.lemon.volador.model.course.ChapterTitle;
 import org.ranji.lemon.volador.model.course.Classify;
 import org.ranji.lemon.volador.model.course.Comment;
 import org.ranji.lemon.volador.model.course.Course;
+import org.ranji.lemon.volador.model.course.Direction;
 import org.ranji.lemon.volador.model.course.Note;
 import org.ranji.lemon.volador.model.course.Teacher;
 import org.ranji.lemon.volador.model.personal.UserInfo;
@@ -27,6 +28,7 @@ import org.ranji.lemon.volador.service.course.prototype.IChapterTitleService;
 import org.ranji.lemon.volador.service.course.prototype.IClassifyService;
 import org.ranji.lemon.volador.service.course.prototype.ICommentService;
 import org.ranji.lemon.volador.service.course.prototype.ICourseService;
+import org.ranji.lemon.volador.service.course.prototype.IDirectionService;
 import org.ranji.lemon.volador.service.course.prototype.INoteService;
 import org.ranji.lemon.volador.service.personal.prototype.IPerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,6 +61,9 @@ public class CourseController {
 	@Autowired
 	private INoteService noteService;
 	
+	@Autowired
+	private IDirectionService directionService;
+	
 	
 	//职业导航
 	@RequestMapping(value="/professionalNavigation", method=RequestMethod.GET)
@@ -78,19 +83,58 @@ public class CourseController {
 	
 	//找课程
 	@RequestMapping(value="/findCourse", method=RequestMethod.GET)
-	public ModelAndView findCoursePage(){
+	public ModelAndView findCoursePage(
+			@RequestParam(value="directionId", required=false) Integer directionId,
+			@RequestParam(value="classfyId", required=false) Integer classfyId,
+			@RequestParam(value="price", required=false) String strPrice,
+			HttpServletRequest request){
+		
 		ModelAndView mv = new ModelAndView();
-		
-		//界面显示所有分类
-		List<Classify> classfyList = classifyService.findAll();
-		mv.addObject(classfyList);
-		
-		//界面显示课程
-		List<Course> courseList = courseService.findAll();
-		mv.addObject(courseList);
-		
-		
-		mv.setViewName("/backend/wqf_find");
+		try{
+			//界面显示所有课程方向
+			List<Direction> directionList = directionService.findAll();		
+			mv.addObject(directionList);
+			request.getSession().setAttribute("directionId", directionId);
+			
+			List<Classify> classfyList = new ArrayList<>();
+			
+			//保存用户选择的课程方向
+			request.getSession().setAttribute("classfyId", classfyId);
+			
+			List<Course> courseList = new ArrayList<>();
+			//查询全部课程
+			if(null == directionId && null == classfyId && null == strPrice){
+				courseList = courseService.findAll();
+			}
+			else if(null != directionId && null == classfyId && null == strPrice){
+				courseList = directionService.findCourseByDirectionId(directionId);
+			}
+			else if(null != classfyId && null == strPrice){
+				courseList = classifyService.findCourseByClassify(classfyId);
+				//获取用户所选分类的课程方向
+				directionId = directionService.findDirectionIdByClassiyId(classfyId);
+				request.getSession().setAttribute("directionId", directionId);
+			}else if(null != strPrice){
+				double price = Double.valueOf(strPrice);
+				courseList = courseService.findCourseByPrice(price);
+				//保存用户选择价格
+				request.getSession().setAttribute("price", strPrice);
+			}
+			mv.addObject(courseList);
+			
+			//界面显示课程分类
+			if(null == directionId){
+				classfyList = classifyService.findAll();
+			}
+			else{
+				classfyList = directionService.findClassifyByDirectionId(directionId);
+			}
+			mv.addObject("classfyList",classfyList);
+			mv.setViewName("/backend/wqf_find");
+		} catch (Exception e){
+			e.printStackTrace();
+			mv.setViewName("/backend/index");
+		}												
 		return mv;
 	}
 	
