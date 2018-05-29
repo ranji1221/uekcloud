@@ -35,11 +35,10 @@
 		select count(*) from lemon_volador_global_notification
 	</select>
 	
-	<!-- 查询全部用户信息
-	<select id="findAll" resultType="VoladorIntegral" >
-		select * from lemon_volador_personal_integral
-		<include refid="paramsSQL"/>
-	</select> -->
+	<!-- 查询全部消息/公告 -->
+	<select id="findAll" resultMap="notificationResultMap" >
+		select * from lemon_volador_global_notification
+	</select>
 	
 	<!-- 查询用户前三条未读消息 -->
 	<select id="findTop3Notification" parameterType="Map" resultType="Map">
@@ -51,4 +50,8 @@
 	SELECT * FROM lemon_volador_personal_user_ignore_notification where user_id = #{userId}
 	</select>
 	
+	<!-- 更新用户清除消息数目 -->
+	<update id="updateIgnoreNotNum" parameterType="Map">
+	update lemon_volador_personal_user_ignore_notification set ignore_notification_number = #{ignoreNotificationNumber} where user_id = #{userId}
+	</update>
 </mapper>

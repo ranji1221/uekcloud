@@ -42,6 +42,12 @@ public class NotificationDaoImpl extends GenericDaoImpl<Notification, Integer> i
 		// TODO Auto-generated method stub
 		return sqlSessionTemplate.selectOne(typeNameSpace+".getTotalOfItems");
 	}
+
+	@Override
+	public void updateIgnoreNotNum(Map map) {
+		// TODO Auto-generated method stub
+		sqlSessionTemplate.update(typeNameSpace+".updateIgnoreNotNum",map);
+	}
 	
 	
 	

@@ -96,7 +96,8 @@
 						<div class="message_box">
 							<header>
 								<span>消息中心</span>
-								<span>清空</span>
+								<span id="clearNotification">清空</span>
+								<input type="hidden" th:value="${userId}" name="userId" id="userId">
 							</header>
 							<ul>
 								<li th:each="notification:${notificationList}">
@@ -772,5 +773,25 @@
 		prevButton: '.swiper-button-prev',
 		autoplay: 2000
 	})        
+</script>
+<script type="text/javascript">
+var $clearNotification = $("#clearNotification");
+$clearNotification.click(function(){
+	
+	var userId = $("#userId").val();
+	//alert(userId);
+	 $.ajax({
+		url:"clearNotification",
+		type:"post",
+		data:{
+			userId:userId
+		},
+		success:function(){
+			
+		}
+	}) 
+	
+	location.replace("/volador/index");
+})
 </script>
 </html>

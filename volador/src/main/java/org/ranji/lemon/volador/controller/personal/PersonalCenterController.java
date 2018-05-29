@@ -10,11 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import org.ranji.lemon.core.pagination.PagerModel;
 import org.ranji.lemon.volador.model.course.Course;
 import org.ranji.lemon.volador.model.course.Homework;
+import org.ranji.lemon.volador.model.global.Notification;
 import org.ranji.lemon.volador.model.personal.Integral;
 import org.ranji.lemon.volador.model.personal.SignIn;
 import org.ranji.lemon.volador.model.personal.UserInfo;
 import org.ranji.lemon.volador.service.course.prototype.ICourseService;
 import org.ranji.lemon.volador.service.course.prototype.IHomeworkService;
+import org.ranji.lemon.volador.service.global.prototype.INotificationService;
 import org.ranji.lemon.volador.service.personal.prototype.IIntegralService;
 import org.ranji.lemon.volador.service.personal.prototype.IPerService;
 import org.ranji.lemon.volador.service.personal.prototype.ISignInService;
@@ -48,6 +50,9 @@ public class PersonalCenterController {
 	@Autowired
 	private IIntegralService integralService;
 	
+	@Autowired
+	private INotificationService inotificationService;
+	
 	//用户签到获得的积分
 	private Integer SIGNIN_INTRGRAL_NUM = 20;
 	
@@ -57,6 +62,10 @@ public class PersonalCenterController {
 	@RequestMapping(value="/personalCenter_notice", method=RequestMethod.GET)
 	public ModelAndView personalCenterNotice(){
 		ModelAndView mv = new ModelAndView();
+		List<Notification> notificationList = inotificationService.findAll();
+		mv.addObject("notificationList", notificationList);
+		mv.addObject("notificationNumber", notificationList.size());
+		//System.out.println(notificationList.get(0).getCreateTime());
 		mv.setViewName("/backend/wqf_notice");
 		return mv;
 	}

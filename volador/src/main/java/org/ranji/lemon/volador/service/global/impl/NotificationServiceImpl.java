@@ -34,6 +34,12 @@ public class NotificationServiceImpl extends GenericServiceImpl<Notification, In
 		// TODO Auto-generated method stub
 		return ((INotificationDao)dao).getTotalOfItems();
 	}
+
+	@Override
+	public void updateIgnoreNotNum(Map map) {
+		// TODO Auto-generated method stub
+		((INotificationDao)dao).updateIgnoreNotNum(map);
+	}
     
 	
 }

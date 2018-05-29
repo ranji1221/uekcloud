@@ -15,4 +15,7 @@ public interface INotificationService extends IGenericService<Notification, Inte
 	public Map findIgnoreNotificationByUser(int userId);
 	
 	public int getTotalOfItems();
+	
+	public void updateIgnoreNotNum(Map map);
+
 }

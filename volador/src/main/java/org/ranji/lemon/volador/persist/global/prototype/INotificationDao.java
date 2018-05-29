@@ -15,4 +15,6 @@ public interface INotificationDao extends IGenericDao<Notification, Integer> {
 	public Map findIgnoreNotificationByUser(int userId);
 	
 	public int getTotalOfItems();
+	
+	public void updateIgnoreNotNum(Map map);
 }

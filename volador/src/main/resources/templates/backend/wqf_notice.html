@@ -110,18 +110,18 @@
         </div>
         <!--状态导航结束-->
         <div class="wzq_mbx ">
-            <span>全部通知 20</span>
+            <span th:text="全部通知+${notificationNumber}">全部通知 20</span>
         </div>
         
         <ul class="wqf_content">
-            <li class="clear_both">
+            <li class="clear_both" th:each="notification:${notificationList}">
                 <img src="images/wqf_user.png" >
                 <div class="message">
-                    <h2>
+                    <h2 th:text="${notification.notificationType} == 0 ? '系统通知' : '系统公告'">
                         系统公告 
-                        <span>发布时间：2018年03月03日</span>
+                        <span th:text="${notification.createTime}">发布时间：2018年03月03日</span>
                     </h2>
-                    <p class="hidd_more">美的空调创意海报征集大赛来啦~
+                    <p class="hidd_more" th:text="${notification.notificationContent}">美的空调创意海报征集大赛来啦~
                         在你心中什么才是“无风感”？
                         这个春天，美的空调联合站酷开启无风感创意海报设计大赛，
                         创作风格不限，形式不限，
@@ -131,7 +131,7 @@
                     </p>
                 </div>
             </li>
-            <li class="clear_both">
+           <!--  <li class="clear_both">
                 <img src="images/wqf_user.png" >
                 <div class="message">
                     <h2>
@@ -140,7 +140,7 @@
                     </h2>
                     <p class="hidd_more">管理员 审核通过 了你发布的原创作品：《飞鱼飞鱼》 操作原因：感谢在站酷网发布您的原创作品。：）</p>
                 </div>
-            </li>
+            </li> -->
         </ul>
 
         <!--评论列表结束-->

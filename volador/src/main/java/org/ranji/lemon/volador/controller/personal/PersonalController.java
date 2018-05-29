@@ -138,6 +138,7 @@ public class PersonalController {
 		mv.addAllObjects(params);	
 		mv.addObject("notificationList", notificationList);
 		mv.addObject("notificationSize", notificationList.size());
+		mv.addObject("userId", userId);
 
 		mv.setViewName("/backend/index");
 		return mv;
@@ -284,4 +285,26 @@ public class PersonalController {
 		return mv;
 	}
 
+	//清空消息
+		@RequestMapping(value="/clearNotification", method=RequestMethod.POST)
+		public ModelAndView clearNotification(HttpServletRequest request){
+			ModelAndView mv = new ModelAndView();
+            int userId = Integer.parseInt(request.getParameter("userId"));
+			//String userName = request.getSession().getAttribute("userName").toString();
+			//mv.addObject("userName", userName);
+            int notificationNumber = notificationService.getTotalOfItems();
+            Map map = new HashMap();
+            map.put("userId", userId);
+            map.put("ignoreNotificationNumber", notificationNumber);
+            Map existMap = notificationService.findIgnoreNotificationByUser(userId);
+            if(existMap!=null&&!existMap.isEmpty()){
+            	
+                notificationService.updateIgnoreNotNum(map);
+            }else{
+            	notificationService.saveUserAndIgnoreNotificationRelation(userId, notificationNumber);
+            }
+           
+            mv.setViewName("redirect:/index");
+			return mv;
+		}
 }
