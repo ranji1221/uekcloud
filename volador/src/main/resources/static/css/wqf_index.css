@@ -1,4 +1,4 @@
-/*导航菜单轮播 开始*/
+/*瀵艰埅鑿滃崟杞挱 寮�濮�*/
 nav.wqf_menu{
 	width: 1140px; height: 467px;
 	margin: 3px auto 26px;
@@ -55,7 +55,7 @@ nav.wqf_menu .wqf_list>ul>li>.more .classify_item>ul>li{
     padding: 10px 0;
     line-height: 53px;
 }
-nav.wqf_menu .wqf_list>ul>li>.more .classify_item>ul>li:hover a{
+nav.wqf_menu .wqf_list>ul>li>.more .classify_item>ul>li a:hover{
 	color: #fd6756;
 }
 
@@ -187,7 +187,7 @@ nav.wqf_menu .wqf_banner .swiper-slide .message .mess{
 	color: #8e8e8e;
 }
 
-/*优质课程*/
+/*浼樿川璇剧▼*/
 .wqf_course{
 	width: 100%; 
 	margin-top: 86px;
@@ -222,7 +222,7 @@ nav.wqf_menu .wqf_banner .swiper-slide .message .mess{
 	color: #febc15;
 }
 
-	/*课程列表*/
+	/*璇剧▼鍒楄〃*/
 .wqf_course>.class_list{
 	width: 1140px; 
 	margin:66px auto 0;
@@ -356,7 +356,7 @@ nav.wqf_menu .wqf_banner .swiper-slide .message .mess{
 }
 
 
-/*推陈出新*/
+/*鎺ㄩ檲鍑烘柊*/
 .wqf_new{
 	background: #fff;
 }
@@ -391,7 +391,7 @@ nav.wqf_menu .wqf_banner .swiper-slide .message .mess{
 }
 
 
-/*分屏banner*/
+/*鍒嗗睆banner*/
 .wqf_banner2{
 	display: block;
 	width: 1140px; height: 326px;
@@ -401,7 +401,7 @@ nav.wqf_menu .wqf_banner .swiper-slide .message .mess{
 	width: 100%;
 }
 
-/*百万课程*/
+/*鐧句竾璇剧▼*/
 .wqf_classes{
 	background: #f8f8f8;
 }
@@ -414,12 +414,12 @@ nav.wqf_menu .wqf_banner .swiper-slide .message .mess{
 	margin-bottom: 18px;
 }
 
-/*直播课*/
+/*鐩存挱璇�*/
 .wqf_zhibo{
 	background: #fff;
 }
 
-/*优秀学员*/
+/*浼樼瀛﹀憳*/
 
 .wqf_students .wqf_box{
 	width: 1140px;
@@ -528,7 +528,7 @@ nav.wqf_menu .wqf_banner .swiper-slide .message .mess{
 }
 
 
-/*教师团队*/
+/*鏁欏笀鍥㈤槦*/
 .wqf_teacher{
 	background: url(../images/wqf_bg.png) no-repeat center /cover;
 	color: #fff;
@@ -606,7 +606,7 @@ nav.wqf_menu .wqf_banner .swiper-slide .message .mess{
 }
 
 
-/*合作伙伴*/
+/*鍚堜綔浼欎即*/
 .wqf_friend{
 	width: 1140px;
 	margin:48px auto 60px;
@@ -629,7 +629,7 @@ nav.wqf_menu .wqf_banner .swiper-slide .message .mess{
 }
 
 
-/*回到顶部*/
+/*鍥炲埌椤堕儴*/
 .wqf_totop{
 	width: 81px; 
 	background: #fff;
@@ -675,7 +675,7 @@ nav.wqf_menu .wqf_banner .swiper-slide .message .mess{
 	right: 130px;   top: 50%;
 	transform: translate3d(0,-50%,0);
 	white-space:nowrap; 
-	font-family: "微软雅黑";
+	font-family: "寰蒋闆呴粦";
 	display: none;
 	opacity: 0;
 }

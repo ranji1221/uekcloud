@@ -168,140 +168,77 @@
 	<nav class="wqf_menu clear_both">
 		<div class="wqf_list">
 			<ul>
-				<li>
-					<a href="javascript:;">
+			
+			    <li th:each="direction:${directionList}">
+					<a  th:href="@{/findCourse(directionId=${direction.id})}" href="findCourse">
 						<img src="images/wqf_ui.png" alt="">
-						<span>UI/UX设计</span>
-						<span class="fy_icon">&#xe604;</span>
-					</a>
-					<!-- 鼠标移入弹出层 -->
-					<div class="more">
-						<!-- 课程列表 -->
-						<div class="classify_item">
-						    <ul>
-								<li th:each="classifyCourse:${Classify1}"><a th:href="'course_chapter?courseId='+${classifyCourse.id}" th:text="${classifyCourse.course_name}">界面重构</a></li>
-							</ul>
-						</div>
-						<!-- 新闻 -->
-						<div class="news_item">
-							<h3>最新发布</h3>
-							<ul>
-								<li><a href="javascript:;" class="hidd_one">交互设计第一步 了解完整的知识体系架构</a></li>
-							</ul>
-						</div>
-					</div>
-				</li>
-				<li>
-					<a href="javascript:;">
-						<img src="images/wqf_web.png" alt="">
-						<span>前端开发</span>
+						<span th:text="${direction.name}" id="directionId">UI/UX设计</span>
 						<span class="fy_icon">&#xe604;</span>
 					</a>
 					<!-- 鼠标移入弹出层 -->
 					<div class="more">
 						<div class="classify_item">
-							<ul>
-								<li th:each="classifyCourse:${Classify2}"><a th:href="'course_chapter?courseId='+${classifyCourse.id}" th:text="${classifyCourse.course_name}">界面重构</a></li>
-							</ul>
-						</div>
-						<!-- 最新消息 -->
-						<div class="news_item">
-							<h3>最新发布</h3>
-							<ul>
-								<li><a href="javascript:;" class="hidd_one">交互设计第一步 了解完整的知识体系架构</a></li>
-							</ul>
-						</div>
-					</div>
-				</li>
-				<li>
-					<a href="javascript:;">
-						<img src="images/wqf_py.png" alt="">
-						<span>Python全栈</span>
-						<span class="fy_icon">&#xe604;</span>
-					</a>
-					<!-- 鼠标移入弹出层 -->
-					<div class="more">
-						<div class="classify_item">
-						    <ul>
-								<li th:each="classifyCourse:${Classify3}"><a th:href="'course_chapter?courseId='+${classifyCourse.id}" th:text="${classifyCourse.course_name}">界面重构</a></li>
-							</ul>
-						</div>
-						<!-- 最新消息 -->
-						<div class="news_item">
-							<h3>最新发布</h3>
-							<ul>
-								<li><a href="javascript:;" class="hidd_one">交互设计第一步 了解完整的知识体系架构</a></li>
-							</ul>
-						</div>
-					</div>
-				</li>
-				<li>
-					<a href="javascript:;">
-						<img src="images/wqf_rg.png" alt="">
-						<span>人工智能</span>
-						<span class="fy_icon">&#xe604;</span>
-					</a>
-					<!-- 鼠标移入弹出层 -->
-					<div class="more">
-						<div class="classify_item">
-						    <ul>
-								<li th:each="classifyCourse:${Classify4}"><a th:href="'course_chapter?courseId='+${classifyCourse.id}" th:text="${classifyCourse.course_name}">界面重构</a></li>
-							</ul>
-						</div>
-						<!-- 最新消息 -->
-						<div class="news_item">
-							<h3>最新发布</h3>
-							<ul>
-								<li><a href="javascript:;" class="hidd_one">交互设计第一步 了解完整的知识体系架构</a></li>
-							</ul>
-						</div>
-					</div>
-				</li>
-				<li>
-					<a href="javascript:;">
-						<img src="images/wqf_dt.png" alt="">
-						<span>大数据</span>
-						<span class="fy_icon">&#xe604;</span>
-					</a>
-					<!-- 鼠标移入弹出层 -->
-					<div class="more">
-						<!-- 课程列表 -->
-						<div class="classify_item">
-							<ul>
-								<li th:each="classifyCourse:${Classify5}"><a th:href="'course_chapter?courseId='+${classifyCourse.id}" th:text="${classifyCourse.course_name}">界面重构</a></li>
-							</ul>
-						</div>
-						<!-- 最新消息 -->
-						<div class="news_item">
-							<h3>最新发布</h3>
-							<ul>
-								<li><a href="javascript:;" class="hidd_one">交互设计第一步 了解完整的知识体系架构</a></li>
-							</ul>
+						    <ul th:switch="${direction.id}">
+						        <li th:case="1">
+						            <ul th:each="classify:${classify1}">
+						                <li>
+						                    <a th:text="${classify.classify_name}" th:href="@{/findCourse(classfyId=${classify.id})}"></a>
+						                </li>
+						            </ul>						            
+						        </li>
+						        <li th:case="2">
+						            <ul th:each="classify:${classify2}">
+						                <li>
+						                    <a th:text="${classify.classify_name}" th:href="@{/findCourse(classfyId=${classify.id})}"></a>
+						                </li>
+						            </ul>						            
+						        </li>
+						        <li th:case="3">
+						            <ul th:each="classify:${classify3}">
+						                <li>
+						                    <a th:text="${classify.classify_name}" th:href="@{/findCourse(classfyId=${classify.id})}"></a>
+						                </li>
+						            </ul>						            
+						        </li>
+						        <li th:case="4">
+						            <ul th:each="classify:${classify4}">
+						                <li>
+						                    <a th:text="${classify.classify_name}" th:href="@{/findCourse(classfyId=${classify.id})}"></a>
+						                </li>
+						            </ul>						            
+						        </li>
+						        <li th:case="5">
+						            <ul th:each="classify:${classify5}">
+						                <li>
+						                    <a th:text="${classify.classify_name}" th:href="@{/findCourse(classfyId=${classify.id})}"></a>
+						                </li>
+						            </ul>						            
+						        </li>
+						        <li th:case="6">
+						            <ul th:each="classify:${classify6}">
+						                <li>
+						                    <a th:text="${classify.classify_name}" th:href="@{/findCourse(classfyId=${classify.id})}"></a>
+						                </li>
+						            </ul>						            
+						        </li>
+						        <li th:case="7">
+						            <ul th:each="classify:${classify7}">
+						                <li>
+						                    <a th:text="${classify.classify_name}" th:href="@{/findCourse(classfyId=${classify.id})}"></a>
+						                </li>
+						            </ul>						            
+						        </li>
+						        <li th:case="8">
+						            <ul th:each="classify:${classify8}">
+						                <li>
+						                    <a th:text="${classify.classify_name}" th:href="@{/findCourse(classfyId=${classify.id})}"></a>
+						                </li>
+						            </ul>						            
+						        </li>
+                            </ul>
 						</div>
 					</div>
-				</li>
-				<li>
-					<a href="javascript:;">
-						<img src="images/wqf_dk.png" alt="">
-						<span>大咖来了</span>
-						<span class="fy_icon">&#xe604;</span>
-					</a>
-					<!-- 鼠标移入弹出层 -->
-					<div class="more">
-						<div class="classify_item">
-							<ul>
-								<li th:each="classifyCourse:${Classify6}"><a th:href="'course_chapter?courseId='+${classifyCourse.id}" th:text="${classifyCourse.course_name}">界面重构</a></li>
-							</ul>
-						</div>
-						<!-- 最新消息 -->
-						<div class="news_item">
-							<h3>最新发布</h3>
-							<ul>
-								<li><a href="javascript:;" class="hidd_one">交互设计第一步 了解完整的知识体系架构</a></li>
-							</ul>
-						</div>
-					</div>
-				</li>
+				</li>								
 			</ul>
 		</div>
 		<div class="swiper-container wqf_banner">
@@ -793,5 +730,6 @@ $clearNotification.click(function(){
 	
 	location.replace("/volador/index");
 })
+
 </script>
 </html>

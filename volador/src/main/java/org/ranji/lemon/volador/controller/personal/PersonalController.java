@@ -9,16 +9,17 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.ranji.lemon.volador.model.course.Classify;
 import org.ranji.lemon.volador.model.course.Course;
+import org.ranji.lemon.volador.model.course.Direction;
 import org.ranji.lemon.volador.model.course.Theme;
 import org.ranji.lemon.volador.model.personal.Per;
 import org.ranji.lemon.volador.model.personal.SignIn;
 import org.ranji.lemon.volador.model.personal.UserInfo;
 import org.ranji.lemon.volador.service.course.prototype.IClassifyService;
 import org.ranji.lemon.volador.service.course.prototype.ICourseService;
+import org.ranji.lemon.volador.service.course.prototype.IDirectionService;
 import org.ranji.lemon.volador.service.course.prototype.IThemeService;
 import org.ranji.lemon.volador.service.global.prototype.INotificationService;
 import org.ranji.lemon.volador.service.personal.prototype.IPerService;
@@ -29,7 +30,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -49,6 +49,8 @@ public class PersonalController {
 	private INotificationService notificationService;
 	@Autowired
 	private ISignInService signInService;
+	@Autowired
+	private IDirectionService directionService;
 	
 	//首页
 	@RequestMapping(value="/index", method=RequestMethod.GET)
@@ -95,20 +97,26 @@ public class PersonalController {
 		}
 		
 		Map <String, Object> paramCourse= new HashMap<String, Object>();
-		List<Course> classifyCourseList = new ArrayList<>();
 		List<Theme> themeList = themeService.findAll();
 		Map <String, Object> params= new HashMap<String, Object>();
 		
 		//空指针异常处理，当未获取到数据时候，前台显示资料为空
 		try {
-			//获取首页动态显示课程列表
-			List<Classify> classifyList = classifyService.findAll();
-			for(Classify classify:classifyList){
-				classifyCourseList = classifyService.findCourseByClassify(classify.getId());
-				paramCourse.put("Classify"+Integer.toString(classify.getId()), classifyCourseList);
+			
+			//首页显示课程方向
+			List<Direction> directionList = directionService.findAll();
+			paramCourse.put("directionList", directionList);
+			
+			//定义首页显示的课程分类
+			List<Classify> classifyList = new ArrayList<>();
+			int i = 0;
+			for(Direction direction:directionList){
+				classifyList = directionService.findClassifyByDirectionId(direction.getId());
+				//保存返回前台页面的课程分类
+				paramCourse.put("classify"+Integer.toString(direction.getId()), classifyList);
 			}
 			
-			//首页显示课程分类
+			
 			//查找课程分类对应的课程
 			for (Theme theme:themeList){
 				//返回课程分类
@@ -144,6 +152,9 @@ public class PersonalController {
 		return mv;
 	}
 	
+	public void getClassifyList(){
+		
+	}
 	//基本资料
 	@RequestMapping(value="/personal_basic", method=RequestMethod.GET)
 	public ModelAndView personalBasicPage(HttpServletRequest request){
