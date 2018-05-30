@@ -20,6 +20,7 @@
         </div>
         <div class="cp_form">
             <form action="login" id='form' method="post">
+                <p style="color: red;" th:text="${message}"></p>
                 <div class="form_control">
                     <label for="user" class='noselect' ><i class='fy_icon'>&#xe6a6;</i></label>
                     <input type="text" placeholder="请输入您的账号" id='user' name='username' id='user' data-message="请输入正确的手机号" data-easytip="position:right;class:easy-red"  data-easyform="regex:^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\d{8}$;real-time;" >

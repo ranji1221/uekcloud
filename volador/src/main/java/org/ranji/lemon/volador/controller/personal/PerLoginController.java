@@ -50,8 +50,8 @@ public class PerLoginController {
 			request.getSession().setAttribute("userName", username);
 			mv.setViewName("redirect:/index");
 		} catch (AuthenticationException e){
-			mv.addObject("message", "login errors");
-			mv.setViewName("redirect:/login");
+			mv.addObject("message", "账号未注册");
+			mv.setViewName("/backend/cp_login");
 			e.printStackTrace();
 		} 
 
