@@ -1,9 +1,12 @@
 package org.ranji.lemon.volador.controller.personal;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -66,6 +69,8 @@ public class PersonalCenterController {
 		mv.addObject("notificationList", notificationList);
 		mv.addObject("notificationNumber", notificationList.size());
 		//System.out.println(notificationList.get(0).getCreateTime());
+		 
+	     
 		mv.setViewName("/backend/wqf_notice");
 		return mv;
 	}
@@ -435,6 +440,32 @@ public class PersonalCenterController {
 	}
 	
 	
+	
+	/*
+	 * 个人中心 - 清空里面查询全部通知/公告
+	 * */
+	@RequestMapping(value="/personalCenter_allnotice", method=RequestMethod.GET)
+	public ModelAndView personalAllCenterNotice(HttpServletRequest request){
+		ModelAndView mv = new ModelAndView();
+		List<Notification> notificationList = inotificationService.findAll();
+		mv.addObject("notificationList", notificationList);
+		mv.addObject("notificationNumber", notificationList.size());
+		 int notificationNumber = inotificationService.getTotalOfItems();
+		 int userId=(int) request.getSession().getAttribute("userId");
+		  Map map = new HashMap();
+          map.put("userId", userId);
+          map.put("ignoreNotificationNumber", notificationNumber);
+          Map existMap = inotificationService.findIgnoreNotificationByUser(userId);
+          if(existMap!=null&&!existMap.isEmpty()){
+          	
+        	  inotificationService.updateIgnoreNotNum(map);
+          }else{
+        	  inotificationService.saveUserAndIgnoreNotificationRelation(userId, notificationNumber);
+          }
+		//System.out.println(notificationList.get(0).getCreateTime());
+		mv.setViewName("/backend/wqf_notice");
+		return mv;
+	}
 	
 
 }

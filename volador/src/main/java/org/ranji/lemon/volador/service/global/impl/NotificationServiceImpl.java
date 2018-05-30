@@ -40,6 +40,11 @@ public class NotificationServiceImpl extends GenericServiceImpl<Notification, In
 		// TODO Auto-generated method stub
 		((INotificationDao)dao).updateIgnoreNotNum(map);
 	}
+	
+	@Override
+	public int notReadNumber(int startIgnNotificationNumber,int endIgnNotificationNumber ){
+		return ((INotificationDao)dao).notReadNumber(startIgnNotificationNumber, endIgnNotificationNumber);
+	}
     
 	
 }

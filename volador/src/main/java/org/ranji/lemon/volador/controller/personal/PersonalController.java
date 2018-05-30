@@ -58,6 +58,8 @@ public class PersonalController {
 		ModelAndView mv = new ModelAndView();
 		List<Map> notificationList = new ArrayList<>();
 		int userId = 0;
+		int notificationSize = 0;
+		
 		//检测是否登录
 		try{
 			//登录成功，返回userName及head_image
@@ -137,7 +139,7 @@ public class PersonalController {
 			int startIgnNotificationNumber = ignoreNitificationNumber+1;
 			int endIgnNotificationNumber = notificationService.getTotalOfItems();
 			notificationList = notificationService.findTop3Notification(startIgnNotificationNumber, endIgnNotificationNumber);
-			
+			notificationSize = notificationService.notReadNumber(startIgnNotificationNumber, endIgnNotificationNumber);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
@@ -145,7 +147,7 @@ public class PersonalController {
 		mv.addAllObjects(paramCourse);
 		mv.addAllObjects(params);	
 		mv.addObject("notificationList", notificationList);
-		mv.addObject("notificationSize", notificationList.size());
+		mv.addObject("notificationSize", notificationSize);
 		mv.addObject("userId", userId);
 
 		mv.setViewName("/backend/index");

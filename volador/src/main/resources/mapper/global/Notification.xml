@@ -54,4 +54,9 @@
 	<update id="updateIgnoreNotNum" parameterType="Map">
 	update lemon_volador_personal_user_ignore_notification set ignore_notification_number = #{ignoreNotificationNumber} where user_id = #{userId}
 	</update>
+	
+	<!-- 查询用户未读消息 总数-->
+	<select id="notReadNumber" parameterType="Map" resultType="int">
+	SELECT count(*) from lemon_volador_global_notification where id BETWEEN #{startIgnNotificationNumber} and #{endIgnNotificationNumber}  
+	</select>
 </mapper>

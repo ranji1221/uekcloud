@@ -56,5 +56,12 @@
     vertical-align: middle;
 }
 
+.wy_notification_span{
+	float: right; 
+	font-size: 12px;
+	margin-top: 8px;
+	font-weight: bold;
+    color: #7c7c7c;
+}
 
 

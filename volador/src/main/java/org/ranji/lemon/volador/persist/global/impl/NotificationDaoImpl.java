@@ -48,6 +48,15 @@ public class NotificationDaoImpl extends GenericDaoImpl<Notification, Integer> i
 		// TODO Auto-generated method stub
 		sqlSessionTemplate.update(typeNameSpace+".updateIgnoreNotNum",map);
 	}
+
+	@Override
+	public int notReadNumber(int startIgnNotificationNumber, int endIgnNotificationNumber) {
+		// TODO Auto-generated method stub
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("startIgnNotificationNumber", startIgnNotificationNumber);
+		map.put("endIgnNotificationNumber", endIgnNotificationNumber);
+		return sqlSessionTemplate.selectOne(typeNameSpace+".notReadNumber",map);
+	}
 	
 	
 	

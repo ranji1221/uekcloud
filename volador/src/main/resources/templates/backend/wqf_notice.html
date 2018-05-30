@@ -117,10 +117,14 @@
             <li class="clear_both" th:each="notification:${notificationList}">
                 <img src="images/wqf_user.png" >
                 <div class="message">
+                <div>
+                <span class="wy_notification_span" th:text="发布时间：+${#dates.format(notification.createTime, 'yyyy年MM月dd日')}">发布时间：2018年03月03日</span>
                     <h2 th:text="${notification.notificationType} == 0 ? '系统通知' : '系统公告'">
                         系统公告 
-                        <span th:text="${notification.createTime}">发布时间：2018年03月03日</span>
+                        
                     </h2>
+                    
+                    </div>
                     <p class="hidd_more" th:text="${notification.notificationContent}">美的空调创意海报征集大赛来啦~
                         在你心中什么才是“无风感”？
                         这个春天，美的空调联合站酷开启无风感创意海报设计大赛，
