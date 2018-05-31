@@ -29,8 +29,11 @@ public class NoteDaoImpl extends GenericDaoImpl<Note, Integer> implements INoteD
 	}
 
 	@Override
-	public List<Note> findNoteByUserId(int userId) {
-		return sqlSessionTemplate.selectList(typeNameSpace+".findNoteByUserId", userId);
+	public List<Note> findNoteByUserId(int userId,int chapterId) {
+		Map<String,Object> map=new HashMap();
+		map.put("id", userId);
+		map.put("chapterId", chapterId);
+		return sqlSessionTemplate.selectList(typeNameSpace+".findNoteByUserId", map);
 	}
 
 	@Override

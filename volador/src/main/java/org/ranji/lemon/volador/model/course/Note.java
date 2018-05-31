@@ -15,6 +15,13 @@ public class Note extends AbstractModel{
 	private static final long serialVersionUID = 4676610472713565395L;
 	String content;
 	String title;
+	int chapterId;
+	public int getChapterId() {
+		return chapterId;
+	}
+	public void setChapterId(int chapterId) {
+		this.chapterId = chapterId;
+	}
 	public String getTitle() {
 		return title;
 	}

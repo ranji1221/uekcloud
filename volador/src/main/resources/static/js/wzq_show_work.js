@@ -54,7 +54,7 @@ $(function () {
                 success:function(data){
                     if(data.info =='未登录'){
                         alert('请登陆');
-                        location.href = '登陆页面的路径';
+                        location.href = 'login';
                     }else if(data.info =='success'){
                         alert('评论成功');
                         // 评论成功后创建节点，添加刚才评论的内容

@@ -83,7 +83,7 @@
 		<div class="class_list clear_both">
 		
 		    <li th:each="course:${courseList}">
-				<a href="javascript:;">
+				<a href="javascript:;" th:href="'course_chapter?courseId='+${course.id}">
 					<!-- 
 					    只需更换行内 图片地址即可更换 课程封面
 					 -->

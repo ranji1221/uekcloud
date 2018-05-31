@@ -21,10 +21,10 @@ public interface INoteService extends IGenericService<Note, Integer>{
 	
 	/**
 	 * 通过用户ID查询用户笔记
-	 * @param userId        用户ID
+	 * @param userId        用户ID chapterID
 	 * @return              用户笔记
 	 */
-    public List<Note> findNoteByUserId(int userId);
+    public List<Note> findNoteByUserId(int userId,int chapterId);
     
 	/**
      * 通过笔记ID删除笔记用户关系表

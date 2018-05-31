@@ -179,13 +179,16 @@ public class CourseController {
 			
 			//根据课程id查询章节标题集合
 			List<ChapterTitle> chapterTitleList=courseService.findChapterTitleByCourse(courseId);
-			Map<String,Object> chapterListMap=new HashMap<String,Object>();
+			HashMap<String,Object> chapterListMap=new HashMap<String,Object>();
 			for(int i=0;i<chapterTitleList.size();i++){
 				//根据章节标题id查询章节
 				chapterListMap.put("chapter"+i,chapterTitleService.findChapterByChapterTitle(chapterTitleList.get(i).getId()));
 			}
 			
+			String chapterJson=JsonUtil.objectToJson(chapterListMap);
+			mv.addObject("count",chapterTitleList.size());
 			mv.addAllObjects(chapterListMap);
+			mv.addObject("chapterJson",chapterJson);
 			mv.addObject(chapterTitleList);
 			//根据课程ID查询章节
 //			List <Chapter> chapterList = courseService.findChapterbyCourse(courseId);
@@ -219,6 +222,8 @@ public class CourseController {
 			mv.addObject("userName", userName);
 		}
 		catch (Exception e) {
+			UserInfo userInfo=new UserInfo();
+			mv.addObject(userInfo);
 			mv.addObject("login_yes","login_yes");
 			mv.addObject("login_no","login_no active");
 		}
@@ -276,35 +281,31 @@ public class CourseController {
 			String info="用户未登录，请登录！";
 			Map<String,Object> map=new HashMap<String,Object>();
 			
-			try {			
-				System.out.println(userId);
-				
-				Comment comment=new Comment();
-				int courseid=Integer.parseInt(request.getParameter("courseId"));
-				
-				//保存评论
-				comment.setContent(content);
-				commentService.save(comment);
-				int commentId=comment.getId();
-				//保存评论和课程的关系
-				commentService.saveCourseAndCommentRelation(commentId, Integer.parseInt(courseId.toString()));
-				
-				//保存评论和用户关系
-				commentService.savaCommentAndUserRelation(comment.getId(), Integer.parseInt(userId.toString()));
-				
-				info = "success";
-				map.put("info", info);
-				
-			} catch (NullPointerException e){
-				e.printStackTrace();
-				info = "未登录";
-				map.put("info",info);
-			}catch (NumberFormatException e){
-				e.printStackTrace();
-			}catch (Exception e) {
-				info = "异常！";
-				map.put("info",info);
-				e.printStackTrace();
+			//判断是否登录
+			if(!userId.equals("")){
+				try {					
+					Comment comment=new Comment();
+					int courseid=Integer.parseInt(request.getParameter("courseId"));
+					
+					//保存评论
+					comment.setContent(content);
+					commentService.save(comment);
+					int commentId=comment.getId();
+					//保存评论和课程的关系
+					commentService.saveCourseAndCommentRelation(commentId, Integer.parseInt(courseId.toString()));
+					
+					//保存评论和用户关系
+					commentService.savaCommentAndUserRelation(comment.getId(), Integer.parseInt(userId.toString()));
+					
+					info = "success";
+					map.put("info", info);
+				}catch (Exception e) {
+					info = "异常！";
+					map.put("info",info);
+					e.printStackTrace();
+				}
+			}else{
+				map.put("info", "未登录");
 			}
 			
 			
@@ -370,7 +371,7 @@ public class CourseController {
 				commentList.get(i).setHead_image(userInfo.getHead_image());
 			}
 			
-
+			
 			//传参
 			mv.addObject("commentCount",commentList.size());
 			mv.addObject(chapter);
@@ -390,6 +391,76 @@ public class CourseController {
 		return mv;
 	}
 	
+	//获取章节信息AJax
+	@RequestMapping(value="/chapterList",method=RequestMethod.POST)
+	public void chapList(HttpServletRequest request,HttpServletResponse response) throws IOException{
+		
+		//设置返回格式
+		response.setHeader("Content-Type", "application/json;charset=utf-8");
+		PrintWriter pw = response.getWriter();
+		
+		//获取请求参数
+		int courseId =Integer.parseInt(request.getParameter("courseId"));
+		
+		//根据课程id查询章节标题集合
+		List<ChapterTitle> chapterTitleList=courseService.findChapterTitleByCourse(courseId);
+		HashMap<String,Object> chapterListMap=new HashMap<String,Object>();
+		for(int i=0;i<chapterTitleList.size();i++){
+			//根据章节标题id查询章节
+			chapterListMap.put("chapter"+i,chapterTitleService.findChapterByChapterTitle(chapterTitleList.get(i).getId()));
+		}
+		
+		String chapterJson=JsonUtil.objectToJson(chapterListMap);
+		
+		//拼接为Json返回
+		Map<String,Object> map=new HashMap<String,Object>();
+		map.put("chapterTitle", chapterTitleList);
+		map.put("chapterList", chapterListMap);
+
+		pw.write(JsonUtil.objectToJson(map));
+		pw.flush();
+		pw.close();
+	}
+	
+	
+	//获取章节评论Ajax
+	@RequestMapping(value="/chapter_commentList",method=RequestMethod.POST)
+	public void chapterCommentList(HttpServletRequest request,HttpServletResponse response) throws IOException{
+		
+		//设置返回格式
+		response.setHeader("Content-Type", "application/json;charset=utf-8");
+		PrintWriter pw = response.getWriter();
+		
+		//获取请求参数
+		int chapterId =Integer.parseInt(request.getParameter("chapterId"));
+		int userId=Integer.parseInt(request.getParameter("userId"));
+		
+		//获取用户头像
+		String headImage = personalService.findUserInfoByUserId(userId).getHead_image();
+		
+		//根据章节id获取评论列表
+		List<Comment> commentList = chapterService.findCommentListByChapter(chapterId);
+		
+		//根据评论获取用户信息
+		for(int i=0;i<commentList.size();i++){
+			int commentId=commentList.get(i).getId();
+			int user_Id=commentService.findUserIdByCommentId(commentId).get(0);
+			UserInfo userInfo=personalService.findUserInfoByUserId(user_Id);
+			commentList.get(i).setNickName(userInfo.getNickname());
+			commentList.get(i).setHead_image(userInfo.getHead_image());
+		}
+		
+		//拼接为Json返回
+		Map<String,Object> map=new HashMap<String,Object>();
+		map.put("UserHeadImage", headImage);
+		map.put("commentList", commentList);
+		
+		pw.write(JsonUtil.objectToJson(map));
+		pw.flush();
+		pw.close();
+	}
+	
+	
 	
 	//章节发表评论
 	@RequestMapping(value="/course_chapter_comment",method=RequestMethod.POST)
@@ -397,46 +468,44 @@ public class CourseController {
 			@RequestParam(value="chapterId", required=false) String chapterId,
 			@RequestParam(value="userId", required=false) String userId,
 			HttpServletRequest request,
-			HttpServletResponse response){
+			HttpServletResponse response) throws IOException{
 		
-		String info="用户未登录，请登录！";
+		response.setHeader("Content-Type", "application/json;charset=utf-8");
+		PrintWriter writer = response.getWriter();
+		String info;
 		Map<String,Object> map=new HashMap<String,Object>();
 		
-		try {			
-			System.out.println(userId);
-			
-			Comment comment=new Comment();
-			
-			//保存评论
-			comment.setContent(content);
-			commentService.save(comment);
-			
-			//保存评论和章节的关系
-			commentService.saveCommentAndChapterRelation(comment.getId(), Integer.parseInt(chapterId.toString()));
-			
-			//保存评论和用户关系
-			commentService.savaCommentAndUserRelation(comment.getId(), Integer.parseInt(userId.toString()));
-			
-			info = "评论发布成功！";
+		if(!userId.equals("")){
+				try {			
+				System.out.println(userId);
+				
+				Comment comment=new Comment();
+				
+				//保存评论
+				comment.setContent(content);
+				commentService.save(comment);
+				
+				//保存评论和章节的关系
+				commentService.saveCommentAndChapterRelation(comment.getId(), Integer.parseInt(chapterId.toString()));
+				
+				//保存评论和用户关系
+				commentService.savaCommentAndUserRelation(comment.getId(), Integer.parseInt(userId.toString()));
+				
+				info = "评论发布成功！";
+				map.put("info", info);
+			  } catch (Exception e) {
+				info = "异常！";
+				map.put("info",info);
+				e.printStackTrace();
+			}
+		}else{
+			info="未登录";
 			map.put("info", info);
-			
-			PrintWriter writer = response.getWriter();
-			writer.print(JsonUtil.toJsonByProperties(map)); 
-	        writer.flush();  
-	        writer.close();
-			
-		} catch (NullPointerException e){
-			e.printStackTrace();
-			info = "空指针异常！";
-			map.put("info",info);
-		}catch (NumberFormatException e){
-			e.printStackTrace();
-		}catch (Exception e) {
-			info = "异常！";
-			map.put("info",info);
-			e.printStackTrace();
 		}
-
+		
+		writer.print(JsonUtil.objectToJson(map)); 
+        writer.flush();  
+        writer.close();
 	}
 	
 	//视频笔记页面
@@ -445,12 +514,15 @@ public class CourseController {
 		
 		ModelAndView mv = new ModelAndView();
 		try{
+			int chapterId=Integer.parseInt(request.getParameter("chapterId"));
 			int userId=(int) request.getSession().getAttribute("userId");
+			mv.addObject("chapterId",chapterId);
 			mv.addObject("userId", userId);
 			
 			//查询用户所有用户笔记
-			List<Note> noteList = noteService.findNoteByUserId(userId);
-												
+			List<Note> noteList = noteService.findNoteByUserId(userId,chapterId);
+			
+			System.out.println(JsonUtil.objectToJson(noteList));
 			mv.addObject(noteList);
 			mv.addObject("noteCount", noteList.size());
 			mv.setViewName("/backend/cp_videoWork");
@@ -462,9 +534,13 @@ public class CourseController {
 		return mv;
 	}
 	
+	
+	
+	//笔记发表
 	@RequestMapping(value="/addNotes", method=RequestMethod.POST)
 	public ModelAndView addNotes(@RequestParam(value="noteTitle", required=false) String noteTitle,
 			@RequestParam(value="noteContent", required=false) String noteContent,
+			@RequestParam(value="chapterId", required=false) String chapterId,
 			@RequestParam(value="userId", required=false) String userId,
 			HttpServletRequest request){
 		ModelAndView mv = new ModelAndView();
@@ -473,6 +549,7 @@ public class CourseController {
 			Note note = new Note();
 			note.setTitle(noteTitle);
 			note.setContent(noteContent);
+			note.setChapterId(Integer.parseInt(chapterId));
 			noteService.save(note);
 
 			//保存用户与笔记的关系
@@ -489,6 +566,71 @@ public class CourseController {
 		return mv;
 		
 	}
+	
+	
+	//用户笔记展示Ajax
+	@RequestMapping(value="/userNoteList", method=RequestMethod.POST)
+	public void userNoteList(
+			@RequestParam(value="userId", required=false) String userId,
+			@RequestParam(value="chapterId", required=false) String chapterId,
+			HttpServletRequest request,HttpServletResponse response) throws IOException{
+		
+			response.setHeader("Content-Type", "application/json;charset=utf-8");
+			PrintWriter writer = response.getWriter();
+			String info;
+			Map<String,Object> map=new HashMap<String,Object>();
+			
+			if(!userId.equals("")){
+				
+				//查找该用户在当前章节所有笔记
+				List<Note> noteList = noteService.findNoteByUserId(Integer.parseInt(userId),Integer.parseInt(chapterId));
+				
+				map.put("info", "success");
+				map.put("date", noteList);
+			}else{
+				map.put("info", "请登录");
+			}
+			
+			System.out.println(JsonUtil.objectToJson(map));
+			writer.write(JsonUtil.objectToJson(map));
+			writer.flush();
+			writer.close();
+	}
+	
+	//用户笔记发表Ajax
+	@RequestMapping(value="/addNote", method=RequestMethod.POST)
+	public void addNote(@RequestParam(value="noteTitle", required=false) String noteTitle,
+			@RequestParam(value="noteContent", required=false) String noteContent,
+			@RequestParam(value="userId", required=false) String userId,
+			@RequestParam(value="chapterId", required=false) String chapterId,
+			HttpServletRequest request,HttpServletResponse response) throws IOException{
+		
+			response.setHeader("Content-Type", "application/json;charset=utf-8");
+			PrintWriter writer = response.getWriter();
+			String info;
+			Map<String,Object> map=new HashMap<String,Object>();
+			
+			if(!userId.equals("")){
+				//保存笔记
+				Note note = new Note();
+				note.setTitle(noteTitle);
+				note.setContent(noteContent);
+				note.setChapterId(Integer.parseInt(chapterId));
+				noteService.save(note);
+	
+				//保存用户与笔记的关系
+				noteService.saveNoteAndUserRelation(note.getId(), Integer.valueOf(userId));
+				
+				map.put("info", "success");
+			}else{
+				map.put("info", "请登录");
+			}
+			
+			writer.write(JsonUtil.objectToJson(map));
+			writer.flush();
+			writer.close();
+	}
+	
 	
 	//视频章节页面
 	@RequestMapping(value="/course_videoChapter", method=RequestMethod.GET)

@@ -25,7 +25,7 @@ public interface INoteDao extends IGenericDao<Note, Integer>{
 	 * @param userId        用户ID
 	 * @return              用户笔记
 	 */
-    public List<Note> findNoteByUserId(int userId);
+    public List<Note> findNoteByUserId(int userId,int chapterId);
     
     /**
      * 通过笔记ID删除笔记用户关系表

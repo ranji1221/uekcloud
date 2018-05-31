@@ -25,8 +25,8 @@ public class NoteServiceImpl extends GenericServiceImpl<Note, Integer> implement
 	}
 
 	@Override
-	public List<Note> findNoteByUserId(int userId) {
-		return ((INoteDao) dao).findNoteByUserId(userId);
+	public List<Note> findNoteByUserId(int userId,int chapterId) {
+		return ((INoteDao) dao).findNoteByUserId(userId,chapterId);
 	}
 
 	@Override

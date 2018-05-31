@@ -172,6 +172,7 @@
             全部笔记 <span  th:text="${noteCount}">30</span>
             <form class="cp_search">
                 <input type="text" placeholder="请输入您需要查看的笔记">
+                <input type="hidden" th:value="${chapterId}" name="chapterId" id="chapterId"> 
                 <button><i class='fy_icon'>&#xe64d;</i></button>
             </form>
         </div>
@@ -312,18 +313,21 @@
 		var $noteTitle = $('#noteTitle');
 		var $noteContent = $("#noteContent");
 		var $submitNote = $("#submitnote");
+		var $chapterId=$("#chapterId");
 		
 		$submitNote.click(function(){
 			var title = $noteTitle.val();
 			var content = $noteContent.val();
 			var userId = $("#userId").val();
+			var chapterId=$chapterId.val();
 			$.ajax({
 				url:"addNotes",
 				type:"post",
 				data:{
 					noteTitle:title,
 					noteContent:content,
-					userId:userId
+					userId:userId,
+					chapterId:chapterId
 				},
 				success:function(){
 					

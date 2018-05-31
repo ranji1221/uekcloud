@@ -36,7 +36,7 @@
         <div class="con_right">
             <div class="con_son1">
                 <h3  th:text="${course.course_name}" >Python课程初探</h3>
-                <a href="#" class='group'>
+                <a href="//shang.qq.com/wpa/qunwpa?idkey=cb83e534461562ac31635419305d8e66e6eada76a6c8ec940b461d0a87ac5a7c" class='group'>
                     <img src="images/cp_11.png">
                     <span>
                         加群咨询
@@ -218,4 +218,12 @@
 
 
 </body>
+<script type="text/javascript" th:inline="javascript">
+		var chapterTitleList=[[${chapterTitleList}]]
+		var chapterJson=[[${chapterJson}]]		
+</script>
+<script>
+	console.log(JSON.stringify(chapterTitleList))
+	console.log(chapterJson)
+</script>
 </html>
