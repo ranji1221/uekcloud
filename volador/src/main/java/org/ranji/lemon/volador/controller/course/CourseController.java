@@ -69,7 +69,7 @@ public class CourseController {
 	@RequestMapping(value="/professionalNavigation", method=RequestMethod.GET)
 	public ModelAndView professionalNavigationPage(){
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("/backend/cp_zhiyedaohang");
+		mv.setViewName("/backend/wzq_zhiye");
 		return mv;
 	}
 	

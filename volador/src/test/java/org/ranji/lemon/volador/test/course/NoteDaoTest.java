@@ -58,7 +58,7 @@ public class NoteDaoTest {
 //		note.setContent("It is second content./n");
 //		noteservice.save(note);
 //		
-		System.out.print(noteservice.findNoteByUserId(40).toString());
+		//System.out.print(noteservice.findNoteByUserId(40).toString());
 		//noteservice.deleteNoteAndUserRelationByNoteId(2);
 		noteservice.delete(2);
 //		noteservice.saveNoteAndUserRelation(2, 40);

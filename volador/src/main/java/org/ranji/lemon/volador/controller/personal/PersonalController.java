@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.ranji.lemon.volador.model.course.Classify;
 import org.ranji.lemon.volador.model.course.Course;
+import org.ranji.lemon.volador.model.course.CourseShow;
+import org.ranji.lemon.volador.model.course.CourseThemeShow;
 import org.ranji.lemon.volador.model.course.Direction;
 import org.ranji.lemon.volador.model.course.Theme;
 import org.ranji.lemon.volador.model.personal.Per;
@@ -120,6 +122,12 @@ public class PersonalController {
 			
 			
 			//查找课程分类对应的课程
+			Classify classify = new Classify();
+			//首页主题展示列表
+			List<CourseThemeShow> courseThemeShowList = new ArrayList<CourseThemeShow>();
+			//首页主题展示类
+			
+			
 			for (Theme theme:themeList){
 				//返回课程分类
 				params.put("theme" + Integer.toString(theme.getId()), theme);
@@ -127,8 +135,28 @@ public class PersonalController {
 				List<Course> courseList = themeService.findCourseAndThemeRelationByCourseId(theme.getId());
 				params.put("themeCourse" + Integer.toString(theme.getId()), courseList);
 				
+				CourseThemeShow courseThemeShow = new CourseThemeShow();
+				courseThemeShow.setTheme(theme.getTitle());
+				courseThemeShow.setDescription(theme.getDescribe());
+				List<CourseShow> courseShowList = new ArrayList<CourseShow>();
+				//获取一个主题下的所有课程
+				for(Course course:courseList){
+					//首页展示课程
+					CourseShow courseShow = new CourseShow();
+					courseShow.setCourseId(course.getId());
+					classify = classifyService.findClassifyByCourseId(course.getId());
+					courseShow.setClassify(classify.getClassify_name());
+					courseShow.setCourseName(course.getCourse_name());
+					courseShow.setCourse_price(course.getCourse_price());
+					courseShow.setStudent_count(course.getStudent_count());
+					courseShowList.add(courseShow);
+				}
+				courseThemeShow.setCourseShow(courseShowList);
+				
+				courseThemeShowList.add(courseThemeShow);
 			}
-			
+			mv.addObject(courseThemeShowList);
+			System.out.println(courseThemeShowList.toString());
 			//绑定用户未忽略的信息
 			
 			int ignoreNitificationNumber = 0;

@@ -22,20 +22,22 @@ public class ClassifyServiceImpl extends GenericServiceImpl<Classify, Integer> i
 
 	@Override
 	public void saveClassifyAndCourseRelation(int course_id, int classify_id) {
-		// TODO Auto-generated method stub
 		 ((IClassifyDao) dao).saveClassifyAndCourseRelation(course_id, classify_id);
 	}
 
 	@Override
 	public void deleteClassifyAndCourseRelation(int course_id, int classify_id) {
-		// TODO Auto-generated method stub
 		((IClassifyDao) dao).deleteClassifyAndCourseRelation(course_id, classify_id);
 	}
 
 	@Override
 	public List<Course> findCourseByClassify(int classify_id) {
-		// TODO Auto-generated method stub
 		return ((IClassifyDao) dao).findCoursebyClassify(classify_id);
+	}
+
+	@Override
+	public Classify findClassifyByCourseId(int course_id) {
+		return ((IClassifyDao) dao).findClassifyByCourseId(course_id).get(0);
 	}
     
 }

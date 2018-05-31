@@ -39,4 +39,9 @@ public class ClassifyDaoImpl extends GenericDaoImpl<Classify, Integer> implement
 		// TODO Auto-generated method stub
 		return sqlSessionTemplate.selectList(typeNameSpace + ".findCoursebyClassify", classify_id);
 	}
+
+	@Override
+	public List<Classify> findClassifyByCourseId(int course_id) {
+		return sqlSessionTemplate.selectList(typeNameSpace + ".findClassifyByCourseId", course_id);
+	}
 }

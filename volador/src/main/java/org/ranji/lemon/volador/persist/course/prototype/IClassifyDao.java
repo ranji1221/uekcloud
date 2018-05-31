@@ -28,6 +28,11 @@ public interface IClassifyDao extends IGenericDao<Classify, Integer> {
      * @return Course列表
      */
     public List<Course> findCoursebyClassify(int classify_id);
-	
-
+    
+    /**
+     * 根据课程ID查找分类
+     * @param course_id   课程ID
+     * @return
+     */
+    public List<Classify> findClassifyByCourseId(int course_id);	
 }

@@ -44,6 +44,18 @@
 		c.id = #{id}
 	</select>
 	
+	<!-- 根据课程分类查找课程列表 -->
+	<select id="findClassifyByCourseId" parameterType="Integer" resultType ="VoladorClassify">
+		SELECT
+		t.*
+		FROM
+		lemon_volador_course_classify t
+		LEFT JOIN lemon_volador_course_course_classify c_t ON t.id = c_t.classify_id
+		LEFT JOIN lemon_volador_course_course c ON c.id = c_t.course_id
+		WHERE
+		c.id = #{id}
+	</select>
+	
 	<!-- 修改个某条calssify信息 -->
 	<update id="update" parameterType="VoladorClassify">
 		update lemon_volador_course_classify

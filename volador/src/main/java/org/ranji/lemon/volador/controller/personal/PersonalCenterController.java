@@ -411,9 +411,28 @@ public class PersonalCenterController {
 	/*
 	 * 个人中心 - 职业导航
 	 * */
-	@RequestMapping(value="/personalCenter_zhiye", method=RequestMethod.GET)
-	public ModelAndView personalCenterZhiye(){
+	@RequestMapping(value="/growth_system", method=RequestMethod.GET)
+	public ModelAndView personalCenterZhiye(HttpServletRequest request){
 		ModelAndView mv = new ModelAndView();
+		//根据session获取userId，查询正在学习课程
+		int userId=(int) request.getSession().getAttribute("userId");
+		
+		//查询当前用户信息
+		UserInfo userInfo=personalService.findUserInfoByUserId(userId);
+		mv.addObject("user_name",userInfo.getNickname());
+		mv.addObject("gender", userInfo.getGender());
+		mv.addObject("address",userInfo.getAddress());
+		
+		//查询学习时长
+		
+		
+		//查询我的积分
+		Integral integral = integralService.findIntegralByUserId(userId);
+		mv.addObject("integralNum", integral.getIntegralNumber());
+		
+		//查询签到天数
+		SignIn signIn = signInService.findSignInByUserId(userId);
+		mv.addObject("siginDay", signIn.getDay());
 		mv.setViewName("/backend/wzq_zhiye");
 		return mv;
 	}
