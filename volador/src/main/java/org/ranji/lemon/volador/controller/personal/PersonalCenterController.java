@@ -24,6 +24,7 @@ import org.ranji.lemon.volador.service.personal.prototype.IIntegralService;
 import org.ranji.lemon.volador.service.personal.prototype.IPerService;
 import org.ranji.lemon.volador.service.personal.prototype.ISignInService;
 import org.ranji.lemon.volador.service.personal.prototype.IUserInfoService;
+import org.ranji.lemon.volador.service.personal.prototype.IheaderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -56,6 +57,9 @@ public class PersonalCenterController {
 	@Autowired
 	private INotificationService inotificationService;
 	
+	@Autowired
+	private IheaderService headerService;
+	
 	//用户签到获得的积分
 	private Integer SIGNIN_INTRGRAL_NUM = 20;
 	
@@ -63,14 +67,14 @@ public class PersonalCenterController {
 	 * 个人中心 - 通知公告
 	 * */
 	@RequestMapping(value="/personalCenter_notice", method=RequestMethod.GET)
-	public ModelAndView personalCenterNotice(){
-		ModelAndView mv = new ModelAndView();
+	public ModelAndView personalCenterNotice(HttpServletRequest request){
+		String userName=(String) request.getSession().getAttribute("userName");
+		int userId=(int) request.getSession().getAttribute("userId");
+		 ModelAndView mv = headerService.headInfo(userId, userName);
 		List<Notification> notificationList = inotificationService.findAll();
 		mv.addObject("notificationList", notificationList);
 		mv.addObject("notificationNumber", notificationList.size());
-		//System.out.println(notificationList.get(0).getCreateTime());
-		 
-	     
+		//System.out.println(notificationList.get(0).getCreateTime());	    
 		mv.setViewName("/backend/wqf_notice");
 		return mv;
 	}
@@ -96,7 +100,8 @@ public class PersonalCenterController {
 		try {
 			//根据session获取userId，查询正在学习课程
 			int userId=(int) request.getSession().getAttribute("userId");
-			
+			String userName=(String) request.getSession().getAttribute("userName");
+			mv =headerService.headInfo(userId, userName);
 			//获取参数page,如果为空，page=1
 			int page;
 			if(request.getParameter("page") == null){
@@ -312,8 +317,11 @@ public class PersonalCenterController {
 	@RequestMapping(value="/personalCenter_jifen", method=RequestMethod.GET)
 	public ModelAndView personalCenterJifen(HttpServletRequest request){
 		ModelAndView mv = new ModelAndView();
+		
 		try {
 			int userId=(int) request.getSession().getAttribute("userId");
+			String userName=(String) request.getSession().getAttribute("userName");
+			 mv = headerService.headInfo(userId, userName);			
 			mv.setViewName("/backend/wzq_jifen");
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -341,6 +349,8 @@ public class PersonalCenterController {
 		ModelAndView mv = new ModelAndView();
 		try {
 			int userId=(int) request.getSession().getAttribute("userId");
+			String userName=(String) request.getSession().getAttribute("userName");
+			mv =headerService.headInfo(userId, userName);
 			List<Integer> homeworkIdList=personalService.findHomeworkRelationByUserId(userId);
 			List<Homework> homeworkList=new ArrayList<Homework>();
 			for(int i=0;i<homeworkIdList.size();i++){
