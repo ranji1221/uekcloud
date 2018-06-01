@@ -27,6 +27,7 @@ import org.ranji.lemon.volador.service.global.prototype.INotificationService;
 import org.ranji.lemon.volador.service.personal.prototype.IPerService;
 import org.ranji.lemon.volador.service.personal.prototype.ISignInService;
 import org.ranji.lemon.volador.service.personal.prototype.IUserInfoService;
+import org.ranji.lemon.volador.service.personal.prototype.IheaderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -53,7 +54,8 @@ public class PersonalController {
 	private ISignInService signInService;
 	@Autowired
 	private IDirectionService directionService;
-	
+	@Autowired
+	private IheaderService headerService;
 	//首页
 	@RequestMapping(value="/index", method=RequestMethod.GET)
 	public ModelAndView indexPage(HttpServletRequest request ){
@@ -98,6 +100,7 @@ public class PersonalController {
 			e.printStackTrace();
 			mv.addObject("login_yes","login_yes");
 			mv.addObject("login_no","login_no active");
+			e.printStackTrace();
 		}
 		
 		Map <String, Object> paramCourse= new HashMap<String, Object>();
@@ -170,6 +173,7 @@ public class PersonalController {
 			notificationSize = notificationService.notReadNumber(startIgnNotificationNumber, endIgnNotificationNumber);
 		} catch (Exception e) {
 			// TODO: handle exception
+			e.printStackTrace();
 		}
 		
 		mv.addAllObjects(paramCourse);
@@ -191,6 +195,8 @@ public class PersonalController {
 		ModelAndView mv = new ModelAndView();
 		try{
 			String userName = request.getSession().getAttribute("userName").toString();
+			int userId=(int) request.getSession().getAttribute("userId");
+			mv =headerService.headInfo(userId, userName);
 			//获取用户
 			Per person = personalService.findByUserName(userName);
 			

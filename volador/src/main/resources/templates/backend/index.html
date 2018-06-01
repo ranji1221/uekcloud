@@ -82,7 +82,7 @@
 				</li>
 			</ul>
 			<!-- 导航 结束 -->
-	
+	<input type="hidden" th:value="${userId}" name="userId" id="userId">
 			<!-- 登录状态 开始-->
 			<div class="is_login">
 				<!-- 已登陆 -->
@@ -97,7 +97,6 @@
 							<header>
 								<span>消息中心</span>
 								<span id="clearNotification">清空</span>
-								<input type="hidden" th:value="${userId}" name="userId" id="userId">
 							</header>
 							<ul>
 								<li th:each="notification:${notificationList}">

@@ -83,8 +83,16 @@ public class PersonalCenterController {
 	 * 个人中心 - 评论 
 	 * */
 	@RequestMapping(value="/personalCenter_comment", method=RequestMethod.GET)
-	public ModelAndView personalCenterComment(){
+	public ModelAndView personalCenterComment(HttpServletRequest request){
 		ModelAndView mv = new ModelAndView();
+		try {
+			int userId=(int) request.getSession().getAttribute("userId");
+			String userName=(String) request.getSession().getAttribute("userName");
+			mv =headerService.headInfo(userId, userName);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
 		mv.setViewName("/backend/wqf_comment");
 		return mv;
 	}
@@ -203,6 +211,8 @@ public class PersonalCenterController {
 		try {
 			//根据session获取userId，查询已学习，并查询当前用户信息
 			int userId=(int) request.getSession().getAttribute("userId");
+			String userName=(String) request.getSession().getAttribute("userName");
+			mv =headerService.headInfo(userId, userName);
 			//获取参数page,如果为空，page=1
 			int page;
 			if(request.getParameter("page") == null){
@@ -254,6 +264,8 @@ public class PersonalCenterController {
 		//异常处理，当没有获取到登录信息时候，跳转到登录页面
 		try {
 			int userId=(int) request.getSession().getAttribute("userId");
+			String userName=(String) request.getSession().getAttribute("userName");
+			mv =headerService.headInfo(userId, userName);
 			int page;
 			if(request.getParameter("page") == null){
 				page=1;
@@ -293,6 +305,8 @@ public class PersonalCenterController {
 		try {
 			//获取userId
 			int userId=(int) request.getSession().getAttribute("userId");
+			String userName=(String) request.getSession().getAttribute("userName");
+			mv =headerService.headInfo(userId, userName);
 			//查询当前用户信息
 			UserInfo userInfo=personalService.findUserInfoByUserId(userId);
 			mv.addObject("user_name",userInfo.getNickname());
@@ -388,7 +402,8 @@ public class PersonalCenterController {
 		//判断是否登录
 		try {
 			int userId=(int) request.getSession().getAttribute("userId");
-			
+			String userName=(String) request.getSession().getAttribute("userName");
+			mv =headerService.headInfo(userId, userName);
 			//查询当前用户信息
 			UserInfo userInfo=personalService.findUserInfoByUserId(userId);
 			mv.addObject("user_name",userInfo.getNickname());
@@ -424,26 +439,41 @@ public class PersonalCenterController {
 	@RequestMapping(value="/growth_system", method=RequestMethod.GET)
 	public ModelAndView personalCenterZhiye(HttpServletRequest request){
 		ModelAndView mv = new ModelAndView();
-		//根据session获取userId，查询正在学习课程
-		int userId=(int) request.getSession().getAttribute("userId");
+		try {
+			//根据session获取userId，查询正在学习课程
+			if(request.getSession().getAttribute("userId")!=null
+					&&request.getSession().getAttribute("userName")!=null){
+				int userId=(int) request.getSession().getAttribute("userId");
+				String userName=(String) request.getSession().getAttribute("userName");
+				mv =headerService.headInfo(userId, userName);
+				//查询当前用户信息
+				UserInfo userInfo=personalService.findUserInfoByUserId(userId);
+				mv.addObject("user_name",userInfo.getNickname());
+				mv.addObject("gender", userInfo.getGender());
+				mv.addObject("address",userInfo.getAddress());
+				
+				//查询学习时长
+				
+				
+				//查询我的积分
+				Integral integral = integralService.findIntegralByUserId(userId);
+				mv.addObject("integralNum", integral.getIntegralNumber());
+				
+				//查询签到天数
+				SignIn signIn = signInService.findSignInByUserId(userId);
+				mv.addObject("siginDay", signIn.getDay());
+			}else{
+				mv.addObject("headLogin_yes","login_yes");
+				mv.addObject("headLogin_no","login_no active");
+			}
 		
-		//查询当前用户信息
-		UserInfo userInfo=personalService.findUserInfoByUserId(userId);
-		mv.addObject("user_name",userInfo.getNickname());
-		mv.addObject("gender", userInfo.getGender());
-		mv.addObject("address",userInfo.getAddress());
+			
+			mv.setViewName("/backend/wzq_zhiye");
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
 		
-		//查询学习时长
-		
-		
-		//查询我的积分
-		Integral integral = integralService.findIntegralByUserId(userId);
-		mv.addObject("integralNum", integral.getIntegralNumber());
-		
-		//查询签到天数
-		SignIn signIn = signInService.findSignInByUserId(userId);
-		mv.addObject("siginDay", signIn.getDay());
-		mv.setViewName("/backend/wzq_zhiye");
 		return mv;
 	}
 	
@@ -462,8 +492,17 @@ public class PersonalCenterController {
 	 * 个人中心 - 邀请码
 	 * */
 	@RequestMapping(value="/personalCenter_invitation", method=RequestMethod.GET)
-	public ModelAndView personalCenterInvitation(){
+	public ModelAndView personalCenterInvitation(HttpServletRequest request){
 		ModelAndView mv = new ModelAndView();
+		try {
+			String userName=(String) request.getSession().getAttribute("userName");
+			int userId=(int) request.getSession().getAttribute("userId");
+			mv =headerService.headInfo(userId, userName);
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
 		mv.setViewName("/backend/wqf_invitation");
 		return mv;
 	}
@@ -476,11 +515,13 @@ public class PersonalCenterController {
 	@RequestMapping(value="/personalCenter_allnotice", method=RequestMethod.GET)
 	public ModelAndView personalAllCenterNotice(HttpServletRequest request){
 		ModelAndView mv = new ModelAndView();
+		String userName=(String) request.getSession().getAttribute("userName");
+		 int userId=(int) request.getSession().getAttribute("userId");
+		mv =headerService.headInfo(userId, userName);
 		List<Notification> notificationList = inotificationService.findAll();
 		mv.addObject("notificationList", notificationList);
 		mv.addObject("notificationNumber", notificationList.size());
-		 int notificationNumber = inotificationService.getTotalOfItems();
-		 int userId=(int) request.getSession().getAttribute("userId");
+		 int notificationNumber = inotificationService.getTotalOfItems();	
 		  Map map = new HashMap();
           map.put("userId", userId);
           map.put("ignoreNotificationNumber", notificationNumber);

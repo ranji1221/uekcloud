@@ -24,13 +24,13 @@
 			<!-- 导航 开始 -->
 			<ul class="menu">
 				<li>
-					<a href="javascript:;">
+					<a href="findCourse">
 						<i class="fy_icon">&#xe60c;</i>
 						找课程
 					</a>
 				</li>
 				<li>
-					<a href="javascript:;">职业导航</a>
+					<a href="growth_system">职业导航</a>
 				</li>
 				<li>
 					<a href="javascript:;">免费课</a>
@@ -69,7 +69,7 @@
 				</li>
 			</ul>
 			<!-- 导航 结束 -->
-
+	<input type="hidden" th:value="${userId}" name="userId" id="userId">
 				<!-- 登录状态 开始-->
 			<div class="is_login">
 				<!-- 已登陆 -->
@@ -84,7 +84,6 @@
 							<header>
 								<span>消息中心</span>
 								<span id="clearNotification">清空</span>
-								<input type="hidden" th:value="${userId}" name="userId" id="userId">
 							</header>
 							<ul>
 								<li th:each="eachnotification:${headnotificationList}">
@@ -153,4 +152,25 @@
 	<!-- 头部 结束 -->
 
 </body>
+<script type="text/javascript">
+var $clearNotification = $("#clearNotification");
+$clearNotification.click(function(){
+	
+	var userId = $("#userId").val();
+	//alert(userId);
+	 $.ajax({
+		url:"clearNotification",
+		type:"post",
+		data:{
+			userId:userId
+		},
+		success:function(){
+			
+		}
+	}) 
+	
+	location.replace("/volador/index");
+})
 
+</script>
+</html>

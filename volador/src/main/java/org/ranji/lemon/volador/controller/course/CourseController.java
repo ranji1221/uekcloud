@@ -31,6 +31,7 @@ import org.ranji.lemon.volador.service.course.prototype.ICourseService;
 import org.ranji.lemon.volador.service.course.prototype.IDirectionService;
 import org.ranji.lemon.volador.service.course.prototype.INoteService;
 import org.ranji.lemon.volador.service.personal.prototype.IPerService;
+import org.ranji.lemon.volador.service.personal.prototype.IheaderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -64,7 +65,8 @@ public class CourseController {
 	@Autowired
 	private IDirectionService directionService;
 	
-	
+	@Autowired
+	private IheaderService headerService;
 	//职业导航
 	@RequestMapping(value="/professionalNavigation", method=RequestMethod.GET)
 	public ModelAndView professionalNavigationPage(){
@@ -91,6 +93,18 @@ public class CourseController {
 		
 		ModelAndView mv = new ModelAndView();
 		try{
+			
+			if(request.getSession().getAttribute("userId")!=null
+					&&request.getSession().getAttribute("userName")!=null){
+				int userId=(int) request.getSession().getAttribute("userId");
+				String userName=(String) request.getSession().getAttribute("userName");
+				mv =headerService.headInfo(userId, userName);
+			}else{
+				mv.addObject("headLogin_yes","login_yes");
+				mv.addObject("headLogin_no","login_no active");
+			}
+			
+		
 			//界面显示所有课程方向
 			List<Direction> directionList = directionService.findAll();		
 			mv.addObject(directionList);
