@@ -355,10 +355,15 @@ public class CourseController {
 			mv.addObject("login_yes","login_yes");
 			mv.addObject("login_no","login_no active");
 		}
+		
 
 		try {
 			//查询章节信息
 			Chapter chapter=chapterService.find(chapterId);
+			
+			//根据章节id查找课程标题id
+			//查找课程标题id查找课程id
+			mv.addObject("courseId",chapterTitleService.find(chapter.getChapter_title_id()).getCourse_id());
 			
 			//根据章节id获取评论列表
 			List<Comment> commentList = chapterService.findCommentListByChapter(chapterId);
@@ -491,10 +496,10 @@ public class CourseController {
 				//保存评论和用户关系
 				commentService.savaCommentAndUserRelation(comment.getId(), Integer.parseInt(userId.toString()));
 				
-				info = "评论发布成功！";
+				info = "success";
 				map.put("info", info);
 			  } catch (Exception e) {
-				info = "异常！";
+				info = "fail";
 				map.put("info",info);
 				e.printStackTrace();
 			}
@@ -579,11 +584,12 @@ public class CourseController {
 			PrintWriter writer = response.getWriter();
 			String info;
 			Map<String,Object> map=new HashMap<String,Object>();
+			List<Note> noteList=new ArrayList<>();
 			
 			if(!userId.equals("")){
 				
 				//查找该用户在当前章节所有笔记
-				List<Note> noteList = noteService.findNoteByUserId(Integer.parseInt(userId),Integer.parseInt(chapterId));
+				noteList = noteService.findNoteByUserId(Integer.parseInt(userId),Integer.parseInt(chapterId));
 				
 				map.put("info", "success");
 				map.put("date", noteList);
@@ -591,8 +597,7 @@ public class CourseController {
 				map.put("info", "请登录");
 			}
 			
-			System.out.println(JsonUtil.objectToJson(map));
-			writer.write(JsonUtil.objectToJson(map));
+			writer.write(JsonUtil.objectToJson(noteList));
 			writer.flush();
 			writer.close();
 	}

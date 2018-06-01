@@ -12,7 +12,10 @@
     <link rel="shortcut icon" href="favicon.ico" />
 	<link rel="stylesheet" href="css/reset.css">
 	<link rel="stylesheet" href="css/wzq_show_work.css">
+	<link rel="stylesheet" href="css/wqf_chapter.css">
+	<link rel="stylesheet" href="css/cp_videoChapter.css">
 	<link rel="stylesheet" href="css/cp_video.css">
+	<link rel="stylesheet" href="css/cp_videoWork.css">
 	<link rel="stylesheet" href="http://at.alicdn.com/t/font_614432_gmnl71zjylcsdcxr.css">
 	<script type="text/javascript" src="js/ckplayer.js"></script>
 </head>
@@ -58,11 +61,13 @@
 
 	<div class="cp_videoBox">
 		<div class="cp_video">
-			<div id="video" style="width: 100%; height:100%;"></div>
+			<div id="video" style="width: 100%; height:100%;">
+				
+			</div>
 		</div>
 		<div class="cp_work">
 			<div class="cp_cate">
-				<span>
+				<span class='cp_chapter' >
 					章节
 				</span>
 				<span  class='active'>
@@ -70,7 +75,7 @@
 				</span>
 			</div>
 			<div class="cp_div cp_tab">
-				<ul class="hidden_one">
+				<!-- <ul class="hidden_one">
 					<span class='title'>第1章</span> SpringBoot简介
 					<li class='hidden_one' >
 						<i class='fy_icon'>&#xe629;</i>
@@ -88,59 +93,27 @@
 						SpringBoot简介(02:00)
 						<b>正在学</b>
 					</li>
-				</ul>
-				<ul class="hidden_one">
-					<span class='title'>第1章</span> SpringBoot简介
-					<li class='hidden_one' >
-						<i class='fy_icon'>&#xe629;</i>
-						<span>1-1</span> 
-						SpringBoot简介
-					</li>
-					<li class='hidden_one'>
-						<i class='fy_icon'>&#xe629;</i>
-						<span>1-2</span>
-						SpringBoot简介
-					</li>
-					<li class='hidden_one active'>
-						<i class='fy_icon'>&#xe790;</i>
-						<span>1-2</span>
-						SpringBoot简介(02:00)
-						<b>正在学</b>
-					</li>
-				</ul>
-				<ul class="hidden_one">
-					<span class='title'>第1章</span> SpringBoot简介
-					<li class='hidden_one' >
-						<i class='fy_icon'>&#xe629;</i>
-						<span>1-1</span> 
-						SpringBoot简介
-					</li>
-					<li class='hidden_one'>
-						<i class='fy_icon'>&#xe629;</i>
-						<span>1-2</span>
-						SpringBoot简介
-					</li>
-					<li class='hidden_one active'>
-						<i class='fy_icon'>&#xe790;</i>
-						<span>1-2</span>
-						SpringBoot简介(02:00)
-						<b>正在学</b>
-					</li>
-				</ul>
+				</ul> -->
 			</div>
-			<form action="javascript:;" class='cp_tab'>
-				<!-- 未登录提示 -->
-				<!-- <p>
-					请<a href="#">登陆</a>后 
-					<br>
-					记下笔记
-				</p> -->
 
+
+
+            
+			<form action="javascript:;" class='cp_tab cp_form'>
+				
+                <!-- 未登录提示 -->
+                <p>
+                    请<a href="#">登陆</a>后 
+                    <br>
+                    记下笔记
+                </p>
+                
 				<!-- 未登录后状态 -->
-				<input type="text" placeholder="请输入笔记标题" name="login" >
+				<input type="text" placeholder="请输入笔记标题" name="title" >
 				<textarea name="" placeholder="请输入笔记内容" id="" cols="30" rows="10"></textarea>
+				<input type="submit" name="" value='提交笔记' style='cursor:pointer'>
 			</form>
-			
+
 		</div>
 	</div>
 
@@ -150,17 +123,17 @@
         <!-- tab分类布局 -->
         <ul class="cp_tabBox">
             <li class='active' >
-                <a href="course_video">
+                <a href="javascript:;" attr='course_video'>
                     评论
                 </a>
             </li>
             <li>
-                <a href="course_chapterNote" th:href="'course_chapterNote?chapterId='+${chapter.id}">
+                <a href="javascript:;" attr='course_chapterNote'>
                     笔记
                 </a>
             </li>
             <li>
-                <a href="course_videoChapter">
+                <a href="javascript:;" attr='course_videoChapter'>
                     章节
                 </a>
             </li>
@@ -174,91 +147,13 @@
         <div class="tips">
             全部评论 <span th:text="${commentCount}">20</span>
         </div>
-        <div class="container">
+        <div class="container wqf_chapter">
             <div class="col_left">
-                <!--添加评论列表开始-->
-                <div class="wzq_show_comment_add">
-                    <form action="javascript:;" class="wzq_add_form wzq_clear" mothod="post">
-                        <div class="wzq_clear">
-                            <div class="wzq_user_img">
-                                <img src="images/wzq_user_img.jpg" alt="" th:src="${userInfo.head_image}">
-                            </div>
-                            <div class="wzq_textarea">
-                                <textarea name="content" id="wzq_textarea" onfocus="if(value=='快来发布评论吧...') {value=''}" onblur="if(value=='') {value='快来发布评论吧...'}">快来发布评论吧...</textarea>
-                            </div>
-                            <input type="hidden" th:value="${chapter.id}" name="chapterId" id="chapterId">
-                            <input type="hidden" th:value="${userId}" name="userId" id="userId"> 
-                        </div>
-                        <div class="wzq_icon_add">
-                            <span data-icon-flag="true">添加表情</span>
-                            <div class="wzq_icon_box">
-
-                            </div>
-                        </div>
-                        <div class="wzq_add_submit"><input type="submit" value="发表评论" id="publish"></div>
-                    </form>
+                <div class="cp_commentBox">
+                    
                 </div>
-                <!--添加评论列表开结束-->
-
-                <!--评论列表开始-->
-                <ul class="wzq_show_comment_list wqf_comment">
-                    <li th:each="CL : ${commentList}"class="wzq_show_comment_item">
-                        <div class="wzq_clear">
-                            <div class="wzq_user_img">
-                                <img src="images/wzq_user_img.jpg" alt="" th:src="${CL.head_image}">
-                            </div>
-                            <!--评论区内容开始，回复评论区时候，添加此节点-->
-                            <div class="wzq_comment_item_info">
-                                <h6 th:text="${CL.nickName}" class="wzq_comment_item_title">也入耳朵</h6>
-                                <span class="wzq_comment_item_time">5小时前</span>
-                                <div class="wzq_comment_item_des">
-                                    <p th:text="${CL.content}" class="hidd_more">向手写大佬低头～向手写大佬低头～向手写大佬低头～效果图？太牛了吧。什么软件做的？？？？效果图？太牛了吧。什么软件做的？？？？</p>
-                                    <div class="wzq_comment_reply">
-                                        <span class="wzq_jubao"><i class="fy_icon">&#xe652;</i>举报</span>
-                                        <span title="回复" class="wzq_comment_replys" data-flag="true"><i class="fy_icon">&#xe679;</i></span>
-                                        <span class="wzq_comment_zan wzq_comment_zanend"><i class="fy_icon">&#xe6b3;</i></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--评论区内容结束-->
-                        </div>
-                        <!--评论区回复表单开始-->
-                        <div class="wzq_reply">
-                            <form action="" class="wzq_reply_form">
-                                <div class="wzq_reply_text">
-                                    <span>回复</span>
-                                    <em class="wzq_reply_user hidden_one">小灰灰灰</em>
-                                    <textarea class="wzq_reply_textarea" name="" onfocus="if(value=='请回复...') {value=''}" onblur="if(value=='') {value='请回复...'}">请回复...</textarea>
-                                </div>
-                                <div class="wzq_clear">
-                                    <div class="wzq_icon_add">
-                                        <span data-icon-flag="true">添加表情</span>
-                                        <div class="wzq_icon_box">
-
-                                        </div>
-                                    </div>
-                                    <div class="wzq_reply_submit"><input type="submit" value="回复"></div>
-                                </div>
-                            </form>
-                        </div>
-                        <!--评论区回复表单结束-->
-                    </li>
-                </ul>
-                <!--评论列表结束-->
-                
-
-                <!-- 查看更多评论开始 -->
-                <div class="wzq_show_comment_more">
-                    <div class="wzq_show_more">
-                        <span>查看更多评论</span>
-                        <i class="fy_icon">&#xe98f;</i>
-                    </div>
-                </div> 
-                <!-- 查看更多结束 -->
-                
-
                 <!-- 无评论开始 -->
-              <!--   <div class="noComment">
+                <!--   <div class="noComment">
                      <div class="con">
                          <img src="images/cp_13.png" alt="">
                          <p>
@@ -268,8 +163,15 @@
                 </div> -->
                 <!-- 无评论结束 -->
 
-
-
+                <!--分页开始-->
+                <div class="wzq_page" style='display:none'>
+                    <a href="javascript:;" class="wzq_page_index">首页</a>
+                    <a href="javascript:;" class="wzq_page_prev">上一页</a>
+                    <!-- <a href="" class="wzq_page_active">1</a> -->
+                    <a href="javascript:;" class="wzq_page_next">下一页</a>
+                    <a href="javascript:;" class="wzq_page_last">尾页</a>
+                </div>
+                <!--分页结束-->
             </div>
             <div class="col_right">
                 <a href="#" class='work'>
@@ -289,88 +191,34 @@
     </div>
 </body>
 <script src='js/jquery.min.js'></script>
-<script>
-	let work = $('.cp_work');
-	let flag =true;
-    let tab = $(".cp_cate span");
-    let cp_tab = $('.cp_work .cp_tab');
-    let old ="";
-    let flag1 = true;
-	work.click(function(){
-		return false;
-	});
-	$('.cp_videoBox').click(function(){
-		work.css({'right':'-352px'});
-        old='';
-        flag1=true;
-	});
-	tab.click(function(){
-		let index = $(this).index();
-		tab.removeClass('active');
-		$(this).addClass('active');
-		cp_tab.css({'display':'none'}).eq(index).css({'display':'block'});
-        if(flag1){
-            work.css({right:'0px'});
-            console.log(100);
-            flag1=false;
-            return;
-        }
-        if(old!=this&&old!=""){
-            old =this;
-            return ;
-        }
-        if(flag){
-            work.css({right:'0px'});
-            old =this;
-        }else{
-            old='';
-            flag1=true;
-            work.css({right:'-352px'});
-        }
-        flag=!flag;
-       
-        return false;
-	});
-	
-
-	//发表评论
-	$("#publish").click(function(){
-		var content=$("#wzq_textarea").val();
-		var chapterId=$("#chapterId").val();
-		var userId = $("#userId").val();
-		if(content!=undefined&&content.length>0){
-			$.ajax({  
-                type:"post",//type可以为post也可以为get  
-                url:"course_chapter_comment",  
-                data:{
-               	 "content":content,
-               	 "chapterId":chapterId,
-               	 "userId":userId
-                },
-                //这行不能省略，如果没有数据向后台提交也要写成data:{}的形式  
-                //这里要注意如果后台返回的数据不是json格式，那么就会进入到error:function(data){}中  
-                success:function(data){
-                	alert(data.info);
-                },  
-                error:function(data){  
-                    alert("提交评论出现了错误！");  
-                }  
-            });
-		}else{
-			alert("评论输入为空！")  
-            return false;
-		}
-	}) 
-	
-</script>
+<!-- <script>
+    /*$("#tijiao").click(function(){
+		$.ajax({
+			url:"",
+			method:"",
+			date:{
+				name: $("[name=content]").val(),
+				pwd:  $("[name=content]").val()
+			}
+		})
+	}) */	
+</script> -->
 <script type="text/javascript" th:inline="javascript">
-			var videoObject = {
-				container: '#video', //容器的ID或className
-				variable: 'player',//播放函数名称
-				// poster:'material/poster.jpg',//封面图片
-				//flashplayer:true,
-				video:[[${chapter.video_address}]]//视频地址
-		};
-		var player = new ckplayer(videoObject);
+	let chapterId=[[${chapter.id}]];
+	let userId=[[${userId}]];
+	let courseId=[[${courseId}]];
+	// chapterId:
+	var videoObject = {
+		container: '#video', //容器的ID或className
+		variable: 'player',//播放函数名称
+		// poster:'material/poster.jpg',//封面图片
+		//flashplayer:true,
+		video:[[${chapter.video_address}]]//视频地址
+		//video:'video/王菲 - 匆匆那年.mp4'
+			
+	};
+	var player = new ckplayer(videoObject);
 </script>
+<script  type="text/javascript" src='js/cp_video.js'></script>
+
 </html>

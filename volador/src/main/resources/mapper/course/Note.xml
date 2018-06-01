@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.ranji.lemon.volador.model.course.Note">
-  <insert id="save" parameterType="VoladorCourseNote" keyProperty="id" useGeneratedKeys="true">
+	<resultMap type="VoladorCourseNote" id="VoladorCourseNoteResultMap">        
+        <result column="chapter_id" property="chapterId" />      
+     </resultMap>  
+
+	<!-- 插入笔记 -->
+	<insert id="save" parameterType="VoladorCourseNote" keyProperty="id" useGeneratedKeys="true">
 		insert into lemon_volador_course_note (guid,createTime,updateTime,title,content,chapter_id)
 		values (#{guid},#{createTime},#{updateTime},#{title},#{content},#{chapterId})
 	</insert>
@@ -22,12 +27,12 @@
 	</delete>
 	
 	<!-- 根据id查询笔记 -->
-	<select id="find" parameterType="int" resultType="VoladorCourseNote">
+	<select id="find" parameterType="int" resultMap="VoladorCourseNoteResultMap">
 		select * from lemon_volador_course_note where id = #{id}
 	</select>
 	
 	<!-- 根据用户id与章节ID查找笔记 -->
-	<select id="findNoteByUserId" parameterType="map" resultType ="VoladorCourseNote">
+	<select id="findNoteByUserId" parameterType="map" resultMap ="VoladorCourseNoteResultMap">
 		SELECT
 			r.*
 		FROM
@@ -39,7 +44,7 @@
 	</select>
 	
 	<!-- 查询全部笔记 -->
-	<select id="findAll" resultType="VoladorCourseNote" parameterType="Map">
+	<select id="findAll" resultMap="VoladorCourseNoteResultMap" parameterType="Map">
 		select * from lemon_volador_course_note
 	</select>
 

@@ -36,7 +36,7 @@
         <div class="con_right">
             <div class="con_son1">
                 <h3  th:text="${course.course_name}" >Python课程初探</h3>
-                <a href="//shang.qq.com/wpa/qunwpa?idkey=cb83e534461562ac31635419305d8e66e6eada76a6c8ec940b461d0a87ac5a7c" class='group'>
+                <a href="#" class='group'>
                     <img src="images/cp_11.png">
                     <span>
                         加群咨询
@@ -115,7 +115,8 @@
     <div class="wqf_chapter clear_both">
         <div class="container">
             <ul class="wqf_chapter_list"> 
-                <li th:each="hd,iterStat:${chapterTitleList}">
+                <!-- 里面内容需要更改 -->
+                <!-- <li th:each="hd,iterStat:${chapterTitleList}">
                     <h2 class="title">
                         <i class="icon">=</i>
                         <span th:text="${hd.chapter_title}">第一章 SpringBoot简介</span>
@@ -131,68 +132,7 @@
                             <p class="hidd_more">主要讲解常用色彩属性，以及网络上比较流行的一些配色方法总结，未来流行配色趋势。主要讲解常用色彩属性，以及网络上比较流行的一些配色方法总结，未来流行配色趋势。</p>
                         </li>
                     </ul>
-                </li>
-                <li>
-                    <h2 class="title">
-                        <i class="icon">=</i>
-                        <span>第二章 SpringBoot简介</span>
-                    </h2>
-                    <ul class="list">
-                        <li>
-                            <a href="javascript:;">
-                                <i class="fy_icon">&#xe629;</i>
-                                1-1 SpringBoot简介
-                                <span class="time">20:20</span>
-                                <span class="tishi">免费试听5分钟 <i>→</i></span>
-                            </a>
-                            <p class="hidd_more">主要讲解常用色彩属性，以及网络上比较流行的一些配色方法总结，未来流行配色趋势。主要讲解常用色彩属性，以及网络上比较流行的一些配色方法总结，未来流行配色趋势。</p>
-                        </li>
-                        <li>
-                            <a href="javascript:;">
-                                <i class="fy_icon">&#xe629;</i>
-                                1-1 SpringBoot简介
-                                <span class="time">20:20</span>
-                                <span class="tishi">免费试听5分钟 <i>→</i></span>
-                            </a>
-                            <p class="hidd_more">主要讲解常用色彩属性，以及网络上比较流行的一些配色方法总结，未来流行配色趋势。主要讲解常用色彩属性，以及网络上比较流行的一些配色方法总结，未来流行配色趋势。</p>
-                        </li>
-                        <li>
-                            <a href="javascript:;">
-                                <i class="fy_icon">&#xe629;</i>
-                                1-1 SpringBoot简介
-                                <span class="time">20:20</span>
-                                <span class="tishi">免费试听5分钟 <i>→</i></span>
-                            </a>
-                            <p class="hidd_more">主要讲解常用色彩属性，以及网络上比较流行的一些配色方法总结，未来流行配色趋势。主要讲解常用色彩属性，以及网络上比较流行的一些配色方法总结，未来流行配色趋势。</p>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <h2 class="title">
-                        <i class="icon">=</i>
-                        <span>第三章 SpringBoot简介</span>
-                    </h2>
-                    <ul class="list">
-                        <li>
-                            <a href="javascript:;">
-                                <i class="fy_icon">&#xe629;</i>
-                                1-1 SpringBoot简介
-                                <span class="time">20:20</span>
-                                <span class="tishi">免费试听5分钟 <i>→</i></span>
-                            </a>
-                            <p class="hidd_more">主要讲解常用色彩属性，以及网络上比较流行的一些配色方法总结，未来流行配色趋势。主要讲解常用色彩属性，以及网络上比较流行的一些配色方法总结，未来流行配色趋势。</p>
-                        </li>
-                        <li>
-                            <a href="javascript:;">
-                                <i class="fy_icon">&#xe629;</i>
-                                1-1 SpringBoot简介
-                                <span class="time">20:20</span>
-                                <span class="tishi">免费试听5分钟 <i>→</i></span>
-                            </a>
-                            <p class="hidd_more">主要讲解常用色彩属性，以及网络上比较流行的一些配色方法总结，未来流行配色趋势。主要讲解常用色彩属性，以及网络上比较流行的一些配色方法总结，未来流行配色趋势。</p>
-                        </li>
-                    </ul>
-                </li>
+                </li>-->
             </ul>
 
             <div class="wqf_teacher_message">
@@ -219,11 +159,61 @@
 
 </body>
 <script type="text/javascript" th:inline="javascript">
-		var chapterTitleList=[[${chapterTitleList}]]
-		var chapterJson=[[${chapterJson}]]		
+		var chapterTitleList=[
+            {
+                "chapter_title":"第一章：认识python及基础知识",
+                "chapter_title_order":1,
+                "course_id":1,
+                "createTime":"2018-05-22T16:17:09.000+08:00",
+                "guid":"ed7d83efa36a40c9bf34e54fb45335b9",
+                "id":2,
+                "updateTime":"2018-05-22T16:17:09.000+08:00"},
+            {
+                "chapter_title":"第二章 判断和循环语句",
+                "chapter_title_order":2,
+                "course_id":1,
+                "createTime":"2018-05-22T16:22:45.000+08:00",
+                "guid":"7ab9cc1520e4439d87a21dea97ce345d",
+                "id":3,
+                "updateTime":"2018-05-22T16:22:45.000+08:00"}
+            ]
+
+		var chapterJson= '{"chapter0":[{"id":2,"createTime":1526977952000,"updateTime":1526977952000,"guid":"6da9703b1fc948c897dfd2be4ff87cfd","chapter_name":"1-1 认识python","video_address":"video/王菲 - 匆匆那年.mp4","chapter_info":"此部分将带大家认识python，并学会基础知识","chapter_title_id":2,"chapter_order":1},{"id":3,"createTime":1526978007000,"updateTime":1526978007000,"guid":"053750c3648b4ec4be519c19bf5e6ccf","chapter_name":"1-2 第一个python程序","video_address":"video/王菲 - 匆匆那年.mp4","chapter_info":"此部分将带大家认识python，并学会基础知识","chapter_title_id":2,"chapter_order":2}],"chapter1":[{"id":4,"createTime":1526978079000,"updateTime":1526978079000,"guid":"5afe457f17ad4a088e9df55eb974eb66","chapter_name":"2-1 判断语句介绍","video_address":"video/王菲 - 匆匆那年.mp4","chapter_info":"此部分将带大家认识python，并学会基础知识","chapter_title_id":3,"chapter_order":1},{"id":5,"createTime":1526978113000,"updateTime":1526978113000,"guid":"cc1bbd15d9de4f7b95257c42c7346940","chapter_name":"2-2 循环语句介绍","video_address":"video/王菲 - 匆匆那年.mp4","chapter_info":"此部分将带大家认识python，并学会基础知识","chapter_title_id":3,"chapter_order":2}]}'
 </script>
 <script>
-	console.log(JSON.stringify(chapterTitleList))
-	console.log(chapterJson)
+    var chapterJson = JSON.parse(chapterJson)
+    console.log(chapterJson)
+    var str = "";
+    for(var i = 0; i<chapterTitleList.length; i++){
+        str+=`<li>
+            <h2 class="title">
+                <i class="icon">=</i>
+                <span>${chapterTitleList[i].chapter_title}</span>
+            </h2>
+            <ul class="list">`
+
+        var chapter = chapterJson["chapter"+i]
+        for (var j = 0; j < chapter.length; j++) {
+
+            str+=`<li>
+                    <a href="course_video?chapterId=${chapter[j].id}">
+                        <i class="fy_icon">&#xe629;</i>
+                        ${chapter[j].chapter_name}
+
+                        <span class="time">${chapter[j].totalTime}</span>
+                        <span class="tishi">免费试听5分钟 <i>→</i></span>
+                    </a>
+                    <p class="hidd_more">${chapter[j].chapter_info}</p>
+                </li>`
+        }
+
+
+        str+=`</ul>
+        </li>`
+        
+    
+        document.querySelector(".wqf_chapter_list").innerHTML = str
+    }
+    // console.log(str,document.querySelector(".wqf_chapter_list"))
 </script>
 </html>
