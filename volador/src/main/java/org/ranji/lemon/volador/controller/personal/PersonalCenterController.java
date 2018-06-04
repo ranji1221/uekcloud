@@ -83,15 +83,24 @@ public class PersonalCenterController {
 	 * */
 	@RequestMapping(value="/personalCenter_notice", method=RequestMethod.GET)
 	public ModelAndView personalCenterNotice(HttpServletRequest request){
-		String userName=(String) request.getSession().getAttribute("userName");
-		int userId=(int) request.getSession().getAttribute("userId");
-		 ModelAndView mv = headerService.headInfo(userId, userName);
-		List<Notification> notificationList = inotificationService.findAll();
-		mv.addObject("notificationList", notificationList);
-		mv.addObject("notificationNumber", notificationList.size());
-		//System.out.println(notificationList.get(0).getCreateTime());	    
-		mv.setViewName("/backend/wqf_notice");
-		return mv;
+		try {
+			String userName=(String) request.getSession().getAttribute("userName");
+			int userId=(int) request.getSession().getAttribute("userId");
+			 ModelAndView mv = headerService.headInfo(userId, userName);
+			List<Notification> notificationList = inotificationService.findAll();
+			mv.addObject("notificationList", notificationList);
+			mv.addObject("notificationNumber", notificationList.size());
+			//System.out.println(notificationList.get(0).getCreateTime());	    
+			mv.setViewName("/backend/wqf_notice");
+			return mv;
+		} catch (Exception e) {
+			// TODO: handle exception
+			ModelAndView mv=new ModelAndView();
+			mv.setViewName("redirect:/login");
+			return mv;
+		}
+		
+		
 	}
 	
 	/*

@@ -319,13 +319,14 @@ public class CourseController {
 			response.setHeader("Content-Type", "application/json;charset=utf-8");
 			PrintWriter writer = response.getWriter();
 			
-			//接受请求参数
-			int userId=Integer.parseInt(request.getParameter("userId"));
-			int courseId=Integer.parseInt(request.getParameter("courseId"));
+			
 			
 			Map<String,Object> map=new HashMap<String,Object>();
 			//保存用户与收藏课程关系
 			try {
+				//接受请求参数
+				int userId=Integer.parseInt(request.getParameter("userId"));
+				int courseId=Integer.parseInt(request.getParameter("courseId"));
 				personalService.saveUserAndCollectCourseRelation(userId, courseId);
 				map.put("result", 200);
 			} catch (Exception e) {
@@ -550,10 +551,17 @@ public class CourseController {
 		
 		//获取请求参数
 		int chapterId =Integer.parseInt(request.getParameter("chapterId"));
-		int userId=Integer.parseInt(request.getParameter("userId"));
+		String headImage=null;
 		
-		//获取用户头像
-		String headImage = personalService.findUserInfoByUserId(userId).getHead_image();
+		if(request.getParameter("userId").equals("")){
+			headImage="images/wzq_user_img.jpg";
+		}else{
+			//获取用户头像
+			int userId=Integer.parseInt(request.getParameter("userId"));
+			headImage= personalService.findUserInfoByUserId(userId).getHead_image();
+		}
+		
+		
 		
 		//根据章节id获取评论列表
 		List<Comment> commentList = chapterService.findCommentListByChapter(chapterId);
