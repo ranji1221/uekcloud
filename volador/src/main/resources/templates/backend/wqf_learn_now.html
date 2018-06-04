@@ -132,15 +132,16 @@
                         <!-- 
                             只需更换行内 图片地址即可更换 用户课程背景图片
                          -->
-                        <div class="wzq_coursea_item_img" style="background: url(images/wzq_coursea_item_img.jpg) no-repeat center /cover;">
+                        <div class="wzq_coursea_item_img" th:style="'background: url('+${courseList.courseImage}+') no-repeat center /cover;'" style="background: url(images/wzq_coursea_item_img.jpg) no-repeat center /cover;">
                         </div>
                         <div class="wzq_course_item_info">
-                            <h3 th:text="${courseList.courseName}" class="wzq_course_info_tit">Python课程初探 <th:text="${courseList.course_name}" span>更新至13-1</span></h3>
+<!--                             <h3 th:text="${courseList.courseName}" class="wzq_course_info_tit">Python课程初探 <th:text="${courseList.course_name}" span>更新至13-1</span></h3> -->
+                              <h3  class="wzq_course_info_tit"><i th:text="${courseList.courseName}">Python课程初探</i> <span th:text="${courseList.updateChapter}">更新至13-1</span></h3>
                             <div class="wzq_course_statu hidd_more"><em>正在学习</em><span th:text="'学习至'+${courseList.chapterName}">学习至1-1Python课程初探</span></div>
-                            <div class="wzq_course_comment"><span th:text="${courseList.noteCount}">笔记<em>0</em></span><span>评论<em th:text="${courseList.commentCount}">0</em></span></div>
+                            <div class="wzq_course_comment"><span >笔记<em th:text="${courseList.noteCount}">0</em></span><span>评论<em th:text="${courseList.commentCount}">0</em></span></div>
                         </div>
-                        <div class="button">
-                            <a href="javascript:;" th:href="'course_chapter?courseId='+${courseList.chapterId}">继续学习</a><br>
+                        <div class="button"> 
+                            <a href="javascript:;" th:href="'course_video?chapterId='+${courseList.chapterId}">继续学习</a><br>
                             <a href="javascript:;">上传作业</a>
                         </div>
                     </li>

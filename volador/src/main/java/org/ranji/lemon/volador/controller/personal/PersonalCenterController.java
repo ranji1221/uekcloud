@@ -11,6 +11,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.ranji.lemon.core.pagination.PagerModel;
+import org.ranji.lemon.volador.model.course.Chapter;
+import org.ranji.lemon.volador.model.course.ChapterTitle;
 import org.ranji.lemon.volador.model.course.Course;
 import org.ranji.lemon.volador.model.course.Homework;
 import org.ranji.lemon.volador.model.course.StudyingCourse;
@@ -19,6 +21,7 @@ import org.ranji.lemon.volador.model.personal.Integral;
 import org.ranji.lemon.volador.model.personal.SignIn;
 import org.ranji.lemon.volador.model.personal.UserInfo;
 import org.ranji.lemon.volador.service.course.prototype.IChapterService;
+import org.ranji.lemon.volador.service.course.prototype.IChapterTitleService;
 import org.ranji.lemon.volador.service.course.prototype.ICourseService;
 import org.ranji.lemon.volador.service.course.prototype.IHomeworkService;
 import org.ranji.lemon.volador.service.course.prototype.INoteService;
@@ -44,6 +47,9 @@ public class PersonalCenterController {
 	
 	@Autowired
 	private ICourseService courseService;
+	
+	@Autowired
+	private IChapterTitleService chapterTitleService;
 	
 	@Autowired
 	private IUserInfoService userInfoService ;
@@ -142,21 +148,31 @@ public class PersonalCenterController {
 				//课程名字
 				studyingCourse.setCourseName(courseList.get(i).getCourse_name());
 				//课程图片
-				studyingCourse.setCourseImage(courseList.get(i).getCourse_image_address());
-
+				if(courseList.get(i).getCourse_image_address()==null){
+					studyingCourse.setCourseImage("images/wzq_coursea_item_img.jpg");
+				}else{
+					studyingCourse.setCourseImage(courseList.get(i).getCourse_image_address());
+				}
 				//获取章节名称
 				studyingCourse.setChapterName(chapterService.find(studyingCourse.getChapterId()).getChapter_name());
-				
 				//获取评论总数
 				studyingCourse.setCommentCount(chapterService.findCommentListByChapter(studyingCourse.getChapterId()).size());
-				
 				//获取笔记总数
 				studyingCourse.setNoteCount(noteService.findNoteByUserId(userId,studyingCourse.getChapterId()).size());
+				//获取更新到哪一章
+				try {
+					List<ChapterTitle> chapterTitleList=courseService.findChapterTitleByCourse(courseList.get(i).getId());
+					String updateChapter="更新至"+chapterTitleList.size()+"-";
+					List<Chapter> chapterList=chapterTitleService.findChapterByChapterTitle(chapterTitleList.get((chapterTitleList.size()-1)).getId());
+					updateChapter+=chapterList.size();
+					studyingCourse.setUpdateChapter(updateChapter);
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
 				
 				studyingCoursesList.add(studyingCourse);	
 			}
 			
-			System.out.println(studyingCoursesList.toString());
 			mv.addObject("studyingCoursesList",studyingCoursesList);
 			mv.addObject(courseList);
 			mv.addObject("TotalNumber",pageCourse.getTotal());
@@ -272,6 +288,51 @@ public class PersonalCenterController {
 			mv.addObject(courseList);
 			mv.addObject("TotalNumber",pageCourse.getTotal());
 			mv.addObject("currentPage",page);
+			List<Map> studiedCourseList=new ArrayList<>();
+			for(Course course:courseList){
+				Map<String,Object> courseMap=new HashMap<String,Object>();
+				//课程名称
+				courseMap.put("courseName", course.getCourse_name());
+				//课程图片
+				if(course.getCourse_image_address()==null){
+					courseMap.put("courseImg", "images/wzq_work_img.jpg");
+				}else{
+					courseMap.put("courseImg", course.getCourse_image_address());
+				}
+				//课程id
+				courseMap.put("courseId", course.getId());
+				//课程评论数
+				courseMap.put("commentCount", courseService.findCommentListByCourse(course.getId()).size());
+				//该课程笔记数
+				List<ChapterTitle> chapterTitleList=courseService.findChapterTitleByCourse(course.getId());
+				int noteCount = 0;
+				try {
+					for(ChapterTitle chapterTitle:chapterTitleList){
+						List<Chapter> chapterList=chapterTitleService.findChapterByChapterTitle(chapterTitle.getId());
+						for(Chapter chapter:chapterList){
+							int i=noteService.findNoteByUserId(userId, chapter.getId()).size();
+							noteCount=noteCount+i;
+						}
+					}
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+
+				courseMap.put("noteCount", noteCount);
+				//更新至
+				try {
+					String updateChapter="更新至"+chapterTitleList.size()+"-";
+					List<Chapter> chapterList=chapterTitleService.findChapterByChapterTitle(chapterTitleList.get((chapterTitleList.size()-1)).getId());
+					updateChapter+=chapterList.size();
+					courseMap.put("updateChapter", updateChapter);
+				} catch (Exception e) {
+					// TODO: handle exception
+					courseMap.put("updateChapter", "暂无章节");
+				}
+				studiedCourseList.add(courseMap);
+			}
+			
+			mv.addObject("studiedCourseList",studiedCourseList);
 			
 			int pageCount;
 			if((pageCourse.getTotal()%6==0)){
@@ -304,6 +365,33 @@ public class PersonalCenterController {
 		return mv;
 	}
 	
+	
+	/*
+	 * 个人中心 - 删除某个已学习完的课程 
+	 * */
+	@RequestMapping(value="/delete_endcourse", method=RequestMethod.GET)
+	public ModelAndView deleteEndCourse(HttpServletRequest request){
+		ModelAndView mv = new ModelAndView();
+		//异常处理，当没有获取到登录信息时，跳转到登录页面
+		try {
+			//根据session获取userId，查询已学习，并查询当前用户信息
+			int userId=(int) request.getSession().getAttribute("userId");
+
+			int courseId=Integer.parseInt(request.getParameter("courseId"));
+
+			//删除完成课程
+			personalService.deleteStudyedCourseRelation(userId, courseId);
+			//重定向到当前页
+			mv.setViewName("redirect:/personalCenter_learn_end");
+			
+			}catch (Exception e) {
+				// TODO: handle exception
+				mv.setViewName("redirect:/personalCenter_learn_end");
+			}
+		
+		return mv;
+	}
+	
 	/*
 	 * 个人中心 - 收藏课程 
 	 * */
@@ -328,6 +416,45 @@ public class PersonalCenterController {
 
 			//将course列表及分页信息返回
 			List<Course> courseList = pageCourse.getData();
+			List<StudyingCourse> studyingCoursesList=new ArrayList<>();
+			
+			for(int i=0;i<courseList.size();i++){
+				//获取最新学习时间及获取章节id
+				StudyingCourse studyingCourse=personalService.findStudyingCourse(userId,courseList.get(i).getId());
+				
+				//课程名字
+				studyingCourse.setCourseName(courseList.get(i).getCourse_name());
+				//课程图片
+				if(courseList.get(i).getCourse_image_address()==null){
+					studyingCourse.setCourseImage("images/wzq_coursea_item_img.jpg");
+				}else{
+					studyingCourse.setCourseImage(courseList.get(i).getCourse_image_address());
+				}
+				//获得课程ID
+				studyingCourse.setCourseId(courseList.get(i).getId());
+				//获取章节名称
+				studyingCourse.setChapterName(chapterService.find(studyingCourse.getChapterId()).getChapter_name());
+				//获取评论总数
+				studyingCourse.setCommentCount(chapterService.findCommentListByChapter(studyingCourse.getChapterId()).size());
+				//获取笔记总数
+				studyingCourse.setNoteCount(noteService.findNoteByUserId(userId,studyingCourse.getChapterId()).size());
+				//获取更新到哪一章
+				try {
+					List<ChapterTitle> chapterTitleList=courseService.findChapterTitleByCourse(courseList.get(i).getId());
+					String updateChapter="更新至"+chapterTitleList.size()+"-";
+					List<Chapter> chapterList=chapterTitleService.findChapterByChapterTitle(chapterTitleList.get((chapterTitleList.size()-1)).getId());
+					updateChapter+=chapterList.size();
+					studyingCourse.setUpdateChapter(updateChapter);
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+				
+				studyingCoursesList.add(studyingCourse);	
+			}
+			
+			mv.addObject("studyingCoursesList",studyingCoursesList);
+			
+			
 			mv.addObject(courseList);
 			mv.addObject("TotalNumber",pageCourse.getTotal());
 			mv.addObject("currentPage",page);
@@ -350,6 +477,31 @@ public class PersonalCenterController {
 			// TODO: handle exception
 			mv.setViewName("redirect:/login");
 		}
+		return mv;
+	}
+	
+	/*
+	 * 个人中心 - 删除某个收藏课程 
+	 * */
+	@RequestMapping(value="/delete_collect_course", method=RequestMethod.GET)
+	public ModelAndView deleteCollectCourse(HttpServletRequest request){
+		ModelAndView mv = new ModelAndView();
+		
+		//异常处理，当没有获取到登录信息时候，跳转到登录页面
+		try {
+			int userId=(int) request.getSession().getAttribute("userId");
+			String userName=(String) request.getSession().getAttribute("userName");
+			
+			int courseId=Integer.parseInt(request.getParameter("courseId"));
+			
+			personalService.deleteCollectCourseRelation(userId, courseId);
+			
+			mv.setViewName("redirect:/personalCenter_collect_course");
+			
+			}catch (Exception e) {
+				// TODO: handle exception
+				mv.setViewName("redirect:/personalCenter_collect_course");
+			}
 		return mv;
 	}
 	

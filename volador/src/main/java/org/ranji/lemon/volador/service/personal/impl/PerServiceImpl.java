@@ -3,6 +3,7 @@ package org.ranji.lemon.volador.service.personal.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -113,8 +114,8 @@ public class PerServiceImpl extends GenericServiceImpl<Per, Integer> implements 
 	}
 	
 	@Override
-	public void saveUserAndStudyingCourseRelation(int userId, int courseId) {
-		((IPerDao) dao).saveUserAndStudyingCourseRelation(userId, courseId);		
+	public void saveUserAndStudyingCourseRelation(int userId, int courseId,Date updateTime,int chapterId) {
+		((IPerDao) dao).saveUserAndStudyingCourseRelation(userId, courseId,updateTime,chapterId);		
 	}
 
 	@Override

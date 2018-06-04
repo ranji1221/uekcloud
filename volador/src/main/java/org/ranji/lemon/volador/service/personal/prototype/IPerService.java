@@ -1,4 +1,5 @@
 package org.ranji.lemon.volador.service.personal.prototype;
+import java.util.Date;
 import java.util.List;
 
 import org.ranji.lemon.core.pagination.PagerModel;
@@ -115,7 +116,7 @@ public interface IPerService extends IGenericService<Per, Integer>{
 	 * @param userId  用户ID
 	 * @param course_id  课程ID
 	 */
-	public void saveUserAndStudyingCourseRelation(int userId, int courseId);
+	public void saveUserAndStudyingCourseRelation(int userId, int courseId,Date updateTime,int chapterId);
 	
 	/**
 	 * 根据用户ID查找正在学习的课程ID

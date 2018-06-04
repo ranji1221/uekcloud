@@ -2,6 +2,7 @@ package org.ranji.lemon.volador.persist.personal.impl;
 
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -100,10 +101,12 @@ public class PerDaoImpl extends GenericDaoImpl<Per, Integer> implements IPerDao{
 	}
 	
 	@Override
-	public void saveUserAndStudyingCourseRelation(int userId, int courseId) {
+	public void saveUserAndStudyingCourseRelation(int userId, int courseId,Date updateTime,int chapterId) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("userId", userId);
 		params.put("courseId", courseId);
+		params.put("updateTime", updateTime);
+		params.put("chapterId", chapterId);
 		sqlSessionTemplate.insert(typeNameSpace+".saveUserAndStudyingCourseRelation",params);
 	}
 

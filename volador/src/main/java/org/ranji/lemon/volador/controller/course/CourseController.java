@@ -168,16 +168,33 @@ public class CourseController {
 			mv.addObject("login_yes","login_yes active");
 			mv.addObject("login_no","login_no");
 			mv.addObject("userName", userName);
+			mv.addObject("userId",userId);
+			//查询是否已经收藏该课程
+			List<Integer> courseIdList=personalService.findCollectCourseRelationByUserId(userId);
+			int display=0;
+			for(int courseNum:courseIdList){
+				if(courseNum == courseId){
+					display=1;
+				};
+			}
+			mv.addObject("display", display);
+			
 		}
 		catch (Exception e) {
 			mv.addObject("login_yes","login_yes");
 			mv.addObject("login_no","login_no active");
+			mv.addObject("display", 0);
 		}
-		
 		
 		if(null != courseId){
 			//查询课程
 			Course course=courseService.find(courseId);
+			
+			//如果查询到的courseId为空，重定向到404页面
+			if(course == null){
+				mv.setViewName("redirect:/notFound");
+				return mv;
+			}
 			
 			if(course.getCourse_image_address()==null){
 				course.setCourse_image_address("images/cp_10.png");
@@ -198,16 +215,21 @@ public class CourseController {
 				//根据章节标题id查询章节
 				chapterListMap.put("chapter"+i,chapterTitleService.findChapterByChapterTitle(chapterTitleList.get(i).getId()));
 			}
-			
+			//返回给前台
 			String chapterJson=JsonUtil.objectToJson(chapterListMap);
+			try {
+				mv.addObject("goStudy",chapterTitleService.findChapterByChapterTitle(chapterTitleList.get(0).getId()).get(0).getId());
+			} catch (Exception e) {
+				// TODO: handle exception
+				
+			}
+
+			mv.addObject("courseId", courseId);
 			mv.addObject("count",chapterTitleList.size());
 			mv.addAllObjects(chapterListMap);
 			mv.addObject("chapterJson",chapterJson);
 			mv.addObject(chapterTitleList);
-			//根据课程ID查询章节
-//			List <Chapter> chapterList = courseService.findChapterbyCourse(courseId);
-//			//将章节列表返回给前台
-//			mv.addObject(chapterList);
+			
 			mv.setViewName("/backend/wqf_chapter");
 		}
 		else{
@@ -244,6 +266,12 @@ public class CourseController {
 		if(null != courseId){
 			//查询课程
 			Course course=courseService.find(courseId);
+			
+			//如果查询到的courseId为空，重定向到404页面
+			if(course == null){
+				mv.setViewName("redirect:/notFound");
+				return mv;
+			}
 			
 			if(course.getCourse_image_address()==null){
 				course.setCourse_image_address("images/cp_10.png");
@@ -282,7 +310,68 @@ public class CourseController {
 		return mv;
 	}
 	
-	//课程发表评论
+	//收藏课程Ajax
+	@RequestMapping(value="/course_collect",method=RequestMethod.POST)
+	public void collectCourse(
+				HttpServletRequest request,
+				HttpServletResponse response) throws IOException{
+			//设置返回格式
+			response.setHeader("Content-Type", "application/json;charset=utf-8");
+			PrintWriter writer = response.getWriter();
+			
+			//接受请求参数
+			int userId=Integer.parseInt(request.getParameter("userId"));
+			int courseId=Integer.parseInt(request.getParameter("courseId"));
+			
+			Map<String,Object> map=new HashMap<String,Object>();
+			//保存用户与收藏课程关系
+			try {
+				personalService.saveUserAndCollectCourseRelation(userId, courseId);
+				map.put("result", 200);
+			} catch (Exception e) {
+				// TODO: handle exception
+				map.put("result", 400);
+			}	
+			
+			writer.print(JsonUtil.toJsonByProperties(map)); 
+	        writer.flush();  
+	        writer.close();
+
+		}
+	
+	//取消收藏课程Ajax
+	@RequestMapping(value="/course_uncollect",method=RequestMethod.POST)
+	public void uncollectCourse(
+				HttpServletRequest request,
+				HttpServletResponse response) throws IOException{
+			//设置返回格式
+			response.setHeader("Content-Type", "application/json;charset=utf-8");
+			PrintWriter writer = response.getWriter();
+
+			//接受请求参数
+			int userId=Integer.parseInt(request.getParameter("userId"));
+			int courseId=Integer.parseInt(request.getParameter("courseId"));
+			
+			
+			Map<String,Object> map=new HashMap<String,Object>();
+			//删除用户与收藏课程关系
+			try {
+				personalService.deleteCollectCourseRelation(userId, courseId);
+				map.put("result", 200);
+			} catch (Exception e) {
+				// TODO: handle exception
+				map.put("result", 400);
+			}			
+			
+			writer.print(JsonUtil.toJsonByProperties(map)); 
+	        writer.flush();  
+	        writer.close();
+
+		}
+	
+	
+	
+	//课程发表评论AJAX
 	@RequestMapping(value="/course_addcomment",method=RequestMethod.POST)
 	public void courseComment(@RequestParam(value="content", required=false) String content,
 				@RequestParam(value="courseId", required=false) String courseId,
@@ -335,12 +424,7 @@ public class CourseController {
 	        writer.close();
 
 		}
-	
-	
-	
-	
-	
-	
+
 	//作业展示页面
 	@RequestMapping(value="/course_jobDisplay", method=RequestMethod.GET)
 	public ModelAndView jobDisplayPage(){
@@ -360,6 +444,16 @@ public class CourseController {
 			return mv;
 		}
 		
+		//查询章节信息
+		Chapter chapter=chapterService.find(chapterId);
+		//如果查到的内容为空，重定向到404页面
+		if(chapter==null){
+			mv.setViewName("redirect:/notFound");
+			return mv;
+		}
+		//根据章节id查找课程标题id,查找课程标题id查找课程id
+		int courseId=chapterTitleService.find(chapter.getChapter_title_id()).getCourse_id();
+		
 		try {
 			//判断用户是否登录，获取用户登录信息
 			int userId=(int) request.getSession().getAttribute("userId");
@@ -368,6 +462,16 @@ public class CourseController {
 			mv.addObject("userId", userId);
 			mv.addObject("login_yes","login_yes active");
 			mv.addObject("login_no","login_no");
+			personalService.deleteStudyingCourseRelation(userId, courseId);
+			
+			List<ChapterTitle> chapterTitleList=courseService.findChapterTitleByCourse(courseId);
+			List<Chapter> chapterList=chapterTitleService.findChapterByChapterTitle(chapterTitleList.get((chapterTitleList.size()-1)).getId());
+			if(chapterId == chapterList.get(chapterList.size()-1).getId()){
+				personalService.saveUserAndStudyedCourseRelation(userId, courseId);
+			}else
+				{
+					personalService.saveUserAndStudyingCourseRelation(userId, courseId, new Date(), chapterId);
+				}
 		} catch (Exception e) {
 			// TODO: handle exception
 			UserInfo userInfo=new UserInfo();
@@ -379,13 +483,6 @@ public class CourseController {
 		
 
 		try {
-			//查询章节信息
-			Chapter chapter=chapterService.find(chapterId);
-			
-			//根据章节id查找课程标题id
-			//查找课程标题id查找课程id
-			mv.addObject("courseId",chapterTitleService.find(chapter.getChapter_title_id()).getCourse_id());
-			
 			//根据章节id获取评论列表
 			List<Comment> commentList = chapterService.findCommentListByChapter(chapterId);
 			//根据评论获取用户信息
@@ -397,22 +494,16 @@ public class CourseController {
 				commentList.get(i).setHead_image(userInfo.getHead_image());
 			}
 			
-			
 			//传参
 			mv.addObject("commentCount",commentList.size());
 			mv.addObject(chapter);
 			mv.addObject(commentList);
+			mv.addObject("courseId",courseId);
 			
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		
-		
-		//指定课程路径-----测试		
-//		chapter.setChapter_name("章节：chapter");
-//		chapter.setChapter_info("章节：章节详情");
-//		chapter.setVideo_address("video/王菲 - 匆匆那年.mp4");		
-		
+			
 		mv.setViewName("/backend/cp_video");
 		return mv;
 	}

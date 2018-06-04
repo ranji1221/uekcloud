@@ -137,7 +137,7 @@
 	
 	<!-- 存储某个用户的正在学习课程记录和课程的对应关系 -->
 	<insert id="saveUserAndStudyingCourseRelation" parameterType="Map" keyProperty="id" useGeneratedKeys="true">
-		insert into lemon_volador_personal_studying_course (user_id, course_id) values (#{userId}, #{courseId})
+		insert into lemon_volador_personal_studying_course (user_id, course_id,update_time,chapter_id) values (#{userId}, #{courseId},#{updateTime},#{chapterId})
 	</insert>	
 	<!-- 根据用户id查找正在学习课程记录 -->	
 	<select id="findStudyingCourseRelationByUserId" parameterType="int" resultType="Integer">
@@ -204,7 +204,7 @@
 	<select id="findPageStudyingCourseByUser" parameterType="map" resultType="VoladorCourse">
 		select * from lemon_volador_course_course 
 		left join lemon_volador_personal_studying_course on lemon_volador_course_course.id = lemon_volador_personal_studying_course.course_id 
-		where lemon_volador_personal_studying_course.user_id = #{userId} order by updateTime desc limit #{offset},#{limit}
+		where lemon_volador_personal_studying_course.user_id = #{userId} order by lemon_volador_personal_studying_course.update_time desc limit #{offset},#{limit}
 	</select>
 	
 	<!--根据用户id分页查询收藏课程列表 -->

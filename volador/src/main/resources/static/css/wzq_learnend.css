@@ -56,6 +56,9 @@
 .wzq_work_content_list .wqf_bg span i{
     font-size: 20px;
 }
+.wzq_work_content_list .wqf_bg span a{
+	color:#fff;
+}
 .wzq_work_content_list .wqf_bg span:nth-child(1){
     margin-right: 30px;
 }

@@ -13,6 +13,20 @@ public class StudyingCourse {
 	private int noteCount;
 	private int commentCount;
 	private String courseImage;
+	private String updateChapter;
+	private int courseId;
+	public int getCourseId() {
+		return courseId;
+	}
+	public void setCourseId(int courseId) {
+		this.courseId = courseId;
+	}
+	public String getUpdateChapter() {
+		return updateChapter;
+	}
+	public void setUpdateChapter(String updateChapter) {
+		this.updateChapter = updateChapter;
+	}
 	public Date getUpdateTime() {
 		return updateTime;
 	}
