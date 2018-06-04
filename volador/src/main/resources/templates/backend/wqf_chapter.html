@@ -159,26 +159,8 @@
 
 </body>
 <script type="text/javascript" th:inline="javascript">
-		var chapterTitleList=[
-            {
-                "chapter_title":"第一章：认识python及基础知识",
-                "chapter_title_order":1,
-                "course_id":1,
-                "createTime":"2018-05-22T16:17:09.000+08:00",
-                "guid":"ed7d83efa36a40c9bf34e54fb45335b9",
-                "id":2,
-                "updateTime":"2018-05-22T16:17:09.000+08:00"},
-            {
-                "chapter_title":"第二章 判断和循环语句",
-                "chapter_title_order":2,
-                "course_id":1,
-                "createTime":"2018-05-22T16:22:45.000+08:00",
-                "guid":"7ab9cc1520e4439d87a21dea97ce345d",
-                "id":3,
-                "updateTime":"2018-05-22T16:22:45.000+08:00"}
-            ]
-
-		var chapterJson= '{"chapter0":[{"id":2,"createTime":1526977952000,"updateTime":1526977952000,"guid":"6da9703b1fc948c897dfd2be4ff87cfd","chapter_name":"1-1 认识python","video_address":"video/王菲 - 匆匆那年.mp4","chapter_info":"此部分将带大家认识python，并学会基础知识","chapter_title_id":2,"chapter_order":1},{"id":3,"createTime":1526978007000,"updateTime":1526978007000,"guid":"053750c3648b4ec4be519c19bf5e6ccf","chapter_name":"1-2 第一个python程序","video_address":"video/王菲 - 匆匆那年.mp4","chapter_info":"此部分将带大家认识python，并学会基础知识","chapter_title_id":2,"chapter_order":2}],"chapter1":[{"id":4,"createTime":1526978079000,"updateTime":1526978079000,"guid":"5afe457f17ad4a088e9df55eb974eb66","chapter_name":"2-1 判断语句介绍","video_address":"video/王菲 - 匆匆那年.mp4","chapter_info":"此部分将带大家认识python，并学会基础知识","chapter_title_id":3,"chapter_order":1},{"id":5,"createTime":1526978113000,"updateTime":1526978113000,"guid":"cc1bbd15d9de4f7b95257c42c7346940","chapter_name":"2-2 循环语句介绍","video_address":"video/王菲 - 匆匆那年.mp4","chapter_info":"此部分将带大家认识python，并学会基础知识","chapter_title_id":3,"chapter_order":2}]}'
+		var chapterTitleList=[[${chapterTitleList}]]
+		var chapterJson= [[${chapterJson}]]
 </script>
 <script>
     var chapterJson = JSON.parse(chapterJson)

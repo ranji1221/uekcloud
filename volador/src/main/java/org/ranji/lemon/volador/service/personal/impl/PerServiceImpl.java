@@ -11,6 +11,7 @@ import org.apache.shiro.authc.credential.DefaultPasswordService;
 import org.ranji.lemon.core.pagination.PagerModel;
 import org.ranji.lemon.core.service.impl.GenericServiceImpl;
 import org.ranji.lemon.volador.model.course.Course;
+import org.ranji.lemon.volador.model.course.StudyingCourse;
 import org.ranji.lemon.volador.model.personal.Per;
 import org.ranji.lemon.volador.model.personal.UserInfo;
 import org.ranji.lemon.volador.persist.personal.prototype.IPerDao;
@@ -201,5 +202,11 @@ public class PerServiceImpl extends GenericServiceImpl<Per, Integer> implements 
 		pagerModel.setData(((IPerDao) dao).findPageCollectCourseByUser(userId, page, limit));
 		pagerModel.setTotal(((IPerDao) dao).findStudyingCollectCountByUser(userId));
 		return pagerModel;
+	}
+
+	@Override
+	public StudyingCourse findStudyingCourse(int userId, int courseId) {
+		// TODO Auto-generated method stub
+		return ((IPerDao) dao).findStudyingCourse(userId, courseId);
 	}	
 }

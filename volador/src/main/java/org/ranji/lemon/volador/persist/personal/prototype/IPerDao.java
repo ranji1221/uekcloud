@@ -4,6 +4,7 @@ import java.util.List;
 import org.ranji.lemon.core.pagination.PagerModel;
 import org.ranji.lemon.core.persist.prototype.IGenericDao;
 import org.ranji.lemon.volador.model.course.Course;
+import org.ranji.lemon.volador.model.course.StudyingCourse;
 import org.ranji.lemon.volador.model.personal.Per;
 import org.ranji.lemon.volador.model.personal.UserInfo;
 /**
@@ -240,5 +241,12 @@ public interface IPerDao extends IGenericDao<Per, Integer>{
 	 * @return        总数列表
 	 */
 	public int findStudyingCollectCountByUser(int userId);
+	
+	/**
+	 * 查询正在学习课程其他信息
+	 * @param userId	  用户id	 
+	 * @return        总数列表
+	 */
+	public StudyingCourse findStudyingCourse(int userId,int courseId);
 
 }

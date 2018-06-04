@@ -229,6 +229,16 @@
 		select count(*) from lemon_volador_personal_studyed_course where user_id=#{userId}
 	</select>
 	
+	
+	<resultMap type="VoladorStudyingCourse" id="VoladorStudyingCourseMap">
+		<result column="update_time" property="updateTime" />  
+		<result column="chapter_id" property="chapterId" />  
+	</resultMap>
+	<!-- 查询正在学习课程的其他信息 -->
+	<select id="findStudyingCourse" parameterType="map" resultMap="VoladorStudyingCourseMap">
+		select update_time,chapter_id from lemon_volador_personal_studying_course where user_id=#{userId} and course_id=#{courseId}
+	</select>
+	
 	<!-- 根据笔记d查找用户 -->
 	<select id="findUserByNoteId" parameterType="Integer" resultType ="VoladorPerUser">
 		SELECT

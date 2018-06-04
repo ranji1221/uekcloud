@@ -9,6 +9,7 @@ import java.util.Map;
 import org.ranji.lemon.core.pagination.PagerModel;
 import org.ranji.lemon.core.persist.impl.GenericDaoImpl;
 import org.ranji.lemon.volador.model.course.Course;
+import org.ranji.lemon.volador.model.course.StudyingCourse;
 import org.ranji.lemon.volador.model.personal.Per;
 import org.ranji.lemon.volador.model.personal.UserInfo;
 import org.ranji.lemon.volador.persist.personal.prototype.IPerDao;
@@ -235,6 +236,16 @@ public class PerDaoImpl extends GenericDaoImpl<Per, Integer> implements IPerDao{
 	public int findStudyingCollectCountByUser(int userId) {
 		// TODO Auto-generated method stub
 		return (int) sqlSessionTemplate.selectList(typeNameSpace+".findStudyingCollectCountByUser",userId).get(0);
+	}
+
+	@Override
+	public StudyingCourse findStudyingCourse(int userId, int courseId) {
+		// TODO Auto-generated method stub
+		Map<String,Object> params=new HashMap<String,Object>();
+		params.put("userId", userId);
+		params.put("courseId",courseId);
+		List<StudyingCourse> studyingCourseList=sqlSessionTemplate.selectList(typeNameSpace+".findStudyingCourse", params);
+		return studyingCourseList.get(0);
 	}
 	
 	

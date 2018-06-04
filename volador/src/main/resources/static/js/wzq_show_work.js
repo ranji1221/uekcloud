@@ -61,13 +61,13 @@ $(function () {
                         $('<li class="wzq_show_comment_item">').html(`
                             <div class="wzq_clear">
                                 <div class="wzq_user_img">
-                                    <img src="images/wzq_user_img.jpg" alt="">
+                                    <img src="${data.headImage}" alt="">
                                 </div>
                                 <div class="wzq_comment_item_info">
-                                    <h6 class="wzq_comment_item_title">也入耳朵</h6>
-                                    <span class="wzq_comment_item_time">5小时前</span>
+                                    <h6 class="wzq_comment_item_title">${data.nickName}</h6>
+                                    <span class="wzq_comment_item_time">刚刚</span>
                                     <div class="wzq_comment_item_des">
-                                        <p class="hidd_more">哈哈哈，填进去了</p>
+                                        <p class="hidd_more">${data.content}</p>
                                         <div class="wzq_comment_reply">
                                             <span class="wzq_jubao"><i class="fy_icon">&#xe652;</i>举报</span>
                                             <span title="回复" class="wzq_comment_replys" data-flag="true"><i class="fy_icon">&#xe679;</i></span>

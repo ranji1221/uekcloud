@@ -312,6 +312,13 @@ public class CourseController {
 					commentService.savaCommentAndUserRelation(comment.getId(), Integer.parseInt(userId.toString()));
 					
 					info = "success";
+					//返回刚刚评论内容
+					map.put("headImage", personalService.findUserInfoByUserId(Integer.parseInt(userId)).getHead_image());
+					map.put("content", content);
+					map.put("nickName", personalService.findUserInfoByUserId(Integer.parseInt(userId)).getNickname());
+//					map.put("data", data);
+					map.put("info", info);
+					
 					map.put("info", info);
 				}catch (Exception e) {
 					info = "异常！";

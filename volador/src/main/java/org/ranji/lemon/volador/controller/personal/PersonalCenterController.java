@@ -13,12 +13,15 @@ import javax.servlet.http.HttpServletRequest;
 import org.ranji.lemon.core.pagination.PagerModel;
 import org.ranji.lemon.volador.model.course.Course;
 import org.ranji.lemon.volador.model.course.Homework;
+import org.ranji.lemon.volador.model.course.StudyingCourse;
 import org.ranji.lemon.volador.model.global.Notification;
 import org.ranji.lemon.volador.model.personal.Integral;
 import org.ranji.lemon.volador.model.personal.SignIn;
 import org.ranji.lemon.volador.model.personal.UserInfo;
+import org.ranji.lemon.volador.service.course.prototype.IChapterService;
 import org.ranji.lemon.volador.service.course.prototype.ICourseService;
 import org.ranji.lemon.volador.service.course.prototype.IHomeworkService;
+import org.ranji.lemon.volador.service.course.prototype.INoteService;
 import org.ranji.lemon.volador.service.global.prototype.INotificationService;
 import org.ranji.lemon.volador.service.personal.prototype.IIntegralService;
 import org.ranji.lemon.volador.service.personal.prototype.IPerService;
@@ -44,6 +47,12 @@ public class PersonalCenterController {
 	
 	@Autowired
 	private IUserInfoService userInfoService ;
+	
+	@Autowired
+	private INoteService noteService;
+	
+	@Autowired
+	private IChapterService chapterService;
 	
 	@Autowired
 	private IHomeworkService homeworkService ;
@@ -123,10 +132,44 @@ public class PersonalCenterController {
 
 			//将course列表及分页信息返回
 			List<Course> courseList = pageCourse.getData();
+			
+			List<StudyingCourse> studyingCoursesList=new ArrayList<>();
+			
+			for(int i=0;i<courseList.size();i++){
+				//获取最新学习时间及获取章节id
+				StudyingCourse studyingCourse=personalService.findStudyingCourse(userId,courseList.get(i).getId());
+				
+				//课程名字
+				studyingCourse.setCourseName(courseList.get(i).getCourse_name());
+				//课程图片
+				studyingCourse.setCourseImage(courseList.get(i).getCourse_image_address());
+
+				//获取章节名称
+				studyingCourse.setChapterName(chapterService.find(studyingCourse.getChapterId()).getChapter_name());
+				
+				//获取评论总数
+				studyingCourse.setCommentCount(chapterService.findCommentListByChapter(studyingCourse.getChapterId()).size());
+				
+				//获取笔记总数
+				studyingCourse.setNoteCount(noteService.findNoteByUserId(userId,studyingCourse.getChapterId()).size());
+				
+				studyingCoursesList.add(studyingCourse);	
+			}
+			
+			System.out.println(studyingCoursesList.toString());
+			mv.addObject("studyingCoursesList",studyingCoursesList);
 			mv.addObject(courseList);
 			mv.addObject("TotalNumber",pageCourse.getTotal());
 			mv.addObject("currentPage",page);
-			mv.addObject("pageCount",pageCourse.getTotal()/3);
+			
+			//计算返回页码
+			int pageCount;
+			if((pageCourse.getTotal()%3==0)){
+				pageCount=pageCourse.getTotal()%3;
+			}else{
+				pageCount=(pageCourse.getTotal()/3)+1;
+			}
+			mv.addObject("pageCount",pageCount);
 			mv.addObject("interfaceName","personalCenter_learning");
 			
 			//查询当前用户信息
@@ -229,7 +272,14 @@ public class PersonalCenterController {
 			mv.addObject(courseList);
 			mv.addObject("TotalNumber",pageCourse.getTotal());
 			mv.addObject("currentPage",page);
-			mv.addObject("pageCount",(pageCourse.getTotal()/6)+1);
+			
+			int pageCount;
+			if((pageCourse.getTotal()%6==0)){
+				pageCount=pageCourse.getTotal()%6;
+			}else{
+				pageCount=(pageCourse.getTotal()/6)+1;
+			}
+			mv.addObject("pageCount",pageCount);
 			
 			//查询当前用户信息
 			UserInfo userInfo=personalService.findUserInfoByUserId(userId);
@@ -281,7 +331,14 @@ public class PersonalCenterController {
 			mv.addObject(courseList);
 			mv.addObject("TotalNumber",pageCourse.getTotal());
 			mv.addObject("currentPage",page);
-			mv.addObject("pageCount",(pageCourse.getTotal()/3)+1);
+			
+			int pageCount;
+			if((pageCourse.getTotal()%3==0)){
+				pageCount=pageCourse.getTotal()%3;
+			}else{
+				pageCount=(pageCourse.getTotal()/3)+1;
+			}
+			mv.addObject("pageCount",pageCount);
 			
 			//查询当前用户信息，并传递页面需要的用户信息
 			UserInfo userInfo=personalService.findUserInfoByUserId(userId);
