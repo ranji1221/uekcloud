@@ -16,6 +16,12 @@ public class Teacher extends AbstractModel {
     private String teacher_info;
     private String teacher_position;
     private String teacher_image;
+    
+    //首页推荐教师显示字段
+    
+    private String type;
+    private String company;
+    private String label;
 
     public String getTeacher_name() {
         return teacher_name;
@@ -49,7 +55,31 @@ public class Teacher extends AbstractModel {
         this.teacher_image = teacher_image;
     }
 
-    @Override
+    public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getCompany() {
+		return company;
+	}
+
+	public void setCompany(String company) {
+		this.company = company;
+	}
+
+	public String getLabel() {
+		return label;
+	}
+
+	public void setLabel(String label) {
+		this.label = label;
+	}
+
+	@Override
     public String toString() {
         return JsonUtil.objectToJson(this);
     }

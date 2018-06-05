@@ -166,74 +166,18 @@
 <!--  导航菜单轮播 开始  -->
 	<nav class="wqf_menu clear_both">
 		<div class="wqf_list">
-			<ul>
-			
-			    <li th:each="direction:${directionList}">
-					<a  th:href="@{/findCourse(directionId=${direction.id})}" href="findCourse">
-						<img th:src="${direction.icon}" alt="">
-						<span th:text="${direction.name}" id="directionId">UI/UX设计</span>
+			<ul>			
+			    <li th:each="directionAndClassify:${directionAndClassifyList}">
+					<a  th:href="@{/findCourse(directionId=${directionAndClassify.direction.id})}" href="findCourse">
+						<img th:src="${directionAndClassify.direction.icon}" alt="">
+						<span th:text="${directionAndClassify.direction.name}" id="directionId">UI/UX设计</span>
 						<span class="fy_icon">&#xe604;</span>
 					</a>
 					<!-- 鼠标移入弹出层 -->
 					<div class="more">
 						<div class="classify_item">
-						    <ul th:switch="${direction.id}">
-						        <li th:case="1">
-						            <ul th:each="classify:${classify1}">
-						                <li>
-						                    <a th:text="${classify.classify_name}" th:href="@{/findCourse(classfyId=${classify.id})}"></a>
-						                </li>
-						            </ul>						            
-						        </li>
-						        <li th:case="2">
-						            <ul th:each="classify:${classify2}">
-						                <li>
-						                    <a th:text="${classify.classify_name}" th:href="@{/findCourse(classfyId=${classify.id})}"></a>
-						                </li>
-						            </ul>						            
-						        </li>
-						        <li th:case="3">
-						            <ul th:each="classify:${classify3}">
-						                <li>
-						                    <a th:text="${classify.classify_name}" th:href="@{/findCourse(classfyId=${classify.id})}"></a>
-						                </li>
-						            </ul>						            
-						        </li>
-						        <li th:case="4">
-						            <ul th:each="classify:${classify4}">
-						                <li>
-						                    <a th:text="${classify.classify_name}" th:href="@{/findCourse(classfyId=${classify.id})}"></a>
-						                </li>
-						            </ul>						            
-						        </li>
-						        <li th:case="5">
-						            <ul th:each="classify:${classify5}">
-						                <li>
-						                    <a th:text="${classify.classify_name}" th:href="@{/findCourse(classfyId=${classify.id})}"></a>
-						                </li>
-						            </ul>						            
-						        </li>
-						        <li th:case="6">
-						            <ul th:each="classify:${classify6}">
-						                <li>
-						                    <a th:text="${classify.classify_name}" th:href="@{/findCourse(classfyId=${classify.id})}"></a>
-						                </li>
-						            </ul>						            
-						        </li>
-						        <li th:case="7">
-						            <ul th:each="classify:${classify7}">
-						                <li>
-						                    <a th:text="${classify.classify_name}" th:href="@{/findCourse(classfyId=${classify.id})}"></a>
-						                </li>
-						            </ul>						            
-						        </li>
-						        <li th:case="8">
-						            <ul th:each="classify:${classify8}">
-						                <li>
-						                    <a th:text="${classify.classify_name}" th:href="@{/findCourse(classfyId=${classify.id})}"></a>
-						                </li>
-						            </ul>						            
-						        </li>
+						    <ul >
+						        <li th:each="classify:${directionAndClassify.classifyList}"><a th:text="${classify.classify_name}" th:href="@{/findCourse(classfyId=${classify.id})}">界面重构</a></li>					        
                             </ul>
 						</div>
 					</div>
@@ -242,59 +186,20 @@
 		</div>
 		<div class="swiper-container wqf_banner">
 			<div class="swiper-wrapper">
-				<div class="swiper-slide" style="background: url(images/wqf_banner1.png) no-repeat center /cover;">
+			
+			  <div class="swiper-slide" th:each="carouse:${carouseList}" th:style="'background: url('+${carouse.image}+') no-repeat center /cover' ">
 					<div class="message">
 						<div class="time">
-							<span class="d">22</span> <br>
-							<span class="m">/04</span>
+							<span class="d" th:text="${#calendars.format(carouse.showTime,'dd')}">22</span> <br>
+							<span class="m" th:text="'/'+${#calendars.format(carouse.showTime,'MM')}">/04</span>
 						</div>
 						<p class="title">
 							每日更新 <br>
-							<span>9.9精品课程</span>
+							<span th:text="${carouse.tag}">9.9精品课程</span>
 						</p>
-						<h1 class="hidden_one">UI设计前景如何</h1>
-						<a href="javascript:;">立即参与<span class="fy_icon">&#xe604;</span><span class="fy_icon">&#xe604;</span></a>
-						<p class="mess hidd_more">在驾驶者启动汽车后能够向他们提供到达工作地点的预期时间，并随后提供当日天气信息以及前一晚的体育赛事比分。</p>
-					</div>
-				</div>
-				<div class="swiper-slide" style="background: url(images/wqf_banner1.png) no-repeat center /cover;">
-					<div class="message">
-						<div class="time">
-							<span class="d">22</span>
-							<br>
-							<span class="m">/04</span>
-						</div>
-						<p class="title">
-							每日更新
-							<br>
-							<span>9.9精品课程</span>
-						</p>
-						<h1 class="hidden_one">UI设计前景如何</h1>
-						<a href="javascript:;">立即参与
-							<span class="fy_icon">&#xe604;</span>
-							<span class="fy_icon">&#xe604;</span>
-						</a>
-						<p class="mess hidd_more">在驾驶者启动汽车后能够向他们提供到达工作地点的预期时间，并随后提供当日天气信息以及前一晚的体育赛事比分。</p>
-					</div>
-				</div>
-				<div class="swiper-slide" style="background: url(images/wqf_banner1.png) no-repeat center /cover;">
-					<div class="message">
-						<div class="time">
-							<span class="d">22</span>
-							<br>
-							<span class="m">/04</span>
-						</div>
-						<p class="title">
-							每日更新
-							<br>
-							<span>9.9精品课程</span>
-						</p>
-						<h1 class="hidden_one">UI设计前景如何</h1>
-						<a href="javascript:;">立即参与
-							<span class="fy_icon">&#xe604;</span>
-							<span class="fy_icon">&#xe604;</span>
-						</a>
-						<p class="mess hidd_more">在驾驶者启动汽车后能够向他们提供到达工作地点的预期时间，并随后提供当日天气信息以及前一晚的体育赛事比分。</p>
+						<h1 class="hidden_one" th:text="${carouse.title}">UI设计前景如何</h1>
+						<a href="javascript:;" th:href="${carouse.chainedAddress}">立即参与<span class="fy_icon">&#xe604;</span><span class="fy_icon">&#xe604;</span></a>
+						<p class="mess hidd_more" th:text="${carouse.description}">在驾驶者启动汽车后能够向他们提供到达工作地点的预期时间，并随后提供当日天气信息以及前一晚的体育赛事比分。</p>
 					</div>
 				</div>
 			</div>
@@ -356,16 +261,128 @@
 <!-- 导航下方选项 结束-->
 
 <!-- 优质课程 开始 -->
-
-    <div class="wqf_course" th:each="courseThemeShow:${courseThemeShowList}">
-		<h1 th:text="${courseThemeShow.theme}">优质课程 免费来袭</h1>
-		<p th:text="${courseThemeShow.description}">独家研发，随时更新，流行技法一网打尽！</p>
-		<a href="javascript:;" class="more">发现更多 <span class="fy_icon">&#xe604;</span> <span class="fy_icon">&#xe604;</span></a>
+	<div class="wqf_course">
+		<h1 th:text="${themeCourse1.theme.title}">优质课程 免费来袭111</h1>
+		<p th:text="${themeCourse1.theme.describe}">独家研发，随时更新，流行技法一网打尽！</p>
+		<a href="findCourse" class="more">发现更多 <span class="fy_icon">&#xe604;</span> <span class="fy_icon">&#xe604;</span></a>
 		<!-- 课程列表 -->
 		<ul class="class_list clear_both">
-            <li th:each="course:${courseThemeShow.courseShow}">
-				<a th:href="'course_chapter?courseId='+${course.courseId}">
-					<div class="picture" style="background: url(images/wqf_list1.png) no-repeat center /cover;">
+			<li th:each="course:${themeCourse1.courses}">
+				<a href="javascript:;"  th:href="'course_chapter?courseId='+${course.courseId}">
+					<div class="picture" style="background: url(images/wqf_list1.png) no-repeat center /cover;"  th:style="'background: #fff url('+${course.image}+') no-repeat center /cover' ">
+						<header>
+							<span class="hot"></span>
+							<span class="title" th:text="${course.classify}">用户体验</span>
+						</header>
+						<div class="time">
+							<span class="fy_icon">&#xe626;</span>
+							20:30
+						</div>
+					</div>
+					<!-- 图片下方的两个灰色底 -->
+					<div class="bg1"></div>
+					<div class="bg2"></div>
+
+					<h3 class="title hidd_more2 fire" th:text="${course.courseName}">理论+实践，构建属于你的机器学习库单 <span class="fy_icon">&#xe606;</span></h3>
+					<p>
+						<span th:text="${course.course_price} == 0 ? '免费' : '￥'+${course.course_price}" class="price">￥199</span>
+						<span th:text="${course.student_count} + '人正在学习'">555人正在学习</span>
+                    </p>
+				</a>
+			</li>
+		</ul>
+	</div>
+<!-- 优质课程 结束 -->
+
+<!-- 推陈出新 开始 -->
+	<div class="wqf_course wqf_new ">
+		<h1 th:text="${themeCourse2.theme.title}">推陈出新 震撼上市</h1>
+		<p th:text="${themeCourse2.theme.describe}">独家研发，随时更新，流行技法一网打尽！</p>
+		<a href="findCourse" class="more">发现更多 <span class="fy_icon">&#xe604;</span> <span class="fy_icon">&#xe604;</span></a>
+		
+		<div class="class_list clear_both">
+			<div class="top clear_both">
+				<a href="javascript:;" style="background: url(images/wqf_tu1.png) no-repeat center /cover;">
+				</a>
+				<a href="javascript:;" style="background: url(images/wqf_tu1.png) no-repeat center /cover;">
+				</a>
+			</div>
+			<li  th:each="course:${themeCourse2.courses}">
+				<a href="javascript:;"   th:href="'course_chapter?courseId='+${course.courseId}">
+					<div class="picture" style="background: url(images/wqf_list1.png) no-repeat center /cover;"   th:style="'background: #fff url('+${course.image}+') no-repeat center /cover' ">
+						<!-- <img src="images/wqf_list1.png"> -->
+						<header>
+							<span class="hot"></span>
+							<span class="title" th:text="${course.classify}">用户体验</span>
+						</header>
+						<div class="time">
+							<span class="fy_icon">&#xe626;</span>
+							20:30
+						</div>
+					</div>
+
+					<h3 class="title hidd_more2 fire" th:text="${course.courseName}">理论+实践，构建属于你的机器学习库单 <span class="fy_icon">&#xe606;</span></h3>
+					<p>
+						<span th:text="${course.course_price} == 0 ? '免费' : '￥'+${course.course_price}" class="price">￥199</span>
+						<span th:text="${course.student_count} + '人正在学习'">555人正在学习</span>
+                    </p>
+				</a>
+			</li>
+		</div>
+
+	</div>
+<!-- 推陈出新 结束-->
+
+
+<!-- 分屏banner 开始 -->
+	<a href="javascript:;" class="wqf_banner2">
+		<img src="images/wqf_fenbanner.png">
+	</a>
+<!-- 分屏banner 结束 -->
+
+
+<!-- 百万课程 开始 -->
+	<div class="wqf_course wqf_new wqf_classes">
+		<h1 th:text="${themeCourse3.theme.title}">百万级人气教程免费学，1键get 1000+优质资源</h1>
+		<p th:text="${themeCourse3.theme.describe}">独家研发，随时更新，流行技法一网打尽！</p>
+		<div class="line"></div>		
+		<div class="class_list clear_both">
+			<li th:each="course:${themeCourse3.courses}">
+				<a href="javascript:;"  th:href="'course_chapter?courseId='+${course.courseId}">
+					<div class="picture" style="background: url(images/wqf_list1.png) no-repeat center /cover;"  th:style="'background: #fff url('+${course.image}+') no-repeat center /cover' ">
+						<!-- <img src="images/wqf_list1.png"> -->
+						<header>
+							<span class="hot"></span>
+							<span class="title" th:text="${course.classify}">用户体验</span>
+						</header>
+						<div class="time">
+							<span class="fy_icon">&#xe626;</span>
+							20:30
+						</div>
+					</div>
+
+					<h3 class="title hidd_more2 fire" th:text="${course.courseName}">理论+实践，构建属于你的机器学习库单 <span class="fy_icon">&#xe606;</span></h3>
+					<p>
+						<span th:text="${course.course_price} == 0 ? '免费' : '￥'+${course.course_price}" class="price">￥199</span>
+						<span th:text="${course.student_count} + '人正在学习'">555人正在学习</span>
+                    </p>
+				</a>
+			</li>			
+		</div>
+
+	</div>
+<!-- 百万课程 结束-->
+
+<!-- 直播课 开始 -->
+	<div class="wqf_course  wqf_zhibo">
+		<h1 th:text="${themeCourse4.theme.title}">百万级人气教程免费学，1键get 1000+优质资源</h1>
+		<p th:text="${themeCourse4.theme.describe}">独家研发，随时更新，流行技法一网打尽！</p>
+		<div class="line"></div>
+		
+		<div class="class_list clear_both">
+			<li th:each="course:${themeCourse4.courses}">
+				<a href="javascript:;"  th:href="'course_chapter?courseId='+${course.courseId}">
+					<div class="picture" style="background: url(images/wqf_list1.png) no-repeat center /cover;"  th:style="'background: #fff url('+${course.image}+') no-repeat center /cover' ">
 						<!-- <img src="images/wqf_list1.png"> -->
 						<header>
 							<span class="hot"></span>
@@ -379,19 +396,20 @@
 					<!-- 图片下方的两个灰色底 -->
 					<div class="bg1"></div>
 					<div class="bg2"></div>
+
 					<h3 class="title hidd_more2 fire" th:text="${course.courseName}">理论+实践，构建属于你的机器学习库单 <span class="fy_icon">&#xe606;</span></h3>
 					<p>
 						<span th:text="${course.course_price} == 0 ? '免费' : '￥'+${course.course_price}" class="price">￥199</span>
 						<span th:text="${course.student_count} + '人正在学习'">555人正在学习</span>
-					</p>
+                    </p>
 				</a>
-			</li>                                    
-        </ul>
+			</li>			
+		</div>
 	</div>
-	
-	
+<!-- 直播课 结束-->
 
-
+    
+	
 <!-- 优秀学员 开始 -->
 	<div class="wqf_course  wqf_classes wqf_students">
 		<h1>优秀就业学员 成长故事在这里展开</h1>
@@ -399,7 +417,7 @@
 		<div class="line"></div>
 		<div class="wqf_box clear_both">
 			<!-- 学员文章 -->
-			<ul class="student_list clear_both">
+			<!-- <ul class="student_list clear_both">
 				<li class="message">
 					<p class="type">学员故事</p>
 					<div class="term clear_both">
@@ -411,25 +429,26 @@
 						在业务迭代周期内，产品经理和设计师对要做的产品需求和功能点进行需求分析和设计讨论的过程中，有时会出现一些拿捏不定的设计细节处理。
 					</p>
 				</li>
-			</ul>
+			</ul> -->
 			<!-- 学员风采 -->
 						
-			<ul  class="student_list clear_both">
+			<ul  class="student_list clear_both" th:each="student:${studentList}">
 				<li class="student">
-					<div class="top"   style="background:#fff url(images/wqf_student1.png) no-repeat right /contain;">
+					<div class="top"   th:style="'background:#fff url('+${student.image}+') no-repeat right /contain;'">
 						<p class="type">优秀学员风采</p>
-						<h3>贾童鞋</h3>
-						<p class="place">西安xx科技有限公司</p>
+						<h3 th:text="${student.name}">贾童鞋</h3>
+						<p class="place" th:text="${student.company}">西安xx科技有限公司</p>
+						<p class="job" th:text="${student.position}">任职产品经理</p>
 					</div>
 					<!-- 感言 -->
 					<div class="talk">
 						<h4><i class="fy_icon">&#xe60a;</i>学员感言</h4>
-						<a href="javascript:;" class="title hidd_one" >图标的可用性测试，测的是什么？</a>
-						<p class="hidd_more">在业务迭代周期内，产品经理和设计师对要做的产品需求和功能点进行需求分析和设计讨论的过程中，有时会出现一些拿捏不定的设计细节。</p>
+						<a href="javascript:;" class="title hidd_one" th:text="${student.title}">图标的可用性测试，测的是什么？</a>
+						<p class="hidd_more" th:text="${student.description}">在业务迭代周期内，产品经理和设计师对要做的产品需求和功能点进行需求分析和设计讨论的过程中，有时会出现一些拿捏不定的设计细节。</p>
 					</div>
 				</li>
 			</ul>
-			<ul  class="student_list clear_both">
+			<!-- <ul  class="student_list clear_both">
 				<li class="student">
 					<div class="top"   style="background:#fff url(images/wqf_student2.png) no-repeat right /contain;">
 						<p class="type">优秀学员风采</p>
@@ -437,14 +456,14 @@
 						<p class="place">西安xx科技有限公司</p>
 						<p class="job">任职产品经理</p>
 					</div>
-					<!-- 感言 -->
+					感言
 					<div class="talk">
 						<h4><i class="fy_icon">&#xe60a;</i>学员感言</h4>
 						<a href="javascript:;" class="title hidd_one">图标的可用性测试，测的是什么？</a>
 						<p class="hidd_more">在业务迭代周期内，产品经理和设计师对要做的产品需求和功能点进行需求分析和设计讨论的过程中，有时会出现一些拿捏不定的设计细节。</p>
 					</div>
 				</li>
-			</ul>
+			</ul> -->
 		</div>
 		
 	</div>
@@ -459,35 +478,15 @@
 
 		<!-- 教师列表 -->
 		<ul class="clear_both">
-			<li style="background: #fff url(images/wqf_teacher1.png) no-repeat right ">
+			<li  th:each="teacher:${teacherList}" style="background: #fff url(images/wqf_teacher1.png) no-repeat right " th:style="'background: #fff url('+${teacher.teacher_image}+') no-repeat top right/cover' ">
 				<a href="javascript:;">
-					<p class="type">WEB讲师<span>· 星级 ·</span></p>
-					<h2>候宁洲</h2>
-					<p class="hidd_more">阿里巴巴 <br> 资深人工智能开发工程师</p>
+					<p class="type" th:text="${teacher.type}">WEB讲师<span>· 星级 ·</span></p>
+					<h2 th:text="${teacher.teacher_name}">候宁洲</h2>
+					<p class="hidd_more" th:text="${teacher.company}">阿里巴巴 <br> 资深人工智能开发工程师</p>
+					<br th:text="${teacher.label}"> 资深人工智能开发工程师
 				</a>
 			</li>
-			<li style="background: #fff url(images/wqf_teacher1.png) no-repeat right ">
-				<a href="javascript:;">
-					<p class="type">WEB讲师<span>· 星级 ·</span></p>
-					<h2>候宁洲</h2>
-					<p class="hidd_more">阿里巴巴 <br> 资深人工智能开发工程师</p>
-				</a>
-			</li>
-			<li style="background: #fff url(images/wqf_teacher1.png) no-repeat right ">
-				<a href="javascript:;">
-					<p class="type">WEB讲师<span>· 星级 ·</span></p>
-					<h2>候宁洲</h2>
-					<p class="hidd_more">阿里巴巴 <br> 资深人工智能开发工程师</p>
-				</a>
-			</li>
-			<li style="background: #fff url(images/wqf_teacher1.png) no-repeat right ">
-				<a href="javascript:;">
-					<p class="type">WEB讲师<span>· 星级 ·</span></p>
-					<h2>候宁洲</h2>
-					<p class="hidd_more">阿里巴巴 <br> 资深人工智能开发工程师</p>
-				</a>
-			</li>
-		</ul>
+		</ul>		
 	</div>
 <!-- 教师团队 结束-->
 

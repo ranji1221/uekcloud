@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.ranji.lemon.volador.model.course.Carouse"> 
+	<!-- 插入轮播图 -->
+	<insert id="save" parameterType="VoladorCarouse" keyProperty="id" useGeneratedKeys="true">
+		insert into lemon_volador_course_carouse (guid,createTime,updateTime,title,description,chainedAddress,image,showTime,tag)
+		values (#{guid},#{createTime},#{updateTime},#{title},#{description},#{chainedAddress},#{image},#{showTime},#{tag})
+	</insert>
+	
+	<!-- 删除某条轮播图 -->
+	<delete id="delete" parameterType="int" >
+		delete from lemon_volador_course_carouse where id = #{id}
+	</delete>
+
+	<!-- 根据id查询轮播图 -->
+	<select id="find" parameterType="int" resultType="VoladorCarouse">
+		select * from lemon_volador_course_carouse where id = #{id}
+	</select>
+	
+	<!-- 查询全部轮播图 -->
+	<select id="findAll" resultType="VoladorCarouse" parameterType="Map">
+		select * from lemon_volador_course_carouse
+	</select>
+
+	<!-- 修改轮播图信息 -->
+	<update id="update" parameterType="VoladorCarouse">
+		update lemon_volador_course_carouse
+		<set>
+		    <if test="title != null and title != ''">title = #{title},</if>
+			<if test="description != null and description != ''">description = #{description},</if>
+			<if test="chainedAddress != null and chainedAddress != ''">chainedAddress = #{chainedAddress},</if>
+			<if test="image != null and image != ''">image = #{image},</if>
+			<if test="tag != null and tag != ''">tag = #{tag},</if>
+			<if test="showTime != null ">showTime = #{showTime},</if>
+			<if test="updateTime != null ">updateTime = #{updateTime},</if>
+		</set>
+		where id = #{id}
+	</update>
+</mapper>
