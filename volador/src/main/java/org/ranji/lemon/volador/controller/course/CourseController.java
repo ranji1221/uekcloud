@@ -203,10 +203,18 @@ public class CourseController {
 			mv.addObject(course);
 			
 			//查找课程对应教师
-			Teacher teacher=courseService.findTeacherbyCourse(courseId).get(0);
+			try {
+				Teacher teacher=courseService.findTeacherbyCourse(courseId).get(0);
+				//返回教师信息
+				mv.addObject(teacher);
+			} catch (Exception e) {
+				// TODO: handle exception
+				Teacher teacher=new Teacher();
+				mv.addObject(teacher);
+			}
 			
-			//返回教师信息
-			mv.addObject(teacher);
+			
+			
 			
 			//根据课程id查询章节标题集合
 			List<ChapterTitle> chapterTitleList=courseService.findChapterTitleByCourse(courseId);
@@ -577,6 +585,7 @@ public class CourseController {
 		
 		//拼接为Json返回
 		Map<String,Object> map=new HashMap<String,Object>();
+		System.out.println(commentList.toString());
 		map.put("UserHeadImage", headImage);
 		map.put("commentList", commentList);
 		

@@ -147,7 +147,7 @@
                 <!-- 
                     只需更换行内 图片地址即可更换 用户头像
                  -->
-                <div class="head_img" style="background: url(images/wqf_user.png) no-repeat center /cover;" th:style="'background: url('+${teacher.teacher_image}+') no-repeat center /cover;'">
+                <div class="head_img" style="background: url(images/wqf_user.png) no-repeat center /cover;" th:style="'background: url('+${teacher.teacher_image == null? 'images/wqf_user.png':'${teacher.teacher_image}'}+') no-repeat center /cover;'">
                 </div>
                 <h2 th:text="${teacher.teacher_name}">王起帆</h2>
                 <p class="type" th:text="${teacher.teacher_position}">全栈工程师</p>
@@ -177,19 +177,23 @@
 	var collect = $("#collect")
 	var uncollect = $("#uncollect")
 	collect.click(function(){
-		$.ajax({
-			url: 'course_collect',
-			method:"post",
-			data:{
-				userId : userId,
-				courseId : courseId
-			},
-			success: function(){
-				alert("提交成功")
-				collect.css({display:'none'})
-				uncollect.css({display:'block'})
-			}
-		})
+		if(userId!=null){
+			$.ajax({
+				url: 'course_collect',
+				method:"post",
+				data:{
+					userId : userId,
+					courseId : courseId
+				},
+				success: function(){
+					collect.css({display:'none'})
+					uncollect.css({display:'block'})
+				}
+			})
+		}else{
+			getTips("未登录","点击此处登录","login")
+		}
+		
 	})
 	//  取消收藏
 	
@@ -202,7 +206,6 @@
 				courseId : courseId
 			},
 			success: function(){
-				alert("提交成功")
 				uncollect.css({display:'none'})
 				collect.css({display:'block'})
 			}
@@ -231,7 +234,8 @@
                         ${chapter[j].chapter_name}
 
                         <span class="time">${chapter[j].totalTime}</span>
-                        <span class="tishi">免费试听5分钟 <i>→</i></span>
+                        
+                        
                     </a>
                     <p class="hidd_more">${chapter[j].chapter_info}</p>
                 </li>`
@@ -245,5 +249,82 @@
         document.querySelector(".wqf_chapter_list").innerHTML = str
     }
     // console.log(str,document.querySelector(".wqf_chapter_list"))
+    //<span class="tishi">免费试听5分钟 <i>→</i></span>
+    
+    
+        // 控制信息提示
+    function getTips(msg,con='',url=''){
+        con = con||"";
+        url = url||"";
+        console.log(con,url)
+        if(!con){
+            $('<div class="cp_tips">').css({
+                "width":'300px',
+                "height":'50px',
+                "background":'rgba(0,0,0,0.9)',
+                "border-radius":'5px',
+                "position":'fixed',
+                "left":'0px',
+                "right":'0px',
+                "top":"0px",
+                "bottom":'0px',
+                "margin":"auto",
+                "color":'white',
+                "border":'1px solid #FD6756',
+                "line-height":'50px',
+                "padding-left":'50px',
+                "opacity":'1',
+                "transition":'1s'
+            }).html(msg).appendTo('body');   
+        }else{
+            $('<div class="cp_tips">').css({
+                "width":'300px',
+                "height":'50px',
+                "background":'rgba(0,0,0,0.6)',
+                "border-radius":'5px',
+                "position":'fixed',
+                "left":'0px',
+                "right":'0px',
+                "top":"0px",
+                "bottom":'0px',
+                "margin":"auto",
+                "color":'white',
+                "border":'1px solid #FD6756',
+                "line-height":'50px',
+                "padding-left":'50px',
+                "opacity":'1',
+                "transition":'1s'
+            }).html(msg+'<a href='+url+'>'+con+'</a>').appendTo('body');
+            $('.cp_tips a').css({'color':'#FD6756','textDecoration':'underline'});
+        }
+        $("<span>").css({
+            "position":'absolute',
+            "left":'20px',
+            "top":'0px',
+            "bottom":"0px",
+            "width":"20px",
+            "height":"20px",
+            "margin":"auto",
+            "lineHeight":'20px',
+            "cursor":'pointer',
+            "transition":'0.3s'
+        })
+        .hover(function(){
+            $(this).css({'color':'#FD6756'});
+        },function(){
+            $(this).css({'color':'white'});
+        })  
+        .html('x')
+        .appendTo($('.cp_tips'));
+        $('.cp_tips span').click(function(){
+            $('.cp_tips').remove();
+        })
+        // setTimeout(function(){
+        //     $('.cp_tips').css('opacity',0);
+        //     $('.cp_tips').on('webkitTransitionEnd',function(){
+        //         $('.cp_tips').remove();
+        //     })
+        // },2000)
+    }
 </script>
 </html>

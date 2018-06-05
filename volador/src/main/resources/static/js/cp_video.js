@@ -387,7 +387,7 @@ $(function(){
                                     let tim = new Date();
                                     let sum = tim.getTime();
                                     if(val.info=='未登录'){
-                                        getTips("未登录","点击此处登录","登陆页面的路径");
+                                        getTips("未登录","点击此处登录","login");
                                     }else if(val.info=='success'){
                                         getTips("评论成功");
                                         if(data.commentList.length<5){
