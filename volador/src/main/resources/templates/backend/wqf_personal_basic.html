@@ -10,10 +10,12 @@
 	<link rel="shortcut icon" href="favicon.ico" />
 	<link rel="stylesheet" href="css/reset.css">
 	<link rel="stylesheet" href="css/wqf_basic.css">
+	<link rel="stylesheet" href="css/public_header.css">
 	<link rel="stylesheet" href="css/wqf_personal.css">
 	<link rel="stylesheet" href="http://at.alicdn.com/t/font_614432_ti3cur983vunmi.css">
 	<link rel="stylesheet" href="css/select-city.css">
 	<script src="js/jquery.min.js"></script>
+	<script src="js/headerfooter.js"></script>
 </head>
 <body>
 	<div th:include="backend/wy_header" ></div>
@@ -49,7 +51,7 @@
 									<input type="file" id="photo"  name="photo">
 									
 									<span class="title">头像</span>
-									<img th:src="${userInfo.head_image}" src= "images/wqf_user.png" style="width:90px; height:90px;">
+									<img th:src="${userInfo.head_image}" id="img" src= "images/wqf_user.png" style="width:90px; height:90px;">
 									<!-- <div th:style="'display:inline-block;width:90px; height:90px;background:url('+${userInfo.head_image}+') no-repeat center /cover'"></div> -->
 									<label for="photo"><i class="fy_icon">&#xe663;</i>换一个</label>
 									<p>
@@ -76,25 +78,25 @@
 									<input type="text" name="nickname" th:value="${userInfo.nickname}">
 								</li>
 								<li class="sex">
-									<span class="title">性别</span>
-									<input type="radio" name="sex" id="man" value="man" checked="checked">
+									<span class="title" th:text="${userInfo.gender}">性别</span>
+									<input type="radio" name="sex" id="man" value="man" th:checked="${userInfo.gender== '男'}">
 									<label for="man">男</label>
 
-									<input type="radio" name="sex" id="woman" value="woman">
+									<input type="radio" name="sex" id="woman" value="woman" th:checked="${userInfo.gender== '女'}">
 									<label for="woman">女</label>
 								</li>
 								<li class="date">
-									<input type="date" name="year" value="">
+									<!-- <input type="date" name="year" value=""> -->
 									<span class="title">出生日期</span>
 
 									<select name="year" id="year">
-										<option>选择年份</option>
+										<option value="1990">选择年份</option>
 									</select>
 									<select name="month" id="month">
-										<option value="month">选择月份</option>
+										<option value="1">选择月份</option>
 									</select>
-									<select id="days" class="day">
-										<option value="days">选择日期</option>
+									<select id="day" name="day">
+										<option value="1">选择日期</option>
 									</select>
 								</li>
 								<li class="name">
@@ -115,62 +117,83 @@
 							 <div class="submit" >
 								<button>保存信息</button>
 							</div>
-						</form>
-
-						
+						</form>						
 					</div>
 			</div>
-		</div>
-
-		
+		</div>		
 	</div>
 <div th:include="backend/wy_footer"></div> 
 </body>
 <script type="text/javascript" src="js/select-city.js"></script>
 	<script type="text/javascript" src="js/select-time.js"></script>
+	
+	
+<script type="text/javascript" th:inline="javascript">
+
+		var sheng = [[${provincial}]]
+		var shi = [[${municipal}]]
+		var xian = [[${county}]]
+		var y = [[${year}]]
+		var m = [[${month}]]
+		var d = [[${day}]]
+</script>
+	
 	<script type="text/javascript">
 		// 城市下拉框
-		zcityrun('.zcityGroup');
+		zcityrun('.zcityGroup',sheng,shi,xian);
 
 		// 日期下拉框
 		$(function(){
-			$(".wqf_basic_main>form .date").selectDate()
+			$(".wqf_basic_main>form .date").selectDate(y,m,d)
 			
 			$(".wqf_basic_main>form .date").focusout(function(){
 				var year = $("#year option:selected").html()
 				var month = $("#month option:selected").html()
 				var day = $("#days option:selected").html()
-				console.log(year+month+day)
+				// console.log(year+month+day)
 			})
 			
 		})
+
+		$("#photo").change(function(){
+		    $("#img").attr("src",URL.createObjectURL($(this)[0].files[0]));
+		});
+
 		var t = document.querySelector(".submit")
 		var f = document.querySelector("form")
-		t.onclick = function(){
-			  $("#submit").click(function () {
-		            var a = new FormData();
-		            a.append("photo", $("#photo")[0].files[0]);
-		            a.append("id", 1);
-		            $.ajax({
-		                url:"personal_basic",
-		                xhrFields:{
-		                        withCredentials:true
-		                },
-		                type: "POST",
-		                cache: false,
-		                data: a,
-		                processData: false,
-		                contentType:false,
-		                async: false,
-		                success: function (result) {
-							console.log(result)
-		                }
-		                //cache 上传文件不需要缓存，所以设置false
-		                //processData 因为data值是FormData对象，不需要对数据处理
-		                //contentType 因为是由form表单构造的FormData对象，且已声明了属性enctype，所以为false
-		            })
-		        })
-		}
+		t.onclick = function(e){
+			e.preventDefault()
+	        // 通过 provincial  municipal   county 获取 省市县
+	        // 通过 year  month  day  获取年月日
+
+	            var a = new FormData(f);
+                var objs = $("input[class='currentValue']");
+        		a.append("provincial",objs.eq(0).val())
+        		a.append("municipal",objs.eq(1).val())
+        		a.append("county",objs.eq(2).val())
+	            $.ajax({
+	                url:"personal_basic",
+	                xhrFields:{
+	                    withCredentials:true
+	                },
+	                type: "POST",
+	                cache: false,
+	                data: a,
+	                processData: false,
+	                contentType:false,
+	                async: false,
+	                success: function (result) {
+						if(result.result==0){
+							alert("保存成功")
+							history.go(0)
+						}
+	                }
+	                //cache 上传文件不需要缓存，所以设置false
+	                //processData 因为data值是FormData对象，不需要对数据处理
+	                //contentType 因为是由form表单构造的FormData对象，且已声明了属性enctype，所以为false
+	            })
+		    // f.submit()
+}
 		
 	</script>
 </html>

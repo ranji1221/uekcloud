@@ -1,15 +1,20 @@
 package org.ranji.lemon.volador.controller.personal;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.ranji.lemon.core.util.JsonUtil;
 import org.ranji.lemon.volador.model.course.Carouse;
 import org.ranji.lemon.volador.model.course.Classify;
 import org.ranji.lemon.volador.model.course.Course;
@@ -236,13 +241,28 @@ public class PersonalController {
 			//获取用户信息
 			UserInfo userInfo = userInfoService.find(personalService.findUserUserInfoRelationByUserId(person.getId()).get(0));
 			
+			//获取省市县，年月日的值
+			String birthday = userInfo.getBirthday();
+			if(null != birthday && !birthday.isEmpty()){
+				String[] birthdayArray = birthday.split("-");
+				mv.addObject("year", birthdayArray[0]);
+				mv.addObject("month", birthdayArray[1]);
+				mv.addObject("day", birthdayArray[2]);
+			}
+			String address = userInfo.getAddress();
+			if(null != address && !address.isEmpty()){
+				String[] addressArray = address.split("-");
+				mv.addObject("provincial", addressArray[0]);
+				mv.addObject("municipal", addressArray[1]);
+				mv.addObject("county", addressArray[2]);
+			}
+			
 			//返回页面需要显示的用户信息
 			mv.addObject("userName", userName);
 			mv.addObject(userInfo);
 		}
 		catch (Exception e) {
 			mv.addObject("userName", "游客");
-			mv.addObject(new UserInfo());
 			mv.setViewName("redirect:/login");
 			return mv;
 		}		
@@ -250,53 +270,98 @@ public class PersonalController {
 		mv.setViewName("/backend/wqf_personal_basic");
 		return mv;
 	}
-	@RequestMapping(value="/personal_basic", method=RequestMethod.POST)
-	public ModelAndView personalBasic(
-			@RequestParam(value="photo",required=false) MultipartFile file,
-			@RequestParam(value="username",required=false) String username,
-			@RequestParam(value="realname",required=false) String realname,
-			@RequestParam(value="nickname",required=false) String nickname,
-			@RequestParam(value="sex",required=false) String sex,
-			@RequestParam(value="qq",required=false) String qq,
-			@RequestParam(value="wechat",required=false) String wechat,
-			@RequestParam(value="year",required=false) String year,
-			@RequestParam(value="place",required=false) String place,
-			HttpServletRequest request){
-				
-		ModelAndView mv = new ModelAndView();
-		if (null != username && !username.isEmpty()){
-			Per user = personalService.findByUserName(username);
-			if(null != user){
-
-				UserInfo userinfo = personalService.findUserInfoByUserId(user.getId());
-				
-				//如果用户上传文件
-				if(!file.getName().equals("")){
-					String head_image = saveFile(username, file);
-					userinfo.setHead_image(head_image);
-				}
-				
-				userinfo.setGender(sex.equals("man")?"男":"女");
-				userinfo.setNickname(nickname);
-				userinfo.setQq(qq);
-				userinfo.setReal_name(realname);
-				userinfo.setWechat(wechat);
-				
-				//更新用户信息
-				userInfoService.update(userinfo);
-				
-				mv.addObject(userinfo);			
-			}
-			mv.setViewName("/backend/wqf_personal_basic");
-		}
-		else{
-			mv.setViewName("redirect:/login");
-		}
 	
+	/**
+	 * 用户基本信息设置
+	 * @param file
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 */
+	@RequestMapping(value="/personal_basic", method=RequestMethod.POST)
+	public void personalBasic(
+			@RequestParam(value="photo",required=false) MultipartFile file,
+			HttpServletRequest request,
+			HttpServletResponse response) throws IOException{
+		//设置返回格式
+		response.setHeader("Content-Type", "application/json;charset=utf-8");
+		PrintWriter writer = response.getWriter();
 		
-		return mv;
-	}
+		
+		
+		Map<String,Object> map=new HashMap<String,Object>();
+		//保存用户与收藏课程关系
+		try {
+			//接受请求参数
+			String username = request.getParameter("username");
+			String realname = request.getParameter("realname");
+			String nickname = request.getParameter("nickname");
+			String sex = request.getParameter("sex");
+			String qq = request.getParameter("qq");
+			String wechat = request.getParameter("wechat");
+			String year = request.getParameter("year");
+			String month = request.getParameter("month");
+			String day = request.getParameter("day");
+			String provincial = request.getParameter("provincial");
+			String municipal = request.getParameter("municipal");
+			String county = request.getParameter("county");
 
+			
+			if (null != username && !username.isEmpty()){
+				Per user = personalService.findByUserName(username);
+				if(null != user){
+
+					UserInfo userinfo = personalService.findUserInfoByUserId(user.getId());
+					
+					//如果用户上传文件
+					if(!file.isEmpty()){
+						String head_image = saveFile(username, file);
+
+						userinfo.setHead_image(head_image);
+					}
+					
+					userinfo.setGender(sex.equals("man")?"男":"女");
+					userinfo.setNickname(nickname);
+					userinfo.setQq(qq);
+					userinfo.setReal_name(realname);
+					userinfo.setWechat(wechat);
+					
+					//保存用户生日
+					Calendar cal = Calendar.getInstance();//使用默认时区和语言环境获得一个日历。
+					//如果用户未输入，设置默认日期
+					int year_int = year.isEmpty()?1990:Integer.parseInt(year);
+					int month_int = month.isEmpty()?1:Integer.parseInt(month) - 1;
+					int day_int = day.isEmpty()?1:Integer.parseInt(day);
+					cal.set(year_int,month_int,day_int);
+					
+					//通过格式化输出日期    
+					SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+					userinfo.setBirthday(format.format(cal.getTime()));
+					
+					//保存用户地址信息
+//					Map<String, String> addressMap = new HashMap();
+//					addressMap.put("provincial", provincial);
+//					addressMap.put("municipal",municipal);
+//					addressMap.put("county",county);
+//					userinfo.setAddress(addressMap.toString());
+					userinfo.setAddress(provincial+"-"+municipal+"-"+county);
+					
+					//更新用户信息
+					userInfoService.update(userinfo);	
+					map.put("result", 0);			
+				}
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			map.put("result", 1);
+		}	
+		
+		writer.print(JsonUtil.toJsonByProperties(map)); 
+        writer.flush();  
+        writer.close();
+
+	}
+	
 	//文件保存到后台
 	private String saveFile(String username,
             MultipartFile file) {
@@ -307,19 +372,12 @@ public class PersonalController {
             try {
             	//获取文件后缀名
             	String fileName = file.getName();
-        		//String suffix = fileName.substring(fileName.lastIndexOf(".") + 1);
+                //设置头像默认后缀
             	String suffix = ".png";
-        		/*
-        		//如果用户未登录或session过期则给默认头像
-                if(null == username || ("").equals(username)){
-                	username = "wqf_user";
-                	suffix = ".png";
-                }
-                */
-        		
-            	filePath = "photos\\" + username+ suffix;
-               
+        		//设置图像保存地址
+            	filePath = "photos\\" + username+ suffix;               
                 File saveDir = new File("E:\\JAVA_WORKSPACE\\UNIQUE\\uekcloud\\volador\\src\\main\\resources\\static\\" + filePath);
+                
                 if (!saveDir.getParentFile().exists())
                     saveDir.getParentFile().mkdirs();
 
@@ -366,25 +424,33 @@ public class PersonalController {
 	}
 
 	//清空消息
-		@RequestMapping(value="/clearNotification", method=RequestMethod.POST)
-		public ModelAndView clearNotification(HttpServletRequest request){
-			ModelAndView mv = new ModelAndView();
-            int userId = Integer.parseInt(request.getParameter("userId"));
-			//String userName = request.getSession().getAttribute("userName").toString();
-			//mv.addObject("userName", userName);
-            int notificationNumber = notificationService.getTotalOfItems();
-            Map map = new HashMap();
-            map.put("userId", userId);
-            map.put("ignoreNotificationNumber", notificationNumber);
-            Map existMap = notificationService.findIgnoreNotificationByUser(userId);
-            if(existMap!=null&&!existMap.isEmpty()){
-            	
-                notificationService.updateIgnoreNotNum(map);
-            }else{
-            	notificationService.saveUserAndIgnoreNotificationRelation(userId, notificationNumber);
-            }
-           
-            mv.setViewName("redirect:/index");
-			return mv;
-		}
+	@RequestMapping(value="/clearNotification", method=RequestMethod.POST)
+	public ModelAndView clearNotification(HttpServletRequest request){
+		ModelAndView mv = new ModelAndView();
+        int userId = Integer.parseInt(request.getParameter("userId"));
+		//String userName = request.getSession().getAttribute("userName").toString();
+		//mv.addObject("userName", userName);
+        int notificationNumber = notificationService.getTotalOfItems();
+        Map map = new HashMap();
+        map.put("userId", userId);
+        map.put("ignoreNotificationNumber", notificationNumber);
+        Map existMap = notificationService.findIgnoreNotificationByUser(userId);
+        if(existMap!=null&&!existMap.isEmpty()){
+        	
+            notificationService.updateIgnoreNotNum(map);
+        }else{
+        	notificationService.saveUserAndIgnoreNotificationRelation(userId, notificationNumber);
+        }
+       
+        mv.setViewName("redirect:/index");
+		return mv;
+	}
+	
+	//修改密码
+	@RequestMapping(value="/changePassword", method=RequestMethod.GET)
+	public ModelAndView changePassword(HttpServletRequest request){
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/backend/changePassword");
+		return mv;
+	}
 }
