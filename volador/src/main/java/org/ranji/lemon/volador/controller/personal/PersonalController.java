@@ -10,10 +10,15 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.ranji.lemon.core.util.JsonUtil;
 import org.ranji.lemon.volador.model.course.Carouse;
 import org.ranji.lemon.volador.model.course.Classify;
@@ -339,11 +344,6 @@ public class PersonalController {
 					userinfo.setBirthday(format.format(cal.getTime()));
 					
 					//保存用户地址信息
-//					Map<String, String> addressMap = new HashMap();
-//					addressMap.put("provincial", provincial);
-//					addressMap.put("municipal",municipal);
-//					addressMap.put("county",county);
-//					userinfo.setAddress(addressMap.toString());
 					userinfo.setAddress(provincial+"-"+municipal+"-"+county);
 					
 					//更新用户信息
@@ -451,6 +451,67 @@ public class PersonalController {
 	public ModelAndView changePassword(HttpServletRequest request){
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("/backend/changePassword");
+		return mv;
+	}
+	//修改密码
+	@RequestMapping(value="/changePassword", method=RequestMethod.POST)
+	public ModelAndView setPassword(
+			@RequestParam(value="password",required=false) String password,
+			@RequestParam(value="passwordOld",required=false) String passwordOld,
+			@RequestParam(value="passwordNew",required=false) String passwordNew,
+			HttpServletRequest request){
+		ModelAndView mv = new ModelAndView();
+		try{
+			if(request.getSession().getAttribute("userId")!=null){
+				int userId = (int) request.getSession().getAttribute("userId");
+				//获取用户原密码
+				
+				Per user = personalService.find(userId);
+				Subject subject = SecurityUtils.getSubject();						
+				UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(), password);
+				//如果用户能登录说明旧密码正确
+				subject.login(token);
+				
+				//新旧密码是否一致
+				if(passwordOld.equals(passwordNew)){
+					//检查密码是否合法
+					String regEx = "^[^\\s]{6,20}$";
+					Pattern pattern = Pattern.compile(regEx);
+					Matcher matcher = pattern.matcher(passwordNew);
+					boolean rs = matcher.matches();
+					if(!rs){
+						mv.addObject("messege", "新旧密码不一致");
+					}else{
+						user.setPassword(passwordNew);
+						personalService.save(user);
+					}
+				}
+			}
+			else{
+				mv.setViewName("redirect:/login");
+			}
+							
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		mv.setViewName("redirect:/personal_set");
+		return mv;
+	}
+	
+	//获取验证邮箱页面
+	@RequestMapping(value="/email", method=RequestMethod.GET)
+	public ModelAndView getEmail(){
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/backend/email");
+		return mv;
+	}
+	
+	//获取验证邮箱页面
+	@RequestMapping(value="/email", method=RequestMethod.POST)
+	public ModelAndView setEmail(){
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/backend/email");
 		return mv;
 	}
 }
