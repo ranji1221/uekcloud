@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.ranji.lemon.volador.model.personal.Student"> 
+	<!-- 插入学员 -->
+	<insert id="save" parameterType="VoladorStudent" keyProperty="id" useGeneratedKeys="true">
+		insert into lemon_volador_personal_student (guid,createTime,updateTime,title,description,name,image,company,position)
+		values (#{guid},#{createTime},#{updateTime},#{title},#{description},#{name},#{image},#{company},#{position})
+	</insert>
+	
+	<!-- 删除某条学员 -->
+	<delete id="delete" parameterType="int" >
+		delete from lemon_volador_personal_student where id = #{id}
+	</delete>
+
+	<!-- 根据id查询学员 -->
+	<select id="find" parameterType="int" resultType="VoladorStudent">
+		select * from lemon_volador_personal_student where id = #{id}
+	</select>
+	
+	<!-- 查询全部学员 -->
+	<select id="findAll" resultType="VoladorStudent" parameterType="Map">
+		select * from lemon_volador_personal_student
+	</select>
+
+	<!-- 修改学员信息 -->
+	<update id="update" parameterType="VoladorStudent">
+		update lemon_volador_personal_student
+		<set>
+		    <if test="name != null and name != ''">name = #{name},</if>
+		    <if test="company != null and company != ''">company = #{company},</if>
+		    <if test="position != null and position != ''">position = #{position},</if>
+		    <if test="title != null and title != ''">title = #{title},</if>
+			<if test="description != null and description != ''">description = #{description},</if>
+			<if test="image != null and image != ''">image = #{image},</if>
+			<if test="updateTime != null ">updateTime = #{updateTime},</if>
+		</set>
+		where id = #{id}
+	</update>
+</mapper>

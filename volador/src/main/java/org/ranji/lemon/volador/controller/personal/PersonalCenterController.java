@@ -652,50 +652,6 @@ public class PersonalCenterController {
 	}
 	
 	/*
-	 * 个人中心 - 职业导航
-	 * */
-	@RequestMapping(value="/growth_system", method=RequestMethod.GET)
-	public ModelAndView personalCenterZhiye(HttpServletRequest request){
-		ModelAndView mv = new ModelAndView();
-		try {
-			//根据session获取userId，查询正在学习课程
-			if(request.getSession().getAttribute("userId")!=null
-					&&request.getSession().getAttribute("userName")!=null){
-				int userId=(int) request.getSession().getAttribute("userId");
-				String userName=(String) request.getSession().getAttribute("userName");
-				mv =headerService.headInfo(userId, userName);
-				//查询当前用户信息
-				UserInfo userInfo=personalService.findUserInfoByUserId(userId);
-				mv.addObject("user_name",userInfo.getNickname());
-				mv.addObject("gender", userInfo.getGender());
-				mv.addObject("address",userInfo.getAddress());
-				
-				//查询学习时长
-				
-				
-				//查询我的积分
-				Integral integral = integralService.findIntegralByUserId(userId);
-				mv.addObject("integralNum", integral.getIntegralNumber());
-				
-				//查询签到天数
-				SignIn signIn = signInService.findSignInByUserId(userId);
-				mv.addObject("siginDay", signIn.getDay());
-			}else{
-				mv.addObject("headLogin_yes","login_yes");
-				mv.addObject("headLogin_no","login_no active");
-			}
-		
-			
-			mv.setViewName("/backend/wzq_zhiye");
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}
-		
-		return mv;
-	}
-	
-	/*
 	 * 个人中心 - 作业展示
 	 * */
 	@RequestMapping(value="/personalCenter_showHomework", method=RequestMethod.GET)

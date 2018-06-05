@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.ranji.lemon.volador.model.personal.GrowthStage">
+  <insert id="save" parameterType="VoladorGrowthStage" keyProperty="id" useGeneratedKeys="true">
+		insert into lemon_volador_personal_growthstage (guid,createTime,updateTime,number,title,description) 
+		values (#{guid},#{createTime},#{updateTime},#{number},#{title},#{description})
+	</insert>
+	
+	<!-- 删除某条记录 -->
+	<delete id="delete" parameterType="int" >
+		delete from lemon_volador_personal_growthstage where id = #{id}
+	</delete>
+	
+	<!-- 查询根据id -->
+	<select id="find" parameterType="int" resultType="VoladorGrowthStage">
+		select * from lemon_volador_personal_growthstage where id = #{id}
+	</select>
+	
+	<!-- 查询全部GrowthClass -->
+	<select id="findAll" resultType="VoladorGrowthStage" parameterType="Map">
+		select * from lemon_volador_personal_growthstage
+	</select>
+		
+	<!-- 保存成长阶段与课程章节的关系 -->
+	<insert id="saveGrowthStageAndCourseRelation" parameterType="Map" keyProperty="id" useGeneratedKeys="true">
+		insert into lemon_volador_personal_growthstage_course (growthstage_id, course_id) values (#{stage_id}, #{course_id})
+	</insert>
+	
+	<!-- 删除成长阶段与课程章节的关系 -->
+	<delete id="deleteGrowthStageAndCourseRelation" parameterType="Map">
+		delete from lemon_volador_personal_growthstage_course where growthstage_id = #{stage_id} and course_id = #{course_id}
+	</delete>
+	
+	<!-- 通过阶段ID删除成长阶段与课程章节的关系 -->
+	<delete id="deleteGrowthStageAndCourseRelationByStageId" parameterType="Integer">
+		delete from lemon_volador_personal_growthstage_course where growthstage_id = #{stage_id}
+	</delete>
+	
+	<!-- 修改个某条GrowthStage信息 -->
+	<update id="update" parameterType="VoladorGrowthStage">
+		update lemon_volador_personal_growthstage
+		<set>		
+			<if test="number != null and number != ''">number = #{number},</if>
+			<if test="title != null and title != ''">title = #{title},</if>
+			<if test="description != null and description != ''">description = #{description},</if>
+			<if test="updateTime != null ">updateTime = #{updateTime},</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<!-- 更新成长阶段与课程章节的关系 -->
+	<update id="updateGrowthStageAndCourseRelation" parameterType="Map">
+		update lemon_volador_personal_growthstage_course		
+		<set>
+			<if test="stage_id != null and stage_id != ''">growthstage_id = #{stage_id},</if>
+			<if test="course_id != null and course_id != ''">course_id = #{course_id},</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<!-- 通过阶段ID查找课程列表 -->
+	<select id="findCourseByGrowthStageId" parameterType="Integer" resultType ="VoladorCourse">
+		SELECT
+		t.*
+		FROM
+		lemon_volador_course_course t
+		LEFT JOIN lemon_volador_personal_growthstage_course c_t ON t.id = c_t.course_id
+		LEFT JOIN lemon_volador_personal_growthstage c ON c.id = c_t.growthstage_id
+		WHERE
+		c.id = #{id}
+	</select>
+</mapper>

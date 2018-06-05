@@ -10,22 +10,26 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.ranji.lemon.volador.model.course.Carouse;
 import org.ranji.lemon.volador.model.course.Classify;
 import org.ranji.lemon.volador.model.course.Course;
-import org.ranji.lemon.volador.model.course.CourseShow;
-import org.ranji.lemon.volador.model.course.CourseThemeShow;
 import org.ranji.lemon.volador.model.course.Direction;
+import org.ranji.lemon.volador.model.course.Teacher;
 import org.ranji.lemon.volador.model.course.Theme;
 import org.ranji.lemon.volador.model.personal.Per;
 import org.ranji.lemon.volador.model.personal.SignIn;
+import org.ranji.lemon.volador.model.personal.Student;
 import org.ranji.lemon.volador.model.personal.UserInfo;
+import org.ranji.lemon.volador.service.course.prototype.ICarouseService;
 import org.ranji.lemon.volador.service.course.prototype.IClassifyService;
 import org.ranji.lemon.volador.service.course.prototype.ICourseService;
 import org.ranji.lemon.volador.service.course.prototype.IDirectionService;
+import org.ranji.lemon.volador.service.course.prototype.ITeacherService;
 import org.ranji.lemon.volador.service.course.prototype.IThemeService;
 import org.ranji.lemon.volador.service.global.prototype.INotificationService;
 import org.ranji.lemon.volador.service.personal.prototype.IPerService;
 import org.ranji.lemon.volador.service.personal.prototype.ISignInService;
+import org.ranji.lemon.volador.service.personal.prototype.IStudentService;
 import org.ranji.lemon.volador.service.personal.prototype.IUserInfoService;
 import org.ranji.lemon.volador.service.personal.prototype.IheaderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +60,12 @@ public class PersonalController {
 	private IDirectionService directionService;
 	@Autowired
 	private IheaderService headerService;
+	@Autowired
+	private ITeacherService teacherService;
+	@Autowired
+	private ICarouseService carouseService;
+	@Autowired
+	private IStudentService studentService;
 	//首页
 	@RequestMapping(value="/index", method=RequestMethod.GET)
 	public ModelAndView indexPage(HttpServletRequest request ){
@@ -103,65 +113,26 @@ public class PersonalController {
 			e.printStackTrace();
 		}
 		
-		Map <String, Object> paramCourse= new HashMap<String, Object>();
-		List<Theme> themeList = themeService.findAll();
-		Map <String, Object> params= new HashMap<String, Object>();
-		
 		//空指针异常处理，当未获取到数据时候，前台显示资料为空
 		try {
+			//获取轮播图
+			List<Carouse> carouseList = carouseService.findAll();
+			mv.addObject("carouseList", carouseList);
 			
-			//首页显示课程方向
-			List<Direction> directionList = directionService.findAll();
-			paramCourse.put("directionList", directionList);
+			//或许优秀学员
+			List<Student> studentList = studentService.findAll();
+			mv.addObject("studentList", studentList);
+			 
+			//获取首页课程方向及对应分类
+			getCourseDirectionAndClassify(mv);
 			
-			//定义首页显示的课程分类
-			List<Classify> classifyList = new ArrayList<>();
-			int i = 0;
-			for(Direction direction:directionList){
-				classifyList = directionService.findClassifyByDirectionId(direction.getId());
-				//保存返回前台页面的课程分类
-				paramCourse.put("classify"+Integer.toString(direction.getId()), classifyList);
-			}
+			//获取首页推荐课程
+			getIndexRecommendedCourse(mv);
 			
+			//获取首页推荐老师
+			getIndexRecommendedTeacher(mv);
 			
-			//查找课程分类对应的课程
-			Classify classify = new Classify();
-			//首页主题展示列表
-			List<CourseThemeShow> courseThemeShowList = new ArrayList<CourseThemeShow>();
-			//首页主题展示类
-			
-			
-			for (Theme theme:themeList){
-				//返回课程分类
-				params.put("theme" + Integer.toString(theme.getId()), theme);
-				//返回分类下的课程
-				List<Course> courseList = themeService.findCourseAndThemeRelationByCourseId(theme.getId());
-				params.put("themeCourse" + Integer.toString(theme.getId()), courseList);
-				
-				CourseThemeShow courseThemeShow = new CourseThemeShow();
-				courseThemeShow.setTheme(theme.getTitle());
-				courseThemeShow.setDescription(theme.getDescribe());
-				List<CourseShow> courseShowList = new ArrayList<CourseShow>();
-				//获取一个主题下的所有课程
-				for(Course course:courseList){
-					//首页展示课程
-					CourseShow courseShow = new CourseShow();
-					courseShow.setCourseId(course.getId());
-					classify = classifyService.findClassifyByCourseId(course.getId());
-					courseShow.setClassify(classify.getClassify_name());
-					courseShow.setCourseName(course.getCourse_name());
-					courseShow.setCourse_price(course.getCourse_price());
-					courseShow.setStudent_count(course.getStudent_count());
-					courseShowList.add(courseShow);
-				}
-				courseThemeShow.setCourseShow(courseShowList);
-				
-				courseThemeShowList.add(courseThemeShow);
-			}
-			mv.addObject(courseThemeShowList);
-			System.out.println(courseThemeShowList.toString());
-			//绑定用户未忽略的信息
-			
+			//绑定用户未忽略的信息			
 			int ignoreNitificationNumber = 0;
 			Map map = notificationService.findIgnoreNotificationByUser(userId);
 			if(map!=null&&!map.isEmpty()){
@@ -175,9 +146,7 @@ public class PersonalController {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
-		
-		mv.addAllObjects(paramCourse);
-		mv.addAllObjects(params);	
+					
 		mv.addObject("notificationList", notificationList);
 		mv.addObject("notificationSize", notificationSize);
 		mv.addObject("userId", userId);
@@ -185,10 +154,74 @@ public class PersonalController {
 		mv.setViewName("/backend/index");
 		return mv;
 	}
+
+
 	
-	public void getClassifyList(){
+	//获取首页课程方向及对应分类
+	public void getCourseDirectionAndClassify(ModelAndView mv){
+		List<Map> directionAndClassifyList = new ArrayList<Map>();
 		
+		//首页显示课程方向
+		List<Direction> directionList = directionService.findAll();
+		
+		//定义首页显示的课程分类
+		List<Classify> classifyList = new ArrayList<>();
+
+		for(Direction direction:directionList){
+			Map <String, Object> directionAndClassifyMap= new HashMap<String, Object>();
+			directionAndClassifyMap.put("direction", direction);
+			directionAndClassifyMap.put("classifyList", directionService.findClassifyByDirectionId(direction.getId()));
+
+			directionAndClassifyList.add(directionAndClassifyMap);
+		}
+		mv.addObject("directionAndClassifyList", directionAndClassifyList);
 	}
+	
+	//获取首页推荐课程
+	public void getIndexRecommendedCourse(ModelAndView mv){
+		//首页主题展示列表
+		List<Theme> themeList = themeService.findAll();
+		List<Map> themeCourseList = new ArrayList<Map>();
+		for (Theme theme:themeList){
+			HashMap<String, Object> params = new HashMap<String, Object>();
+			
+			//返回课程分类
+			params.put("theme", theme);
+			//返回分类下的课程
+			List<Course> courseList = themeService.findCourseAndThemeRelationByCourseId(theme.getId());
+			params.put("courses", getCourseAndClassify(courseList));
+			
+			themeCourseList.add(params);
+			mv.addObject("themeCourse"+Integer.toString(theme.getId()), params);
+		}
+		mv.addObject("themeCourseList", themeCourseList);
+	}
+	
+	//获取课程及其对应分类
+	public List<Map> getCourseAndClassify(List<Course> courseList){
+		List<Map> CourseAndClassifyList = new ArrayList<Map>();
+		for(Course course:courseList){
+			HashMap<String, Object> courseMap= new HashMap<String, Object>();
+			courseMap.put("courseId", course.getId());
+			courseMap.put("courseName", course.getCourse_name());
+			courseMap.put("course_price", course.getCourse_price());
+			courseMap.put("student_count", course.getStudent_count());
+			courseMap.put("image", course.getCourse_image_address());
+			courseMap.put("classify", classifyService.findClassifyByCourseId(course.getId()).getClassify_name());
+			System.out.println(courseMap.toString());
+			System.out.println("-----------------");
+			CourseAndClassifyList.add(courseMap);
+		}
+		
+		return CourseAndClassifyList;
+	}
+	
+	//获取首页推荐老师
+	public void getIndexRecommendedTeacher(ModelAndView mv){
+		List<Teacher> teacherList = teacherService.findHeaderTeacher();
+		mv.addObject(teacherList);
+	}
+	
 	//基本资料
 	@RequestMapping(value="/personal_basic", method=RequestMethod.GET)
 	public ModelAndView personalBasicPage(HttpServletRequest request){

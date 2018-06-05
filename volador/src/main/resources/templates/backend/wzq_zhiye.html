@@ -98,17 +98,17 @@
     <!--左侧列表结束-->
     <div class="wzq_main_r">
         <div class="wzq_zhiye_mbx">
-            <span>全部职业导航 2</span>
+            <span th:text="${growthClassCount}">全部职业导航 2</span>
             <label for=""><input type="text" placeholder="请输入您需要查看的课程"><i class="fy_icon">&#xe64d;</i></label>
         </div>
-        <ul class="wzq_zhiye_list clear_both">
+        <ul class="wzq_zhiye_list clear_both" th:each="growthSystemShow:${growthSystemShowList}">
             <li class="wzq_zhiye_item wzq_zhiye_item_active" data-zhiye-flag="false">
-                <div class="wzq_zhiye_item_top">
-                    <div class="wzq_zhiye_item_img"><img src="images/wzq_work_img.jpg" alt=""></div>
+            	<div class="wzq_zhiye_item_top">
+                    <div class="wzq_zhiye_item_img"><img th:src="${growthSystemShow.growthClass.image}" alt="" ></div>
                     <div class="wzq_zhiye_item_info">
-                        <h4>UI设计进阶之路</h4>
-                        <h5>距离成为一个UI设计师，你还差了30%的距离</h5>
-                        <p class="wzq_zhiye_info_p">树立设计师意识，了解UI发展规律及就业前景，并通过本阶段的学习能独立完成图标作品设计、平面作品设计及手绘作品设计等。</p>
+                        <h4 th:text="${growthSystemShow.growthClass.title}">UI设计进阶之路</h4>
+                        <h5 th:text="${growthSystemShow.growthClass.send_word}">距离成为一个UI设计师，你还差了30%的距离</h5>
+                        <p th:text="${growthSystemShow.growthClass.description}" class="wzq_zhiye_info_p">树立设计师意识，了解UI发展规律及就业前景，并通过本阶段的学习能独立完成图标作品设计、平面作品设计及手绘作品设计等。</p>
                         <p class="wzq_zhiye_info_p2">
                             <em>正在学习</em>
                             <b>用时20分</b>
@@ -118,77 +118,21 @@
                     <div class="wzq_zhiye_icon"><i class="fy_icon">&#xe618;</i></div>
                 </div>
                 <div class="wzq_zhiye_item_con">
-                    <div class="wzq_zhiye_con_item">
-                        <div class="wzq_zhiye_con_num">
+                    <div class="wzq_zhiye_con_item" th:each="growthStage:${growthSystemShow.GrowthStageList}">
+                        <div class="wzq_zhiye_con_num" th:text="${growthStage.number}">
                             01
                         </div>
                         <div class="wzq_zhiye_con_r">
                             <div class="wzq_zhiye_con_info">
-                                <h6>视觉设计基础篇</h6>
-                                <p class="hidd_more2">掌握UI设计工具的使用后，通过学习素描光影关系、色彩原理与搭配及构图原理，打好成为UI设计师的美术造型基础和树立色彩审美意识</p>
+                                <h6 th:text="${growthStage.title}">视觉设计基础篇</h6>
+                                <p class="hidd_more2" th:text="${growthStage.description}">掌握UI设计工具的使用后，通过学习素描光影关系、色彩原理与搭配及构图原理，打好成为UI设计师的美术造型基础和树立色彩审美意识</p>
                             </div>
-                            <div class="wzq_zhiye_con_btn">
+                            <!-- <div class="wzq_zhiye_con_btn">
                                 <span>上次学到这里</span>
                                 <a href="">继续学习</a>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
-                    <div class="wzq_zhiye_con_item">
-                        <div class="wzq_zhiye_con_num">
-                            02
-                        </div>
-                        <div class="wzq_zhiye_con_r">
-                            <div class="wzq_zhiye_con_info">
-                                <h6>视觉设计基础篇</h6>
-                                <p class="hidd_more2">掌握UI设计工具的使用后，通过学习素描光影关系、色彩原理与搭配及构图原理，打好成为UI设计师的美术造型基础和树立色彩审美意识</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="wzq_zhiye_con_item">
-                        <div class="wzq_zhiye_con_num">
-                            03
-                        </div>
-                        <div class="wzq_zhiye_con_r">
-                            <div class="wzq_zhiye_con_info">
-                                <h6>视觉设计基础篇</h6>
-                                <p class="hidd_more2">掌握UI设计工具的使用后，通过学习素描光影关系、色彩原理与搭配及构图原理，打好成为UI设计师的美术造型基础和树立色彩审美意识</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li class="wzq_zhiye_item"  data-zhiye-flag="true">
-                <div class="wzq_zhiye_item_top">
-                    <div class="wzq_zhiye_item_img"><img src="images/wzq_work_img.jpg" alt=""></div>
-                    <div class="wzq_zhiye_item_info">
-                        <h4>UI设计进阶之路</h4>
-                        <h5>距离成为一个UI设计师，你还差了30%的距离</h5>
-                        <p class="wzq_zhiye_info_p">树立设计师意识，了解UI发展规律及就业前景，并通过本阶段的学习能独立完成图标作品设计、平面作品设计及手绘作品设计等。</p>
-                        <p class="wzq_zhiye_info_p2">
-                            <em>正在学习</em>
-                            <b>用时20分</b>
-                            <span>学习至1-1Python课程初探</span>
-                        </p>
-                    </div>
-                    <div class="wzq_zhiye_icon"><i class="fy_icon">&#xe604;</i></div>
-                </div>
-                <div class="wzq_zhiye_item_con">
-                    <div class="wzq_zhiye_con_item">
-                        <div class="wzq_zhiye_con_num">
-                            01
-                        </div>
-                        <div class="wzq_zhiye_con_r">
-                            <div class="wzq_zhiye_con_info">
-                                <h6>视觉设计基础篇</h6>
-                                <p class="hidd_more2">掌握UI设计工具的使用后，通过学习素描光影关系、色彩原理与搭配及构图原理，打好成为UI设计师的美术造型基础和树立色彩审美意识</p>
-                            </div>
-                            <div class="wzq_zhiye_con_btn">
-                                <span>上次学到这里</span>
-                                <a href="">继续学习</a>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
             </li>
         </ul>
