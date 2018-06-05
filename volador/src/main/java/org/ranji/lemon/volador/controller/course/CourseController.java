@@ -130,10 +130,10 @@ public class CourseController {
 				request.getSession().setAttribute("directionId", directionId);
 			}else if(null != strPrice){
 				double price = Double.valueOf(strPrice);
-				courseList = courseService.findCourseByPrice(price);
-				//保存用户选择价格
-				request.getSession().setAttribute("price", strPrice);
+				courseList = courseService.findCourseByPrice(price);								
 			}
+			//保存用户选择价格
+			request.getSession().setAttribute("price", strPrice);
 			mv.addObject(courseList);
 			
 			//界面显示课程分类
@@ -144,6 +144,14 @@ public class CourseController {
 				classfyList = directionService.findClassifyByDirectionId(directionId);
 			}
 			mv.addObject("classfyList",classfyList);
+			
+			//保存方向及分类选择
+			if(null != directionId){
+				mv.addObject("option", "directionId="+String.valueOf(directionId));
+			}else if(null != classfyId){
+				mv.addObject("option", "classfyId="+String.valueOf(classfyId));
+			}			
+			
 			mv.setViewName("/backend/wqf_find");
 		} catch (Exception e){
 			e.printStackTrace();

@@ -411,7 +411,8 @@ var zcityData = {
 * name:zcity
 * tips:城市联动
 ****************************************/
-function zcity(id){
+function zcity(id,sheng,shi,xian){
+	console.log(sheng,shi,xian)
 	var cityIni='';
 	var cityRange='';
 	var zcityItem='.zcityItem';
@@ -464,6 +465,12 @@ function zcity(id){
 			}
 		}
 	}
+
+	if (sheng&&shi&&xian) {
+		$(".currentValue").eq(0).val(sheng)
+		$(".currentValue").eq(1).val(shi)
+		$(".currentValue").eq(2).val(xian)
+	}
  	/***************************************
 	* name: clickTargetOut
 	* tips: 点击DIV之外隐藏Target
@@ -495,7 +502,7 @@ function zcity(id){
 		var drapDownMainMinWidth=70;//下拉内容的最小宽度
 		var windowH=$(window).height();
 		var windowT=$(window).scrollTop();
-		var headH=$(target).outerHeight();
+		var headH=$(target).outerHeight();   // 自身高度
 		var headW=$(target).outerWidth();
 		var mainH=$(target).siblings('.zcityItem-main').outerHeight();
 		var mainW=0;
@@ -513,9 +520,9 @@ function zcity(id){
 			$(target).siblings('.zcityItem-main').css({'width':headW});
 			mainW=headW;
 		}
-		var showTop=$(target).offset().top;
+		var showTop=$(target).offset().top;   // 到文档高度
 		var showLeft=$(target).offset().left;
-		var bodyScrollTop=$('body').scrollTop();
+		var bodyScrollTop=$(document).scrollTop();
 		if(windowH+windowT>showTop+mainH+diffBottomH){//判断向上还是向下
 			$(target).siblings('.zcityItem-main').css({'left':showLeft-(mainW-headW),'top':showTop+headH-bodyScrollTop});
 		}else{
@@ -614,6 +621,7 @@ function zcity(id){
 	* tips:动态添加ITEMHTML
 	****************************************/
 	function addItemHtml(itemLevel,iniVal){
+
 		var curHtml='<div class="zcityItem" item-level="'+itemLevel+'">'+
 						'<div class="zcityItem-head">'+
 						     '<input type="text" class="currentValue" readonly value="'+iniVal+'" placeholder="请选择">'+
@@ -685,13 +693,14 @@ function zcity(id){
 * name:zcityrun
 * tips:城市联动运行
 ****************************************/
-function zcityrun(id){
+function zcityrun(id,sheng,shi,xian){
+
 	var size=$(id).size();
 	for(var i=0;i<size;i++){
 		var curZcityId=$(id).eq(i).attr('zcity-id','zcity'+i);
 	}
 	for(var u=0;u<size;u++){
-		zcity(id+'[zcity-id="zcity'+u+'"]');
+		zcity(id+'[zcity-id="zcity'+u+'"]',sheng,shi,xian);
 	}
 }
 
