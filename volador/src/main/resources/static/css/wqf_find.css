@@ -64,10 +64,17 @@
 	cursor: pointer;
 	border-right:1px solid #f7f7f7;
 }
+.wqf_class_select>.sort .item.active{
+	color: #fd6756;
+}
 .wqf_class_select>.sort .item .jiantou{
 	float: right;
 	margin-top: 3px;
 	margin-left: 8px;
+	color:#333;
+}
+.wqf_class_select>.sort .item .jiantou .fy_icon.active{
+	color: #fd6756;
 }
 .wqf_class_select>.sort .item .jiantou span:nth-child(1),.wqf_class_select>.sort .item .jiantou span:nth-child(2){
 	display: block;

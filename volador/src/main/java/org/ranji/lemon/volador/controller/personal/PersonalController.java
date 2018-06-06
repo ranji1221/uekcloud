@@ -15,10 +15,13 @@ import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
+import org.ranji.lemon.core.util.DateUtil;
 import org.ranji.lemon.core.util.JsonUtil;
 import org.ranji.lemon.volador.model.course.Carouse;
 import org.ranji.lemon.volador.model.course.Classify;
@@ -464,9 +467,9 @@ public class PersonalController {
 		try{
 			if(request.getSession().getAttribute("userId")!=null){
 				int userId = (int) request.getSession().getAttribute("userId");
-				//获取用户原密码
-				
+				//获取用户
 				Per user = personalService.find(userId);
+				
 				Subject subject = SecurityUtils.getSubject();						
 				UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(), password);
 				//如果用户能登录说明旧密码正确
@@ -482,20 +485,34 @@ public class PersonalController {
 					if(!rs){
 						mv.addObject("messege", "新旧密码不一致");
 					}else{
+						//清除session
+						HttpSession session =  request.getSession();
+						session.invalidate();
+						subject.logout();
 						user.setPassword(passwordNew);
-						personalService.save(user);
+						user.setUpdateTime(DateUtil.now());
+						personalService.update(user);						
+						
+						//用户重新登录
+						mv.setViewName("redirect:/login");
 					}
+				}else{
+					mv.addObject("message", "两次输入新密码不一致");
+					mv.setViewName("/backend/changePassword");
 				}
 			}
 			else{
 				mv.setViewName("redirect:/login");
 			}
 							
+		}catch (AuthenticationException e){
+			mv.addObject("message", "输入旧密码不正确");
+			mv.setViewName("/backend/changePassword");
 		}catch(Exception e){
 			e.printStackTrace();
+			mv.setViewName("redirect:/login");
 		}
 		
-		mv.setViewName("redirect:/personal_set");
 		return mv;
 	}
 	

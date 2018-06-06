@@ -45,21 +45,21 @@
 		</ul>
 		
 		<div class="sort clear_both">
-			<div class="item">
+			<div class="item active" id="zonghe">
 				<span>综合</span>
 				<div class="jiantou">
 					<span class="fy_icon">&#xe62e;</span>
 					<span class="fy_icon">&#xe695;</span>
 				</div>
 			</div>
-			<div class="item">
+			<div class="item" id="zuixin">
 				<span>最新</span>
 				<div class="jiantou">
 					<span class="fy_icon">&#xe62e;</span>
 					<span class="fy_icon">&#xe695;</span>
 				</div>
 			</div>
-			<div class="item">
+			<div class="item" id="remen">
 				<span>热门</span>
 				<div class="jiantou">
 					<span class="fy_icon">&#xe62e;</span>
@@ -114,5 +114,97 @@
 <!-- 百万课程 结束-->
 <div th:include="backend/wy_footer"></div> 
 	<script src="js/wqf_find.js"></script>
+<script type="text/javascript" th:inline="javascript">
+var data = [[${courseList}]]
+</script>
+<script>
+	
+	var class_list = $('.class_list')
+	update()
+	function update(){
+		var str = "";
+		data.forEach((val,i)=>{
+			str+=`<li>
+					<a href="course_chapter?courseId=${val.id}">
+						<div class="picture" style="background: url(${val.course_image_address}) no-repeat center/cover">
+							<header>
+								<span class="hot"></span>
+								<span class="title">${val.course_name}</span>
+							</header>
+							<div class="time">
+								<span class="fy_icon">&#xe626;</span>
+								20:30
+							</div>
+						</div>
+
+						<h3 class="title hidd_more fire">${val.course_info}<span class="fy_icon">&#xe606;</span></h3>
+						<p>
+							<span class="price">${val.course_price==0?'免费':'￥'+val.course_price}</span>
+							<span>${val.student_count}人正在学习</span>
+						</p>
+					</a>
+				</li>`
+		})
+		class_list.html(str)
+	}
+	var newdata = data.slice(0)
+	var sort = $(".wqf_class_select .sort")
+	sort.click(function(e){
+		var target;
+		if ($(e.target).hasClass("item")) {
+			target = $(e.target)
+		}else if($(e.target).parents(".item").length>0){
+			target = $(e.target).parents(".item")
+		}
+		if (target) {
+			$(".item").removeClass("active")
+			// 去除其他按钮样式
+			$(".item").not(target).find(".fy_icon").removeClass("active")
+
+			// 修改按钮样式
+			$(target).addClass("active")
+			target.addClass("active")
+			var flag = true;
+			if (target.find(".fy_icon").eq(1).hasClass("active")) {
+				target.find(".fy_icon").eq(1).removeClass("active")
+				target.find(".fy_icon").eq(0).addClass("active")
+				flag = true
+			}else{
+				target.find(".fy_icon").eq(0).removeClass("active")
+				target.find(".fy_icon").eq(1).addClass("active")
+				flag = false
+			}
+
+
+			// 综合排序
+			if(target.attr('id')=="zonghe"){
+				newdata.sort((a,b)=>1)
+				data = newdata.slice(0)
+				update()
+			}else if(target.attr('id')=="zuixin"){
+				// 时间排序
+				if (flag) {
+					data.sort((a,b)=>a.updateTime - b.updateTime)
+				}else{
+					data.sort((a,b)=>b.updateTime - a.updateTime)
+				}
+				update()
+			}else if(target.attr('id')=="remen"){
+				// 热门排序
+				
+				if (flag) {
+					data.sort((a,b)=>a.student_count - b.student_count)
+				}else{
+					data.sort((a,b)=>b.student_count - a.student_count)
+				}
+				update()
+			}
+		}
+		
+	})
+
+
+
+</script>
 </body>
 </html>

@@ -8,8 +8,11 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authc.credential.DefaultPasswordService;
 import org.apache.shiro.subject.Subject;
+import org.ranji.lemon.volador.model.personal.Per;
 import org.ranji.lemon.volador.service.personal.prototype.IPerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -40,21 +43,27 @@ public class PerLoginController {
 		CheckValid(username, password);
 		ModelAndView mv = new ModelAndView();
 
-		//String kaptchaExpected = (String) request.getSession().getAttribute(Constants.KAPTCHA_SESSION_KEY);
-		Subject subject = SecurityUtils.getSubject();	
+		//用户是否已注册
+		Per user = personalService.findByUserName(username);
 		
-		UsernamePasswordToken token = new UsernamePasswordToken(username, password);
-		try{
-			subject.login(token);
-			request.getSession().setAttribute("userId", personalService.findByUserName(username).getId());
-			request.getSession().setAttribute("userName", username);
-			mv.setViewName("redirect:/index");
-		} catch (AuthenticationException e){
-			mv.addObject("message", "账号未注册");
+		if(null == user){
+			mv.addObject("message", "用户未注册");
 			mv.setViewName("/backend/cp_login");
-			e.printStackTrace();
-		} 
-
+		}else{
+			Subject subject = SecurityUtils.getSubject();	
+			
+			UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+			try{
+				subject.login(token);
+				request.getSession().setAttribute("userId", personalService.findByUserName(username).getId());
+				request.getSession().setAttribute("userName", username);
+				mv.setViewName("redirect:/index");
+			} catch (AuthenticationException e){
+				mv.addObject("message", "用户名或密码不正确");
+				mv.setViewName("/backend/cp_login");
+				e.printStackTrace();
+			}
+		}				
 		return mv;
 	}
 	

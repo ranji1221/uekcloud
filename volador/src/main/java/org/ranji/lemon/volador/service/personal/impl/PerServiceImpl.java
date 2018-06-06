@@ -40,6 +40,13 @@ public class PerServiceImpl extends GenericServiceImpl<Per, Integer> implements 
 		super.save(entity);
 	}
 	
+	
+	@Override
+	public void update(Per entity) {
+		entity.setPassword(new DefaultPasswordService().encryptPassword(entity.getPassword()));
+		super.update(entity);
+	}
+
 	@Override
 	public Per findByUserName(String userName) {
 		Map<String,Object> params = new HashMap<String,Object>();
