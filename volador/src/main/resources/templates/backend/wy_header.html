@@ -146,7 +146,7 @@
 				</div>
 			</div>
 			<!-- 登录状态 结束-->
-	
+	    <input type="hidden" th:value="${pageUri}" name="pageUri" id="pageUri">
 		</div>
 	</div>
 	<!-- 头部 结束 -->
@@ -168,8 +168,8 @@ $clearNotification.click(function(){
 			
 		}
 	}) 
-	
-	location.replace("/volador/index");
+	var url = $("#pageUri").val();
+	location.replace("/volador"+url);
 })
 
 </script>

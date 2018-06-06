@@ -3,8 +3,8 @@
 <mapper namespace="org.ranji.lemon.volador.model.personal.Per">
 
     <insert id="save" parameterType="VoladorPerUser" keyProperty="id" useGeneratedKeys="true">
-        insert into lemon_volador_personal_user (id,guid,createTime,updateTime,username, password) 
-		values (#{id},#{guid},#{createTime},#{updateTime},#{username}, #{password})
+        insert into lemon_volador_personal_user (guid,createTime,updateTime,username, password) 
+		values (#{guid},#{createTime},#{updateTime},#{username}, #{password})
     </insert>
     
     <!-- 存储某个用户和用户信息的对应关系 -->
