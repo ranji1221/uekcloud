@@ -13,14 +13,16 @@
 			账号安全
 		</div>
 		<h3>新增邮箱账号</h3>
-		<form action="email">
-			<input type="email" name='ownEmail' class='my_email' placeholder="请输入您的邮箱">
+		<form action="email" method="post">
+			<input type="email" name='ownEmail' class='my_email' id="ownEmail" placeholder="请输入您的邮箱">
 			<div class="cp_code">
-				<input type="text" placeholder="验证码">
+				<input type="text" name= "code" placeholder="验证码">
 				<button class="cp_block">
 					发送验证码
 				</button>
-				<i class='fy_icon'>&#xe663;</i>
+				<div>
+                    <span id="telephonenameTip"></span>
+                </div>
 			</div>
 			<input type="submit" class='cp_sub'  value='确定'>
 			<a href="#" class='cp_back'>
@@ -41,18 +43,52 @@
 		updateTime()
 		setT = setInterval(updateTime,1000)
 	}
+	
+	
+	var emailCode="";
+	var codeLength = 6;
 	code.click(function(e){
-		e.preventDefault()
-		// $.ajax({
-		// 	// 发送验证码
-		// })
-		if (t<=0) {
-			time = 60;
-			code.addClass("disable")
-			code.attr("disabled","disabled")
-			updateTime()
-			setT = setInterval(updateTime,1000)
+		if($("input[type=email]").val().length>0){
+			var ownEmail = $("#ownEmail").val();
+			// 产生验证码      
+	        for ( var i = 0; i < codeLength; i++) {      
+	        	emailCode += parseInt(Math.random() * 9).toString();      
+	        } 
+			e.preventDefault()
+			// $.ajax({
+			// 	// 发送验证码
+			// })
+			$.ajax({      
+	               type: "POST", // 用POST方式传输      
+	               dataType: "text", // 数据格式:JSON      
+	               url: "sendEmailCode", // 目标地址      
+	               data: "ownEmail=" + ownEmail +"&emailCode=" + emailCode,      
+	               error: function (XMLHttpRequest, textStatus, errorThrown) {       
+	                         
+	               },      
+	               success: function (data){       
+	                   data = parseInt(data, 10);      
+	                   if(data == 1){      
+	                       $("#telephonenameTip").html("<font color='#339933'>√ 邮箱验证码已发到您的手机,请查收</font>");      
+	                   }else if(data == 0){      
+	                       $("#telephonenameTip").html("<font color='red'>× 邮箱验证码发送失败，请重新发送</font>");      
+	                       return false;    
+	                   }else if(data == 2){      
+	                       $("#telephonenameTip").html("<font color='red'>× 该邮箱今天发送验证码过多</font>");      
+	                   }      
+	               }      
+	           }); 
+			if (t<=0) {
+				time = 60;
+				code.addClass("disable")
+				code.attr("disabled","disabled")
+				updateTime()
+				setT = setInterval(updateTime,1000)
+			}
+		}else{
+			alert("请填写邮箱")
 		}
+		
 	})
 	function updateTime(){
 		time--
