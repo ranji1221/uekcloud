@@ -68,19 +68,19 @@
                     课程时长
                     <b >160分钟</b>
                 </span>
-                <span>
+<!--                 <span>
                     点赞
                     <b>10</b>
-                </span>
+                </span> -->
             </div>
-            <div class="con_son4">
-               本节价格<b th:text="${course.course_price == 0 ? '免费':course.course_price}">300</b><span th:text="${course.course_price == 0 ? '':'元'}">元</span>
+            <div class="con_son4">	
+               本节价格<b th:text="(${course.course_price}==0?'免费':(${course.course_price} == -1? '已购买': ${course.course_price}))">300</b><span th:text="(${course.course_price}==0?'':(${course.course_price} == -1? '': '元'))">元</span>
             </div>
             <div class="con_son5">
-               <a href="#" class='putchase' th:class="${course.course_price == 0 ? '':'putchase'}" th:text="${course.course_price == 0 ? '':'立即购买'}">
+               <a href="#" class='putchase' th:class="(${course.course_price}==0?'':(${course.course_price} == -1? '': 'putchase'))" th:text="(${course.course_price}==0?'':(${course.course_price} == -1? '': '立即购买'))">
                    立刻购买
                </a>
-               <a th:href="'course_video?chapterId='+${goStudy}" class='study' th:class="${course.course_price == 0 ? 'putchase':''}" th:text="${course.course_price == 0 ? ' 去学习':''}">
+               <a th:href="'course_video?chapterId='+${goStudy}" class='study' th:class="(${course.course_price}==0?'putchase':(${course.course_price} == -1? 'putchase': ''))" th:text="(${course.course_price}==0?'去学习':(${course.course_price} == -1? '去学习': ''))">
                    去学习
                </a>
                <a href="javascript:;" class='study' id="collect"  th:style="${display == 0 ? 'display:block':'display:none'}" >

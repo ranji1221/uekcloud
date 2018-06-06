@@ -1,3 +1,6 @@
+.box_contain{
+	min-height:450px;
+}
 .wzq_fiav_list{
     width: 100%;
     height: auto;
@@ -107,4 +110,7 @@
     font-size: 18px;
     color: #cacaca;
     cursor: pointer;
+}
+.wzq_fiav_item_remove a:hover{
+	color:#cacaca;
 }

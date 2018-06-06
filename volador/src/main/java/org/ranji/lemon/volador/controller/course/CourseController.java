@@ -213,6 +213,19 @@ public class CourseController {
 				course.setCourse_image_address("images/cp_10.png");
 			}
 			//将课程信息返回
+			if(course.getCourse_price()!=0){
+				try {
+					int userId=(int) request.getSession().getAttribute("userId");
+					List<Integer> courseIdList= personalService.findBuyCourseRelationByUserId(userId);
+					for(int buyCourseId:courseIdList){
+						if (buyCourseId==courseId){
+							course.setCourse_price(-1);
+						}
+					}
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+			}
 			mv.addObject(course);
 			
 			//查找课程对应教师
@@ -462,6 +475,7 @@ public class CourseController {
 		
 		ModelAndView mv = new ModelAndView();
 		if(chapterId == null){
+			//重定向到404页面
 			mv.setViewName("redirect:/index");
 			return mv;
 		}
@@ -504,29 +518,38 @@ public class CourseController {
 		}
 		
 
-		try {
-			//根据章节id获取评论列表
-			List<Comment> commentList = chapterService.findCommentListByChapter(chapterId);
-			//根据评论获取用户信息
-			for(int i=0;i<commentList.size();i++){
-				int commentId=commentList.get(i).getId();
-				int user_Id=commentService.findUserIdByCommentId(commentId).get(0);
-				UserInfo userInfo=personalService.findUserInfoByUserId(user_Id);
-				commentList.get(i).setNickName(userInfo.getNickname());
-				commentList.get(i).setHead_image(userInfo.getHead_image());
+		//判断此章节视频是否可以播放
+		boolean power=false;
+		if(courseService.find(courseId).getCourse_price() !=0){
+			//判断是否为付费课程第一章第一节
+			if(chapterTitleService.findChapterByChapterTitle(courseService.findChapterTitleByCourse(courseId).get(0).getId()).get(0).getId()==chapterId){
+				power=true;
+			}else{
+				try {
+					int userId=(int) request.getSession().getAttribute("userId");
+					List<Integer> courseIdList= personalService.findBuyCourseRelationByUserId(userId);
+					for(int buyCourseId:courseIdList){
+						if (buyCourseId==courseId){
+							power=true;
+						}
+					}
+				} catch (Exception e) {
+					// TODO: handle exception
+					
+				}
 			}
-			
-			//传参
-			mv.addObject("commentCount",commentList.size());
-			mv.addObject(chapter);
-			mv.addObject(commentList);
-			mv.addObject("courseId",courseId);
-			
-		} catch (Exception e) {
-			// TODO: handle exception
+		}else{
+			power=true;
 		}
-			
-		mv.setViewName("/backend/cp_video");
+		
+		if(power){
+			mv.addObject(chapter);
+			mv.addObject("courseId",courseId);
+			mv.setViewName("/backend/cp_video");
+		}else{
+			mv.setViewName("redirect:/course_chapter?courseId="+courseId);
+		}
+		
 		return mv;
 	}
 	

@@ -70,6 +70,7 @@
 .wzq_work_content_list{
     width: 100%;
     height: auto;
+    min-height:500px;
     box-sizing: border-box;
     padding: 30px 0 0 45px;
     background: #fff;
