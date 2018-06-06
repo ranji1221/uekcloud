@@ -152,7 +152,7 @@ public class PersonalController {
 				ignoreNitificationNumber = Integer.parseInt(map.get("ignore_notification_number").toString());
 			}
 			int startIgnNotificationNumber = ignoreNitificationNumber+1;
-			int endIgnNotificationNumber = notificationService.getTotalOfItems();
+			int endIgnNotificationNumber = notificationService.maxNotificationId();
 			notificationList = notificationService.findTop3Notification(startIgnNotificationNumber, endIgnNotificationNumber);
 			notificationSize = notificationService.notReadNumber(startIgnNotificationNumber, endIgnNotificationNumber);
 		} catch (Exception e) {
@@ -433,7 +433,7 @@ public class PersonalController {
         int userId = Integer.parseInt(request.getParameter("userId"));
 		//String userName = request.getSession().getAttribute("userName").toString();
 		//mv.addObject("userName", userName);
-        int notificationNumber = notificationService.getTotalOfItems();
+        int notificationNumber = notificationService.maxNotificationId();
         Map map = new HashMap();
         map.put("userId", userId);
         map.put("ignoreNotificationNumber", notificationNumber);

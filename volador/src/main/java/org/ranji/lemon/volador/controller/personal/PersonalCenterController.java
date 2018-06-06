@@ -87,6 +87,7 @@ public class PersonalCenterController {
 			String userName=(String) request.getSession().getAttribute("userName");
 			int userId=(int) request.getSession().getAttribute("userId");
 			 ModelAndView mv = headerService.headInfo(userId, userName);
+			 mv.addObject("pageUri", "/personalCenter_notice");
 			List<Notification> notificationList = inotificationService.findAll();
 			mv.addObject("notificationList", notificationList);
 			mv.addObject("notificationNumber", notificationList.size());
@@ -113,6 +114,7 @@ public class PersonalCenterController {
 			int userId=(int) request.getSession().getAttribute("userId");
 			String userName=(String) request.getSession().getAttribute("userName");
 			mv =headerService.headInfo(userId, userName);
+			mv.addObject("pageUri", "/personalCenter_comment");
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -134,6 +136,7 @@ public class PersonalCenterController {
 			int userId=(int) request.getSession().getAttribute("userId");
 			String userName=(String) request.getSession().getAttribute("userName");
 			mv =headerService.headInfo(userId, userName);
+			mv.addObject("pageUri", "/personalCenter_learning");
 			//获取参数page,如果为空，page=1
 			int page;
 			if(request.getParameter("page") == null){
@@ -281,6 +284,7 @@ public class PersonalCenterController {
 			int userId=(int) request.getSession().getAttribute("userId");
 			String userName=(String) request.getSession().getAttribute("userName");
 			mv =headerService.headInfo(userId, userName);
+			mv.addObject("pageUri", "/personalCenter_learn_end");
 			//获取参数page,如果为空，page=1
 			int page;
 			if(request.getParameter("page") == null){
@@ -413,6 +417,7 @@ public class PersonalCenterController {
 			int userId=(int) request.getSession().getAttribute("userId");
 			String userName=(String) request.getSession().getAttribute("userName");
 			mv =headerService.headInfo(userId, userName);
+			mv.addObject("pageUri", "/personalCenter_collect_course");
 			int page;
 			if(request.getParameter("page") == null){
 				page=1;
@@ -525,6 +530,7 @@ public class PersonalCenterController {
 			int userId=(int) request.getSession().getAttribute("userId");
 			String userName=(String) request.getSession().getAttribute("userName");
 			mv =headerService.headInfo(userId, userName);
+			mv.addObject("pageUri", "/personalCenter_data_download");
 			//查询当前用户信息
 			UserInfo userInfo=personalService.findUserInfoByUserId(userId);
 			mv.addObject("user_name",userInfo.getNickname());
@@ -553,7 +559,8 @@ public class PersonalCenterController {
 		try {
 			int userId=(int) request.getSession().getAttribute("userId");
 			String userName=(String) request.getSession().getAttribute("userName");
-			 mv = headerService.headInfo(userId, userName);			
+			 mv = headerService.headInfo(userId, userName);	
+			 mv.addObject("pageUri", "/personalCenter_jifen");
 			mv.setViewName("/backend/wzq_jifen");
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -567,8 +574,17 @@ public class PersonalCenterController {
 	 * 个人中心 - 积分抽奖规则 
 	 * */
 	@RequestMapping(value="/personalCenter_draw_rule", method=RequestMethod.GET)
-	public ModelAndView personalCenterDraw_rule(){
+	public ModelAndView personalCenterDraw_rule(HttpServletRequest request){
 		ModelAndView mv = new ModelAndView();
+		try {
+			String userName = request.getSession().getAttribute("userName").toString();
+			int userId=(int) request.getSession().getAttribute("userId");
+			mv =headerService.headInfo(userId, userName);
+			mv.addObject("pageUri", "/personalCenter_draw_rule");
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
 		mv.setViewName("/backend/wqf_draw_rule");
 		return mv;
 	}
@@ -583,6 +599,7 @@ public class PersonalCenterController {
 			int userId=(int) request.getSession().getAttribute("userId");
 			String userName=(String) request.getSession().getAttribute("userName");
 			mv =headerService.headInfo(userId, userName);
+			mv.addObject("pageUri", "/personalCenter_homework");
 			List<Integer> homeworkIdList=personalService.findHomeworkRelationByUserId(userId);
 			List<Homework> homeworkList=new ArrayList<Homework>();
 			for(int i=0;i<homeworkIdList.size();i++){
@@ -622,6 +639,7 @@ public class PersonalCenterController {
 			int userId=(int) request.getSession().getAttribute("userId");
 			String userName=(String) request.getSession().getAttribute("userName");
 			mv =headerService.headInfo(userId, userName);
+			mv.addObject("pageUri", "/personalCenter_uploadHomework");
 			//查询当前用户信息
 			UserInfo userInfo=personalService.findUserInfoByUserId(userId);
 			mv.addObject("user_name",userInfo.getNickname());
@@ -672,7 +690,7 @@ public class PersonalCenterController {
 			String userName=(String) request.getSession().getAttribute("userName");
 			int userId=(int) request.getSession().getAttribute("userId");
 			mv =headerService.headInfo(userId, userName);
-
+			mv.addObject("pageUri", "/personalCenter_invitation");
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -689,25 +707,26 @@ public class PersonalCenterController {
 	@RequestMapping(value="/personalCenter_allnotice", method=RequestMethod.GET)
 	public ModelAndView personalAllCenterNotice(HttpServletRequest request){
 		ModelAndView mv = new ModelAndView();
-		String userName=(String) request.getSession().getAttribute("userName");
-		 int userId=(int) request.getSession().getAttribute("userId");
-		mv =headerService.headInfo(userId, userName);
-		List<Notification> notificationList = inotificationService.findAll();
-		mv.addObject("notificationList", notificationList);
-		mv.addObject("notificationNumber", notificationList.size());
-		 int notificationNumber = inotificationService.getTotalOfItems();	
-		  Map map = new HashMap();
-          map.put("userId", userId);
-          map.put("ignoreNotificationNumber", notificationNumber);
-          Map existMap = inotificationService.findIgnoreNotificationByUser(userId);
-          if(existMap!=null&&!existMap.isEmpty()){
-          	
-        	  inotificationService.updateIgnoreNotNum(map);
-          }else{
-        	  inotificationService.saveUserAndIgnoreNotificationRelation(userId, notificationNumber);
-          }
-		//System.out.println(notificationList.get(0).getCreateTime());
-		mv.setViewName("/backend/wqf_notice");
+		try {
+			String userName=(String) request.getSession().getAttribute("userName");
+			 int userId=(int) request.getSession().getAttribute("userId");
+			 int notificationNumber = inotificationService.maxNotificationId();	
+			  Map map = new HashMap();
+	          map.put("userId", userId);
+	          map.put("ignoreNotificationNumber", notificationNumber);
+	          Map existMap = inotificationService.findIgnoreNotificationByUser(userId);
+	          if(existMap!=null&&!existMap.isEmpty()){
+	          	
+	        	  inotificationService.updateIgnoreNotNum(map);
+	          }else{
+	        	  inotificationService.saveUserAndIgnoreNotificationRelation(userId, notificationNumber);
+	          }
+			mv.setViewName("redirect:/personalCenter_notice");
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
 		return mv;
 	}
 	

@@ -59,4 +59,9 @@
 	<select id="notReadNumber" parameterType="Map" resultType="int">
 	SELECT count(*) from lemon_volador_global_notification where id BETWEEN #{startIgnNotificationNumber} and #{endIgnNotificationNumber}  
 	</select>
+	
+	<!-- 查询公告/消息的最大id -->
+	<select id="maxNotificationId" resultType="int">
+	select max(id) from lemon_volador_global_notification
+	</select>
 </mapper>

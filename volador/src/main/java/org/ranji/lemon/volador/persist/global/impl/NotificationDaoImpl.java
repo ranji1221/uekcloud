@@ -57,6 +57,13 @@ public class NotificationDaoImpl extends GenericDaoImpl<Notification, Integer> i
 		map.put("endIgnNotificationNumber", endIgnNotificationNumber);
 		return sqlSessionTemplate.selectOne(typeNameSpace+".notReadNumber",map);
 	}
+
+	@Override
+	public int maxNotificationId() {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectOne(typeNameSpace+".maxNotificationId");
+	}
+	
 	
 	
 	

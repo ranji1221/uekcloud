@@ -45,6 +45,12 @@ public class NotificationServiceImpl extends GenericServiceImpl<Notification, In
 	public int notReadNumber(int startIgnNotificationNumber,int endIgnNotificationNumber ){
 		return ((INotificationDao)dao).notReadNumber(startIgnNotificationNumber, endIgnNotificationNumber);
 	}
+
+	@Override
+	public int maxNotificationId() {
+		// TODO Auto-generated method stub
+		return ((INotificationDao)dao).maxNotificationId();
+	}
     
 	
 }
