@@ -19,5 +19,7 @@ public interface INotificationService extends IGenericService<Notification, Inte
 	public void updateIgnoreNotNum(Map map);
 	
 	public int notReadNumber(int startIgnNotificationNumber,int endIgnNotificationNumber );
+	
+	public int maxNotificationId();
 
 }

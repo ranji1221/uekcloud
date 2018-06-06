@@ -58,16 +58,8 @@ public class HeaderServiceImpl implements IheaderService {
 			}else{
 				mv.addObject("headIsSignIn", "no");
 			}
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-			mv.addObject("login_yes","login_yes");
-			mv.addObject("login_no","login_no active");
-		}
-		
-		//空指针异常处理，当未获取到数据时候，前台显示资料为空
-		try {
-				
+			
+			
 			//绑定用户未忽略的信息
 			
 			int ignoreNitificationNumber = 0;
@@ -76,16 +68,21 @@ public class HeaderServiceImpl implements IheaderService {
 				ignoreNitificationNumber = Integer.parseInt(map.get("ignore_notification_number").toString());
 			}
 			int startIgnNotificationNumber = ignoreNitificationNumber+1;
-			int endIgnNotificationNumber = notificationService.getTotalOfItems();
+			int endIgnNotificationNumber = notificationService.maxNotificationId();
 			notificationList = notificationService.findTop3Notification(startIgnNotificationNumber, endIgnNotificationNumber);
 			notificationSize = notificationService.notReadNumber(startIgnNotificationNumber, endIgnNotificationNumber);
-		} catch (Exception e) {
-			// TODO: handle exception
+			mv.addObject("headnotificationList", notificationList);
+			mv.addObject("headnotificationSize", notificationSize);
+			mv.addObject("userId", userId);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			mv.addObject("login_yes","login_yes");
+			mv.addObject("login_no","login_no active");
 		}
 		
-		mv.addObject("headnotificationList", notificationList);
-		mv.addObject("headnotificationSize", notificationSize);
-		mv.addObject("userId", userId);
+
+		
 		return mv;
 	}
 	

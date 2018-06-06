@@ -104,6 +104,7 @@ public class CourseController {
 				int userId=(int) request.getSession().getAttribute("userId");
 				String userName=(String) request.getSession().getAttribute("userName");
 				mv =headerService.headInfo(userId, userName);
+				mv.addObject("pageUri", "/findCourse");
 			}else{
 				mv.addObject("headLogin_yes","login_yes");
 				mv.addObject("headLogin_no","login_no active");
@@ -173,9 +174,11 @@ public class CourseController {
 		ModelAndView mv = new ModelAndView();
 		
 		//检测是否登录,并获取用户信息
-		try{
+		try{		
 			String userName = request.getSession().getAttribute("userName").toString();
 			int userId=(int) request.getSession().getAttribute("userId");
+			mv =headerService.headInfo(userId, userName);
+			mv.addObject("pageUri", "/course_chapter?courseId="+courseId);
 			UserInfo userInfo=personalService.findUserInfoByUserId(userId);
 			mv.addObject(userInfo);
 			mv.addObject("login_yes","login_yes active");
