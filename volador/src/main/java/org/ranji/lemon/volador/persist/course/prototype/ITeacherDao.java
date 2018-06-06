@@ -23,5 +23,9 @@ public interface ITeacherDao extends IGenericDao<Teacher,Integer> {
 	 * @return
 	 */
 	public List<Teacher> findHeaderTeacher();
+	
+	public List<Teacher> findTeacherInfoByPage(int page,int limit);
+	
+	public int  findTeacherCount();
 
 }

@@ -2,6 +2,7 @@ package org.ranji.lemon.volador.service.course.impl;
 
 import java.util.List;
 
+import org.ranji.lemon.core.pagination.PagerModel;
 import org.ranji.lemon.core.service.impl.GenericServiceImpl;
 import org.ranji.lemon.volador.model.course.Teacher;
 import org.ranji.lemon.volador.persist.course.prototype.ITeacherDao;
@@ -30,5 +31,15 @@ public class TeacherServiceImpl extends GenericServiceImpl<Teacher,Integer> impl
 	public List<Teacher> findHeaderTeacher() {
 		
 		return ((ITeacherDao) dao).findHeaderTeacher();
+	}
+	
+	@Override
+	public PagerModel<Teacher> findTeacherInfoByPage(int page, int limit) {
+		// TODO Auto-generated method stub
+		
+		PagerModel<Teacher> pagerModel =new PagerModel<Teacher>();
+		pagerModel.setData(((ITeacherDao) dao).findTeacherInfoByPage(page, limit));
+		pagerModel.setTotal(((ITeacherDao) dao).findTeacherCount());
+		return pagerModel;
 	}
 }

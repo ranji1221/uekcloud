@@ -2,6 +2,7 @@ package org.ranji.lemon.volador.service.course.prototype;
 
 import java.util.List;
 
+import org.ranji.lemon.core.pagination.PagerModel;
 import org.ranji.lemon.core.service.prototype.IGenericService;
 import org.ranji.lemon.volador.model.course.Teacher;
 
@@ -22,4 +23,6 @@ public interface ITeacherService extends IGenericService<Teacher,Integer> {
 	 * @return
 	 */
 	public List<Teacher> findHeaderTeacher();
+	
+	public PagerModel<Teacher> findTeacherInfoByPage(int page,int limit);
 }

@@ -50,4 +50,14 @@
 		lemon_volador_course_teacher t
 		LEFT JOIN lemon_volador_header_teacher c_t ON t.id = c_t.teacher_id
 	</select>
+	
+	<!-- 查询教师根据页码 -->
+	<select id="findTeacherInfoByPage" parameterType="Map" resultType="VoladorTeacher">
+		select * from lemon_volador_course_teacher limit #{offset},#{limit}
+	</select>
+	
+	<!-- 查询教师数量 -->
+	<select id="findTeacherCount" resultType="int">
+	select count(*) from lemon_volador_course_teacher	
+	</select>
 </mapper>
