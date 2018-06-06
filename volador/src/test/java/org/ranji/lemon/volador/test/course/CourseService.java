@@ -1,6 +1,7 @@
 package org.ranji.lemon.volador.test.course;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.junit.Test;
@@ -9,13 +10,18 @@ import org.ranji.lemon.volador.VoladorApplication;
 import org.ranji.lemon.volador.model.course.Chapter;
 import org.ranji.lemon.volador.model.course.Comment;
 import org.ranji.lemon.volador.model.course.Course;
+import org.ranji.lemon.volador.model.course.Reply;
 import org.ranji.lemon.volador.model.course.Teacher;
+import org.ranji.lemon.volador.model.pay.Order;
 import org.ranji.lemon.volador.model.personal.UserInfo;
+import org.ranji.lemon.volador.persist.pay.prototype.IOrderDao;
 import org.ranji.lemon.volador.service.auth.prototype.IUserService;
 import org.ranji.lemon.volador.service.course.prototype.IChapterService;
 import org.ranji.lemon.volador.service.course.prototype.IClassifyService;
 import org.ranji.lemon.volador.service.course.prototype.ICommentService;
 import org.ranji.lemon.volador.service.course.prototype.ICourseService;
+import org.ranji.lemon.volador.service.course.prototype.IReplyService;
+import org.ranji.lemon.volador.service.pay.prototype.IOrderService;
 import org.ranji.lemon.volador.service.personal.prototype.IPerService;
 import org.ranji.lemon.volador.service.personal.prototype.IUserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +47,45 @@ public class CourseService {
 	@Autowired
 	private ICommentService commentService;
 	
+	@Autowired
+	private IReplyService replyService;
+	
+	@Autowired
+	private IOrderService orderService;
+	
+	@Autowired
+	private IOrderDao orderDao;
+	
+	
+	@Test
+	public void testReplyService(){
+		Order order=new Order();
+		order.setGuid("a4a82bed5222499db36af107c5527491");
+		order.setCloseTime(new Date());
+		order.setStatus(3);
+		
+		List<Order> orderList=orderDao.findOrderByUserId(34);
+		
+		List<Order> orderList1=orderService.findOrderByUserId(34);
+		
+		Order order1=orderService.find(1);
+		System.out.println(order1.toString());
+//		System.out.println(orderList.toString());
+//		System.out.println(orderList1.toString());
+		
+		
+		
+		
+//		Reply reply=new Reply();
+//		reply.setReply("测试回复3");
+//		reply.setUserId(32);
+//		reply.setReplyUserId(23);
+////		replyService.save(reply);
+//		int commentId=1;
+//		List<Reply> replyList=replyService.findReplyByCommentId(commentId);
+//		System.out.println(replyList.toString());
+	}
+	
 //	private ICourseService courseService;
 //	
 //	@Test
@@ -53,14 +98,14 @@ public class CourseService {
 //		courseService.deleteCourseAndTeacherRelation(1, 2);
 //	}
 //	
-	@Test
-	public void testFindTeacherbyCourse(){
-		
-		Course course=new Course();
-		course.setCourse_name("大数据阿萨德阿萨德");
-		course.setCourse_price(222);
-		course.setCourse_info("asdasd");
-		courseService.save(course);
+//	@Test
+//	public void testFindTeacherbyCourse(){
+//		
+//		Course course=new Course();
+//		course.setCourse_name("大数据阿萨德阿萨德");
+//		course.setCourse_price(222);
+//		course.setCourse_info("asdasd");
+//		courseService.save(course);
 //		List<Teacher> listTeacher;
 //		listTeacher=courseService.findTeacherbyCourse(3);
 //		courseService.deleteCourseAndChapterRelation(1, 1);
@@ -104,6 +149,6 @@ public class CourseService {
 //		System.out.println(listTeacher.get(0).getTeacher_name());
 		
 		
-	}
+//	}
 
 }

@@ -16,7 +16,7 @@ import org.springframework.stereotype.Repository;
  * @version 1.0
  *
  */
-@Repository("VoladorCourseNote")
+@Repository("VoladorCourseNoteImpl")
 public class NoteDaoImpl extends GenericDaoImpl<Note, Integer> implements INoteDao{
 
 	@Override

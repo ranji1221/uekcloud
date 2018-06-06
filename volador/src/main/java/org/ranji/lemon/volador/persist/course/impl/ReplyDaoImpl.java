@@ -8,7 +8,7 @@ import org.ranji.lemon.volador.persist.course.prototype.IReplyDao;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@Repository("VoladorReply")
+@Repository("VoladorReplyDaoImpl")
 public class ReplyDaoImpl extends GenericDaoImpl<Reply, Integer> implements IReplyDao{
 
 	@Override
