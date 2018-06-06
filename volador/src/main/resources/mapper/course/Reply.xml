@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.ranji.lemon.volador.model.course.Reply"> 
+	<resultMap type="VoladorReply" id="VoladorReplyMap">        
+        <result column="create_time" property="createTime" />  
+        <result column="update_time" property="updateTime" /> 
+        <result column="user_id" property="userId" />
+        <result column="comment_id" property="commentId" />    
+        <result column="reply" property="reply" />    
+        <result column="reply_user_id" property="replyUserId" />  
+     </resultMap>  
+
+	<!-- 插入回复 -->
+	<insert id="save" parameterType="VoladorReply" keyProperty="id" useGeneratedKeys="true">
+		insert into lemon_volador_course_reply (guid,create_time,update_time,user_id,comment_id,reply,reply_user_id)
+		values (#{guid},#{createTime},#{updateTime},#{userId},#{commentId},#{reply},#{replyUserId})
+	</insert>
+	
+	<!-- 删除某条回复 -->
+	<delete id="delete" parameterType="int" >
+		delete from lemon_volador_course_reply where id = #{id}
+	</delete>
+
+	<!-- 根据评论Id查找回复列表 -->
+	<select id="findReplyByCommentId" parameterType="int" resultMap="VoladorReplyMap">
+		select * from lemon_volador_course_reply where comment_id = #{commentId}
+	</select>
+	
+	<!-- 根据id查询回复 -->
+	<select id="find" parameterType="int" resultMap="VoladorReplyMap">
+		select * from lemon_volador_course_reply where id = #{id}
+	</select>
+	
+	<!-- 查询全部回复 -->
+	<select id="findAll" resultMap="VoladorReplyMap" parameterType="Map">
+		select * from lemon_volador_course_reply
+	</select>
+
+</mapper>

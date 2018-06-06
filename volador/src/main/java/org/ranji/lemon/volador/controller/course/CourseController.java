@@ -21,6 +21,7 @@ import org.ranji.lemon.volador.model.course.Comment;
 import org.ranji.lemon.volador.model.course.Course;
 import org.ranji.lemon.volador.model.course.Direction;
 import org.ranji.lemon.volador.model.course.Note;
+import org.ranji.lemon.volador.model.course.Reply;
 import org.ranji.lemon.volador.model.course.Teacher;
 import org.ranji.lemon.volador.model.personal.UserInfo;
 import org.ranji.lemon.volador.service.course.prototype.IChapterService;
@@ -30,6 +31,7 @@ import org.ranji.lemon.volador.service.course.prototype.ICommentService;
 import org.ranji.lemon.volador.service.course.prototype.ICourseService;
 import org.ranji.lemon.volador.service.course.prototype.IDirectionService;
 import org.ranji.lemon.volador.service.course.prototype.INoteService;
+import org.ranji.lemon.volador.service.course.prototype.IReplyService;
 import org.ranji.lemon.volador.service.personal.prototype.IPerService;
 import org.ranji.lemon.volador.service.personal.prototype.IheaderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +51,9 @@ public class CourseController {
 	
 	@Autowired
 	private IClassifyService classifyService;
+	
+	@Autowired
+	private IReplyService replyService;
 	
 	@Autowired
 	private IPerService personalService;
@@ -602,9 +607,82 @@ public class CourseController {
 		pw.close();
 	}
 	
+	//获取章节评论与回复Ajax
+	@RequestMapping(value="/chapterCommentList",method=RequestMethod.POST)
+	public void chapterCommentAndReply(HttpServletRequest request,HttpServletResponse response) throws IOException{
+		
+		//设置返回格式
+		response.setHeader("Content-Type", "application/json;charset=utf-8");
+		PrintWriter pw = response.getWriter();
+		
+		Map<String,Object> result=new HashMap<String,Object>();
+		try {
+			//获取请求参数
+			int chapterId =Integer.parseInt(request.getParameter("chapterId"));
+			
+			//获取当前用户信息
+			if(request.getParameter("userId").equals("")){
+				UserInfo userInfo=new UserInfo();
+				userInfo.setHead_image("images/wzq_user_img.jpg");
+				result.put("userInfo", userInfo);
+			}else{
+				//获取用户头像
+				int userId=Integer.parseInt(request.getParameter("userId"));
+				UserInfo userInfo= personalService.findUserInfoByUserId(userId);
+				result.put("userInfo", userInfo);
+			}
+			
+			//根据章节id获取评论列表
+			List<Comment> commentList = chapterService.findCommentListByChapter(chapterId);
+			
+			List<Map> commentAndReplyList=new ArrayList<>();
+			
+			for(Comment comment:commentList){
+				//根据评论获取用户信息
+				Map<String,Object> commentAndReplyMap=new HashMap<String,Object>();
+				int commentId=comment.getId();
+				int user_Id=commentService.findUserIdByCommentId(commentId).get(0);
+				UserInfo userInfo=personalService.findUserInfoByUserId(user_Id);
+				comment.setNickName(userInfo.getNickname());
+				comment.setHead_image(userInfo.getHead_image());
+				comment.setUserId(userInfo.getId());
+				commentAndReplyMap.put("comment", comment);
+				
+				//获取回复信息
+				List<Reply> replyList=replyService.findReplyByCommentId(commentId);
+				
+				for(Reply reply:replyList){
+					if(reply.getUserId()!=0){
+						reply.setUserName(personalService.findUserInfoByUserId(reply.getUserId()).getNickname());
+					}
+					if(reply.getReplyUserId() !=0){
+						reply.setReplyUserName(personalService.findUserInfoByUserId(reply.getReplyUserId()).getNickname());
+					}
+				}
+				
+				commentAndReplyMap.put("reply", replyList);
+				commentAndReplyList.add(commentAndReplyMap);
+			}
+			
+			//拼接为Json返回		
+			result.put("code", 200);
+			result.put("message", "获取成功");
+			result.put("commentAndReply", commentAndReplyList);
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			result.put("code", 404);
+			result.put("message", "获取失败");
+		}
+		
+		pw.write(JsonUtil.objectToJson(result));
+		pw.flush();
+		pw.close();
+	}
 	
 	
-	//章节发表评论
+	
+	//章节发表评论Ajax
 	@RequestMapping(value="/course_chapter_comment",method=RequestMethod.POST)
 	public void chapterComment(@RequestParam(value="content", required=false) String content,
 			@RequestParam(value="chapterId", required=false) String chapterId,
@@ -649,6 +727,50 @@ public class CourseController {
         writer.flush();  
         writer.close();
 	}
+	
+	//章节评论下回复Ajax
+	@RequestMapping(value="/chapter_comment_reply",method=RequestMethod.POST)
+	public void chapterReply(
+			HttpServletRequest request,
+			HttpServletResponse response) throws IOException{
+		
+		response.setHeader("Content-Type", "application/json;charset=utf-8");
+		PrintWriter writer = response.getWriter();
+
+		Map<String,Object> result=new HashMap<String,Object>();
+		
+		try {
+			Reply replyIn=new Reply();
+			int commentId=Integer.parseInt(request.getParameter("commentId"));
+			int userId=Integer.parseInt(request.getParameter("userId"));
+			int replyUserId=Integer.parseInt(request.getParameter("replyUserId"));
+			String reply=request.getParameter("reply");
+			
+			replyIn.setCommentId(commentId);
+			replyIn.setReply(reply);
+			replyIn.setReplyUserId(replyUserId);
+			replyIn.setUserId(userId);
+			
+			//保存回复信息
+			replyService.save(replyIn);
+			
+			result.put("code", 200);
+			result.put("message", "请求成功");
+		} catch (Exception e) {
+			// TODO: handle exception
+			result.put("code", 404);
+			result.put("message", "请求失败");
+		}
+		
+		
+		
+		
+		writer.print(JsonUtil.objectToJson(result)); 
+        writer.flush();  
+        writer.close();
+	}
+	
+	
 	
 	//视频笔记页面
 	@RequestMapping(value="/course_chapterNote", method=RequestMethod.GET)

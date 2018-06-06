@@ -10,6 +10,15 @@ public class Comment extends AbstractModel {
 	private String content;
 	private String nickName;
 	private String head_image;
+	private int userId;
+
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
 
 	public String getNickName() {
 		return nickName;
