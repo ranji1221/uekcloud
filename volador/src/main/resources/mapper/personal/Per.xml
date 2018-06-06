@@ -3,8 +3,8 @@
 <mapper namespace="org.ranji.lemon.volador.model.personal.Per">
 
     <insert id="save" parameterType="VoladorPerUser" keyProperty="id" useGeneratedKeys="true">
-        insert into lemon_volador_personal_user (guid,createTime,updateTime,username, password) 
-		values (#{guid},#{createTime},#{updateTime},#{username}, #{password})
+        insert into lemon_volador_personal_user (id,guid,createTime,updateTime,username, password) 
+		values (#{id},#{guid},#{createTime},#{updateTime},#{username}, #{password})
     </insert>
     
     <!-- 存储某个用户和用户信息的对应关系 -->
@@ -28,8 +28,8 @@
 	</delete>
 	
 	<!-- 查询根据id -->
-	<select id="find" parameterType="String" resultType="VoladorPerUser">
-		select * from lemon_volador_personal_user where username = #{username}
+	<select id="find" parameterType="int" resultType="VoladorPerUser">
+		select * from lemon_volador_personal_user where id = #{id}
 	</select>
 	
 	<!-- 根据用户id查询用户和用户信息的对应关系 -->
@@ -73,7 +73,6 @@
 		<set>
 			<if test="username != null and username != ''">username = #{username},</if>
 			<if test="password != null and password != ''">password = #{password},</if>
-			<if test="updateTime != null">updateTime = #{updateTime},</if>
 		</set>
 		where id = #{id}
 	</update>
