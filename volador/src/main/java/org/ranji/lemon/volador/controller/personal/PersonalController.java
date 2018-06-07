@@ -422,13 +422,6 @@ public class PersonalController {
 		return mv;
 	}
 
-	// 点击课程，跳转到章节页面
-	@RequestMapping(value = "course", method = RequestMethod.GET)
-	public ModelAndView coursePage(HttpServletRequest request) {
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("redirect:/course/chapter");
-		return mv;
-	}
 
 	// 清空消息
 	@RequestMapping(value = "/clearNotification", method = RequestMethod.POST)

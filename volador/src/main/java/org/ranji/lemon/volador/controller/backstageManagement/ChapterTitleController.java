@@ -9,11 +9,10 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.collections.map.HashedMap;
 import org.ranji.lemon.core.util.JsonUtil;
-import org.ranji.lemon.volador.model.course.Direction;
-import org.ranji.lemon.volador.model.course.Teacher;
-import org.ranji.lemon.volador.service.course.prototype.IDirectionService;
+import org.ranji.lemon.volador.model.course.ChapterTitle;
+import org.ranji.lemon.volador.service.course.prototype.IChapterTitleService;
+import org.ranji.lemon.volador.service.course.prototype.ICourseService;
 import org.ranji.lemon.volador.service.personal.prototype.IAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,39 +20,38 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-public class CourseDirectionController {
-
-	@Autowired
-	private IDirectionService directionService; 
+public class ChapterTitleController {
 	
 	@Autowired
 	private IAdminService adminService;
 	
-	/**
-	 * 查询所有课程方向信息
-	 * @return
-	 * @throws IOException 
-	 */
-	@RequestMapping(value="/courseDirection", method=RequestMethod.GET)
-	public void findAllCourseDerection(HttpServletRequest request,HttpServletResponse response) throws IOException{
+	@Autowired
+	private IChapterTitleService chapterTitleService;
+	
+	@Autowired
+	private ICourseService chourseService;
+	
+	@RequestMapping(value="chapterTitle",method=RequestMethod.GET)
+	public void chapterTitleList(HttpServletRequest request,HttpServletResponse response) throws IOException{
 		response.setHeader("Content-Type", "application/json;charset=utf-8");
 		PrintWriter pw=response.getWriter();
 		Map result = new HashMap<>();
 		if(adminService.parseJWT(request.getHeader("token"))){
 			try {
-				List<Direction> directionList = directionService.findAll();
+				int courseId=Integer.parseInt(request.getParameter("course_id"));
+				List<ChapterTitle> chapterTitleList=chourseService.findChapterTitleByCourse(courseId);
 				result.put("code", 200);
 				result.put("message", "获取成功");
-				Map courseDirectionMap = new HashMap<>();
-				courseDirectionMap.put("courseDirectionList", directionList);
-				result.put("data", courseDirectionMap);
+				Map chapterTitleMap=new HashMap();
+				chapterTitleMap.put("chapterTitleList", chapterTitleList);
+				result.put("data", chapterTitleMap);
 				
 			} catch (Exception e) {
 				// TODO: handle exception
-				e.printStackTrace();
-				result.put("code", 404);
+				result.put("code", "404");
 				result.put("message", "获取失败");
 			}
+
 		}else{
 			result.put("code", "404");
 			result.put("message", "非法请求");
@@ -62,121 +60,116 @@ public class CourseDirectionController {
 		pw.print(JsonUtil.objectToJson(result));
 		pw.flush();
 		pw.close();
+		
 	}
 	
-	/**
-	 * 
-	 * 修改课程方向信息
-	 * @param request
-	 * @return
-	 * @throws IOException 
-	 */
-	@RequestMapping(value="/courseDirection", method=RequestMethod.PUT)
-	public void updateCourseDirection(HttpServletRequest request,HttpServletResponse response) throws IOException {
+	
+	@RequestMapping(value="chapterTitle",method=RequestMethod.PUT)
+	public void chapterTitlePut(HttpServletRequest request,HttpServletResponse response) throws IOException{
 		response.setHeader("Content-Type", "application/json;charset=utf-8");
 		PrintWriter pw=response.getWriter();
 		Map result = new HashMap<>();
 		if(adminService.parseJWT(request.getHeader("token"))){
 			try {
-				int directionId =Integer.parseInt(request.getParameter("id"));
-				String directionName = request.getParameter("name");
-				Direction courseDirection = new Direction();
-				courseDirection.setId(directionId);
-				courseDirection.setName(directionName);
-				directionService.update(courseDirection);
+				int chapterTitleId=Integer.parseInt(request.getParameter("chapter_title_id"));
+				String chapterTitle=request.getParameter("chapter_title");
+				int chapterTitleOrder=Integer.parseInt(request.getParameter("chapter_title_orser"));
+				
+				ChapterTitle chapterTitleSave=new ChapterTitle();
+				chapterTitleSave.setId(chapterTitleId);
+				chapterTitleSave.setChapter_title(chapterTitle);
+				chapterTitleSave.setChapter_title_order(chapterTitleOrder);
+				chapterTitleService.update(chapterTitleSave);
+				
 				result.put("code", 200);
 				result.put("message", "修改成功");
 				
 			} catch (Exception e) {
 				// TODO: handle exception
-				e.printStackTrace();
-				result.put("code",404);
+				result.put("code", "404");
 				result.put("message", "修改失败");
-				
 			}
+
 		}else{
 			result.put("code", "404");
-			result.put("message", "非法请求");
-				
+			result.put("message", "非法请求");		
 		}
 		pw.print(JsonUtil.objectToJson(result));
 		pw.flush();
 		pw.close();
-
 		
 	}
 	
-	/**
-	 * 删除课程方向
-	 * @param request
-	 * @return
-	 * @throws IOException 
-	 */
-	@RequestMapping(value="/courseDirection", method=RequestMethod.DELETE)
-	public void deleteCourseDirection(HttpServletRequest request,HttpServletResponse response) throws IOException{
+	@RequestMapping(value="chapterTitle",method=RequestMethod.DELETE)
+	public void deleteChapterTitle(HttpServletRequest request,HttpServletResponse response) throws IOException{
 		response.setHeader("Content-Type", "application/json;charset=utf-8");
 		PrintWriter pw=response.getWriter();
 		Map result = new HashMap<>();
 		if(adminService.parseJWT(request.getHeader("token"))){
 			try {
-				int directionId =Integer.parseInt(request.getParameter("id"));
-				directionService.delete(directionId);
+				int chapterTitleId=Integer.parseInt(request.getParameter("chapterTitleId"));
+				
+				chapterTitleService.delete(chapterTitleId);
+				
 				result.put("code", 200);
 				result.put("message", "删除成功");
 				
 			} catch (Exception e) {
 				// TODO: handle exception
-				e.printStackTrace();
-				result.put("code",404);
+				result.put("code", "404");
 				result.put("message", "删除失败");
-				
 			}
+			
 		}else{
 			result.put("code", "404");
 			result.put("message", "非法请求");
-				
-		}
-		pw.print(JsonUtil.objectToJson(result));
-		pw.flush();
-		pw.close();
-	}
-	
-	/**
-	 * 增加课程方向信息
-	 * @param request
-	 * @return
-	 * @throws IOException 
-	 */
-	@RequestMapping(value="/courseDirection", method=RequestMethod.POST)
-	public void saveCourseDirection(HttpServletRequest request,HttpServletResponse response) throws IOException{
-		response.setHeader("Content-Type", "application/json;charset=utf-8");
-		PrintWriter pw=response.getWriter();
-		Map result = new HashMap<>();
-		if(adminService.parseJWT(request.getHeader("token"))){
-			try {
-				
-				String directionName = request.getParameter("name");
-				Direction courseDirection = new Direction();
-				courseDirection.setName(directionName);
-				directionService.save(courseDirection);
-				result.put("code", 200);
-				result.put("message", "增加成功");
-				
-			} catch (Exception e) {
-				// TODO: handle exception
-				e.printStackTrace();
-				result.put("code",404);
-				result.put("message", "增加失败");
-				
-			}
-		}else{
-			result.put("code", "404");
-			result.put("message", "非法请求");
-				
 		}
 		pw.print(JsonUtil.objectToJson(result));
 		pw.flush();
 		pw.close();
 		
 	}
+	
+	
+	@RequestMapping(value="chapterTitle",method=RequestMethod.POST)
+	public void addChapterTitle(HttpServletRequest request,HttpServletResponse response) throws IOException{
+		response.setHeader("Content-Type", "application/json;charset=utf-8");
+		PrintWriter pw=response.getWriter();
+		Map result = new HashMap<>();
+		if(adminService.parseJWT(request.getHeader("token"))){
+			try {
+				int courseId=Integer.parseInt(request.getParameter("course_id"));
+				String chapterTitle=request.getParameter("chapter_title");
+				int chapterTitleOrder=Integer.parseInt(request.getParameter("chapter_title_order"));
+				
+				ChapterTitle chapterTitleSave=new ChapterTitle();
+				chapterTitleSave.setCourse_id(courseId);
+				chapterTitleSave.setChapter_title(chapterTitle);
+				chapterTitleSave.setChapter_title_order(chapterTitleOrder);
+				
+				chapterTitleService.save(chapterTitleSave);
+				result.put("code", 200);
+				result.put("message", "添加成功");
+				
+			} catch (Exception e) {
+				// TODO: handle exception
+				result.put("code", "404");
+				result.put("message", "添加失败");
+			}
+			
+		}else{
+			result.put("code", "404");
+			result.put("message", "非法请求");
+		}
+		pw.print(JsonUtil.objectToJson(result));
+		pw.flush();
+		pw.close();
+		
+	}
+	
+	
+	
+	
+	
+
 }

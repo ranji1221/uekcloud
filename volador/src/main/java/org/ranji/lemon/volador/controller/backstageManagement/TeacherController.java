@@ -38,11 +38,7 @@ public class TeacherController {
 			response.setHeader("Content-Type", "application/json;charset=utf-8");
 			PrintWriter pw = response.getWriter();
 			Map result = new HashMap<>();
-			if(!adminService.parseJWT(request.getHeader("token"))){
-				result.put("code", "404");
-				result.put("message", "非法请求");
-//				return JsonUtil.objectToJson(result);
-			}else{
+			if(adminService.parseJWT(request.getHeader("token"))){
 				int page = 0;
 				int limit = 0;
 				try {
@@ -79,6 +75,10 @@ public class TeacherController {
 					result.put("message", "获取失败");
 					
 				}
+				
+			}else{
+				result.put("code", "404");
+				result.put("message", "非法请求");
 			}
 			System.out.println(JsonUtil.objectToJson(result));
 			pw.print(JsonUtil.objectToJson(result));
@@ -99,11 +99,7 @@ public class TeacherController {
 			response.setHeader("Content-Type", "application/json;charset=utf-8");
 			PrintWriter pw = response.getWriter();
 			Map result = new HashMap<>();
-			if(!adminService.parseJWT(request.getHeader("token"))){
-				result.put("code", "404");
-				result.put("message", "非法请求");
-//				return JsonUtil.objectToJson(result);
-			}else{
+			if(adminService.parseJWT(request.getHeader("token"))){
 				try {
 					
 					List<Teacher> teacherInfo = teacherService.findAll();
@@ -118,6 +114,10 @@ public class TeacherController {
 					result.put("message", "获取失败");
 					
 				}
+
+			}else{
+				result.put("code", "404");
+				result.put("message", "非法请求");
 			}
 			pw.print(JsonUtil.objectToJson(result));
 			pw.flush();
