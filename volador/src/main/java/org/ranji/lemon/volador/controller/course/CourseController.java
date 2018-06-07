@@ -174,26 +174,33 @@ public class CourseController {
 		ModelAndView mv = new ModelAndView();
 		
 		//检测是否登录,并获取用户信息
-		try{		
-			String userName = request.getSession().getAttribute("userName").toString();
-			int userId=(int) request.getSession().getAttribute("userId");
-			mv =headerService.headInfo(userId, userName);
-			mv.addObject("pageUri", "/course_chapter?courseId="+courseId);
-			UserInfo userInfo=personalService.findUserInfoByUserId(userId);
-			mv.addObject(userInfo);
-			mv.addObject("login_yes","login_yes active");
-			mv.addObject("login_no","login_no");
-			mv.addObject("userName", userName);
-			mv.addObject("userId",userId);
-			//查询是否已经收藏该课程
-			List<Integer> courseIdList=personalService.findCollectCourseRelationByUserId(userId);
-			int display=0;
-			for(int courseNum:courseIdList){
-				if(courseNum == courseId){
-					display=1;
-				};
-			}
-			mv.addObject("display", display);
+		try{
+			if(request.getSession().getAttribute("userId")!=null
+					&&request.getSession().getAttribute("userName")!=null){
+				int userId=(int) request.getSession().getAttribute("userId");
+				String userName=(String) request.getSession().getAttribute("userName");
+				mv =headerService.headInfo(userId, userName);
+				mv.addObject("pageUri", "/findCourse");
+				mv.addObject("pageUri", "/course_chapter?courseId="+courseId);
+				UserInfo userInfo=personalService.findUserInfoByUserId(userId);
+				mv.addObject(userInfo);
+				mv.addObject("login_yes","login_yes active");
+				mv.addObject("login_no","login_no");
+				mv.addObject("userName", userName);
+				mv.addObject("userId",userId);
+				//查询是否已经收藏该课程
+				List<Integer> courseIdList=personalService.findCollectCourseRelationByUserId(userId);
+				int display=0;
+				for(int courseNum:courseIdList){
+					if(courseNum == courseId){
+						display=1;
+					};
+				}
+				mv.addObject("display", display);
+			}else{
+				mv.addObject("headLogin_yes","login_yes");
+				mv.addObject("headLogin_no","login_no active");
+			}		
 			
 		}
 		catch (Exception e) {
