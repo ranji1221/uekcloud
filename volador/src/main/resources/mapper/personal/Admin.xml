@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.ranji.lemon.volador.model.personal.Admin"> 
+	<resultMap type="voladorAdmin" id="voladorAdminMap">        
+        <result column="create_time" property="createTime" />  
+        <result column="update_time" property="updateTime" /> 
+     </resultMap>  
+
+	<!-- 插入一个管理员 -->
+	<insert id="save" parameterType="voladorAdmin" keyProperty="id" useGeneratedKeys="true">
+		insert into lemon_volador_personal_admin (guid,create_time,update_time,username,password)
+		values (#{guid},#{createTime},#{updateTime},#{username},#{password})
+	</insert>
+	
+	<!-- 删除某个管理员 -->
+	<delete id="delete" parameterType="int" >
+		delete from lemon_volador_personal_admin where id = #{id}
+	</delete>
+	
+	
+	<!-- 查询全部管理员 -->
+	<select id="findAll" resultMap="voladorAdminMap" parameterType="Map">
+		select * from lemon_volador_personal_admin
+	</select>
+	
+	
+	<!-- 查询某个用户订单 -->
+	<select id="findOrderByUserId" parameterType="int" resultMap="voladorAdminMap">
+		select * from lemon_volador_personal_admin where user_id=#{userId}
+	</select>
+	
+	<!-- 查询根据id -->
+	<select id="find" parameterType="int" resultMap="voladorAdminMap">
+		select * from lemon_volador_personal_admin where id = #{id}
+	</select>
+	
+	<select id="findAdminByUsername" parameterType="string" resultMap="voladorAdminMap">
+		select * from lemon_volador_personal_admin where username=#{username}
+	</select>
+	
+	
+	<!-- 根据username修改订单内容 -->
+	<update id="update" parameterType="voladorAdmin">
+		update lemon_volador_pay_order
+		<set>
+			<if test="password != null and password != ''">password = #{password},</if>
+			<if test="updateTime != null ">update_time = #{updateTime},</if>
+		</set>
+		where username = #{username}
+	</update>
+
+</mapper>
