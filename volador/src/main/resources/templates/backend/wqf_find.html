@@ -70,7 +70,7 @@
 			<div class="page clear_both">
 				<span class="select">难度</span>
 				<span class="select">畅销</span>
-				<span>1/5</span>
+				<span id="page">1/5</span>
 				<span class="jt shang fy_icon">&#xe619;</span>
 				<span class="jt xia fy_icon">&#xe617;</span>
 			</div>
@@ -101,7 +101,7 @@
 					<div class="bg1"></div>
 					<div class="bg2"></div>
 
-					<h3 class="title hidd_more fire" th:text="${course.course_info}">理论+实践，构建属于你的机器学习库单 <span class="fy_icon">&#xe606;</span></h3>
+					<h3 class="title hidd_more fire" th:text="${course.course_name}">理论+实践，构建属于你的机器学习库单 <span class="fy_icon">&#xe606;</span></h3>
 					<p>
 						<span th:text="${course.course_price} == 0 ? '免费' : '￥'+${course.course_price}" class="price">￥199</span>
 						<span th:text="${course.student_count} + '人正在学习'">555人正在学习</span>
@@ -118,12 +118,32 @@
 var data = [[${courseList}]]
 </script>
 <script>
+console.log(data)
+	var pageNum = 2; // 每页放几条
+    var TotalNumber = data.length;  // 总条数
+	var pageCount = Math.ceil(TotalNumber/pageNum);    // 总页数
+    var currentPage = 0 ;   // 当前页码
+
+    var pageL = $(".page .jt.shang")
+    var pageR = $(".page .jt.xia")
+    pageL.click(function(){
+    	currentPage = currentPage-1<=0?0:currentPage-1
+    	update()
+    })
+    pageR.click(function(){
+    	currentPage = currentPage>=pageCount-1?pageCount-1:currentPage+1
+    	update()
+    })
 	
+
 	var class_list = $('.class_list')
 	update()
 	function update(){
+    	$("#page").html(`${currentPage+1}/${pageCount}`)
 		var str = "";
-		data.forEach((val,i)=>{
+		// console.log(currentPage*pageNum,pageNum)
+		var newArr = data.slice(currentPage*pageNum,currentPage*pageNum+pageNum)
+		newArr.forEach((val,i)=>{
 			str+=`<li>
 					<a href="course_chapter?courseId=${val.id}">
 						<div class="picture" style="background: url(${val.course_image_address}) no-repeat center/cover">
@@ -180,6 +200,7 @@ var data = [[${courseList}]]
 			if(target.attr('id')=="zonghe"){
 				newdata.sort((a,b)=>1)
 				data = newdata.slice(0)
+				currentPage = 0
 				update()
 			}else if(target.attr('id')=="zuixin"){
 				// 时间排序
@@ -188,6 +209,7 @@ var data = [[${courseList}]]
 				}else{
 					data.sort((a,b)=>b.updateTime - a.updateTime)
 				}
+				currentPage = 0
 				update()
 			}else if(target.attr('id')=="remen"){
 				// 热门排序
@@ -197,6 +219,7 @@ var data = [[${courseList}]]
 				}else{
 					data.sort((a,b)=>b.student_count - a.student_count)
 				}
+				currentPage = 0
 				update()
 			}
 		}

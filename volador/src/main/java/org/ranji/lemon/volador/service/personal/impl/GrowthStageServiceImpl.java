@@ -7,6 +7,7 @@ import org.ranji.lemon.volador.model.course.Course;
 import org.ranji.lemon.volador.model.personal.GrowthStage;
 import org.ranji.lemon.volador.persist.personal.prototype.IGrowthStageDao;
 import org.ranji.lemon.volador.service.personal.prototype.IGrowthStageService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 /**
  * 成长阶段service实现类
@@ -18,6 +19,8 @@ import org.springframework.stereotype.Service;
 @Service("VoladorGrowthStageServiceImpl")
 public class GrowthStageServiceImpl extends GenericServiceImpl<GrowthStage, Integer> implements IGrowthStageService{
 
+//	@Autowired
+//	private I
 	@Override
 	public void saveGrowthStageAndCourseRelation(int stage_id, int course_id) {
 		((IGrowthStageDao) dao).saveGrowthStageAndCourseRelation(stage_id, course_id);		
@@ -41,6 +44,45 @@ public class GrowthStageServiceImpl extends GenericServiceImpl<GrowthStage, Inte
 	@Override
 	public List<Course> findCourseByGrowthStageId(int stage_id) {
 		return ((IGrowthStageDao) dao).findCourseByGrowthStageId(stage_id);
+	}
+
+	@Override
+	public void save(GrowthStage entity) {
+		//保存課程階段時獲取階段中課程價格，學生人數，課程時長并保存
+		List<Course> courseList = findCourseByGrowthStageId(entity.getId());
+		int timeCount = 0;
+		int studentCount = 0;
+		int coursePrice = 0;
+		
+		for(Course course:courseList){
+			//timeCount += 
+			studentCount += course.getStudent_count();
+			coursePrice += course.getCourse_price();
+		}
+		entity.setCoursePrice(coursePrice);
+		entity.setTimeCount(timeCount);
+		entity.setStudentCount(studentCount);
+		
+		super.save(entity);
+	}
+
+	@Override
+	public void update(GrowthStage entity) {
+		//更新課程階段時獲取階段中課程價格，學生人數，課程時長并保存
+		List<Course> courseList = findCourseByGrowthStageId(entity.getId());
+		int timeCount = 0;
+		int studentCount = 0;
+		int coursePrice = 0;
+		
+		for(Course course:courseList){
+			//timeCount += 
+			studentCount += course.getStudent_count();
+			coursePrice += course.getCourse_price();
+		}
+		entity.setCoursePrice(coursePrice);
+		entity.setTimeCount(timeCount);
+		entity.setStudentCount(studentCount);
+		super.update(entity);
 	}
 
 }

@@ -44,4 +44,27 @@ public class TeacherDaoImpl extends GenericDaoImpl<Teacher,Integer> implements I
 		return sqlSessionTemplate.selectOne(typeNameSpace+".findTeacherCount");
 	}
 
+	@Override
+	public void saveGrowthClassTeacher(int growthclass_id, int teacher_id) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("growthclass_id", growthclass_id);
+		params.put("teacher_id", teacher_id);
+		
+		sqlSessionTemplate.insert(typeNameSpace+".saveGrowthClassTeacher", params);
+	}
+
+	@Override
+	public void deleteGrowthClassTeacher(int growthclass_id, int teacher_id) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("growthclass_id", growthclass_id);
+		params.put("teacher_id", teacher_id);
+		
+		sqlSessionTemplate.delete(typeNameSpace+".deleteGrowthClassTeacher", params);
+	}
+
+	@Override
+	public List<Teacher> findTeacherByGrowthClassId(int growthclass_id) {
+		return sqlSessionTemplate.selectList(typeNameSpace+".findTeacherByGrowthClassId", growthclass_id);
+	}
+
 }

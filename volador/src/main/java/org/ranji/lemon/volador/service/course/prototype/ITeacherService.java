@@ -25,4 +25,25 @@ public interface ITeacherService extends IGenericService<Teacher,Integer> {
 	public List<Teacher> findHeaderTeacher();
 	
 	public PagerModel<Teacher> findTeacherInfoByPage(int page,int limit);
+	
+	/**
+	 * 保存职业导航老师
+	 * @param growthclass_id		职业导航ID
+	 * @param teacher_id			老师ID
+	 */
+	public void saveGrowthClassTeacher(int growthclass_id, int teacher_id);
+	
+	/**
+	 * 删除职业导航老师
+	 * @param growthclass_id		职业导航ID
+	 * @param teacher_id			老师ID
+	 */
+	public void deleteGrowthClassTeacher(int growthclass_id, int teacher_id);
+	
+	/**
+	 * 根据职业导航ID查找老师
+	 * @param growthclass_id		职业导航ID
+	 * @return
+	 */
+	public List<Teacher> findTeacherByGrowthClassId(int growthclass_id);
 }

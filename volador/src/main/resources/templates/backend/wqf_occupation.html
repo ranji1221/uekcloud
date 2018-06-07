@@ -27,55 +27,11 @@
         
                 <!-- 导航 开始 -->
                 <ul class="menu">
-                    <li>
-                        <a href="javascript:;">
-                            <i class="fy_icon">&#xe60c;</i>
-                            找课程
+                    <li th:each="growthClass:${growthClassList}" style="width:auto;margin-right:30px;">
+                        <a th:href="'growth_system?growthClassId='+${growthClass.id}">
+                            <i class="fy_icon" th:text="${growthClass.title}">&#xe60c;</i>
+                            
                         </a>
-                    </li>
-                    <li>
-                        <a href="javascript:;">职业导航</a>
-                    </li>
-                    <li>
-                        <a href="javascript:;">免费课</a>
-                    </li>
-                    <li>
-                        <a href="javascript:;">
-                            直播课
-                            <!-- <i class="fy_icon">icon</i> -->
-                            <img src="images/header_zhibo.png">
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:;">线下课程</a>
-                    </li>
-                    <li class="search">
-                        <input type="text" placeholder="请输入您想要了解的课程">
-        
-                        <!-- 点击 按键发送ajax请求进行搜索 -->
-                        <i class="fy_icon" id="header_search">&#xe64d;</i>
-                        <!-- 点击搜索下方展开的容器 -->
-                        <div class="alert_box">
-                            <!-- 联想词 -->
-                            <div class="association">
-                                <a href="javascript:;">UI设计</a>
-                                <a href="javascript:;">全栈工程师</a>
-                                <a href="javascript:;">产品经理</a>
-                                <a href="javascript:;">Python全栈</a>
-                            </div>
-                            <!-- 历史记录 -->
-                            <ul>
-                                <li>
-                                    <a href="javascript:;">全栈工程师</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:;">全栈工程师</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:;">清除搜索历史</a>
-                                </li>
-                            </ul>
-                        </div>
                     </li>
                 </ul>
                 <!-- 导航 结束 -->
@@ -163,16 +119,16 @@
 
     <!-- banner  开始     -->
         <!-- 修改背景图路径即可修改banner背景图片 -->
-    <div class="wqf_banner" style="background:url(images/wqf_banner.png) no-repeat center /cover;">
+    <div class="wqf_banner" th:style="'background:url('+${growthClass.image}+') no-repeat center /cover;'">
         <!-- 背景蒙版 -->
         <div class="banner_bg"></div>
         <div class="message">
-            <h1>UI／UX设计师 需要的技能都在这里</h1>
-            <p class="subheading">从入门到实战 助你加薪升职</p>
+            <h1 th:text="${growthClass.title}">UI／UX设计师 需要的技能都在这里</h1>
+            <p class="subheading" th:text="${growthClass.send_word}">从入门到实战 助你加薪升职</p>
             <p class="number">
-                <span>时长<i>1200</i>分钟</span>
-                <span>在学人数<i>1200</i>人</span>
-                <span>价格<i>198</i>元</span>
+                <span>时长<i th:text="${timeCount}">1200</i>分钟</span>
+                <span>在学人数<i th:text="${studentCount}">1200</i>人</span>
+                <span>价格<i th:text="${coursePrice}">198</i>元</span>
             </p>
 
             <div class="btns">
@@ -246,16 +202,16 @@
         <!-- 背景图片 -->
         <div class="curriculum_list clear_both" >
             <div class="container right">
-                <img src="images/ui_class1.png" alt="">
+                <img alt="" th:src="${growthStage1.image}">
                 <div class="content clear_both">
-                    <div class="num">1</div>
+                    <div class="num" th:text="${growthStage1.number}">1</div>
                     <div class="message ">
-                        <h1>基础入门</h1>
+                        <h1 th:text="${growthStage1.title}">基础入门</h1>
                         <h2>阶段</h2>
-                        <p class="introduce">产品思维是产品经理的灵魂，这一刻你将成为真正的产品经理！本阶段主要培养您的立体化思维、养成产品经理视角，并能够立体化。</p>
+                        <p class="introduce"  th:text="${growthStage1.description}">产品思维是产品经理的灵魂，这一刻你将成为真正的产品经理！本阶段主要培养您的立体化思维、养成产品经理视角，并能够立体化。</p>
                         <p class="time">
-                            <span>阶段时长 100分钟</span>
-                            <span>在学人数 100人</span>
+                            <span>阶段时长<i th:text="${growthStage1.timeCount}">1200</i>分钟</span>
+                            <span>在学人数<i th:text="${growthStage1.studentCount}">1200</i>分钟</span>
                         </p>
                         <div class="btns">
                             <a href="javascript:;">购买本章节</a>
@@ -293,20 +249,19 @@
                         </ul>
                     </div>
                 </div>
-            </div>
-
+            </div> 
             <div class="container left">
                 <img src="images/ui_class2.png" alt="">
                 
                 <div class="content clear_both">
                     <div class="num">2</div>
                     <div class="message">
-                        <h1>功能定位&PRD文档</h1>
+                        <h1 th:text="${growthStage2.title}">基础入门</h1>
                         <h2>阶段</h2>
-                        <p class="introduce">产品思维是产品经理的灵魂，这一刻你将成为真正的产品经理！本阶段主要培养您的立体化思维、养成产品经理视角，并能够立体化。</p>
+                        <p class="introduce"  th:text="${growthStage2.description}">产品思维是产品经理的灵魂，这一刻你将成为真正的产品经理！本阶段主要培养您的立体化思维、养成产品经理视角，并能够立体化。</p>
                         <p class="time">
-                            <span>阶段时长 100分钟</span>
-                            <span>在学人数 100人</span>
+                            <span>阶段时长<i th:text="${growthStage2.timeCount}">1200</i>分钟</span>
+                            <span>在学人数<i th:text="${growthStage2.studentCount}">1200</i>分钟</span>
                         </p>
                         <div class="btns">
                             <a href="javascript:;">购买本章节</a>
@@ -351,12 +306,12 @@
                 <div class="content clear_both">
                     <div class="num">3</div>
                     <div class="message ">
-                        <h1>基础入门</h1>
+                        <h1 th:text="${growthStage3.title}">基础入门</h1>
                         <h2>阶段</h2>
-                        <p class="introduce">产品思维是产品经理的灵魂，这一刻你将成为真正的产品经理！本阶段主要培养您的立体化思维、养成产品经理视角，并能够立体化。</p>
+                        <p class="introduce"  th:text="${growthStage3.description}">产品思维是产品经理的灵魂，这一刻你将成为真正的产品经理！本阶段主要培养您的立体化思维、养成产品经理视角，并能够立体化。</p>
                         <p class="time">
-                            <span>阶段时长 100分钟</span>
-                            <span>在学人数 100人</span>
+                            <span>阶段时长<i th:text="${growthStage3.timeCount}">1200</i>分钟</span>
+                            <span>在学人数<i th:text="${growthStage3.studentCount}">1200</i>分钟</span>
                         </p>
                         <div class="btns">
                             <a href="javascript:;">购买本章节</a>
@@ -401,12 +356,12 @@
                 <div class="content clear_both">
                     <div class="num">4</div>
                     <div class="message ">
-                        <h1>职业素养课程</h1>
+                        <h1 th:text="${growthStage4.title}">基础入门</h1>
                         <h2>阶段</h2>
-                        <p class="introduce">产品思维是产品经理的灵魂，这一刻你将成为真正的产品经理！本阶段主要培养您的立体化思维、养成产品经理视角，并能够立体化。</p>
+                        <p class="introduce"  th:text="${growthStage4.description}">产品思维是产品经理的灵魂，这一刻你将成为真正的产品经理！本阶段主要培养您的立体化思维、养成产品经理视角，并能够立体化。</p>
                         <p class="time">
-                            <span>阶段时长 100分钟</span>
-                            <span>在学人数 100人</span>
+                            <span>阶段时长<i th:text="${growthStage4.timeCount}">1200</i>分钟</span>
+                            <span>在学人数<i th:text="${growthStage4.studentCount}">1200</i>分钟</span>
                         </p>
                         <div class="btns">
                             <a href="javascript:;">购买本章节</a>
@@ -416,7 +371,7 @@
                        
                     </div>
                 </div>
-            </div>
+            </div>          
         </div>
     </div>
     <!-- 课程目录 开始 -->
@@ -425,7 +380,14 @@
     <!-- 名师团队 开始 -->
     <div class="wqf_teacher wqf_skill">
         <ul class="teacher_list clear_both">
-            <li>
+            <li th:each="teacher:${teacherList}">
+                <div class="photo" th:style="'background:url('+${teacher.teacher_image}+') no-repeat center / cover'"></div>
+                <p class="name" th:text="${teacher.teacher_name}">候宁洲</p>
+                <p class="message1" th:text="${teacher.company}">奇虎360核心业务高级产品经理，互联网企业资深产品经理。</p>
+                <p class="message2" th:text="${teacher.label}">数次参与国家级项目，并于项目中担任高级产品经理。曾服务于交大、国铁等知名互联网企业，互联网教育产品专家</p>
+                <a href="javascript:;">跟老师聊聊</a>
+            </li>
+            <!-- <li>
                 <div class="photo" style="background:url(images/wqf_user.png) no-repeat center / cover"></div>
                 <p class="name">候宁洲</p>
                 <p class="message1">奇虎360核心业务高级产品经理，互联网企业资深产品经理。</p>
@@ -438,14 +400,7 @@
                 <p class="message1">奇虎360核心业务高级产品经理，互联网企业资深产品经理。</p>
                 <p class="message2">数次参与国家级项目，并于项目中担任高级产品经理。曾服务于交大、国铁等知名互联网企业，互联网教育产品专家</p>
                 <a href="javascript:;">跟老师聊聊</a>
-            </li>
-            <li>
-                <div class="photo" style="background:url(images/wqf_user.png) no-repeat center / cover"></div>
-                <p class="name">候宁洲</p>
-                <p class="message1">奇虎360核心业务高级产品经理，互联网企业资深产品经理。</p>
-                <p class="message2">数次参与国家级项目，并于项目中担任高级产品经理。曾服务于交大、国铁等知名互联网企业，互联网教育产品专家</p>
-                <a href="javascript:;">跟老师聊聊</a>
-            </li>
+            </li> -->
         </ul>
     </div>
 
