@@ -17,6 +17,19 @@ public class GrowthStage extends AbstractModel{
 	private Integer number;
 	private String title;
 	private String description;
+	private String image;
+	
+	private Integer timeCount;
+	private Integer studentCount;
+	private Integer coursePrice;
+	
+	
+	public String getImage() {
+		return image;
+	}
+	public void setImage(String image) {
+		this.image = image;
+	}
 	public Integer getNumber() {
 		return number;
 	}
@@ -36,6 +49,24 @@ public class GrowthStage extends AbstractModel{
 		this.description = description;
 	}
 
+	public Integer getTimeCount() {
+		return timeCount;
+	}
+	public void setTimeCount(Integer timeCount) {
+		this.timeCount = timeCount;
+	}
+	public Integer getStudentCount() {
+		return studentCount;
+	}
+	public void setStudentCount(Integer studentCount) {
+		this.studentCount = studentCount;
+	}
+	public Integer getCoursePrice() {
+		return coursePrice;
+	}
+	public void setCoursePrice(Integer coursePrice) {
+		this.coursePrice = coursePrice;
+	}
 	@Override
 	public String toString(){
 		return JsonUtil.objectToJson(this);

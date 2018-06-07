@@ -60,4 +60,26 @@
 	<select id="findTeacherCount" resultType="int">
 	select count(*) from lemon_volador_course_teacher	
 	</select>
+	
+	<!-- 保存职业导航老师 -->
+	<insert id="saveGrowthClassTeacher" parameterType="Map" keyProperty="id" useGeneratedKeys="true">
+		insert into lemon_volador_growthclass_teacher (growthclass_id,teacher_id) values (#(growthclass_id),#{teacher_id})
+	</insert>
+	
+	<!-- 删除职业导航的某条教师 -->
+	<delete id="deleteGrowthClassTeacher" parameterType="Map">
+		delete from lemon_volador_growthclass_teacher where growthclass_id = #{growthclass_id} and teacher_id = #{teacher_id}
+	</delete>
+	
+	<!-- 根据职业导航ID查找老师 -->
+	<select id="findTeacherByGrowthClassId" parameterType="int" resultType="VoladorTeacher">
+		SELECT
+		t.*
+		FROM
+			lemon_volador_course_teacher t
+		LEFT JOIN lemon_volador_growthclass_teacher c_t ON t.id = c_t.teacher_id
+		LEFT JOIN lemon_volador_personal_growthclass u ON u.id = c_t.growthclass_id
+		WHERE
+			u.id = #{id}
+	</select>
 </mapper>

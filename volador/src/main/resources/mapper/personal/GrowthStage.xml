@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.ranji.lemon.volador.model.personal.GrowthStage">
   <insert id="save" parameterType="VoladorGrowthStage" keyProperty="id" useGeneratedKeys="true">
-		insert into lemon_volador_personal_growthstage (guid,createTime,updateTime,number,title,description) 
-		values (#{guid},#{createTime},#{updateTime},#{number},#{title},#{description})
+		insert into lemon_volador_personal_growthstage (guid,createTime,updateTime,number,title,description,image,timeCount,studentCount,coursePrice) 
+		values (#{guid},#{createTime},#{updateTime},#{number},#{title},#{description},#{image},#{timeCount},#{studentCount},#{coursePrice})
 	</insert>
 	
 	<!-- 删除某条记录 -->
@@ -43,6 +43,10 @@
 			<if test="number != null and number != ''">number = #{number},</if>
 			<if test="title != null and title != ''">title = #{title},</if>
 			<if test="description != null and description != ''">description = #{description},</if>
+			<if test="image != null and image != ''">image = #{image},</if>
+			<if test="studentCount != null and studentCount != ''">studentCount = #{studentCount},</if>
+			<if test="timeCount != null and timeCount != ''">timeCount = #{timeCount},</if>
+			<if test="coursePrice != null and coursePrice != ''">coursePrice = #{coursePrice},</if>
 			<if test="updateTime != null ">updateTime = #{updateTime},</if>
 		</set>
 		where id = #{id}

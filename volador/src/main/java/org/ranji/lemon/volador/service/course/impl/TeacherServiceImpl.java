@@ -42,4 +42,21 @@ public class TeacherServiceImpl extends GenericServiceImpl<Teacher,Integer> impl
 		pagerModel.setTotal(((ITeacherDao) dao).findTeacherCount());
 		return pagerModel;
 	}
+
+	@Override
+	public void saveGrowthClassTeacher(int growthclass_id, int teacher_id) {
+		((ITeacherDao) dao).saveGrowthClassTeacher(growthclass_id, teacher_id);		
+	}
+
+	@Override
+	public void deleteGrowthClassTeacher(int growthclass_id, int teacher_id) {
+		((ITeacherDao) dao).deleteGrowthClassTeacher(growthclass_id, teacher_id);
+	}
+
+	@Override
+	public List<Teacher> findTeacherByGrowthClassId(int growthclass_id) {
+		return ((ITeacherDao) dao).findTeacherByGrowthClassId(growthclass_id);
+	}
+	
+	
 }
