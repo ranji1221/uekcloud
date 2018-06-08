@@ -29,7 +29,14 @@
 		select * from lemon_volador_global_feedback where id = #{id}
 	</select>
 	
+	<!-- 分页查询反馈信息 -->
+	<select id="findFeedbackByPage" parameterType="Map" resultMap="VoladorFeedbackMap">
+		select * from lemon_volador_global_feedback limit #{startNumber},#{offSet}
+	</select>
 	
-	
+	<!-- 查询反馈信息总条数 -->
+	<select id="feedbackCount" resultType="int">
+		select count(*) from lemon_volador_global_feedback
+	</select>
 
 </mapper>
