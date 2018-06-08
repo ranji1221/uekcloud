@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.ranji.lemon.volador.model.global.Feedback"> 
+
+	<resultMap type="VoladorFeedback" id="VoladorFeedbackMap">        
+        <result column="create_time" property="createTime" />  
+        <result column="update_time" property="updateTime" />   
+     </resultMap>  
+	<!-- 插入回复 -->
+	<insert id="save" parameterType="VoladorFeedback" keyProperty="id" useGeneratedKeys="true">
+		insert into lemon_volador_global_feedback (guid,create_time,update_time,content)
+		values (#{guid},#{createTime},#{updateTime},#{content})
+	</insert>
+	
+	<!-- 删除某条反馈 -->
+	<delete id="delete" parameterType="int" >
+		delete from lemon_volador_global_feedback where id = #{id}
+	</delete>
+	
+	
+	<!-- 查询全部反馈 -->
+	<select id="findAll" resultMap="VoladorFeedbackMap" parameterType="Map">
+		select * from lemon_volador_global_feedback
+	</select>
+	
+	
+	<!-- 查询反馈根据id -->
+	<select id="find" parameterType="int" resultMap="VoladorFeedbackMap">
+		select * from lemon_volador_global_feedback where id = #{id}
+	</select>
+	
+	
+	
+
+</mapper>
