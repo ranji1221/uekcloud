@@ -714,7 +714,7 @@ $(function(){
                                 <a href="course_video?chapterId=${m.id}">
                                     <i class="fy_icon">&#xe629;</i>
                                     ${m.chapter_name}
-                                    <span class="time">${m.totalTime}</span>
+                                    <span class="time">${m.total_time}</span>
                                 </a>
                                 <p class="hidd_more">${m.chapter_info}</p>
                             `).appendTo(ul);

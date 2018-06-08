@@ -9,13 +9,14 @@
         <result column="pay_ment_time" property="payMentTime" />    
         <result column="end_time" property="endTime" />  
         <result column="close_time" property="closeTime" />  
-        <result column="course_id" property="courseId" />  
+        <result column="course_id" property="courseId" />
+        <result column="order_number" property="orderNumber" />    
      </resultMap>  
 
 	<!-- 插入回复 -->
 	<insert id="save" parameterType="voladorPayOrder" keyProperty="id" useGeneratedKeys="true">
-		insert into lemon_volador_pay_order (guid,create_time,update_time,pay_ment,status,pay_ment_time,user_id,end_time,close_time,course_id)
-		values (#{guid},#{createTime},#{updateTime},#{payMent},#{status},#{payMentTime},#{userId},#{endTime},#{closeTime},#{courseId})
+		insert into lemon_volador_pay_order (guid,create_time,update_time,pay_ment,status,pay_ment_time,user_id,end_time,close_time,course_id,order_number)
+		values (#{guid},#{createTime},#{updateTime},#{payMent},#{status},#{payMentTime},#{userId},#{endTime},#{closeTime},#{courseId},#{orderNumber})
 	</insert>
 	
 	<!-- 删除某条订单 -->
@@ -41,7 +42,7 @@
 	</select>
 	
 	
-	<!-- 根据guid修改订单内容 -->
+	<!-- 根据orderNum修改订单内容 -->
 	<update id="update" parameterType="voladorPayOrder">
 		update lemon_volador_pay_order
 		<set>
@@ -54,7 +55,18 @@
 			<if test="courseId != null and courseId != ''">course_id = #{courseId},</if>
 			<if test="updateTime != null ">update_time = #{updateTime},</if>
 		</set>
-		where guid = #{guid}
+		where order_number = #{orderNumber}
 	</update>
+	
+	<!--分页查询订单 -->
+	<select id="findPageOrderList" parameterType="map" resultMap="voladorPayOrderMap" >
+		select * from lemon_volador_pay_order order by create_time desc limit #{offset},#{limit}
+	</select>
+	
+	<!--查询订单总数 -->
+	<select id="orderCount" parameterType="Map" resultType="Integer">
+		select count(*) from lemon_volador_pay_order
+	</select>
+	
 
 </mapper>

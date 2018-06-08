@@ -1,6 +1,7 @@
 package org.ranji.lemon.volador.service.pay.prototype;
 
 import java.util.List;
+import java.util.Map;
 
 import org.ranji.lemon.core.service.prototype.IGenericService;
 import org.ranji.lemon.volador.model.pay.Order;
@@ -13,4 +14,6 @@ public interface IOrderService extends IGenericService<Order, Integer> {
      * @return 订单列表
      */
     public List<Order> findOrderByUserId(int userId);
+    
+    public Map pageOrder(int page,int limit);
 }

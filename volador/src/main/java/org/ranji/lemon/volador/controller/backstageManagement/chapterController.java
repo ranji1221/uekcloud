@@ -77,6 +77,10 @@ public class chapterController {
 				chapter.setVideo_address(request.getParameter("vedio_address"));
 				chapter.setChapter_order(Integer.parseInt(request.getParameter("chapter_order")));
 				chapter.setChapter_info(request.getParameter("chapter_info"));
+				chapter.setTotal_time(request.getParameter("total_time"));
+				chapter.setAccessory_name(request.getParameter("accessory_name"));
+				chapter.setAccessory_download(request.getParameter("accessory_download"));
+				
 				
 				chapterService.update(chapter);
 				result.put("code", 200);
@@ -143,6 +147,9 @@ public class chapterController {
 				chapter.setChapter_title_id(Integer.parseInt(request.getParameter("chapter_title_id")));
 				chapter.setVideo_address(request.getParameter("vedio_address"));
 				chapter.setChapter_order(Integer.parseInt(request.getParameter("chapter_order")));
+				chapter.setTotal_time(request.getParameter("total_time"));
+				chapter.setAccessory_name(request.getParameter("accessory_name"));
+				chapter.setAccessory_download(request.getParameter("accessory_download"));
 				
 				chapterService.save(chapter);
 				result.put("code", 200);

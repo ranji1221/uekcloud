@@ -18,8 +18,35 @@ public class Chapter extends AbstractModel {
     private String chapter_info;
     private int chapter_title_id;
     private int chapter_order;
+    private String total_time;
+    private String accessory_name;
+    private String accessory_download;
 
-    public int getChapter_title_id() {
+    public String getAccessory_name() {
+		return accessory_name;
+	}
+
+	public void setAccessory_name(String accessory_name) {
+		this.accessory_name = accessory_name;
+	}
+
+	public String getAccessory_download() {
+		return accessory_download;
+	}
+
+	public void setAccessory_download(String accessory_download) {
+		this.accessory_download = accessory_download;
+	}
+
+	public String getTotal_time() {
+		return total_time;
+	}
+
+	public void setTotal_time(String total_time) {
+		this.total_time = total_time;
+	}
+
+	public int getChapter_title_id() {
 		return chapter_title_id;
 	}
 

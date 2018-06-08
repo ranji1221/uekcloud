@@ -12,4 +12,19 @@ public interface IOrderDao extends IGenericDao<Order, Integer>{
      * @return 订单列表
      */
     public List<Order> findOrderByUserId(int userId);
+    
+    /**
+     * 分页查询所有订单
+     * @param userId
+     * @return 订单列表
+     */
+    public List<Order> findPageOrderList(int page,int limit);
+    
+    /**
+     * 订单总数
+     * @param userId
+     * @return 订单列表
+     */
+    public int orderCount();
+    
 }

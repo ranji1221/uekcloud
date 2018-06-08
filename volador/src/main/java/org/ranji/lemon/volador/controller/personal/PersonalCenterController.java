@@ -83,23 +83,40 @@ public class PersonalCenterController {
 	 * */
 	@RequestMapping(value="/personalCenter_notice", method=RequestMethod.GET)
 	public ModelAndView personalCenterNotice(HttpServletRequest request){
+		ModelAndView mv= new ModelAndView();
 		try {
 			String userName=(String) request.getSession().getAttribute("userName");
 			int userId=(int) request.getSession().getAttribute("userId");
-			 ModelAndView mv = headerService.headInfo(userId, userName);
+			mv = headerService.headInfo(userId, userName);
 			 mv.addObject("pageUri", "/personalCenter_notice");
 			List<Notification> notificationList = inotificationService.findAll();
 			mv.addObject("notificationList", notificationList);
 			mv.addObject("notificationNumber", notificationList.size());
 			//System.out.println(notificationList.get(0).getCreateTime());	    
+			
+			
+			//查询当前用户信息
+			UserInfo userInfo=personalService.findUserInfoByUserId(userId);
+			mv.addObject("user_name",userInfo.getNickname());
+			mv.addObject("gender", userInfo.getGender());
+			mv.addObject("address",userInfo.getAddress());
+			
+			
+			//查询我的积分
+			Integral integral = integralService.findIntegralByUserId(userId);
+			mv.addObject("integralNum", integral.getIntegralNumber());
+			
+			//查询签到天数
+			SignIn signIn = signInService.findSignInByUserId(userId);
+			mv.addObject("siginDay", signIn.getDay());
+			
 			mv.setViewName("/backend/wqf_notice");
-			return mv;
+			
 		} catch (Exception e) {
 			// TODO: handle exception
-			ModelAndView mv=new ModelAndView();
 			mv.setViewName("redirect:/login");
-			return mv;
 		}
+		return mv;
 		
 		
 	}
@@ -115,6 +132,22 @@ public class PersonalCenterController {
 			String userName=(String) request.getSession().getAttribute("userName");
 			mv =headerService.headInfo(userId, userName);
 			mv.addObject("pageUri", "/personalCenter_comment");
+			
+			//查询当前用户信息
+			UserInfo userInfo=personalService.findUserInfoByUserId(userId);
+			mv.addObject("user_name",userInfo.getNickname());
+			mv.addObject("gender", userInfo.getGender());
+			mv.addObject("address",userInfo.getAddress());
+			
+			
+			
+			//查询我的积分
+			Integral integral = integralService.findIntegralByUserId(userId);
+			mv.addObject("integralNum", integral.getIntegralNumber());
+			
+			//查询签到天数
+			SignIn signIn = signInService.findSignInByUserId(userId);
+			mv.addObject("siginDay", signIn.getDay());
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -366,9 +399,13 @@ public class PersonalCenterController {
 			
 			
 			//查询我的积分
-			
+			Integral integral = integralService.findIntegralByUserId(userId);
+			mv.addObject("integralNum", integral.getIntegralNumber());
 			
 			//查询签到天数
+			SignIn signIn = signInService.findSignInByUserId(userId);
+			mv.addObject("siginDay", signIn.getDay());
+			
 			
 			mv.setViewName("/backend/wqf_learn_end");
 		} catch (Exception e) {
@@ -487,6 +524,15 @@ public class PersonalCenterController {
 			mv.addObject("gender", userInfo.getGender());
 			mv.addObject("address",userInfo.getAddress());
 			mv.setViewName("/backend/wzq_fiavourite_end");
+			
+			
+			//查询我的积分
+			Integral integral = integralService.findIntegralByUserId(userId);
+			mv.addObject("integralNum", integral.getIntegralNumber());
+			
+			//查询签到天数
+			SignIn signIn = signInService.findSignInByUserId(userId);
+			mv.addObject("siginDay", signIn.getDay());
 		} catch (Exception e) {
 			// TODO: handle exception
 			mv.setViewName("redirect:/login");
@@ -537,6 +583,16 @@ public class PersonalCenterController {
 			mv.addObject("gender", userInfo.getGender());
 			mv.addObject("address",userInfo.getAddress());
 			
+			
+			
+			//查询我的积分
+			Integral integral = integralService.findIntegralByUserId(userId);
+			mv.addObject("integralNum", integral.getIntegralNumber());
+			
+			//查询签到天数
+			SignIn signIn = signInService.findSignInByUserId(userId);
+			mv.addObject("siginDay", signIn.getDay());
+			
 			mv.setViewName("/backend/wqf_data_download");
 			
 		} catch (Exception e) {
@@ -561,6 +617,23 @@ public class PersonalCenterController {
 			String userName=(String) request.getSession().getAttribute("userName");
 			 mv = headerService.headInfo(userId, userName);	
 			 mv.addObject("pageUri", "/personalCenter_jifen");
+			 
+			//查询当前用户信息
+			UserInfo userInfo=personalService.findUserInfoByUserId(userId);
+			mv.addObject("user_name",userInfo.getNickname());
+			mv.addObject("gender", userInfo.getGender());
+			mv.addObject("address",userInfo.getAddress());
+			
+			
+			
+			//查询我的积分
+			Integral integral = integralService.findIntegralByUserId(userId);
+			mv.addObject("integralNum", integral.getIntegralNumber());
+			
+			//查询签到天数
+			SignIn signIn = signInService.findSignInByUserId(userId);
+			mv.addObject("siginDay", signIn.getDay());
+			 
 			mv.setViewName("/backend/wzq_jifen");
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -581,6 +654,22 @@ public class PersonalCenterController {
 			int userId=(int) request.getSession().getAttribute("userId");
 			mv =headerService.headInfo(userId, userName);
 			mv.addObject("pageUri", "/personalCenter_draw_rule");
+			
+			//查询当前用户信息
+			UserInfo userInfo=personalService.findUserInfoByUserId(userId);
+			mv.addObject("user_name",userInfo.getNickname());
+			mv.addObject("gender", userInfo.getGender());
+			mv.addObject("address",userInfo.getAddress());
+			
+			
+			
+			//查询我的积分
+			Integral integral = integralService.findIntegralByUserId(userId);
+			mv.addObject("integralNum", integral.getIntegralNumber());
+			
+			//查询签到天数
+			SignIn signIn = signInService.findSignInByUserId(userId);
+			mv.addObject("siginDay", signIn.getDay());
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -618,6 +707,15 @@ public class PersonalCenterController {
 			mv.addObject("user_name",userInfo.getNickname());
 			mv.addObject("gender", userInfo.getGender());
 			mv.addObject("address",userInfo.getAddress());
+			
+			
+			//查询我的积分
+			Integral integral = integralService.findIntegralByUserId(userId);
+			mv.addObject("integralNum", integral.getIntegralNumber());
+			
+			//查询签到天数
+			SignIn signIn = signInService.findSignInByUserId(userId);
+			mv.addObject("siginDay", signIn.getDay());
 			
 			mv.setViewName("/backend/wzq_list_work_upload");
 		} catch (Exception e) {
@@ -690,6 +788,23 @@ public class PersonalCenterController {
 			String userName=(String) request.getSession().getAttribute("userName");
 			int userId=(int) request.getSession().getAttribute("userId");
 			mv =headerService.headInfo(userId, userName);
+			
+			//查询当前用户信息
+			UserInfo userInfo=personalService.findUserInfoByUserId(userId);
+			mv.addObject("user_name",userInfo.getNickname());
+			mv.addObject("gender", userInfo.getGender());
+			mv.addObject("address",userInfo.getAddress());
+			
+			
+			
+			//查询我的积分
+			Integral integral = integralService.findIntegralByUserId(userId);
+			mv.addObject("integralNum", integral.getIntegralNumber());
+			
+			//查询签到天数
+			SignIn signIn = signInService.findSignInByUserId(userId);
+			mv.addObject("siginDay", signIn.getDay());
+			
 			mv.addObject("pageUri", "/personalCenter_invitation");
 		} catch (Exception e) {
 			// TODO: handle exception

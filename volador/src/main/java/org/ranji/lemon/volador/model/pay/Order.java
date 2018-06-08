@@ -28,6 +28,10 @@ public class Order extends AbstractModel {
 	private Date closeTime;
 	//购买课程Id
 	private int courseId;
+	//订单号
+	private String orderNumber;
+	
+	
 	public double getPayMent() {
 		return payMent;
 	}
@@ -71,7 +75,13 @@ public class Order extends AbstractModel {
 		this.courseId = courseId;
 	}
 	
-    @Override
+    public String getOrderNumber() {
+		return orderNumber;
+	}
+	public void setOrderNumber(String orderNumber) {
+		this.orderNumber = orderNumber;
+	}
+	@Override
     public String toString() {
         return JsonUtil.objectToJson(this);
     }
