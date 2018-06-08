@@ -39,6 +39,11 @@ public class TeacherDaoImpl extends GenericDaoImpl<Teacher,Integer> implements I
 	}
 
 	@Override
+	public void deleteHeaderTeacher(Integer teacher_id) {
+		sqlSessionTemplate.delete(typeNameSpace+".deleteHeaderTeacher", teacher_id);
+	}
+
+	@Override
 	public int findTeacherCount() {
 		// TODO Auto-generated method stub
 		return sqlSessionTemplate.selectOne(typeNameSpace+".findTeacherCount");

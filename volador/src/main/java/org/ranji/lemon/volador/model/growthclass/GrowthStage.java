@@ -1,4 +1,4 @@
-package org.ranji.lemon.volador.model.personal;
+package org.ranji.lemon.volador.model.growthclass;
 
 import org.apache.ibatis.type.Alias;
 import org.ranji.lemon.core.model.AbstractModel;

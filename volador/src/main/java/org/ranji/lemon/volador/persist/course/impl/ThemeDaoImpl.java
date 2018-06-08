@@ -44,8 +44,8 @@ public class ThemeDaoImpl extends GenericDaoImpl<Theme, Integer> implements IThe
 	}
 
 	@Override
-	public List<Course> findCourseAndThemeRelationByCourseId(int themeId) {
-		return sqlSessionTemplate.selectList(typeNameSpace + ".findCourseAndThemeRelationByCourseId", themeId);
+	public List<Course> findCourseByThemeId(int themeId) {
+		return sqlSessionTemplate.selectList(typeNameSpace + ".findCourseByThemeId", themeId);
 	}
 
 }

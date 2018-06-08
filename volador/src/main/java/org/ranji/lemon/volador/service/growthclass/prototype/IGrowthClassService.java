@@ -1,10 +1,11 @@
-package org.ranji.lemon.volador.service.personal.prototype;
+package org.ranji.lemon.volador.service.growthclass.prototype;
+
 
 import java.util.List;
 
 import org.ranji.lemon.core.service.prototype.IGenericService;
-import org.ranji.lemon.volador.model.personal.GrowthClass;
-import org.ranji.lemon.volador.model.personal.GrowthStage;
+import org.ranji.lemon.volador.model.growthclass.GrowthClass;
+import org.ranji.lemon.volador.model.growthclass.GrowthStage;
 /**
  * 成长体系service
  * @author 范小亚

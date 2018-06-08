@@ -57,6 +57,11 @@ public class TeacherServiceImpl extends GenericServiceImpl<Teacher,Integer> impl
 	public List<Teacher> findTeacherByGrowthClassId(int growthclass_id) {
 		return ((ITeacherDao) dao).findTeacherByGrowthClassId(growthclass_id);
 	}
-	
+
+	@Override
+	public void deleteHeaderTeacher(Integer teacherId) {
+		((ITeacherDao) dao).deleteHeaderTeacher(teacherId);
+		
+	}
 	
 }

@@ -1,18 +1,19 @@
-package org.ranji.lemon.volador.service.personal.prototype;
+package org.ranji.lemon.volador.persist.growthclass.prototype;
+
 
 import java.util.List;
 
-import org.ranji.lemon.core.service.prototype.IGenericService;
+import org.ranji.lemon.core.persist.prototype.IGenericDao;
 import org.ranji.lemon.volador.model.course.Course;
-import org.ranji.lemon.volador.model.personal.GrowthStage;
+import org.ranji.lemon.volador.model.growthclass.GrowthStage;
 /**
- * 成长阶段service
+ * 成长阶段Dao
  * @author 范小亚
  * @date 2018/6/1
  * @since JDK1.8
  * @version 1.0
  */
-public interface IGrowthStageService extends IGenericService<GrowthStage, Integer>{
+public interface IGrowthStageDao extends IGenericDao<GrowthStage, Integer>{
 	/**
 	 * 保存成长阶段与课程章节的关系
 	 * @param stage_id				成长阶段ID
@@ -46,5 +47,4 @@ public interface IGrowthStageService extends IGenericService<GrowthStage, Intege
 	 * @return						课程列表
 	 */
 	public List<Course> findCourseByGrowthStageId(int stage_id);
-
 }

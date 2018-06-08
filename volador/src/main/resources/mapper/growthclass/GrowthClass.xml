@@ -1,44 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.ranji.lemon.volador.model.personal.GrowthClass">
+<mapper namespace="org.ranji.lemon.volador.model.growthclass.GrowthClass">
   <insert id="save" parameterType="VoladorGrowthClass" keyProperty="id" useGeneratedKeys="true">
-		insert into lemon_volador_personal_growthclass (guid,createTime,updateTime, image,title,send_word,description) 
+		insert into lemon_volador_growthclass (guid,createTime,updateTime, image,title,send_word,description) 
 		values (#{guid},#{createTime},#{updateTime},#{image},#{title},#{send_word},#{description})
 	</insert>
 	
 	<!-- 删除某条记录 -->
 	<delete id="delete" parameterType="int" >
-		delete from lemon_volador_personal_growthclass where id = #{id}
+		delete from lemon_volador_growthclass where id = #{id}
 	</delete>
 	
 	<!-- 查询根据id -->
 	<select id="find" parameterType="int" resultType="VoladorGrowthClass">
-		select * from lemon_volador_personal_growthclass where id = #{id}
+		select * from lemon_volador_growthclass where id = #{id}
 	</select>
 	
 	<!-- 查询全部GrowthClass -->
 	<select id="findAll" resultType="VoladorGrowthClass" parameterType="Map">
-		select * from lemon_volador_personal_growthclass
+		select * from lemon_volador_growthclass
 	</select>
 		
 	<!-- 保存成长方向和阶段的关系 -->
 	<insert id="saveGrowthClassAndStageRelation" parameterType="Map" keyProperty="id" useGeneratedKeys="true">
-		insert into lemon_volador_personal_growthclass_stage (growthclass_id, growthstage_id) values (#{class_id}, #{stage_id})
+		insert into lemon_volador_growthclass_stage (growthclass_id, growthstage_id) values (#{class_id}, #{stage_id})
 	</insert>
 	
 	<!-- 删除成长方向和阶段的关系 -->
 	<delete id="deleteGrowthClassAndStageRelation" parameterType="Map">
-		delete from lemon_volador_personal_growthclass_stage where growthclass_id = #{class_id} and growthstage_id = #{stage_id}
+		delete from lemon_volador_growthclass_stage where growthclass_id = #{class_id} and growthstage_id = #{stage_id}
 	</delete>
 	
 	<!-- 通过成长方向删除成长方向和阶段的关系 -->
 	<delete id="deleteGrowthClassAndStageRelationByClassId" parameterType="Integer">
-		delete from lemon_volador_personal_growthclass_stage where growthclass_id = #{class_id}
+		delete from lemon_volador_growthclass_stage where growthclass_id = #{class_id}
 	</delete>
 	
 	<!-- 修改个某条GrowthClass信息 -->
 	<update id="update" parameterType="VoladorGrowthClass">
-		update lemon_volador_personal_growthclass
+		update lemon_volador_growthclass
 		<set>
 			<if test="image != null and image != ''">image = #{image},</if>
 			<if test="title != null and title != ''">title = #{title},</if>
@@ -51,7 +51,7 @@
 	
 	<!-- 更新成长方向和阶段的关系 -->
 	<update id="updateGrowthClassAndStageRelation" parameterType="Map">
-		update lemon_volador_personal_growthclass_stage
+		update lemon_volador_growthclass_stage
 		<set>
 			<if test="class_id != null and class_id != ''">growthclass_id = #{class_id},</if>
 			<if test="stage_id != null and stage_id != ''">growthstage_id = #{stage_id},</if>
@@ -63,9 +63,9 @@
 		SELECT
 		t.*
 		FROM
-		lemon_volador_personal_growthstage t
-		LEFT JOIN lemon_volador_personal_growthclass_stage c_t ON t.id = c_t.growthstage_id
-		LEFT JOIN lemon_volador_personal_growthclass c ON c.id = c_t.growthclass_id
+		lemon_volador_growthstage t
+		LEFT JOIN lemon_volador_growthclass_stage c_t ON t.id = c_t.growthstage_id
+		LEFT JOIN lemon_volador_growthclass c ON c.id = c_t.growthclass_id
 		WHERE
 		c.id = #{id}
 	</select>
@@ -75,9 +75,9 @@
 		SELECT
 		t.*
 		FROM
-		lemon_volador_personal_growthclass t
-		LEFT JOIN lemon_volador_personal_growthclass_stage c_t ON t.id = c_t.growthclass_id
-		LEFT JOIN lemon_volador_personal_growthstage c ON c.id = c_t.growthstage_id
+		lemon_volador_growthclass t
+		LEFT JOIN lemon_volador_growthclass_stage c_t ON t.id = c_t.growthclass_id
+		LEFT JOIN lemon_volador_growthstage c ON c.id = c_t.growthstage_id
 		WHERE
 		c.id = #{id}
 	</select>	

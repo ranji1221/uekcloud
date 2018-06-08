@@ -55,7 +55,7 @@ nav.wqf_menu .wqf_list>ul>li>.more .classify_item>ul>li{
     padding: 10px 0;
     line-height: 53px;
 }
-nav.wqf_menu .wqf_list>ul>li>.more .classify_item>ul>li a:hover{
+nav.wqf_menu .wqf_list>ul>li>.more .classify_item>ul>li:hover a{
 	color: #fd6756;
 }
 
@@ -557,28 +557,25 @@ nav.wqf_menu .wqf_banner .swiper-slide .message .mess{
 	color: #fff;
 	box-shadow: 0 0 20px 0 rgba(0,0,0,0.5);
 }
-.wqf_teacher>ul{
+.wqf_teacher .teacher_banner{
 	width: 1140px;
 	margin: 64px auto 0;
 	text-align: left;
 }
-.wqf_teacher>ul>li{
+.wqf_teacher>.teacher_banner>ul>li{
 	width: 262px;height: 156px;
 	float: left;
-	margin-right: 30px;
+	/*margin-right: 30px;*/
 	padding:16px 0 40px 25px;
 	box-sizing: border-box;
 	border-radius: 6px;
 }
-.wqf_teacher>ul>li:last-child{
-	margin-right: 0;
-}
-.wqf_teacher>ul>li .type{
+.wqf_teacher>.teacher_banner>ul>li .type{
 	font-size: 18px;
 	color: #5d5d5d;
 	font-weight: bold;
 }
-.wqf_teacher>ul>li .type span{
+.wqf_teacher>.teacher_banner>ul>li .type span{
 	font-size: 12px;
 	color: #fff;
 	background: #67b2f2;
@@ -586,20 +583,20 @@ nav.wqf_menu .wqf_banner .swiper-slide .message .mess{
 	padding:2px 4px;
 	margin-left: 12px;
 }
-.wqf_teacher>ul>li:nth-child(2) .type span{
+.wqf_teacher>.teacher_banner>ul>li:nth-child(2n) .type span{
 	background: #fd6756;
 }
-.wqf_teacher>ul>li:nth-child(3) .type span{
+.wqf_teacher>.teacher_banner>ul>li:nth-child(3n) .type span{
 	background: #7ace4c;
 }
-.wqf_teacher>ul>li:nth-child(4) .type span{
+.wqf_teacher>.teacher_banner>ul>li:nth-child(4n) .type span{
 	background: #f5a31c;
 }
-.wqf_teacher>ul>li h2{
+.wqf_teacher>.teacher_banner>ul>li h2{
 	color: #5d5d5d;
 	font-size: 24px;
 }
-.wqf_teacher>ul>li p:last-child{
+.wqf_teacher>.teacher_banner>ul>li p:last-child{
 	max-width: 120px;
 	color: #5d5d5d;
 	font-size: 14px;
@@ -675,7 +672,7 @@ nav.wqf_menu .wqf_banner .swiper-slide .message .mess{
 	right: 130px;   top: 50%;
 	transform: translate3d(0,-50%,0);
 	white-space:nowrap; 
-	font-family: "寰蒋闆呴粦";
+	font-family: "微软雅黑";
 	display: none;
 	opacity: 0;
 }

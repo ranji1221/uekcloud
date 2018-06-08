@@ -1,4 +1,4 @@
-package org.ranji.lemon.volador.controller.personal;
+package org.ranji.lemon.volador.controller.growthclass;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,14 +9,14 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.ranji.lemon.volador.model.course.Course;
 import org.ranji.lemon.volador.model.course.Teacher;
-import org.ranji.lemon.volador.model.personal.GrowthClass;
-import org.ranji.lemon.volador.model.personal.GrowthStage;
+import org.ranji.lemon.volador.model.growthclass.GrowthClass;
+import org.ranji.lemon.volador.model.growthclass.GrowthStage;
 import org.ranji.lemon.volador.model.personal.Integral;
 import org.ranji.lemon.volador.model.personal.SignIn;
 import org.ranji.lemon.volador.model.personal.UserInfo;
 import org.ranji.lemon.volador.service.course.prototype.ITeacherService;
-import org.ranji.lemon.volador.service.personal.prototype.IGrowthClassService;
-import org.ranji.lemon.volador.service.personal.prototype.IGrowthStageService;
+import org.ranji.lemon.volador.service.growthclass.prototype.IGrowthClassService;
+import org.ranji.lemon.volador.service.growthclass.prototype.IGrowthStageService;
 import org.ranji.lemon.volador.service.personal.prototype.IIntegralService;
 import org.ranji.lemon.volador.service.personal.prototype.IPerService;
 import org.ranji.lemon.volador.service.personal.prototype.ISignInService;
@@ -80,7 +80,6 @@ public class GrowthSystemController {
 			
 			//获取职业导航			
 			mv.addObject("growthClass", growthClassService.find(growthClassId));
-			//params
 			List<GrowthStage> growthStageList= growthClassService.findGrowthStageByGrowthClassId(growthClassId);
 			//添加成長階段
 			//獲取階段時長及學習人數

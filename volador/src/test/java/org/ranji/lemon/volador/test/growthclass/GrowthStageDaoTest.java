@@ -1,11 +1,11 @@
-package org.ranji.lemon.volador.test.Personal;
+package org.ranji.lemon.volador.test.growthclass;
+
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ranji.lemon.volador.VoladorApplication;
-import org.ranji.lemon.volador.model.personal.GrowthStage;
-import org.ranji.lemon.volador.service.personal.prototype.IGrowthClassService;
-import org.ranji.lemon.volador.service.personal.prototype.IGrowthStageService;
+import org.ranji.lemon.volador.service.growthclass.prototype.IGrowthClassService;
+import org.ranji.lemon.volador.service.growthclass.prototype.IGrowthStageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -40,11 +40,11 @@ public class GrowthStageDaoTest {
 //		growthStageService.delete(4);
 //		growthStageService.saveGrowthStageAndCourseRelation(1, 6);
 //		growthStageService.saveGrowthStageAndCourseRelation(2, 7);
-		growthStageService.saveGrowthStageAndCourseRelation(2, 8);
-		growthStageService.saveGrowthStageAndCourseRelation(3, 9);
-		growthStageService.saveGrowthStageAndCourseRelation(3, 10);
-		growthStageService.saveGrowthStageAndCourseRelation(3, 11);
-//		System.out.println(growthStageService.findCourseByGrowthStageId(1).toString());
+//		growthStageService.saveGrowthStageAndCourseRelation(2, 8);
+//		growthStageService.saveGrowthStageAndCourseRelation(3, 9);
+//		growthStageService.saveGrowthStageAndCourseRelation(3, 10);
+//		growthStageService.saveGrowthStageAndCourseRelation(3, 11);
+		System.out.println(growthStageService.findAll());
 //		growthStageService.deleteGrowthStageAndCourseRelationByStageId(3);
 //		growthStageService.deleteGrowthStageAndCourseRelation(2, 8);
 	}

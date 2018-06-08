@@ -1,6 +1,7 @@
 package org.ranji.lemon.volador.service.course.prototype;
 
 import java.util.List;
+import java.util.Map;
 
 import org.ranji.lemon.core.service.prototype.IGenericService;
 import org.ranji.lemon.volador.model.course.Course;
@@ -20,7 +21,7 @@ public interface IThemeService extends IGenericService<Theme, Integer>{
 	 * @param themeId   课程分类主题ID
 	 * @param courseId  课程ID
 	 */
-	public void deleteCourseAndThemeRelation(int themeId, int courseId);
+	public Boolean deleteCourseAndThemeRelation(Integer themeId, Integer courseId);
 	
 	/**
 	 * 根据首页课程分类删除该分类的所与关系表
@@ -39,6 +40,6 @@ public interface IThemeService extends IGenericService<Theme, Integer>{
 	 * @param themeId  课程分类主题ID
 	 * @return  课程列表
 	 */
-	public List<Course> findCourseAndThemeRelationByCourseId(int themeId);
+	public Map<String, Object> findCourseByThemeId(Integer themeId);
 
 }

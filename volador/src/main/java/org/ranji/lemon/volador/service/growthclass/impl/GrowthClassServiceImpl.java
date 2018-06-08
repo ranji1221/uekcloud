@@ -1,12 +1,13 @@
-package org.ranji.lemon.volador.service.personal.impl;
+package org.ranji.lemon.volador.service.growthclass.impl;
+
 
 import java.util.List;
 
 import org.ranji.lemon.core.service.impl.GenericServiceImpl;
-import org.ranji.lemon.volador.model.personal.GrowthClass;
-import org.ranji.lemon.volador.model.personal.GrowthStage;
-import org.ranji.lemon.volador.persist.personal.prototype.IGrowthClassDao;
-import org.ranji.lemon.volador.service.personal.prototype.IGrowthClassService;
+import org.ranji.lemon.volador.model.growthclass.GrowthClass;
+import org.ranji.lemon.volador.model.growthclass.GrowthStage;
+import org.ranji.lemon.volador.persist.growthclass.prototype.IGrowthClassDao;
+import org.ranji.lemon.volador.service.growthclass.prototype.IGrowthClassService;
 import org.springframework.stereotype.Service;
 /**
  * 成长体系service实现类

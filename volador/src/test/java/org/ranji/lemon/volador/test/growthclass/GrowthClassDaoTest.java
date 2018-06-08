@@ -1,11 +1,15 @@
-package org.ranji.lemon.volador.test.Personal;
+package org.ranji.lemon.volador.test.growthclass;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ranji.lemon.volador.VoladorApplication;
-import org.ranji.lemon.volador.model.personal.GrowthClass;
-import org.ranji.lemon.volador.service.personal.prototype.IGrowthClassService;
-import org.ranji.lemon.volador.service.personal.prototype.IGrowthStageService;
+import org.ranji.lemon.volador.model.growthclass.GrowthClass;
+import org.ranji.lemon.volador.service.growthclass.prototype.IGrowthClassService;
+import org.ranji.lemon.volador.service.growthclass.prototype.IGrowthStageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -41,5 +45,8 @@ public class GrowthClassDaoTest {
 //		System.out.println(growthClassService.findGrowthStageByGrowthClassId(1).toString());
 //		growthClassService.deleteGrowthClassAndStageRelationByClassId(1);
 //		growthClassService.deleteGrowthClassAndStageRelation(1, 1);
+		//获取职业导航
+		List<GrowthClass> growthClassList = growthClassService.findAll();
+		System.out.println(growthClassList.get(0).getId());
 	}
 }

@@ -1,13 +1,13 @@
-package org.ranji.lemon.volador.service.personal.impl;
+package org.ranji.lemon.volador.service.growthclass.impl;
+
 
 import java.util.List;
 
 import org.ranji.lemon.core.service.impl.GenericServiceImpl;
 import org.ranji.lemon.volador.model.course.Course;
-import org.ranji.lemon.volador.model.personal.GrowthStage;
-import org.ranji.lemon.volador.persist.personal.prototype.IGrowthStageDao;
-import org.ranji.lemon.volador.service.personal.prototype.IGrowthStageService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.ranji.lemon.volador.model.growthclass.GrowthStage;
+import org.ranji.lemon.volador.persist.growthclass.prototype.IGrowthStageDao;
+import org.ranji.lemon.volador.service.growthclass.prototype.IGrowthStageService;
 import org.springframework.stereotype.Service;
 /**
  * 成长阶段service实现类
@@ -19,8 +19,6 @@ import org.springframework.stereotype.Service;
 @Service("VoladorGrowthStageServiceImpl")
 public class GrowthStageServiceImpl extends GenericServiceImpl<GrowthStage, Integer> implements IGrowthStageService{
 
-//	@Autowired
-//	private I
 	@Override
 	public void saveGrowthStageAndCourseRelation(int stage_id, int course_id) {
 		((IGrowthStageDao) dao).saveGrowthStageAndCourseRelation(stage_id, course_id);		

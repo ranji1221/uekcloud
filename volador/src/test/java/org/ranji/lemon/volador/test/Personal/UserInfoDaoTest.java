@@ -28,34 +28,35 @@ public class UserInfoDaoTest {
 	private Integer userInfoId;
 	private Integer userId;
 
-	@Test
-	public void addUserInfo(){
-		UserInfo userinfo=new UserInfo();
-		userinfo.setAddress("上海");
+//	@Test
+//	public void addUserInfo(){
+//		UserInfo userinfo=new UserInfo();
+//		userinfo.setAddress("上海");
 //		userinfo.setHead_image("IMG_0011.JPG");
 //		userinfo.setEmail("1056684096@qq.com");
 //		userinfo.setGender("woman");
 //		userinfo.setIdcard("620123489632514785");
 //		userinfo.setNickname("修改前");
-		userinfo.setQq("1056684096");
-		userinfo.setReal_name("真实姓名");
-		userinfo.setWechat("wechat");
-		userinfoservice.saveUserInfo(userinfo);
-		userInfoId = userinfo.getId();
-		System.out.println( "add UserInfo,ID: "+ userInfoId);
-	}
+//		userinfo.setQq("1056684096");
+//		userinfo.setReal_name("真实姓名");
+//		userinfo.setWechat("wechat");
+//		userinfoservice.saveUserInfo(userinfo);
+//		userInfoId = userinfo.getId();
+//		System.out.println( "add UserInfo,ID: "+ userInfoId);
+//	}
 	@Test
 	public void updateUserInfo(){
-		UserInfo userinfo = userinfoservice.find(userInfoId);
-		userinfo.setNickname("修改后");
-		userinfoservice.update(userinfo);
-		System.out.println( "update UserInfo, ID: "+ userInfoId);
+//		UserInfo userinfo = userinfoservice.find(userInfoId);
+//		userinfo.setNickname("修改后");
+//		userinfoservice.update(userinfo);
+		UserInfo userInfo = userservice.findUserInfoByUserId(41);
+		System.out.println( "update UserInfo: "+ userInfo.toString());
 	}
-	@Test
-	public void deleteUserInfo(){
-		userinfoservice.delteUserInfoByUserInfoId(userInfoId);
-		System.out.println( "delete UserInfo, ID: "+ userInfoId);
-	}
+//	@Test
+//	public void deleteUserInfo(){
+//		userinfoservice.delteUserInfoByUserInfoId(userInfoId);
+//		System.out.println( "delete UserInfo, ID: "+ userInfoId);
+//	}
 	
 
 }

@@ -50,6 +50,11 @@
 		lemon_volador_course_teacher t
 		LEFT JOIN lemon_volador_header_teacher c_t ON t.id = c_t.teacher_id
 	</select>
+	<!-- 删除首页推荐的某条教师 -->
+	<delete id="deleteHeaderTeacher" parameterType="Map">
+		delete from lemon_volador_header_teacher where teacher_id = #{teacher_id}
+	</delete>
+	
 	
 	<!-- 查询教师根据页码 -->
 	<select id="findTeacherInfoByPage" parameterType="Map" resultType="VoladorTeacher">
@@ -78,7 +83,7 @@
 		FROM
 			lemon_volador_course_teacher t
 		LEFT JOIN lemon_volador_growthclass_teacher c_t ON t.id = c_t.teacher_id
-		LEFT JOIN lemon_volador_personal_growthclass u ON u.id = c_t.growthclass_id
+		LEFT JOIN lemon_volador_growthclass u ON u.id = c_t.growthclass_id
 		WHERE
 			u.id = #{id}
 	</select>

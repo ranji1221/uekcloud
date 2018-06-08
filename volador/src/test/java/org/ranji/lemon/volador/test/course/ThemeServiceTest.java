@@ -1,6 +1,7 @@
 package org.ranji.lemon.volador.test.course;
 
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,25 +19,26 @@ public class ThemeServiceTest {
 	@Autowired
 	private IThemeService themeService;
 	
-//	@Test
-//	public void addTheme(){
-//		Theme theme = new Theme();
-//		theme.setTitle("百万级人气教程免费学，1键get 1000+优质资源");
-//		theme.setDescribe("独家研发，随时更新，流行技法一网打尽！");
-//		themeService.save(theme);
-//		System.out.print(theme.toString());
-//	}
-//	
 	@Test
-	public void addCourseAndTheme(){
-
-		themeService.saveCourseAndThemeRelation(3, 1);
-		themeService.saveCourseAndThemeRelation(3, 2);
-		themeService.saveCourseAndThemeRelation(3, 3);
-		themeService.saveCourseAndThemeRelation(4, 4);
-		themeService.saveCourseAndThemeRelation(4, 5);
-		System.out.print("保存课程分类表");
+	public void addTheme(){
+		Theme theme = new Theme();
+		theme.setTitle("百万级人气教程免费学，1键get 1000+优质资源");
+		theme.setDescribe("独家研发，随时更新，流行技法一网打尽！");
+		themeService.save(theme);
+		System.out.print(theme.toString());
 	}
+//	
+//	@Test
+//	public void addCourseAndTheme(){
+
+//		themeService.saveCourseAndThemeRelation(3, 1);
+//		themeService.saveCourseAndThemeRelation(3, 2);
+//		themeService.saveCourseAndThemeRelation(3, 3);
+//		themeService.saveCourseAndThemeRelation(4, 4);
+//		themeService.saveCourseAndThemeRelation(4, 5);
+//		themeService.findCourseByThemeId(1);
+//		System.out.print(themeService.findCourseByThemeId(1));
+//	}
 	
 //	@Test
 //	public void CourseAndTheme(){

@@ -32,7 +32,7 @@
 	</delete>
 	
 	<!-- 根据首页课程分类ID查找该分类下所有的课程 -->
-	<select id="findCourseAndThemeRelationByCourseId" parameterType="Integer" resultType ="VoladorCourse">
+	<select id="findCourseByThemeId" parameterType="Integer" resultType ="VoladorCourse">
 		SELECT
 		c.*
 		FROM

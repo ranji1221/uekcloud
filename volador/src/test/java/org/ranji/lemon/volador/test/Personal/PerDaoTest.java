@@ -1,7 +1,14 @@
 package org.ranji.lemon.volador.test.Personal;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authc.credential.DefaultPasswordService;
+import org.apache.shiro.subject.Subject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ranji.lemon.core.util.DateUtil;
@@ -30,89 +37,6 @@ public class PerDaoTest {
 	private Integer userInfoId;
 	private Integer userId;
 
-	/**
-	@Test
-	public String addUser(){
-		Per user = new Per();    
-		user.setUsername("add4");
-		user.setPassword("123456");
-		userservice.save(user);
-		userName = user.getUsername();
-		userId = user.getId();
-		return "add User: "+ userName;
-	}
-	
-	@Test
-	public String updateUser(){
-		Per user = userservice.findByUserName(userName);
-		user.setUpdateTime(DateUtil.now());
-		System.out.print(user.getUpdateTime());
-		userservice.update(user);
-		return "update User: "+ userName;
-	}
-	
-	@Test
-	public String deleteUser(){
-		Per user = userservice.findByUserName(userName);
-		userservice.delete(user.getId());
-		return "delete User: "+ userName;
-	}
-
-	@Test
-	public String addUserInfo(){
-		UserInfo userinfo=new UserInfo();
-		userinfo.setAddress("上海");
-		userinfo.setHead_image("IMG_0011.JPG");
-		userinfo.setEmail("1056684096@qq.com");
-		userinfo.setGender("woman");
-		userinfo.setIdcard("620123489632514785");
-		userinfo.setNickname("修改前");
-		userinfo.setQQ("1056684096");
-		userinfo.setReal_name("真实姓名");
-		userinfo.setWechat("wechat");
-		userinfoservice.saveUserInfo(userinfo);
-		userInfoId = userinfo.getId();
-		return "add UserInfo,ID: "+ userInfoId;
-	}
-	@Test
-	public String updateUserInfo(){
-		UserInfo userinfo = userinfoservice.find(userInfoId);
-		userinfo.setNickname("修改后");
-		userinfoservice.update(userinfo);
-		return "update UserInfo, ID: "+ userInfoId;
-	}
-	@Test
-	public String deleteUserInfo(){
-		userinfoservice.delteUserInfoByUserInfoId(userInfoId);
-		return "delete UserInfo, ID: "+ userInfoId;
-	}
-	//测试用户和用户信息关系表操作
-	@Test
-	public String saveUserAndUserInfoRelation(){
-		addUser();
-		addUserInfo();
-		userservice.saveUserAndUserInfoRelation(userId, userInfoId);
-		return "saveUserAndUserInfoRelation";
-	}
-	
-	@Test
-	public String deleteUserAndUserInfoRelation(){
-		addUser();
-		addUserInfo();
-		userservice.deleteUserAndUserInfoRelation(userId, userInfoId);
-		return "deleteUserAndUserInfoRelation";
-	}
-	@Test
-	public String deleteUserUserInfoByUserId(){
-		userservice.deleteUserUserInfoByUserId(userservice.findAll().get(0).getId());
-		return "deleteUserUserInfoByUserId UserInfoId: "+ userservice.findAll().get(0).getId();
-	}
-	@Test
-	public String findUserUserInfoRelationByUserId(){
-		String id = userservice.findUserUserInfoRelationByUserId(userservice.findAll().get(0).getId()).get(0).toString();
-		return "findUserUserInfoRelationByUserId UserInfoId:" + id;
-	}
-	**/
 	//测试用户和购买课程的关系表操作
 //	@Test
 //	public void saveUserAndBuyCourseRelation(){
@@ -229,8 +153,30 @@ public class PerDaoTest {
 //	}
 
 	@Test
-	public void findUserInfoByNoteId(){
-		UserInfo userInfo = userservice.findUserInfoByNoteId(7);
-		System.out.println( userInfo.toString());
+	public void functionTest(){
+//		Calendar cal = Calendar.getInstance();//使用默认时区和语言环境获得一个日历。
+//		Date date = cal.getTime();
+//		cal.set(2011,6,6);
+//		//通过格式化输出日期    
+//		java.text.SimpleDateFormat format = new java.text.SimpleDateFormat("yyyy-MM-dd");    
+//
+//		System.out.println("Today is:"+format.format(Calendar.getInstance().getTime()));    
+//
+//		System.out.println("new day is:"+format.format(cal.getTime()));
+//		Per user = userservice.findByUserName("18193587628");
+//		user.setPassword("123456");
+//		userservice.update(user);
+//		user = userservice.findByUserName("18193587628");
+//		System.out.println("18193587628密码："+user.getPassword());
+//		
+//		user = userservice.findByUserName("18192903475");
+//		user.setPassword("123456");
+//		userservice.save(user);
+//		user = userservice.findByUserName("18192903475");
+//		System.out.println("18192903475密码："+user.getPassword());
+
+//		System.out.println("新密码："+new DefaultPasswordService().encryptPassword("123456"));
+				
+		
 	}
 }

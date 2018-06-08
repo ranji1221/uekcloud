@@ -39,6 +39,6 @@ public interface IThemeDao extends IGenericDao<Theme, Integer>{
 	 * @param themeId  课程分类主题ID
 	 * @return  课程列表
 	 */
-	public List<Course> findCourseAndThemeRelationByCourseId(int themeId);
+	public List<Course> findCourseByThemeId(int themeId);
 
 }

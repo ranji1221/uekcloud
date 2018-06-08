@@ -24,6 +24,12 @@ public interface ITeacherService extends IGenericService<Teacher,Integer> {
 	 */
 	public List<Teacher> findHeaderTeacher();
 	
+	/**
+	 * 删除首页推荐老师
+	 * @param teacherId
+	 */
+	public void deleteHeaderTeacher(Integer teacherId);
+	
 	public PagerModel<Teacher> findTeacherInfoByPage(int page,int limit);
 	
 	/**

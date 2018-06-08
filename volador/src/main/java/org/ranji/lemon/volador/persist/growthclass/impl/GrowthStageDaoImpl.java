@@ -1,4 +1,5 @@
-package org.ranji.lemon.volador.persist.personal.impl;
+package org.ranji.lemon.volador.persist.growthclass.impl;
+
 
 import java.util.HashMap;
 import java.util.List;
@@ -6,8 +7,8 @@ import java.util.Map;
 
 import org.ranji.lemon.core.persist.impl.GenericDaoImpl;
 import org.ranji.lemon.volador.model.course.Course;
-import org.ranji.lemon.volador.model.personal.GrowthStage;
-import org.ranji.lemon.volador.persist.personal.prototype.IGrowthStageDao;
+import org.ranji.lemon.volador.model.growthclass.GrowthStage;
+import org.ranji.lemon.volador.persist.growthclass.prototype.IGrowthStageDao;
 import org.springframework.stereotype.Repository;
 /**
  * 成长阶段Dao实现

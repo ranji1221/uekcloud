@@ -24,6 +24,12 @@ public interface ITeacherDao extends IGenericDao<Teacher,Integer> {
 	 */
 	public List<Teacher> findHeaderTeacher();
 	
+	/**
+	 *根据ID 删除首页推荐老师
+	 * @param teacherId
+	 */
+	public void deleteHeaderTeacher(Integer teacher_id);
+	
 	public List<Teacher> findTeacherInfoByPage(int page,int limit);
 	
 	public int  findTeacherCount();

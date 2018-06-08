@@ -204,16 +204,13 @@ public class PersonalController {
 		List<Theme> themeList = themeService.findAll();
 		List<Map> themeCourseList = new ArrayList<Map>();
 		for (Theme theme : themeList) {
-			HashMap<String, Object> params = new HashMap<String, Object>();
-
 			// 返回课程分类
-			params.put("theme", theme);
 			// 返回分类下的课程
-			List<Course> courseList = themeService.findCourseAndThemeRelationByCourseId(theme.getId());
-			params.put("courses", getCourseAndClassify(courseList));
+			Map<String, Object> themeAndCourseMap = themeService.findCourseByThemeId(theme.getId());
+			List<Course> courseList = (List<Course>) themeAndCourseMap.get("courseList");
+			themeAndCourseMap.put("courses", getCourseAndClassify(courseList));
 
-			themeCourseList.add(params);
-			mv.addObject("themeCourse" + Integer.toString(theme.getId()), params);
+			mv.addObject("themeCourse" + Integer.toString(theme.getId()), themeAndCourseMap);
 		}
 		mv.addObject("themeCourseList", themeCourseList);
 	}

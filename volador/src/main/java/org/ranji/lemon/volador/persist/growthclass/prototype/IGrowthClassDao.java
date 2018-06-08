@@ -1,10 +1,11 @@
-package org.ranji.lemon.volador.persist.personal.prototype;
+package org.ranji.lemon.volador.persist.growthclass.prototype;
+
 
 import java.util.List;
 
 import org.ranji.lemon.core.persist.prototype.IGenericDao;
-import org.ranji.lemon.volador.model.personal.GrowthClass;
-import org.ranji.lemon.volador.model.personal.GrowthStage;
+import org.ranji.lemon.volador.model.growthclass.GrowthClass;
+import org.ranji.lemon.volador.model.growthclass.GrowthStage;
 /**
  * 成长体系Dao
  * @author 范小亚
