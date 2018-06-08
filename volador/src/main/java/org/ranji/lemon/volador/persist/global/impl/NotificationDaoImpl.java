@@ -63,6 +63,15 @@ public class NotificationDaoImpl extends GenericDaoImpl<Notification, Integer> i
 		// TODO Auto-generated method stub
 		return sqlSessionTemplate.selectOne(typeNameSpace+".maxNotificationId");
 	}
+
+	@Override
+	public List<Notification> findNotificationInfoByPage(int page, int limit) {
+		// TODO Auto-generated method stub
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("startNumber", (page-1)*limit);
+		map.put("offSet", limit);
+		return sqlSessionTemplate.selectList(typeNameSpace+".findNotificationInfoByPage", map);
+	}
 	
 	
 	
