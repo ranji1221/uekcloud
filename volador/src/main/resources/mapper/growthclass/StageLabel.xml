@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.ranji.lemon.volador.model.growthclass.StageLabel">
+  <insert id="save" parameterType="VoladorGrowthClassStageLabel" keyProperty="id" useGeneratedKeys="true">
+		insert into lemon_volador_growthclass_stagelabel (guid,createTime,updateTime,label,title) 
+		values (#{guid},#{createTime},#{updateTime},#{label},#{title})
+	</insert>
+	
+	<!-- 删除某条记录 -->
+	<delete id="delete" parameterType="int" >
+		delete from lemon_volador_growthclass_stagelabel where id = #{id}
+	</delete>
+	
+	<!-- 查询根据id -->
+	<select id="find" parameterType="int" resultType="VoladorGrowthClassStageLabel">
+		select * from lemon_volador_growthclass_stagelabel where id = #{id}
+	</select>
+	
+	<!-- 查询全部GrowthClass -->
+	<select id="findAll" resultType="VoladorGrowthClassStageLabel" parameterType="Map">
+		select * from lemon_volador_growthclass_stagelabel
+	</select>
+		
+	<!-- 保存阶段及阶段标签关系 -->
+	<insert id="saveStageAndLabelRelation" parameterType="Map" keyProperty="id" useGeneratedKeys="true">
+		insert into lemon_volador_growthstage_stagelabel (growthstage_id, stagelabel_id) values (#{growthstage_id}, #{stagelabel_id})
+	</insert>
+	
+	<!-- 删除阶段及阶段标签关系 -->
+	<delete id="deleteStageAndLabelRelation" parameterType="Map">
+		delete from lemon_volador_growthstage_stagelabel where growthstage_id = #{growthstage_id} and stagelabel_id = #{stagelabel_id}
+	</delete>
+	
+	<!-- 根据阶段ID删除阶段及阶段标签关系 -->
+	<delete id="deleteStageAndLabelRelationByStageId" parameterType="Integer">
+		delete from lemon_volador_growthstage_stagelabel where growthstage_id = #{growthstage_id}
+	</delete>
+	
+	<!-- 修改个某条GrowthStage信息 -->
+	<update id="update" parameterType="VoladorGrowthClassStageLabel">
+		update lemon_volador_growthclass_stagelabel
+		<set>		
+			<if test="label != null and label != ''">label = #{label},</if>
+			<if test="title != null and title != ''">title = #{title},</if>
+			<if test="updateTime != null ">updateTime = #{updateTime},</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<!-- 根据阶段ID查询阶段图标 -->
+	<select id="findStageLabelByStageId" parameterType="Integer" resultType ="VoladorGrowthClassStageLabel">
+		SELECT
+		t.*
+		FROM
+		lemon_volador_growthclass_stagelabel t
+		LEFT JOIN lemon_volador_growthstage_stagelabel c_t ON t.id = c_t.stagelabel_id
+		LEFT JOIN lemon_volador_growthstage c ON c.id = c_t.growthstage_id
+		WHERE
+		c.id = #{id}
+	</select>
+</mapper>

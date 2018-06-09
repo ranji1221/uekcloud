@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.ranji.lemon.volador.model.growthclass.LabelClassify">
+  <insert id="save" parameterType="VoladorLabelClassify" keyProperty="id" useGeneratedKeys="true">
+		insert into lemon_volador_growthstage_labelclassify (guid,createTime,updateTime,classify) 
+		values (#{guid},#{createTime},#{updateTime},#{classify})
+	</insert>
+	
+	<!-- 删除某条记录 -->
+	<delete id="delete" parameterType="int" >
+		delete from lemon_volador_growthstage_labelclassify where id = #{id}
+	</delete>
+	
+	<!-- 查询根据id -->
+	<select id="find" parameterType="int" resultType="VoladorLabelClassify">
+		select * from lemon_volador_growthstage_labelclassify where id = #{id}
+	</select>
+	
+	<!-- 查询全部GrowthClass -->
+	<select id="findAll" resultType="VoladorLabelClassify" parameterType="Map">
+		select * from lemon_volador_growthstage_labelclassify
+	</select>
+		
+	<!-- 保存阶段标签与标签分类关系 -->
+	<insert id="saveLabelAndClassifyRelation" parameterType="Map" keyProperty="id" useGeneratedKeys="true">
+		insert into lemon_volador_stagelabel_classify (stagelabel_id, labalclassify_id) values (#{stagelabel_id}, #{labalclassify_id})
+	</insert>
+	
+	<!-- 删除阶段标签与标签分类关系 -->
+	<delete id="deleteLabelAndClassifyRelation" parameterType="Map">
+		delete from lemon_volador_stagelabel_classify where stagelabel_id = #{stagelabel_id} and labalclassify_id = #{labalclassify_id}
+	</delete>
+	
+	<!-- 根据阶段标签ID删除阶段标签与标签分类关系-->
+	<delete id="deletLabelAndClassifyRelationByLabelId" parameterType="Integer">
+		delete from lemon_volador_stagelabel_classify where stagelabel_id = #{stagelabel_id}
+	</delete>
+	
+	<!-- 修改个某条GrowthStage信息 -->
+	<update id="update" parameterType="VoladorLabelClassify">
+		update lemon_volador_growthstage_labelclassify
+		<set>		
+			<if test="classify != null and classify != ''">classify = #{classify},</if>
+			<if test="updateTime != null ">updateTime = #{updateTime},</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<!-- 根据阶段标签ID查询阶段分类 -->
+	<select id="findLabelClassifyByLabelId" parameterType="Integer" resultType ="VoladorLabelClassify">
+		SELECT
+		t.*
+		FROM
+		lemon_volador_growthstage_labelclassify t
+		LEFT JOIN lemon_volador_stagelabel_classify c_t ON t.id = c_t.labalclassify_id
+		LEFT JOIN lemon_volador_growthclass_stagelabel c ON c.id = c_t.stagelabel_id
+		WHERE
+		c.id = #{id}
+	</select>
+</mapper>

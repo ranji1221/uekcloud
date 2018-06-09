@@ -36,86 +36,76 @@
                 </ul>
                 <!-- 导航 结束 -->
         
-                <!-- 登录状态 开始-->
-                <div class="is_login">
-                    <!-- 已登陆 -->
-                    <!-- 包含 类名 active则显示,否则隐藏 -->
-                    <div class="login_yes active">
-                        <div class="message">
-                            <a href="javascript:;" class="fy_icon">&#xe61d;</a>
-                            <!-- 消息数 -->
-                            <span>2</span>
-                            <!-- 消息弹框 -->
-                            <div class="message_box">
-                                <header>
-                                    <span>消息中心</span>
-                                    <span>清空</span>
-                                </header>
-                                <ul>
-                                    <li>
-                                        <a href="javascript:;" class="clear_both">
-                                            <span>【私信】</span>
-                                            <span class="hidd_more2">第一届logo设计大赛正式开启</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:;" class="clear_both">
-                                            <span>【通知】</span>
-                                            <span class="hidd_more2">管理员温馨提示，您已经登陆，快来上课吧。</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:;" class="clear_both">
-                                            <span>【私信】</span>
-                                            <span class="hidd_more2">第一届logo设计大赛正式开启</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:;" class="clear_both">
-                                            查看全部
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <span class="line"></span>
-                        <div class="self">
-                            <img src="images/wqf_user.png">
-        
-                            <!-- 消息弹框 -->
-                            <div class="message_box">
-                                <h3>18329864532</h3>
-                                <ul>
-                                    <li>
-                                        <a href="wzq_jifen.html">我的积分</a>
-                                    </li>
-                                    <li>
-                                        <a href="wzq_list_work_upload.html">我的作业</a>
-                                    </li>
-                                    <li>
-                                        <a href="wqf_learn_now.html">我的课程</a>
-                                    </li>
-                                    <li>
-                                        <a href="wqf_personal_basic.html">我的资料</a>
-                                    </li>
-                                </ul>
-                                <h3>退出账号</h3>
-                            </div>
-                        </div>
-                    </div>
-        
-                    <!-- 未登录 -->
-                    <div class="login_no">
-                        <a href="cp_login.html">登录</a>
-                        <span class="line"></span>
-                        <a href="cp_register.html">注册</a>
-                    </div>
-                </div>
-                <!-- 登录状态 结束-->
-        
-            </div>
-        </div>
-        <!-- 头部 结束 -->
+                <input type="hidden" th:value="${userId}" name="userId" id="userId">
+				<!-- 登录状态 开始-->
+			<div class="is_login">
+				<!-- 已登陆 -->
+				<!-- 包含 类名 active则显示,否则隐藏 -->
+				<div class="login_yes active" th:class="${headLogin_yes}">
+					<div class="message">
+						<a href="javascript:;" class="fy_icon">&#xe61d;</a>
+						<!-- 消息数 -->
+						<span th:text="${headnotificationSize}">2</span>
+						<!-- 消息弹框 -->
+						<div class="message_box">
+							<header>
+								<span>消息中心</span>
+								<span id="clearNotification">清空</span>
+							</header>
+							<ul>
+								<li th:each="eachnotification:${headnotificationList}">
+									<a href="javascript:;" class="clear_both">
+										<span th:text="${eachnotification.notification_type} == 0 ? '【通知】' : '【公告】'">【私信】</span>
+										<span class="hidd_more2" th:text="${eachnotification.notification_content}">第一届logo设计大赛正式开启</span>
+									</a>
+								</li>
+								
+								<li>
+									<a href="personalCenter_allnotice" class="clear_both">
+										查看全部
+									</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<span class="line"></span>
+					<div class="self">
+						<img src="images/wqf_user.png" th:src="${head_image}">
+	
+						<!-- 消息弹框 -->
+						<div class="message_box">
+							<h3 th:text="${headUserName}">游客</h3>
+							<ul>
+								<li>
+									<a href="personalCenter_jifen">我的积分</a>
+								</li>
+								<li>
+									<a href="personalCenter_homework">我的作业</a>
+								</li>
+								<li>
+									<a href="personalCenter_learning">我的课程</a>
+								</li>
+								<li>
+									<a href="personal_basic">我的资料</a>
+								</li>
+							</ul>
+							<a href="logout"><h3>退出账号</h3></a>
+						</div>
+					</div>
+				</div>
+	
+				<!-- 未登录 -->
+				<div class="login_no" th:class="${headLogin_no}">
+					<a href="login">登录</a>
+					<span class="line"></span>
+					<a href="register">注册</a>
+				</div>
+			</div>
+			<!-- 登录状态 结束-->
+	    <input type="hidden" th:value="${pageUri}" name="pageUri" id="pageUri">
+		</div>
+	</div>
+	<!-- 头部 结束 -->
 
     <!-- banner  开始     -->
         <!-- 修改背景图路径即可修改banner背景图片 -->
@@ -201,17 +191,17 @@
         <p>独家研发，随时更新，流行技法一网打尽！ </p>
         <!-- 背景图片 -->
         <div class="curriculum_list clear_both" >
-            <div class="container right">
-                <img alt="" th:src="${growthStage1.image}">
+            <div class="container right" th:each="stageAndLebal,iterStat:${stageAndLebalList}" th:class="${iterStat.even}?'container right':'container left'">
+                <img alt="" th:src="${stageAndLebal.stage.image}">
                 <div class="content clear_both">
-                    <div class="num" th:text="${growthStage1.number}">1</div>
+                    <div class="num" th:text="stageAndLebal.stage">1</div>
                     <div class="message ">
-                        <h1 th:text="${growthStage1.title}">基础入门</h1>
+                        <h1 th:text="${stageAndLebal.stage.title}">基础入门</h1>
                         <h2>阶段</h2>
-                        <p class="introduce"  th:text="${growthStage1.description}">产品思维是产品经理的灵魂，这一刻你将成为真正的产品经理！本阶段主要培养您的立体化思维、养成产品经理视角，并能够立体化。</p>
+                        <p class="introduce"  th:text="${stageAndLebal.stage.description}">产品思维是产品经理的灵魂，这一刻你将成为真正的产品经理！本阶段主要培养您的立体化思维、养成产品经理视角，并能够立体化。</p>
                         <p class="time">
-                            <span>阶段时长<i th:text="${growthStage1.timeCount}">1200</i>分钟</span>
-                            <span>在学人数<i th:text="${growthStage1.studentCount}">1200</i>分钟</span>
+                            <span>阶段时长<i th:text="${stageAndLebal.stage.timeCount}">1200</i>分钟</span>
+                            <span>在学人数<i th:text="${stageAndLebal.stage.studentCount}">1200</i>分钟</span>
                         </p>
                         <div class="btns">
                             <a href="javascript:;">购买本章节</a>
@@ -219,156 +209,16 @@
                         </div>
 
                         <ul class="goods">
-                            <li>
+                            <li th:each="labelAndClassify:${stageAndLebal.labelAndClassifyList}">
                                 <h2>
-                                    <img src="images/wqf_goods1.png" alt="">
+                                    <img src="images/wqf_goods1.png" alt="" th:src="${labelAndClassify.stageLabel.label}">
                                     立体化思维
                                 </h2>
                                 <p>
-                                    <span>线性思维</span>
-                                    <span>面性思维</span>
-                                    <span>立体化思维</span>
-                                    <span>重点难点突破</span>
-                                    <span>极限与方法</span>
-                                    <span>思维应用</span>
-                                </p>
-                            </li>
-                            <li>
-                                <h2>
-                                    <img src="images/wqf_goods1.png" alt=""> 立体化思维
-                                </h2>
-                                <p>
-                                    <span>线性思维</span>
-                                    <span>面性思维</span>
-                                    <span>立体化思维</span>
-                                    <span>重点难点突破</span>
-                                    <span>极限与方法</span>
-                                    <span>思维应用</span>
+                                    <span th:each="labelClassify:${labelAndClassify.labelClassifyList}" th:text="${labelClassify.classify}">线性思维</span>
                                 </p>
                             </li>
                         </ul>
-                    </div>
-                </div>
-            </div> 
-            <div class="container left">
-                <img src="images/ui_class2.png" alt="">
-                
-                <div class="content clear_both">
-                    <div class="num">2</div>
-                    <div class="message">
-                        <h1 th:text="${growthStage2.title}">基础入门</h1>
-                        <h2>阶段</h2>
-                        <p class="introduce"  th:text="${growthStage2.description}">产品思维是产品经理的灵魂，这一刻你将成为真正的产品经理！本阶段主要培养您的立体化思维、养成产品经理视角，并能够立体化。</p>
-                        <p class="time">
-                            <span>阶段时长<i th:text="${growthStage2.timeCount}">1200</i>分钟</span>
-                            <span>在学人数<i th:text="${growthStage2.studentCount}">1200</i>分钟</span>
-                        </p>
-                        <div class="btns">
-                            <a href="javascript:;">购买本章节</a>
-                            <a href="javascript:;">
-                                <i class="fy_icon">&#xe602;</i>收藏</a>
-                        </div>
-            
-                        <ul class="goods">
-                            <li>
-                                <h2>
-                                    <img src="images/wqf_goods3.png" alt=""> 产品精准定位
-                                </h2>
-                                <p>
-                                    <span>线性思维</span>
-                                    <span>面性思维</span>
-                                    <span>立体化思维</span>
-                                    <span>重点难点突破</span>
-                                    <span>极限与方法</span>
-                                    <span>思维应用</span>
-                                </p>
-                            </li>
-                            <li>
-                                <h2>
-                                    <img src="images/wqf_goods4.png" alt=""> 核心功能设计
-                                </h2>
-                                <p>
-                                    <span>线性思维</span>
-                                    <span>面性思维</span>
-                                    <span>立体化思维</span>
-                                    <span>重点难点突破</span>
-                                    <span>极限与方法</span>
-                                    <span>思维应用</span>
-                                </p>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="container right">
-                <img src="images/ui_class3.png" style="box-shadow: 0 0 30px 0 #ccc;">
-                <div class="content clear_both">
-                    <div class="num">3</div>
-                    <div class="message ">
-                        <h1 th:text="${growthStage3.title}">基础入门</h1>
-                        <h2>阶段</h2>
-                        <p class="introduce"  th:text="${growthStage3.description}">产品思维是产品经理的灵魂，这一刻你将成为真正的产品经理！本阶段主要培养您的立体化思维、养成产品经理视角，并能够立体化。</p>
-                        <p class="time">
-                            <span>阶段时长<i th:text="${growthStage3.timeCount}">1200</i>分钟</span>
-                            <span>在学人数<i th:text="${growthStage3.studentCount}">1200</i>分钟</span>
-                        </p>
-                        <div class="btns">
-                            <a href="javascript:;">购买本章节</a>
-                            <a href="javascript:;">
-                                <i class="fy_icon">&#xe602;</i>收藏</a>
-                        </div>
-            
-                        <ul class="goods">
-                            <li>
-                                <h2>
-                                    <img src="images/wqf_goods1.png" alt=""> 立体化思维
-                                </h2>
-                                <p>
-                                    <span>线性思维</span>
-                                    <span>面性思维</span>
-                                    <span>立体化思维</span>
-                                    <span>重点难点突破</span>
-                                    <span>极限与方法</span>
-                                    <span>思维应用</span>
-                                </p>
-                            </li>
-                            <li>
-                                <h2>
-                                    <img src="images/wqf_goods1.png" alt=""> 立体化思维
-                                </h2>
-                                <p>
-                                    <span>线性思维</span>
-                                    <span>面性思维</span>
-                                    <span>立体化思维</span>
-                                    <span>重点难点突破</span>
-                                    <span>极限与方法</span>
-                                    <span>思维应用</span>
-                                </p>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="container left" style="height:581px;">
-                <img src="images/ui_class4.png" >
-                <div class="content clear_both">
-                    <div class="num">4</div>
-                    <div class="message ">
-                        <h1 th:text="${growthStage4.title}">基础入门</h1>
-                        <h2>阶段</h2>
-                        <p class="introduce"  th:text="${growthStage4.description}">产品思维是产品经理的灵魂，这一刻你将成为真正的产品经理！本阶段主要培养您的立体化思维、养成产品经理视角，并能够立体化。</p>
-                        <p class="time">
-                            <span>阶段时长<i th:text="${growthStage4.timeCount}">1200</i>分钟</span>
-                            <span>在学人数<i th:text="${growthStage4.studentCount}">1200</i>分钟</span>
-                        </p>
-                        <div class="btns">
-                            <a href="javascript:;">购买本章节</a>
-                            <a href="javascript:;">
-                                <i class="fy_icon">&#xe602;</i>收藏</a>
-                        </div>
-                       
                     </div>
                 </div>
             </div>          
@@ -387,20 +237,6 @@
                 <p class="message2" th:text="${teacher.label}">数次参与国家级项目，并于项目中担任高级产品经理。曾服务于交大、国铁等知名互联网企业，互联网教育产品专家</p>
                 <a href="javascript:;">跟老师聊聊</a>
             </li>
-            <!-- <li>
-                <div class="photo" style="background:url(images/wqf_user.png) no-repeat center / cover"></div>
-                <p class="name">候宁洲</p>
-                <p class="message1">奇虎360核心业务高级产品经理，互联网企业资深产品经理。</p>
-                <p class="message2">数次参与国家级项目，并于项目中担任高级产品经理。曾服务于交大、国铁等知名互联网企业，互联网教育产品专家</p>
-                <a href="javascript:;">跟老师聊聊</a>
-            </li>
-            <li>
-                <div class="photo" style="background:url(images/wqf_user.png) no-repeat center / cover"></div>
-                <p class="name">候宁洲</p>
-                <p class="message1">奇虎360核心业务高级产品经理，互联网企业资深产品经理。</p>
-                <p class="message2">数次参与国家级项目，并于项目中担任高级产品经理。曾服务于交大、国铁等知名互联网企业，互联网教育产品专家</p>
-                <a href="javascript:;">跟老师聊聊</a>
-            </li> -->
         </ul>
     </div>
 
@@ -464,7 +300,7 @@
      <!-- 学生评价 结束     -->
 
      <!-- 底部购买 开始 -->
-    <div class="wqf_buy">
+    <!-- <div class="wqf_buy">
         <div class="container">
             <p>组合购买<br>优惠更多</p>
             <ul class="type">
@@ -487,7 +323,7 @@
                 <a href="javascript:;">立即购买</a>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- 底部购买 结束 -->
      
 </body>
