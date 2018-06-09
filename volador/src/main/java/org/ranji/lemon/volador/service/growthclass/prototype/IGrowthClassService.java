@@ -2,6 +2,7 @@ package org.ranji.lemon.volador.service.growthclass.prototype;
 
 
 import java.util.List;
+import java.util.Map;
 
 import org.ranji.lemon.core.service.prototype.IGenericService;
 import org.ranji.lemon.volador.model.growthclass.GrowthClass;
@@ -52,5 +53,27 @@ public interface IGrowthClassService extends IGenericService<GrowthClass, Intege
 	 * @param stage_id          成长阶段ID
 	 */
 	public GrowthClass findGrowthClassByGrowthStageId(int stage_id);
+	
+	/**
+	 * 保存用户收藏的职业导航
+	 * @param user_id
+	 * @param growthclass_id
+	 */
+	public void saveUserAndGrowthClassRelation(int user_id, int growthclass_id);
+	
+	/**
+	 * 通过用户ID查找用户收藏的所有职业导航
+	 * @param user_id
+	 * @return
+	 */
+	public List<GrowthClass> findGrowthClassByUserId(int user_id);
+	
+	/**
+	 * 
+	 * 根据用户ID，获取用户收藏的职业导航
+	 * @param user_id
+	 * @return
+	 */
+	public List<Map> findUserCollectGrowth(Integer user_id);
 
 }

@@ -12,5 +12,8 @@ $(function () {
         }
     })
 
+    $(".wzq_zhiye_con_info").click(function(){
+        $(this).nextAll(".wqf_classlist").slideToggle()
+    })
 
 })

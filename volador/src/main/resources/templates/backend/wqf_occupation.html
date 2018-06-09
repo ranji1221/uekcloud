@@ -205,7 +205,7 @@
                         </p>
                         <div class="btns">
                             <a href="javascript:;">购买本章节</a>
-                            <a href="javascript:;"><i class="fy_icon">&#xe602;</i>收藏</a>
+                            <a href="javascript:;"><i class="fy_icon" >&#xe602;</i>收藏</a>
                         </div>
 
                         <ul class="goods">
@@ -328,7 +328,31 @@
      
 </body>
     <script src="js/swiper.min.js"></script>
-
+<script type="text/javascript" th:inline="javascript">
+	var growthId=[[${growthClass.id}]];
+	var userId = [[${userId}]];
+</script>
+<script>
+console.log(growthId,userId)
+	$(".curriculum_list  .btns a:last-child").click(function(){
+		console.log(11)
+		if(userId){
+			$.ajax({
+				url: "collectGrowthSystem",
+				method: "post",
+				data: {
+					growthId,
+					userId
+				},
+				success(){
+					alert("收藏成功")
+				}
+			})
+		}else{
+			alert("请登录")
+		}
+	})
+</script>
 <script> 
 // 轮播图       
     var mySwiper = new Swiper('.swiper-container', {

@@ -80,5 +80,35 @@
 		LEFT JOIN lemon_volador_growthstage c ON c.id = c_t.growthstage_id
 		WHERE
 		c.id = #{id}
-	</select>	
+	</select>
+	
+	<!-- 保存用户收藏的职业导航 -->
+	<insert id="saveUserAndGrowthClassRelation" parameterType="Map" keyProperty="id" useGeneratedKeys="true">
+		insert into lemon_volador_personal_collect_growthclass (user_id, growthclass_id) values (#{user_id}, #{growthclass_id})
+	</insert>	
+	
+	<!-- 通过用户ID查找用户收藏的所有职业导航-->
+	<select id="findGrowthClassByUserId" parameterType="Integer" resultType ="VoladorGrowthClass">
+		SELECT
+		t.*
+		FROM
+		lemon_volador_growthclass t
+		LEFT JOIN lemon_volador_personal_collect_growthclass c_t ON t.id = c_t.growthclass_id
+		LEFT JOIN lemon_volador_personal_user c ON c.id = c_t.user_id
+		WHERE
+		c.id = #{id}
+	</select>
+	
+	<!-- 根据用户ID和职业导航ID获取章节-->
+	<select id="findChapterByUserIdAndGrowthClassId" parameterType="Map" resultType ="VoladorChapter">
+		SELECT
+		t.*
+		FROM
+		lemon_volador_course_chapter t
+		LEFT JOIN lemon_volador_personal_collect_growthclass c_t ON t.id = c_t.chapter_id
+		LEFT JOIN lemon_volador_personal_user u ON u.id = c_t.user_id
+		LEFT JOIN lemon_volador_growthclass g ON g.id = c_t.growthclass_id
+		WHERE
+		u.id = #{user_id} and g.id = #{growthclass_id}
+	</select>
 </mapper>

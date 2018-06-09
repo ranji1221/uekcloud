@@ -4,6 +4,7 @@ package org.ranji.lemon.volador.persist.growthclass.prototype;
 import java.util.List;
 
 import org.ranji.lemon.core.persist.prototype.IGenericDao;
+import org.ranji.lemon.volador.model.course.Chapter;
 import org.ranji.lemon.volador.model.growthclass.GrowthClass;
 import org.ranji.lemon.volador.model.growthclass.GrowthStage;
 /**
@@ -52,5 +53,27 @@ public interface IGrowthClassDao extends IGenericDao<GrowthClass, Integer>{
 	 * @param stage_id          成长阶段ID
 	 */
 	public List<GrowthClass> findGrowthClassByGrowthStageId(int stage_id);
+	
+	/**
+	 * 保存用户收藏的职业导航
+	 * @param user_id
+	 * @param growthclass_id
+	 */
+	public void saveUserAndGrowthClassRelation(int user_id, int growthclass_id);
+	
+	/**
+	 * 通过用户ID查找用户收藏的所有职业导航
+	 * @param user_id
+	 * @return
+	 */
+	public List<GrowthClass> findGrowthClassByUserId(int user_id);
+	
+	/**
+	 * 根据用户ID和职业导航ID获取章节
+	 * @param user_id
+	 * @param growthclass_id
+	 * @return
+	 */
+	public List<Chapter> findChapterByUserIdAndGrowthClassId(int user_id, int growthclass_id);
 
 }

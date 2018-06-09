@@ -4,6 +4,7 @@ package org.ranji.lemon.volador.service.growthclass.impl;
 import java.util.List;
 
 import org.ranji.lemon.core.service.impl.GenericServiceImpl;
+import org.ranji.lemon.volador.model.course.Chapter;
 import org.ranji.lemon.volador.model.course.Course;
 import org.ranji.lemon.volador.model.growthclass.GrowthStage;
 import org.ranji.lemon.volador.persist.growthclass.prototype.IGrowthStageDao;
@@ -83,4 +84,17 @@ public class GrowthStageServiceImpl extends GenericServiceImpl<GrowthStage, Inte
 		super.update(entity);
 	}
 
+	@Override
+	public void saveUserStudyStage(int user_id, int growthclass_id, int growthstage_id, int chapter_id) {
+		((IGrowthStageDao) dao).saveUserStudyStage(user_id, growthstage_id, chapter_id, chapter_id);
+	}
+
+	@Override
+	public Chapter findChapterByUserIdAndClassIdAndStageId(int user_id, int growthclass_id, int growthstage_id) {	
+		try{
+			return ((IGrowthStageDao) dao).findChapterByUserIdAndClassIdAndStageId(user_id, growthclass_id, growthstage_id).get(0);
+		}catch(Exception e){
+			return null;
+		}
+	}
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.ranji.lemon.core.persist.impl.GenericDaoImpl;
+import org.ranji.lemon.volador.model.course.Chapter;
 import org.ranji.lemon.volador.model.growthclass.GrowthClass;
 import org.ranji.lemon.volador.model.growthclass.GrowthStage;
 import org.ranji.lemon.volador.persist.growthclass.prototype.IGrowthClassDao;
@@ -58,6 +59,27 @@ public class GrowthClassDaoImpl extends GenericDaoImpl<GrowthClass, Integer> imp
 	@Override
 	public List<GrowthClass> findGrowthClassByGrowthStageId(int stage_id) {
 		return sqlSessionTemplate.selectList(typeNameSpace+".findGrowthClassByGrowthStageId", stage_id);
+	}
+
+	@Override
+	public void saveUserAndGrowthClassRelation(int user_id, int growthclass_id) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("user_id", user_id);
+		param.put("growthclass_id", growthclass_id);
+		sqlSessionTemplate.insert(typeNameSpace+".saveUserAndGrowthClassRelation", param);
+	}
+
+	@Override
+	public List<GrowthClass> findGrowthClassByUserId(int user_id) {
+		return sqlSessionTemplate.selectList(typeNameSpace+".findGrowthClassByUserId", user_id);
+	}
+
+	@Override
+	public List<Chapter> findChapterByUserIdAndGrowthClassId(int user_id, int growthclass_id) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("user_id", user_id);
+		param.put("growthclass_id", growthclass_id);
+		return sqlSessionTemplate.selectList(typeNameSpace+".findChapterByUserIdAndGrowthClassId", param);
 	}
 
 }

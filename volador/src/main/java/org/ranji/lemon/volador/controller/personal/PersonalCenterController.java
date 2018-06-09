@@ -17,6 +17,7 @@ import org.ranji.lemon.volador.model.course.Course;
 import org.ranji.lemon.volador.model.course.Homework;
 import org.ranji.lemon.volador.model.course.StudyingCourse;
 import org.ranji.lemon.volador.model.global.Notification;
+import org.ranji.lemon.volador.model.growthclass.GrowthClass;
 import org.ranji.lemon.volador.model.personal.Integral;
 import org.ranji.lemon.volador.model.personal.SignIn;
 import org.ranji.lemon.volador.model.personal.UserInfo;
@@ -26,6 +27,8 @@ import org.ranji.lemon.volador.service.course.prototype.ICourseService;
 import org.ranji.lemon.volador.service.course.prototype.IHomeworkService;
 import org.ranji.lemon.volador.service.course.prototype.INoteService;
 import org.ranji.lemon.volador.service.global.prototype.INotificationService;
+import org.ranji.lemon.volador.service.growthclass.prototype.IGrowthClassService;
+import org.ranji.lemon.volador.service.growthclass.prototype.IGrowthStageService;
 import org.ranji.lemon.volador.service.personal.prototype.IIntegralService;
 import org.ranji.lemon.volador.service.personal.prototype.IPerService;
 import org.ranji.lemon.volador.service.personal.prototype.ISignInService;
@@ -74,6 +77,12 @@ public class PersonalCenterController {
 	
 	@Autowired
 	private IheaderService headerService;
+	
+	@Autowired
+	private IGrowthClassService growthClassService;
+	
+	@Autowired
+	private IGrowthStageService growthStageService;
 	
 	//用户签到获得的积分
 	private Integer SIGNIN_INTRGRAL_NUM = 20;
@@ -845,5 +854,46 @@ public class PersonalCenterController {
 		return mv;
 	}
 	
+	//用户获取个人中心职业导航
+	@RequestMapping(value="/myGrowthSystem", method=RequestMethod.GET)
+	public ModelAndView getMyGrowthSystem(HttpServletRequest request){
+		ModelAndView mv = new ModelAndView();
+		//异常处理，当没有获取到登录信息时，跳转到登录页面
+		try {
+			//根据session获取userId，查询正在学习课程
+			int userId=(int) request.getSession().getAttribute("userId");
+			String userName=(String) request.getSession().getAttribute("userName");
+			mv =headerService.headInfo(userId, userName);
+			mv.addObject("pageUri", "/personalCenter_learning");
+			
+			List<Map> growthClassAndStageList = growthClassService.findUserCollectGrowth(userId);
+			mv.addObject("growthClassAndStageList", growthClassAndStageList);
+			//获得职业导航数目
+			mv.addObject("count", growthClassAndStageList.size());
+			
+			//查询当前用户信息
+			UserInfo userInfo=personalService.findUserInfoByUserId(userId);
+			mv.addObject("user_name",userInfo.getNickname());
+			mv.addObject("gender", userInfo.getGender());
+			mv.addObject("address",userInfo.getAddress());
+			
+			//查询学习时长
+			
+			
+			//查询我的积分
+			Integral integral = integralService.findIntegralByUserId(userId);
+			mv.addObject("integralNum", integral.getIntegralNumber());
+			
+			//查询签到天数
+			SignIn signIn = signInService.findSignInByUserId(userId);
+			mv.addObject("siginDay", signIn.getDay());
+			
+			mv.setViewName("/backend/wzq_zhiye");
+		} catch (Exception e) {
+			// TODO: handle exception
+			mv.setViewName("redirect:/login");
+		}
+		return mv;
+	}
 
 }

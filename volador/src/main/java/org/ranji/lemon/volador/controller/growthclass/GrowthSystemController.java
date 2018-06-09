@@ -7,7 +7,11 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.ranji.lemon.core.pagination.PagerModel;
+import org.ranji.lemon.volador.model.course.Chapter;
+import org.ranji.lemon.volador.model.course.ChapterTitle;
 import org.ranji.lemon.volador.model.course.Course;
+import org.ranji.lemon.volador.model.course.StudyingCourse;
 import org.ranji.lemon.volador.model.course.Teacher;
 import org.ranji.lemon.volador.model.growthclass.GrowthClass;
 import org.ranji.lemon.volador.model.growthclass.GrowthStage;
@@ -167,6 +171,20 @@ public class GrowthSystemController {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	//用户收藏职业导航
+	@RequestMapping(value="/collectGrowthSystem", method=RequestMethod.POST)
+	public void collectGrowthSystme(
+			@RequestParam(value="growthId", required=false) Integer growthId,
+			@RequestParam(value="userId", required=false) Integer userId,
+			HttpServletRequest request){
+		try{
+			growthClassService.saveUserAndGrowthClassRelation(userId, growthId);
+			
+		}catch(NullPointerException e){
+			e.printStackTrace();
+		}
 	}
 	
 }

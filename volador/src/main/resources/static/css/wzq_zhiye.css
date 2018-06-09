@@ -180,6 +180,7 @@
 }
 .wzq_zhiye_con_item:first-child .wzq_zhiye_con_r .wzq_zhiye_con_info h6{
     margin-top: -10px;
+    cursor: pointer;
 }
 .wzq_zhiye_con_item:first-child:last-child .wzq_zhiye_con_r .wzq_zhiye_con_info h6{
     margin-top: 0
@@ -218,6 +219,32 @@
 }
 .wzq_zhiye_con_item:hover .wzq_zhiye_con_num::after{
     background: #fd6756;
+}
+.wzq_zhiye_con_item .wzq_zhiye_con_r .wqf_classlist{
+    float: left;
+    width: 100%;
+    padding-left: 20px;
+    box-sizing: border-box;
+    display: none;
+}
+.wzq_zhiye_con_item .wzq_zhiye_con_r .wqf_classlist li{
+    padding:6px 0;
+}
+.wzq_zhiye_con_item .wzq_zhiye_con_r .wqf_classlist a{
+    display: block;
+    width: 100%;
+    font-size: 12px;
+}
+.wzq_zhiye_con_item .wzq_zhiye_con_r .wqf_classlist a:hover{
+    color: #fd6756;
+}
+.wzq_zhiye_con_item .wzq_zhiye_con_r .wqf_classlist span:first-child{
+    float: left; 
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #7c7c7c;
+    margin-top: 6px;
+    margin-right: 10px;
 }
 
 

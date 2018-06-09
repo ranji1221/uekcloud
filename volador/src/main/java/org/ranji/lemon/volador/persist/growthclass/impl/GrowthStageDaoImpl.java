@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.ranji.lemon.core.persist.impl.GenericDaoImpl;
+import org.ranji.lemon.volador.model.course.Chapter;
 import org.ranji.lemon.volador.model.course.Course;
 import org.ranji.lemon.volador.model.growthclass.GrowthStage;
 import org.ranji.lemon.volador.persist.growthclass.prototype.IGrowthStageDao;
@@ -54,5 +55,44 @@ public class GrowthStageDaoImpl extends GenericDaoImpl<GrowthStage, Integer> imp
 	public List<Course> findCourseByGrowthStageId(int stage_id) {
 		return sqlSessionTemplate.selectList(typeNameSpace+".findCourseByGrowthStageId", stage_id);
 	}
+
+	@Override
+	public void saveUserStudyStage(int user_id, int growthclass_id, int growthstage_id, int chapter_id) {
+		Map<String, Object> parameter = new HashMap<String, Object>();
+		parameter.put("growthstage_id", growthstage_id);
+		parameter.put("user_id", user_id);
+		parameter.put("chapter_id", chapter_id);
+		parameter.put("growthclass_id", growthclass_id);
+		sqlSessionTemplate.insert(typeNameSpace+".saveUserStudyStage", parameter);
+	}
+
+	@Override
+	public List<GrowthStage> findStudyStageByUserIdAndChapterId(int user_id, int growthclass_id, int chapter_id) {
+		Map<String, Object> parameter = new HashMap<String, Object>();
+		parameter.put("user_id", user_id);
+		parameter.put("chapter_id", chapter_id);
+		parameter.put("growthclass_id", growthclass_id);
+		return sqlSessionTemplate.selectList(typeNameSpace+".findStudyStageByUserIdAndChapterId", parameter);
+	}
+
+	@Override
+	public void updateUserStudyStage(int user_id, int growthclass_id, int growthstage_id, int chapter_id) {
+		Map<String, Object> parameter = new HashMap<String, Object>();
+		parameter.put("growthstage_id", growthstage_id);
+		parameter.put("user_id", user_id);
+		parameter.put("chapter_id", chapter_id);
+		parameter.put("growthclass_id", growthclass_id);
+		sqlSessionTemplate.update(typeNameSpace+".updateUserStudyStage", parameter);
+	}
+
+	@Override
+	public List<Chapter> findChapterByUserIdAndClassIdAndStageId(int user_id, int growthclass_id, int growthstage_id) {
+		Map<String, Object> parameter = new HashMap<String, Object>();
+		parameter.put("growthstage_id", growthstage_id);
+		parameter.put("user_id", user_id);
+		parameter.put("growthclass_id", growthclass_id);
+		return sqlSessionTemplate.selectList(typeNameSpace+".findChapterByUserIdAndClassIdAndStageId", parameter);
+	}
+
 
 }
