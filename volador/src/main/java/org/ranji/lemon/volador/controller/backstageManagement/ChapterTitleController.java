@@ -108,7 +108,7 @@ public class ChapterTitleController {
 		Map result = new HashMap<>();
 		if(adminService.parseJWT(request.getHeader("token"))){
 			try {
-				int chapterTitleId=Integer.parseInt(request.getParameter("chapterTitleId"));
+				int chapterTitleId=Integer.parseInt(request.getParameter("chapter_title_id"));
 				
 				chapterTitleService.delete(chapterTitleId);
 				

@@ -78,4 +78,10 @@ public class CourseServiceImpl extends GenericServiceImpl<Course,Integer> implem
 	public List<Course> findCourseByPrice(double price) {
 		return ((ICourseDao) dao).findCourseByPrice(price);
 	}
+
+	@Override
+	public List<Course> keywordSreachCourse(String keyword) {
+		// TODO Auto-generated method stub
+		return ((ICourseDao) dao).keywordSreachCourse(keyword);
+	}
 }

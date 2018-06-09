@@ -13,12 +13,13 @@
     <link rel="stylesheet" href="css/cp_courseChannel.css">
 </head>
 <body>
+<div th:include="backend/wy_header" ></div>
     <!-- 面包屑导航 -->
     <div class="cp_head">
         <div class="cp_breadCrumb">
             <a href="index.html">首页</a>
             <span>&gt;</span>
-            <a href="#">找课程</a>
+            <a href="findCourse">找课程</a>
         </div>
     </div>
     
@@ -36,87 +37,28 @@
     <!-- 选项内容 -->
        <!-- 选项内容 -->
     <ul class="cp_main">
-        <li>
+        <li th:each="course : ${courseList}">
             <div class="cp_imgBox">
-                <a href="#">
-                    <img src="images/cp_1.png" alt="图片加载出错">
+                <a href="#" th:href="'course_chapter?courseId='+${course.id}">
+                    <img src="images/cp_1.png" th:src="${course.course_image_address}" alt="图片加载出错">
                 </a>
             </div>
             <div class="cp_content">
-                <a href="#">
-                    <h3 class='hidden_one'>Python自动化开发-类Zabbix监控项目</h3>
-                    <p>目标：了解产品定位和战略制定的方法；...这部分是无漏设计的重点，但产品经理主要掌握的就是三大架构和功能架构设计。要点：产品设计，既要满足商业需求，又要满足用户体验，同时所有功能要形成体系不能冲突。</p>
+                <a href="#" th:href="'course_chapter?courseId='+${course.id}">
+                    <h3 class='hidden_one' th:text="${course.course_name}">Python自动化开发-类Zabbix监控项目</h3>
+                    <p th:text="${course.course_info}">目标：了解产品定位和战略制定的方法；...这部分是无漏设计的重点，但产品经理主要掌握的就是三大架构和功能架构设计。要点：产品设计，既要满足商业需求，又要满足用户体验，同时所有功能要形成体系不能冲突。</p>
                 </a>
                 <div class="cp_icon">
                     <span>
                         <i class='fy_icon'>&#xe626;</i>
                         <b>20</b>分钟
                     </span>
-                    <span>300人正在学习</span>
+                    <span th:text="${course.student_count}+'人正在学习'">300人正在学习</span>
                 </div>
             </div>
             
         </li>
-        <li>
-            <div class="cp_imgBox">
-                <a href="#">
-                    <img src="images/cp_2.png" alt="图片加载出错">
-                </a>
-            </div>
-            <div class="cp_content">
-                <a href="#">
-                    <h3 class='hidden_one'>理论+实践，构建属于你的机器学习库单</h3>
-                    <p>目标：了解产品定位和战略制定的方法；...这部分是无漏设计的重点，但产品经理主要掌握的就是三大架构和功能架构设计。要点：产品设计，既要满足商业需求，又要满足用户体验，同时所有功能要形成体系不能冲突。</p>
-                </a>
-                <div class="cp_icon">
-                    <span>
-                        <i class='fy_icon'>&#xe626;</i>
-                        <b>20</b>分钟
-                    </span>
-                    <span>300人正在学习</span>
-                </div>
-            </div>
-        </li>
-        <li>
-            <div class="cp_imgBox">
-                <a href="#">
-                    <img src="images/cp_3.png" alt="图片加载出错">
-                </a>
-            </div>
-            <div class="cp_content">
-                <a href="#">
-                    <h3 class='hidden_one'>理论+实践，构建属于你的机器学习库单</h3>
-                    <p>目标：了解产品定位和战略制定的方法；...这部分是无漏设计的重点，但产品经理主要掌握的就是三大架构和功能架构设计。要点：产品设计，既要满足商业需求，又要满足用户体验，同时所有功能要形成体系不能冲突。</p>
-                </a>
-                <div class="cp_icon">
-                   <span>
-                        <i class='fy_icon'>&#xe626;</i>
-                        <b>20</b>分钟
-                    </span>
-                    <span>300人正在学习</span>
-                </div>
-            </div>
-        </li>
-        <li>
-            <div class="cp_imgBox">
-                <a href="#">
-                    <img src="images/cp_4.png" alt="图片加载出错">
-                </a>
-            </div>
-            <div class="cp_content">
-                <a href="#">
-                    <h3 class='hidden_one'>理论+实践，构建属于你的机器学习库单</h3>
-                    <p>目标：了解产品定位和战略制定的方法；...这部分是无漏设计的重点，但产品经理主要掌握的就是三大架构和功能架构设计。要点：产品设计，既要满足商业需求，又要满足用户体验，同时所有功能要形成体系不能冲突。</p>
-                </a>
-                <div class="cp_icon">
-                    <span>
-                        <i class='fy_icon'>&#xe626;</i>
-                        <b>20</b>分钟
-                    </span>
-                    <span>300人正在学习</span>
-                </div>
-            </div>
-        </li>
+
     </ul>
 
     <!-- 相关搜索 -->
@@ -132,7 +74,7 @@
 
     <!-- 分页 -->
     
-    <ul class="cp_paging">
+<!--     <ul class="cp_paging">
         <li class='cp_first '><a href="#">首页</a></li>
         <li class="cp_firstPage btn_active">
             <a href="#">上一页</a>
@@ -162,6 +104,8 @@
         <li class='cp_lastPage'>
             <a href="#">下一页</a>
         </li>
-    </ul>
+    </ul> -->
+    
+    <div th:include="backend/wy_footer"></div> 
 </body>
 </html>

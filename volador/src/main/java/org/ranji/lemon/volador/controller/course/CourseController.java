@@ -166,6 +166,37 @@ public class CourseController {
 		return mv;
 	}
 	
+	//搜索课程
+	@RequestMapping(value="/searchCourse",method=RequestMethod.GET)
+	public ModelAndView searchCourse(HttpServletRequest request){
+		ModelAndView mv = new ModelAndView();
+		//判断是否登录
+		if(request.getSession().getAttribute("userId")!=null
+				&&request.getSession().getAttribute("userName")!=null){
+			int userId=(int) request.getSession().getAttribute("userId");
+			String userName=(String) request.getSession().getAttribute("userName");
+			mv =headerService.headInfo(userId, userName);
+			mv.addObject("pageUri", "/findCourse");
+		}else{
+			mv.addObject("headLogin_yes","login_yes");
+			mv.addObject("headLogin_no","login_no active");
+		}
+		
+		//关键字搜索
+		List<Course> courseList=courseService.keywordSreachCourse(request.getParameter("c"));
+		if(courseList.toString()==null){
+			mv.addObject("code",404);
+		}else{
+			mv.addObject(courseList);
+		}
+		
+		
+		mv.setViewName("/backend/cp_courseChannel");
+		
+		
+		return mv;
+	}
+	
 	//课程章节
 	@RequestMapping(value="/course_chapter", method=RequestMethod.GET)
 	public ModelAndView chapterPage(@RequestParam(value="courseId", required=false) Integer courseId,

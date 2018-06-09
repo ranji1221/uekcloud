@@ -16,6 +16,7 @@ import org.ranji.lemon.volador.service.course.prototype.ITeacherService;
 import org.ranji.lemon.volador.service.personal.prototype.IAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -80,11 +81,10 @@ public class TeacherController {
 				result.put("code", "404");
 				result.put("message", "非法请求");
 			}
-			System.out.println(JsonUtil.objectToJson(result));
+			
 			pw.print(JsonUtil.objectToJson(result));
 			pw.flush();
 			pw.close();
-//			return JsonUtil.objectToJson(result);
 			
 		}
 		
@@ -134,17 +134,17 @@ public class TeacherController {
 		 * @throws Exception 
 		 */
 		@RequestMapping(value="/teacher", method=RequestMethod.PUT)
-		public void updateTeacherInfo(HttpServletRequest request,HttpServletResponse response) throws Exception{
+		public void updateTeacherInfo(HttpServletRequest request,HttpServletResponse response ,@RequestBody Map<String,String> map) throws Exception{
 			response.setHeader("Content-Type", "application/json;charset=utf-8");
 			PrintWriter pw = response.getWriter();
 			Map result = new HashMap<>();
 			if(adminService.parseJWT(request.getHeader("token"))){
 				try {
-					int teacherId =Integer.parseInt(request.getParameter("teacher_id"));
-					String teacherName = request.getParameter("teacher_name");
-					String teacherInfo = request.getParameter("teacher_info"); 
-					String teacherPosition = request.getParameter("teacher_position");
-					String teacherImage = request.getParameter("teacher_image");
+					int teacherId =Integer.parseInt(request.getParameter("id"));
+					String teacherName = map.get("teacher_name");
+					String teacherInfo = map.get("teacher_info"); 
+					String teacherPosition = map.get("teacher_position");
+					String teacherImage = map.get("teacher_image");
 					Teacher teacher = new Teacher();
 					teacher.setId(teacherId);
 					teacher.setTeacher_name(teacherName);
@@ -214,16 +214,16 @@ public class TeacherController {
 		 * @throws IOException 
 		 */
 		@RequestMapping(value="/teacher", method=RequestMethod.POST)
-		public void addTeacherInfo(HttpServletRequest request,HttpServletResponse response) throws IOException{
+		public void addTeacherInfo(HttpServletRequest request,HttpServletResponse response,@RequestBody Map<String,String> map) throws IOException{
 			response.setHeader("Content-Type", "application/json;charset=utf-8");
 			PrintWriter pw = response.getWriter();
 			Map result = new HashMap<>();
 			if(adminService.parseJWT(request.getHeader("token"))){
 				try {
-					String teacherName = request.getParameter("teacher_name");
-					String teacherInfo = request.getParameter("teacher_info"); 
-					String teacherPosition = request.getParameter("teacher_position");
-					String teacherImage = request.getParameter("teacher_image");
+					String teacherName = map.get("teacher_name");
+					String teacherInfo = map.get("teacher_info"); 
+					String teacherPosition = map.get("teacher_position");
+					String teacherImage = map.get("teacher_image");
 					Teacher teacher = new Teacher();
 					teacher.setTeacher_name(teacherName);
 					teacher.setTeacher_info(teacherInfo);

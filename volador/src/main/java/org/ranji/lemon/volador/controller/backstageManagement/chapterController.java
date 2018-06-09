@@ -136,21 +136,21 @@ public class chapterController {
 	
 	
 	@RequestMapping(value="/chapter",method=RequestMethod.POST)
-	public void addChapter(HttpServletRequest request,HttpServletResponse response) throws IOException{
+	public void addChapter(HttpServletRequest request,HttpServletResponse response,@RequestBody Map<String,String> map) throws IOException{
 		response.setHeader("Content-Type", "application/json;charset=utf-8");
 		PrintWriter pw=response.getWriter();
 		Map result = new HashMap<>();
 		if(adminService.parseJWT(request.getHeader("token"))){
 			try {
 				Chapter chapter=new Chapter();
-				chapter.setChapter_name(request.getParameter("chapter_name"));
-				chapter.setChapter_info(request.getParameter("chapter_info"));
-				chapter.setChapter_title_id(Integer.parseInt(request.getParameter("chapter_title_id")));
-				chapter.setVideo_address(request.getParameter("video_address"));
-				chapter.setChapter_order(Integer.parseInt(request.getParameter("chapter_order")));
-				chapter.setTotal_time(request.getParameter("total_time"));
-				chapter.setAccessory_name(request.getParameter("accessory_name"));
-				chapter.setAccessory_download(request.getParameter("accessory_download"));
+				chapter.setChapter_name(map.get("chapter_name"));
+				chapter.setChapter_info(map.get("chapter_info"));
+				chapter.setChapter_title_id(Integer.parseInt(request.getParameter("chapterTitleId")));
+				chapter.setVideo_address(map.get("video_address"));
+				chapter.setChapter_order(Integer.parseInt(map.get("chapter_order")));
+				chapter.setTotal_time(map.get("total_time"));
+				chapter.setAccessory_name(map.get("accessory_name"));
+				chapter.setAccessory_download(map.get("accessory_name"));
 				
 				chapterService.save(chapter);
 				result.put("code", 200);

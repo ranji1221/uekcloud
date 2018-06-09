@@ -79,4 +79,11 @@ public interface ICourseDao extends IGenericDao<Course,Integer>{
      */
     public List<Course> findCourseByPrice(double price);
     
+    /**
+     * 关键字查询
+     * @param keyword    课程价格
+     * @return	List<Course>
+     */
+    public List<Course> keywordSreachCourse(String keyword);
+    
 }

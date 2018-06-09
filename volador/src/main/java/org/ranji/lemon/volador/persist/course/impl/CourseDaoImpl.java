@@ -85,6 +85,12 @@ public class CourseDaoImpl extends GenericDaoImpl<Course,Integer> implements ICo
 	public List<Course> findCourseByPrice(double price) {
 		return sqlSessionTemplate.selectList(typeNameSpace+".findCourseByPrice", price);
 	}
+
+	@Override
+	public List<Course> keywordSreachCourse(String keyword) {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectList(typeNameSpace+".keywordSreachCourse",keyword);
+	}
 	
 	
 }

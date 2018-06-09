@@ -73,7 +73,10 @@
 		c.id = #{id}
 	</select>
 	
-	
+	<!-- 关键字查询课程 -->
+	<select id="keywordSreachCourse" parameterType="String" resultType="VoladorCourse">
+		select * from lemon_volador_course_course where course_name like CONCAT('%',#{keyword},'%') or course_info like CONCAT('%',#{keyword},'%')
+	</select>
 	
 	
 	<!-- 查询根据id -->
