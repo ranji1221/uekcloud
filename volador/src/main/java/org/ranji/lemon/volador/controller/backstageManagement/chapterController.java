@@ -17,6 +17,7 @@ import org.ranji.lemon.volador.service.course.prototype.IChapterTitleService;
 import org.ranji.lemon.volador.service.personal.prototype.IAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -65,7 +66,7 @@ public class chapterController {
 	}
 	
 	@RequestMapping(value="/chapter",method=RequestMethod.PUT)
-	public void putchapterList(HttpServletRequest request,HttpServletResponse response) throws IOException{
+	public void putchapterList(HttpServletRequest request,HttpServletResponse response,@RequestBody Map<String,String> map) throws IOException{
 		response.setHeader("Content-Type", "application/json;charset=utf-8");
 		PrintWriter pw=response.getWriter();
 		Map result = new HashMap<>();
@@ -73,13 +74,13 @@ public class chapterController {
 			try {
 				Chapter chapter=new Chapter();
 				chapter.setId(Integer.parseInt(request.getParameter("chapter_id")));
-				chapter.setChapter_name(request.getParameter("chapter_name"));
-				chapter.setVideo_address(request.getParameter("vedio_address"));
-				chapter.setChapter_order(Integer.parseInt(request.getParameter("chapter_order")));
-				chapter.setChapter_info(request.getParameter("chapter_info"));
-				chapter.setTotal_time(request.getParameter("total_time"));
-				chapter.setAccessory_name(request.getParameter("accessory_name"));
-				chapter.setAccessory_download(request.getParameter("accessory_download"));
+				chapter.setChapter_name(map.get("chapter_name"));
+				chapter.setVideo_address(map.get("vedio_address"));
+				chapter.setChapter_order(Integer.parseInt(map.get("chapter_order")));
+				chapter.setChapter_info(map.get("chapter_info"));
+				chapter.setTotal_time(map.get("total_time"));
+				chapter.setAccessory_name(map.get("accessory_name"));
+				chapter.setAccessory_download(map.get("accessory_download"));
 				
 				
 				chapterService.update(chapter);
@@ -145,7 +146,7 @@ public class chapterController {
 				chapter.setChapter_name(request.getParameter("chapter_name"));
 				chapter.setChapter_info(request.getParameter("chapter_info"));
 				chapter.setChapter_title_id(Integer.parseInt(request.getParameter("chapter_title_id")));
-				chapter.setVideo_address(request.getParameter("vedio_address"));
+				chapter.setVideo_address(request.getParameter("video_address"));
 				chapter.setChapter_order(Integer.parseInt(request.getParameter("chapter_order")));
 				chapter.setTotal_time(request.getParameter("total_time"));
 				chapter.setAccessory_name(request.getParameter("accessory_name"));

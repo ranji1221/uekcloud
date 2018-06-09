@@ -7,8 +7,8 @@ $(function(){
     let cp_tab = $('.cp_work .cp_tab');
     let old ="";
     let flag1 = true;
-    work.click(function(){
-        return false;
+    work.click(function(e){
+        e.stopPropagation()
     });
     $('.cp_videoBox').click(function(){
         work.css({'right':'-352px'});
@@ -99,25 +99,28 @@ $(function(){
         obj.time = this.currentTime;
         localStorage.setItem('video',JSON.stringify(obj));  
     }
+
     function getComment(){
             let content = $('.cp_tabCon .container .col_left .cp_commentBox');
             let wzq_page = $('.cp_tabCon .container .col_left .wzq_page');
             let tips =  $('.cp_tabCon .tips');
             tips.css('display','block');
             $.ajax({
-                url:"chapter_commentList",
+                url:"chapterCommentList",
                 type:'post',
                 data:{userId,chapterId},
                 dataType:'json',
                 success:function(data){
-                    tips.html('全部评论 <span>'+data.commentList.length+'</span>');
+                    console.log(data)
+                    data = data.data
+                    tips.html('全部评论 <span>'+data.commentAndReply.length+'</span>');
                     let comment=$('<ul class="wzq_show_comment_list wqf_comment">');
                     content.html(`
                             <div class="wzq_show_comment_add">
                                 <form class="wzq_add_form wzq_clear">
                                     <div class="wzq_clear">
                                         <div class="wzq_user_img">
-                                            <img src="${data.UserHeadImage}" alt="">
+                                            <img src="${data.userInfo.head_image}" alt="">
                                         </div>
                                         <div class="wzq_textarea">
                                             <textarea name="" id="wzq_textarea" onfocus="if(value=='快来发布评论吧...') {value=''}" onblur="if(value=='') {value='快来发布评论吧...'}">快来发布评论吧...</textarea>
@@ -133,26 +136,38 @@ $(function(){
                                 </form>
                             </div>
                     `);
-                    if(data.commentList.length<5&&data.commentList.length!=0){
-                        data.commentList.forEach(function(val,n){
-                            $('<li class="wzq_show_comment_item">').html(`
-                                <div class="wzq_clear">
+                    if(data.commentAndReply.length<5&&data.commentAndReply.length!=0){
+                        
+                        data.commentAndReply.forEach(function(val,n){
+                            var str = "";
+                            str+=`<div class="wzq_clear">
                                     <div class="wzq_user_img">
-                                        <img src="${val.head_image}" alt="">
+                                        <img src="${val.comment.head_image}" alt="">
                                     </div>
                                     <!--评论区内容开始，回复评论区时候，添加此节点-->
                                     <div class="wzq_comment_item_info">
-                                        <h6 class="wzq_comment_item_title">${val.nickName}</h6>
-                                        <span class="wzq_comment_item_time">${getDate(val.createTime)}</span>
-                                        <div class="wzq_comment_item_des">
-                                            <p class="hidd_more">${val['content']}</p>
+                                        <h6 class="wzq_comment_item_title">${val.comment.nickName}</h6>
+                                        <span class="wzq_comment_item_time">${getDate(val.comment.createTime)}</span>
+                                        <div class="wzq_comment_item_des clear_both">
+                                            <p class="hidd_more">${val.comment['content']}</p>
                                             <div class="wzq_comment_reply">
                                                 <span class="wzq_jubao"><i class="fy_icon">&#xe652;</i>举报</span>
-                                                <span title="回复" class="wzq_comment_replys" data-flag="true"><i class="fy_icon">&#xe679;</i></span>
+                                                <span title="回复" class="wzq_comment_replys" data-flag="true" replyUserName="${val.comment.nickName}"><i class="fy_icon">&#xe679;</i></span>
                                                 <span class="wzq_comment_zan wzq_comment_zanend"><i class="fy_icon">&#xe6b3;</i></span>
                                             </div>
-                                        </div>
+                                        </div>`
+                            val.reply.forEach((ele,i)=>{
+                                str+=`<div class="wqf_reply">
+                                    <span uid="${ele.userId}">${ele.userName} 回复 ${ele.replyUserName==null?'':'@'+ele.replyUserName}：${ele.reply}</span>
+                                    <div class="wzq_comment_reply">
+                                        <span class="wzq_jubao"><i class="fy_icon">&#xe652;</i>举报</span>
+                                        <span title="回复" class="wzq_comment_replys" data-flag="true" replyUserName="${ele.userName}"><i class="fy_icon">&#xe679;</i></span>
                                     </div>
+                                </div>`   // wqf_reply 结束
+                            }) 
+
+                                // wzq_comment_item_info 结束    wzq_clear 结束
+                            str+=`</div>  
                                     <!--评论区内容结束-->
                                 </div>
                                 <!--评论区回复表单开始-->
@@ -170,15 +185,16 @@ $(function(){
 
                                                 </div>
                                             </div>
-                                            <div class="wzq_reply_submit"><input type="submit" value="回复"></div>
+                                            <div class="wzq_reply_submit"><input type="button" value="回复"></div>
                                         </div>
                                     </form>
                                 </div>
                                 <!--评论区回复表单结束-->
-                            `).appendTo(comment);
+                                `
+                            $('<li class="wzq_show_comment_item" index='+n+'>').html(str).appendTo(comment);
                         })
                         comment.appendTo(content);
-                    }else if(data.commentList.length==0){
+                    }else if(data.commentAndReply.length==0){
                         wzq_page.css('display','none');
                         comment.html(`
                         <div class="noComment">
@@ -194,7 +210,7 @@ $(function(){
                         tips.css('display','none');
                     }else{
                         
-                        let num = Math.ceil(data.commentList.length/5); 
+                        let num = Math.ceil(data.commentAndReply.length/5); 
                         let next = $('.wzq_page_next',wzq_page);
                         wzq_page.css('display','block');
                         $('.cp_num',wzq_page).remove();
@@ -206,7 +222,7 @@ $(function(){
                                 }else{
                                     next.before($('<a class="cp_num" >').html(n));
                                 }
-                            } 
+                            }
                         }else{
                             for(let n=1;n<=10;n++){
                                 if(n==1){
@@ -280,7 +296,7 @@ $(function(){
                         function getData(){
                             comment.html("");
                             let activeNum = (parseInt($('.wzq_page_active',wzq_page).html())-1)*5>0?(parseInt($('.wzq_page_active',wzq_page).html())-1)*5:0;
-                            let dataObj = data.commentList.slice(activeNum,activeNum+5);
+                            let dataObj = data.commentAndReply.slice(activeNum,activeNum+5);
                             dataObj.forEach(function(val,n){
                                 $('<li class="wzq_show_comment_item">').html(`
                                     <div class="wzq_clear">
@@ -289,13 +305,13 @@ $(function(){
                                         </div>
                                         <!--评论区内容开始，回复评论区时候，添加此节点-->
                                         <div class="wzq_comment_item_info">
-                                            <h6 class="wzq_comment_item_title">${val.nickName}</h6>
-                                            <span class="wzq_comment_item_time">${getDate(val.createTime)}</span>
+                                            <h6 class="wzq_comment_item_title">${val.comment.nickName}</h6>
+                                            <span class="wzq_comment_item_time">${getDate(val.comment.createTime)}</span>
                                             <div class="wzq_comment_item_des">
-                                                <p class="hidd_more">${val['content']}</p>
+                                                <p class="hidd_more">${val.comment['content']}</p>
                                                 <div class="wzq_comment_reply">
                                                     <span class="wzq_jubao"><i class="fy_icon">&#xe652;</i>举报</span>
-                                                    <span title="回复" class="wzq_comment_replys" data-flag="true"><i class="fy_icon">&#xe679;</i></span>
+                                                    <span title="回复" class="wzq_comment_replys" data-flag="true" ><i class="fy_icon">&#xe679;</i></span>
                                                     <span class="wzq_comment_zan wzq_comment_zanend"><i class="fy_icon">&#xe6b3;</i></span>
                                                 </div>
                                             </div>
@@ -390,7 +406,7 @@ $(function(){
                                         getTips("未登录","点击此处登录","login");
                                     }else if(val.info=='success'){
                                         getTips("评论成功");
-                                        if(data.commentList.length<5){
+                                        if(data.commentAndReply.length<5){
                                             // 评论成功后创建节点，添加刚才评论的内容
                                             $('<li class="wzq_show_comment_item">').html(`
                                                 <div class="wzq_clear">
@@ -437,7 +453,7 @@ $(function(){
                                                 "nickName" : "小小新",
                                                 "head_image" : data.UserHeadImage
                                             };
-                                            data.commentList.push(obj);
+                                            data.commentAndReply.push(obj);
                                         }
                                     }else if(val.info=='fail'){
                                         getTips("评论失败");
@@ -448,16 +464,56 @@ $(function(){
                         }
                     })
 
+
+                     var my_parent = '';
+                    // 发表回复的功能的ajax触发  
+                    $('.col_left').on('click','.wzq_reply_submit input',function(){
+                        let con = $('.wzq_reply_textarea',$(this).parents('.wzq_reply_form'));
+                        if(con.val().trim()==""){
+                            getTips("内容不能为空");
+                        }
+                        else{
+                            let user = $('.wzq_comment_replys',my_parent).attr('replyusername');
+                            let  replayId = $('span[uid]',my_parent).attr('uid');
+                            console.log(user,replayId);
+                            let content = con.val();
+                            $.ajax({
+                                url:'course_chapter_comment',
+                                data:{userId,chapterId,content,replayId},
+                                type:'post',
+                                success:function(val){
+                                    let tim = new Date();
+                                    let sum = tim.getTime();
+                                    if(val.info=='success'){
+                                        getTips("评论成功");
+                                        let reply = $('<div class="wqf_reply">').html(`<span uid="null">我 回复 ${user}：${content}</span>
+                                            <div class="wzq_comment_reply">
+                                                <span class="wzq_jubao"><i class="fy_icon"></i>举报</span>
+                                                <span title="回复" class="wzq_comment_replys" data-flag="false" replyusername="${user}"><i class="fy_icon"></i></span>
+                                            </div>`).insertAfter(my_parent);
+                                    }else if(val.info=='fail'){
+                                        getTips("评论失败");
+                                    }
+                                    con.val('');
+                                }
+                            })
+                        }
+                    })
+                   
                     //点击回复评论区出现
                     $(".wzq_show_comment_item").delegate(".wzq_comment_reply .wzq_comment_replys","click",function () {
+                        my_parent  = $(this).parents('.wqf_reply');
                         var flag = $(this).attr("data-flag");
                         var $that = $(this)
+                        
+                        var reply = $(this).parents(".wzq_show_comment_item").find(".wzq_reply")
                         if(flag == 'true'){
-                            $(this).parents(".wzq_show_comment_item").find(".wzq_reply").slideDown(200,function () {
+                            reply.slideDown(200,function () {
+                                reply.find(".wzq_reply_user").html($that.attr("replyusername"))
                                 $that.attr("data-flag","false");
                             });
                         }else{
-                            $(this).parents(".wzq_show_comment_item").find(".wzq_reply").slideUp(200,function () {
+                            reply.slideUp(200,function () {
                                 $that.attr("data-flag","true");
                             });
                         }

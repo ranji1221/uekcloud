@@ -16,6 +16,7 @@ import org.ranji.lemon.volador.service.course.prototype.ICourseService;
 import org.ranji.lemon.volador.service.personal.prototype.IAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -65,15 +66,15 @@ public class ChapterTitleController {
 	
 	
 	@RequestMapping(value="chapterTitle",method=RequestMethod.PUT)
-	public void chapterTitlePut(HttpServletRequest request,HttpServletResponse response) throws IOException{
+	public void chapterTitlePut(HttpServletRequest request,HttpServletResponse response,@RequestBody Map<String,String> map) throws IOException{
 		response.setHeader("Content-Type", "application/json;charset=utf-8");
 		PrintWriter pw=response.getWriter();
 		Map result = new HashMap<>();
 		if(adminService.parseJWT(request.getHeader("token"))){
 			try {
 				int chapterTitleId=Integer.parseInt(request.getParameter("chapter_title_id"));
-				String chapterTitle=request.getParameter("chapter_title");
-				int chapterTitleOrder=Integer.parseInt(request.getParameter("chapter_title_orser"));
+				String chapterTitle=map.get("chapter_title");
+				int chapterTitleOrder=Integer.parseInt(map.get("chapter_title_order"));
 				
 				ChapterTitle chapterTitleSave=new ChapterTitle();
 				chapterTitleSave.setId(chapterTitleId);
@@ -132,15 +133,15 @@ public class ChapterTitleController {
 	
 	
 	@RequestMapping(value="chapterTitle",method=RequestMethod.POST)
-	public void addChapterTitle(HttpServletRequest request,HttpServletResponse response) throws IOException{
+	public void addChapterTitle(HttpServletRequest request,HttpServletResponse response,@RequestBody Map<String,String> map) throws IOException{
 		response.setHeader("Content-Type", "application/json;charset=utf-8");
 		PrintWriter pw=response.getWriter();
 		Map result = new HashMap<>();
 		if(adminService.parseJWT(request.getHeader("token"))){
 			try {
 				int courseId=Integer.parseInt(request.getParameter("course_id"));
-				String chapterTitle=request.getParameter("chapter_title");
-				int chapterTitleOrder=Integer.parseInt(request.getParameter("chapter_title_order"));
+				String chapterTitle=map.get("chapter_title");
+				int chapterTitleOrder=Integer.parseInt(map.get("chapter_title_order"));
 				
 				ChapterTitle chapterTitleSave=new ChapterTitle();
 				chapterTitleSave.setCourse_id(courseId);

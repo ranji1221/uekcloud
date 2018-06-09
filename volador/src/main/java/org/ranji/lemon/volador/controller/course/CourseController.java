@@ -652,23 +652,25 @@ public class CourseController {
 		try {
 			//获取请求参数
 			int chapterId =Integer.parseInt(request.getParameter("chapterId"));
-			
+			Map<String,Object> data=new HashMap<String,Object>();
 			//获取当前用户信息
 			if(request.getParameter("userId").equals("")){
 				UserInfo userInfo=new UserInfo();
 				userInfo.setHead_image("images/wzq_user_img.jpg");
-				result.put("userInfo", userInfo);
+				data.put("userInfo", userInfo);
 			}else{
 				//获取用户头像
 				int userId=Integer.parseInt(request.getParameter("userId"));
 				UserInfo userInfo= personalService.findUserInfoByUserId(userId);
-				result.put("userInfo", userInfo);
+				data.put("userInfo", userInfo);
 			}
 			
 			//根据章节id获取评论列表
 			List<Comment> commentList = chapterService.findCommentListByChapter(chapterId);
 			
 			List<Map> commentAndReplyList=new ArrayList<>();
+			
+			
 			
 			for(Comment comment:commentList){
 				//根据评论获取用户信息
@@ -697,10 +699,11 @@ public class CourseController {
 				commentAndReplyList.add(commentAndReplyMap);
 			}
 			
-			//拼接为Json返回		
+			//拼接为Json返回
+			data.put("commentAndReplyMap", commentAndReplyList);
 			result.put("code", 200);
 			result.put("message", "获取成功");
-			result.put("commentAndReply", commentAndReplyList);
+			result.put("data", data);
 			
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -708,6 +711,7 @@ public class CourseController {
 			result.put("message", "获取失败");
 		}
 		
+		System.out.println(JsonUtil.objectToJson(result));
 		pw.write(JsonUtil.objectToJson(result));
 		pw.flush();
 		pw.close();

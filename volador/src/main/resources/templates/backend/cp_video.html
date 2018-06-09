@@ -145,7 +145,7 @@
     <!-- tab分类内容 -->
     <div class="cp_tabCon">
         <div class="tips">
-            全部评论 <span>20</span>
+            全部评论 <span th:text="${commentCount}">20</span>
         </div>
         <div class="container wqf_chapter">
             <div class="col_left">
@@ -204,9 +204,13 @@
 	}) */	
 </script> -->
 <script type="text/javascript" th:inline="javascript">
-	let chapterId=[[${chapter.id}]];
-	let userId=[[${userId}]];
-	let courseId=[[${courseId}]];
+	 let chapterId=[[${chapter.id}]];
+	 let userId=[[${userId}]];
+	 let courseId=[[${courseId}]];
+
+	//let chapterId=2;
+	//let userId=32;
+	//let courseId=1;
 	// chapterId:
 	var videoObject = {
 		container: '#video', //容器的ID或className

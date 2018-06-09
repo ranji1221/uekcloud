@@ -18,8 +18,10 @@ import org.ranji.lemon.volador.service.course.prototype.ICourseService;
 import org.ranji.lemon.volador.service.personal.prototype.IAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller("AdminCourseController")
 public class CourseController {
@@ -78,17 +80,17 @@ public class CourseController {
 	 * @throws IOException 
 	 */
 	@RequestMapping(value="/course",method=RequestMethod.PUT)
-	public void updateCourseInfo(HttpServletRequest request,HttpServletResponse response) throws IOException{
+	public void updateCourseInfo(HttpServletRequest request,HttpServletResponse response,@RequestBody Map<String,String> map) throws IOException{
 		response.setHeader("Content-Type", "application/json;charset=utf-8");
 		PrintWriter pw=response.getWriter();
 		Map result = new HashMap<>();
 		if(adminService.parseJWT(request.getHeader("token"))){
 			try {
 				int courseId =Integer.parseInt(request.getParameter("course_id"));
-				String courseName = request.getParameter("course_name");
-				String courseInfo = request.getParameter("course_info");
-				int price =Integer.parseInt(request.getParameter("price"));
-				String courseImageAddress = request.getParameter("course_image_address");
+				String courseName = map.get("course_name");
+				String courseInfo = map.get("course_info");
+				double price =Double.parseDouble(map.get("price"));
+				String courseImageAddress = map.get("course_image_address");
 				Course course = new Course();
 				course.setId(courseId);
 				course.setCourse_name(courseName);
@@ -163,18 +165,18 @@ public class CourseController {
 	 * @throws IOException 
 	 */
 	@RequestMapping(value="/course",method=RequestMethod.POST)
-	public void saveCourseInfo(HttpServletRequest request,HttpServletResponse response) throws IOException{
+	public void saveCourseInfo(HttpServletRequest request,HttpServletResponse response,@RequestBody Map<String,String> map) throws IOException{
 		response.setHeader("Content-Type", "application/json;charset=utf-8");
 		PrintWriter pw=response.getWriter();
 		Map result = new HashMap<>();
 		if(adminService.parseJWT(request.getHeader("token"))){
 			try {
-				String courseName = request.getParameter("course_name");
-				String courseInfo = request.getParameter("course_info");
-				int price =Integer.parseInt(request.getParameter("price"));
-				String courseImageAddress = request.getParameter("course_image_address");
+				String courseName = map.get("course_name");
+				String courseInfo = map.get("course_info");
+				double price =Double.parseDouble(map.get("price"));
+				String courseImageAddress = map.get("course_image_address");
 				int classifyId =Integer.parseInt(request.getParameter("classify_id"));
-				int teacherId =Integer.parseInt(request.getParameter("teacher_id"));
+				int teacherId =Integer.parseInt(map.get("teacher_id"));
 				Course course = new Course();
 				course.setCourse_name(courseName);
 				course.setCourse_info(courseInfo);
