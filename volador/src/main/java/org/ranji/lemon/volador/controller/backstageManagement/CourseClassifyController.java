@@ -17,6 +17,7 @@ import org.ranji.lemon.volador.service.course.prototype.IDirectionService;
 import org.ranji.lemon.volador.service.personal.prototype.IAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -78,14 +79,14 @@ public class CourseClassifyController {
 	 * @throws IOException 
 	 */
 	@RequestMapping(value="/classify",method=RequestMethod.PUT)
-	public void updateClassify(HttpServletRequest request,HttpServletResponse response) throws IOException{
+	public void updateClassify(HttpServletRequest request,HttpServletResponse response,@RequestBody Map<String,String> map) throws IOException{
 		response.setHeader("Content-Type", "application/json;charset=utf-8");
 		PrintWriter pw=response.getWriter();
 		Map result = new HashMap<>();
 		if(adminService.parseJWT(request.getHeader("token"))){
 			try {
 				int classifyId =Integer.parseInt(request.getParameter("classify_id"));
-				String classifyName = request.getParameter("name");
+				String classifyName = map.get("classify_name");
 				Classify classify = new Classify();
 				classify.setId(classifyId);
 				classify.setClassify_name(classifyName);
@@ -157,13 +158,13 @@ public class CourseClassifyController {
 	 * @throws IOException 
 	 */
 	@RequestMapping(value="/classify", method=RequestMethod.POST)
-	public void  saveClassifyInfo(HttpServletRequest request,HttpServletResponse response) throws IOException{
+	public void  saveClassifyInfo(HttpServletRequest request,HttpServletResponse response,@RequestBody Map<String,String> map) throws IOException{
 		response.setHeader("Content-Type", "application/json;charset=utf-8");
 		PrintWriter pw=response.getWriter();
 		Map result = new HashMap<>();
 		if(adminService.parseJWT(request.getHeader("token"))){
 			try {
-				String classifyName = request.getParameter("name");
+				String classifyName = map.get("classify_name");
 				int directionId =Integer.parseInt(request.getParameter("direction_id"));
 				Classify classify = new Classify();
 				classify.setClassify_name(classifyName);

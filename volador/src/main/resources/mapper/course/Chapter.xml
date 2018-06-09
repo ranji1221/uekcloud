@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.ranji.lemon.volador.model.course.Chapter">
 
-	<!--储存一条信息 -->
+	<!--新增一个章节信息 -->
   	<insert id="save" parameterType="VoladorChapter" keyProperty="id" useGeneratedKeys="true">
-		insert into lemon_volador_course_chapter (guid,createTime,updateTime,chapter_name, chapter_info,video_address,chapter_title_id,chapter_order,total_time,accessory_name,accsssory_download)
-		values (#{guid},#{createTime},#{updateTime},#{chapter_name}, #{chapter_info},#{video_address},#{chapter_title_id},#{chapter_order},#{total_time},#{accessory_name},#{accsssory_download})
+		insert into lemon_volador_course_chapter (guid,createTime,updateTime,chapter_name, chapter_info,video_address,chapter_title_id,chapter_order,total_time,accessory_name,accessory_download)
+		values (#{guid},#{createTime},#{updateTime},#{chapter_name},#{chapter_info},#{video_address},#{chapter_title_id},#{chapter_order},#{total_time},#{accessory_name},#{accessory_download})
 	</insert>
 	
 	<!-- 删除某条记录 -->
@@ -67,7 +67,7 @@
 			<if test="chapter_order != null and chapter_order != ''">chapter_order = #{chapter_order},</if>
 			<if test="total_time != null and total_time != ''">total_time = #{total_time},</if>
 			<if test="accessory_name != null and accessory_name != ''">accessory_name = #{accessory_name},</if>
-			<if test="accsssory_download != null and accsssory_download != ''">accsssory_download = #{accsssory_download},</if>
+			<if test="accessory_download != null and accessory_download != ''">accessory_download = #{accessory_download},</if>
 			<if test="updateTime != null ">updateTime = #{updateTime},</if>
 		</set>
 		where id = #{id}

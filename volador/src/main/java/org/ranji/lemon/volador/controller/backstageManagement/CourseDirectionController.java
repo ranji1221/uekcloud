@@ -17,6 +17,7 @@ import org.ranji.lemon.volador.service.course.prototype.IDirectionService;
 import org.ranji.lemon.volador.service.personal.prototype.IAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -72,14 +73,14 @@ public class CourseDirectionController {
 	 * @throws IOException 
 	 */
 	@RequestMapping(value="/courseDirection", method=RequestMethod.PUT)
-	public void updateCourseDirection(HttpServletRequest request,HttpServletResponse response) throws IOException {
+	public void updateCourseDirection(HttpServletRequest request,HttpServletResponse response,@RequestBody Map<String,String> map) throws IOException {
 		response.setHeader("Content-Type", "application/json;charset=utf-8");
 		PrintWriter pw=response.getWriter();
 		Map result = new HashMap<>();
 		if(adminService.parseJWT(request.getHeader("token"))){
 			try {
-				int directionId =Integer.parseInt(request.getParameter("id"));
-				String directionName = request.getParameter("name");
+				int directionId =Integer.parseInt(map.get("id"));
+				String directionName = map.get("name");
 				Direction courseDirection = new Direction();
 				courseDirection.setId(directionId);
 				courseDirection.setName(directionName);
@@ -148,14 +149,14 @@ public class CourseDirectionController {
 	 * @throws IOException 
 	 */
 	@RequestMapping(value="/courseDirection", method=RequestMethod.POST)
-	public void saveCourseDirection(HttpServletRequest request,HttpServletResponse response) throws IOException{
+	public void saveCourseDirection(HttpServletRequest request,HttpServletResponse response,@RequestBody Map<String,String> map) throws IOException{
 		response.setHeader("Content-Type", "application/json;charset=utf-8");
 		PrintWriter pw=response.getWriter();
 		Map result = new HashMap<>();
 		if(adminService.parseJWT(request.getHeader("token"))){
 			try {
 				
-				String directionName = request.getParameter("name");
+				String directionName = map.get("name");
 				Direction courseDirection = new Direction();
 				courseDirection.setName(directionName);
 				directionService.save(courseDirection);
