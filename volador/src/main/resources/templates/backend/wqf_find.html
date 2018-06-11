@@ -119,7 +119,7 @@ var data = [[${courseList}]]
 </script>
 <script>
 console.log(data)
-	var pageNum = 2; // 每页放几条
+	var pageNum = 8; // 每页放几条
     var TotalNumber = data.length;  // 总条数
 	var pageCount = Math.ceil(TotalNumber/pageNum);    // 总页数
     var currentPage = 0 ;   // 当前页码
@@ -149,7 +149,7 @@ console.log(data)
 						<div class="picture" style="background: url(${val.course_image_address}) no-repeat center/cover">
 							<header>
 								<span class="hot"></span>
-								<span class="title">${val.course_name}</span>
+
 							</header>
 							<div class="time">
 								<span class="fy_icon">&#xe626;</span>
@@ -157,7 +157,7 @@ console.log(data)
 							</div>
 						</div>
 
-						<h3 class="title hidd_more fire">${val.course_info}<span class="fy_icon">&#xe606;</span></h3>
+						<h3 class="title hidd_more fire">${val.course_name}<span class="fy_icon">&#xe606;</span></h3>
 						<p>
 							<span class="price">${val.course_price==0?'免费':'￥'+val.course_price}</span>
 							<span>${val.student_count}人正在学习</span>

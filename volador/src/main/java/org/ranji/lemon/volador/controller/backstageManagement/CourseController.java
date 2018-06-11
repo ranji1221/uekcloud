@@ -10,9 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.ranji.lemon.core.util.JsonUtil;
-import org.ranji.lemon.volador.model.course.Classify;
 import org.ranji.lemon.volador.model.course.Course;
-import org.ranji.lemon.volador.model.course.Direction;
 import org.ranji.lemon.volador.service.course.prototype.IClassifyService;
 import org.ranji.lemon.volador.service.course.prototype.ICourseService;
 import org.ranji.lemon.volador.service.personal.prototype.IAdminService;
@@ -21,7 +19,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller("AdminCourseController")
 public class CourseController {

@@ -160,7 +160,7 @@ $(function(){
                                 str+=`<div class="wqf_reply">
                                     <span uid="${ele.userId}">${ele.userName} 回复 ${ele.replyUserName==null?'':'@'+ele.replyUserName}：${ele.reply}</span>
                                     <div class="wzq_comment_reply">
-                                        <span class="wzq_jubao"><i class="fy_icon">&#xe652;</i>举报</span>
+                                        
                                         <span title="回复" class="wzq_comment_replys" data-flag="true" replyUserName="${ele.userName}"><i class="fy_icon">&#xe679;</i></span>
                                     </div>
                                 </div>`   // wqf_reply 结束

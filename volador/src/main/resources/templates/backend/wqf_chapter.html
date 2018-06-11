@@ -78,7 +78,7 @@
                本节价格<b th:text="(${course.course_price}==0?'免费':(${course.course_price} == -1? '已购买': ${course.course_price}))">300</b><span th:text="(${course.course_price}==0?'':(${course.course_price} == -1? '': '元'))">元</span>
             </div>
             <div class="con_son5">
-               <a href="#" class='putchase' th:class="(${course.course_price}==0?'':(${course.course_price} == -1? '': 'putchase'))" th:text="(${course.course_price}==0?'':(${course.course_price} == -1? '': '立即购买'))">
+               <a href="javascript:;" id="buy" class='putchase' th:class="(${course.course_price}==0?'':(${course.course_price} == -1? '': 'putchase'))" th:text="(${course.course_price}==0?'':(${course.course_price} == -1? '': '立即购买'))">
                    立刻购买
                </a>
                <a th:href="'course_video?chapterId='+${goStudy}" class='study' th:class="(${course.course_price}==0?'putchase':(${course.course_price} == -1? 'putchase': ''))" th:text="(${course.course_price}==0?'去学习':(${course.course_price} == -1? '去学习': ''))">
@@ -164,6 +164,30 @@
 
     <!-- 章节列表结束 -->
 
+	<div class="isLogin_box buyBox">
+		<div class="isLogin">
+			<h2>温馨提示</h2>
+			<p>亲，您还没有购买哦~</p>
+			<div class="btn">
+				<a href="">去购买</a>
+				<a href="javascript:;">取消</a>
+			</div>
+		</div>
+	</div>
+	
+	<div class="isLogin_box loginBox" style="display:none">
+		<div class="isLogin">
+			<h2>温馨提示</h2>
+			<p>亲，您还没有登录哦~</p>
+			<div class="btn">
+				<a href="javascript:;">去登录</a>
+				<a href="javascript:;">取消</a>
+			</div>
+		</div>
+	</div>
+
+
+	
 
 
 </body>
@@ -172,6 +196,32 @@
 		var chapterJson= [[${chapterJson}]]
 		var userId=[[${userId}]]
 		var courseId=[[${courseId}]]
+		var isBuy = 222;
+</script>
+<script>
+	var buyBox = $(".buyBox")
+	if (isBuy) {
+		buyBox.css({display:"none"})
+	}
+	$(".buyBox a:last-child").click(function(){
+		buyBox.css({display:"none"})
+	})
+	
+	
+	var loginBox = $(".loginBox")
+	$("#buy").click(function(){
+		if(userId){
+			location.href = "buy"
+		}else{
+			loginBox.css({display:"block"})
+		}
+	})
+	$(".loginBox a:first-child").click(function(){
+		location.href = "login"
+	})
+	$(".loginBox a:last-child").click(function(){
+		loginBox.css({display:"none"})
+	})
 </script>
 <script>
 	/* 收藏课程 */
@@ -328,4 +378,7 @@
         // },2000)
     }
 </script>
+
+
+
 </html>

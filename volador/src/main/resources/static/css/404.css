@@ -1,0 +1,38 @@
+#cp_404{
+	width:417px;
+	height:445px;
+	position:fixed;
+	top:0px;
+	bottom:0px;
+	left:0px;
+	right:0px;
+	margin: auto;
+	text-align: center;
+}
+#cp_404 .cp_img img{
+	display: block;
+	width:417px;
+	height:276px;
+}
+#cp_404 .cp_img{
+	margin-bottom:20px;
+}
+#cp_404 span{
+	font-size:16px;
+}
+#cp_404 .cp_index{
+	display:block;
+	margin:0px auto;
+	width:216px;
+	height:48px;
+	background: #FD6756;
+	margin-top:56px;
+	line-height: 48px;
+	text-align: center;
+	color:white;
+	font-size:14px;
+	font-weight: bold;
+	border-radius: 5px;
+	letter-spacing: 1px;
+	box-shadow: 0px 0px 50px rgba(0,0,0,0.4);
+}

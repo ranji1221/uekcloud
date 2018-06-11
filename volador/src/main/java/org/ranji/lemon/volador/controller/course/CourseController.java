@@ -2,7 +2,6 @@ package org.ranji.lemon.volador.controller.course;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -12,10 +11,10 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.assertj.core.util.DateUtil;
 import org.ranji.lemon.core.util.JsonUtil;
 import org.ranji.lemon.volador.model.course.Chapter;
 import org.ranji.lemon.volador.model.course.ChapterTitle;
+
 import org.ranji.lemon.volador.model.course.Classify;
 import org.ranji.lemon.volador.model.course.Comment;
 import org.ranji.lemon.volador.model.course.Course;
@@ -731,7 +730,7 @@ public class CourseController {
 			}
 			
 			//拼接为Json返回
-			data.put("commentAndReplyMap", commentAndReplyList);
+			data.put("commentAndReply", commentAndReplyList);
 			result.put("code", 200);
 			result.put("message", "获取成功");
 			result.put("data", data);
@@ -742,7 +741,7 @@ public class CourseController {
 			result.put("message", "获取失败");
 		}
 		
-		System.out.println(JsonUtil.objectToJson(result));
+//		System.out.println(JsonUtil.objectToJson(result));
 		pw.write(JsonUtil.objectToJson(result));
 		pw.flush();
 		pw.close();

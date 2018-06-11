@@ -12,6 +12,7 @@
 	<link rel="stylesheet" href="css/wqf_index.css">
 	<link rel="stylesheet" href="css/public_header.css">
 	<link rel="stylesheet" href="css/swiper.min.css">
+	<link rel="stylesheet" href="css/cp_kefu.css">
 
 	<link rel="stylesheet" href="http://at.alicdn.com/t/font_614432_35sjs0mry3c8fr.css">
 	<script src="js/jquery.min.js"></script>
@@ -61,23 +62,17 @@
 					<div class="alert_box">
 						<!-- 联想词 -->
 						<div class="association">
-							<a href="javascript:;">UI设计</a>
-							<a href="javascript:;">全栈工程师</a>
-							<a href="javascript:;">产品经理</a>
-							<a href="javascript:;">Python全栈</a>
+							<a href="searchCourse?c=UI设计">UI设计</a>
+							<a href="searchCourse?c=全栈工程师">全栈工程师</a>
+							<a href="searchCourse?c=产品经理">产品经理</a>
+							<a href="searchCourse?c=Python">Python</a>
 						</div>
 						<!-- 历史记录 -->
-						<ul>
-							<li>
-								<a href="javascript:;">全栈工程师</a>
-							</li>
-							<li>
-								<a href="javascript:;">全栈工程师</a>
-							</li>
-							<li>
-								<a href="javascript:;">清除搜索历史</a>
-							</li>
-						</ul>
+<!-- 						<ul>
+							<li><a href="javascript:;">全栈工程师</a></li>
+							<li><a href="javascript:;">全栈工程师</a></li>
+							<li><a href="javascript:;">清除搜索历史</a></li>
+						</ul> -->
 					</div>
 				</li>
 			</ul>
@@ -525,7 +520,7 @@
 	<a href="personSignIn" class="qiandao"><img th:src="${isSignIn}== 'done'?'':'images/wqf_qiandao.png'"></a>
 
 	<a href="javascript:;" id="toTop" class="menu fy_icon">&#xe62e;</a>
-	<a href="javascript:;" class="menu fy_icon wqf_hover">&#xe620;
+	<a href="javascript:;" id="feedBack" class="menu fy_icon wqf_hover">&#xe620;
 		<!-- 鼠标移入弹出文字 -->
 		<span>意见反馈 <i></i></span>
 	</a>
@@ -535,6 +530,41 @@
 	</a>
 </div>
 <!-- 回到顶部 结束-->
+
+<!-- 反馈弹窗 开始 -->
+<div class="cp_feedBack" style="display: none;">
+	<div class="cp_title">
+		我们珍视您的每一条反馈
+	</div>
+	<div class="cp_con">
+		<form action="javascript:;">
+			<!-- <div class='cp_select'>
+				<i class='fy_icon cp_drop' >&#xe695;</i>
+				<select name="month" id="month">
+					<option value="">请选择问题类型</option>
+				</select>
+			</div> -->
+			<div class="cp_text">
+				<textarea placeholder="请输入问题描述"></textarea>
+				<p>还可以输入<span>200</span>字</p>
+			</div>
+			<!-- <div class="cp_way">
+				<input type="file" name="file" style='display:none;' id='upload'>
+				<i class='fy_icon'>&#xe61e;</i>
+				<label class='fy_icon' for='upload'>&#xe61f;</label>
+			</div> -->
+			<div class="cp_sub">
+				<input type="submit" class='sub'  value='提交反馈'>
+				<input type="reset" class='restart' value='取消'>
+			</div>	
+		</form>
+	</div>
+</div>
+<!-- 反馈弹窗 结束 -->
+
+
+
+
 
 <!-- 底部 开始 -->
 	<div id="public_footer">
@@ -642,5 +672,64 @@ $clearNotification.click(function(){
 	location.replace("/volador/index");
 })
 
+</script>
+<script>
+	// 控制反馈 显示隐藏
+	var feedBack = $(".cp_feedBack");
+	// feedBack
+	var feedBackBtn = $("#feedBack");
+	feedBackBtn.click(function(){
+		feedBack.css({
+			display:"block",
+			position:"fixed",
+			background:"#fff",
+			zIndex: 9999,
+			bottom:0,
+			right:0
+		})
+	})
+	var restart = $(".cp_feedBack .cp_sub .restart");
+	restart.click(function(){
+		feedBack.css({display:"none"})
+	})
+
+	// 输入字数限制
+	var text = $(".cp_feedBack textarea");
+	var textNum = $(".cp_feedBack .cp_text span");
+	text.keyup(function(){
+		var remain = $(this).val().length;
+        if(remain >= 200){
+        	text.html(text.val(text.val().substr(0,200)))
+            textNum.html(200 - $(this).val().length);
+        }else{
+            textNum.html(200 - $(this).val().length);
+        }
+	})
+
+
+	var sub = $(".cp_feedBack .cp_sub .sub");
+	sub.click(function(){
+		$.ajax({
+			url:"feedback.do",
+			method:"post",
+			data:{
+				message: text.val()
+			},
+			success:function(res){
+				alert("提交成功");
+				feedBack.css({display:"none"})
+			}
+		})
+	})
+
+</script>
+<script>
+	$("#header_search").click(function(){
+		var text = $(".search input[type=text]").val();
+		if(text){
+			location.href = "searchCourse?c="+text
+		}
+		
+	})
 </script>
 </html>

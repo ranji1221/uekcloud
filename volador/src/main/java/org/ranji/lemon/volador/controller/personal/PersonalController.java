@@ -34,6 +34,7 @@ import org.ranji.lemon.volador.model.course.Course;
 import org.ranji.lemon.volador.model.course.Direction;
 import org.ranji.lemon.volador.model.course.Teacher;
 import org.ranji.lemon.volador.model.course.Theme;
+import org.ranji.lemon.volador.model.global.Feedback;
 import org.ranji.lemon.volador.model.personal.Per;
 import org.ranji.lemon.volador.model.personal.SignIn;
 import org.ranji.lemon.volador.model.personal.Student;
@@ -44,6 +45,7 @@ import org.ranji.lemon.volador.service.course.prototype.ICourseService;
 import org.ranji.lemon.volador.service.course.prototype.IDirectionService;
 import org.ranji.lemon.volador.service.course.prototype.ITeacherService;
 import org.ranji.lemon.volador.service.course.prototype.IThemeService;
+import org.ranji.lemon.volador.service.global.prototype.IFeedbackService;
 import org.ranji.lemon.volador.service.global.prototype.INotificationService;
 import org.ranji.lemon.volador.service.personal.prototype.IPerService;
 import org.ranji.lemon.volador.service.personal.prototype.ISignInService;
@@ -84,6 +86,8 @@ public class PersonalController {
 	private ICarouseService carouseService;
 	@Autowired
 	private IStudentService studentService;
+	@Autowired
+	private IFeedbackService feedbackService;
 
 	// 发件人的 邮箱 和 密码（替换为自己的邮箱和密码）
 	public static String myEmailAccount = "fanxiaoya@uekedu.com";
@@ -174,7 +178,7 @@ public class PersonalController {
 		mv.addObject("notificationSize", notificationSize);
 		mv.addObject("userId", userId);
 
-		mv.setViewName("/backend/index");
+		mv.setViewName("backend/index");
 		return mv;
 	}
 
@@ -282,6 +286,30 @@ public class PersonalController {
 
 		mv.setViewName("/backend/wqf_personal_basic");
 		return mv;
+	}
+	
+	//反馈信息发送Ajax
+	@RequestMapping(value="feedback.do",method=RequestMethod.POST)
+	public void feedback(HttpServletRequest request,HttpServletResponse response) throws IOException{
+		//设置返回格式
+		response.setHeader("Content-Type", "application/json;charset=utf-8");
+		PrintWriter pw = response.getWriter();
+		
+		Map result=new HashMap();
+		
+		//获取参数
+		String content=request.getParameter("message");
+		Feedback feedback=new Feedback();
+		feedback.setContent(content);
+		
+		feedbackService.save(feedback);
+		result.put("code", 200);
+		
+		
+		pw.print(JsonUtil.objectToJson(result));
+		pw.flush();
+		pw.close();
+		
 	}
 
 	/**

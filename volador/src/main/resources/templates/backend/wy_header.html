@@ -54,20 +54,31 @@
 					<div class="alert_box">
 						<!-- 联想词 -->
 						<div class="association">
-							<a href="javascript:;">UI设计</a>
-							<a href="javascript:;">全栈工程师</a>
-							<a href="javascript:;">产品经理</a>
-							<a href="javascript:;">Python全栈</a>
+							<a href="searchCourse?c=UI设计">UI设计</a>
+							<a href="searchCourse?c=全栈工程师">全栈工程师</a>
+							<a href="searchCourse?c=产品经理">产品经理</a>
+							<a href="searchCourse?c=Python">Python</a>
 						</div>
 						<!-- 历史记录 -->
-						<ul>
+<!-- 						<ul>
 							<li><a href="javascript:;">全栈工程师</a></li>
 							<li><a href="javascript:;">全栈工程师</a></li>
 							<li><a href="javascript:;">清除搜索历史</a></li>
-						</ul>
+						</ul> -->
 					</div>
 				</li>
 			</ul>
+			
+			<script>
+				$("#header_search").click(function(){
+					var text = $(".search input[type=text]").val();
+					if(text){
+						location.href = "searchCourse?c="+text
+					}
+					
+				})
+			</script>
+			
 			<!-- 导航 结束 -->
 	<input type="hidden" th:value="${userId}" name="userId" id="userId">
 				<!-- 登录状态 开始-->

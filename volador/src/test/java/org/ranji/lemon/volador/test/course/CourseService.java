@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.ranji.lemon.core.util.JsonUtil;
 import org.ranji.lemon.volador.VoladorApplication;
 import org.ranji.lemon.volador.model.course.Chapter;
 import org.ranji.lemon.volador.model.course.Comment;
@@ -59,17 +60,20 @@ public class CourseService {
 	
 	@Test
 	public void testReplyService(){
-		Order order=new Order();
-		order.setGuid("a4a82bed5222499db36af107c5527491");
-		order.setCloseTime(new Date());
-		order.setStatus(3);
 		
-		List<Order> orderList=orderDao.findOrderByUserId(34);
-		
-		List<Order> orderList1=orderService.findOrderByUserId(34);
-		
-		Order order1=orderService.find(1);
-		System.out.println(order1.toString());
+		List<Course> courseList=courseService.keywordSreachCourse("python");
+		System.out.println(JsonUtil.objectToJson(courseList));
+//		Order order=new Order();
+//		order.setGuid("a4a82bed5222499db36af107c5527491");
+//		order.setCloseTime(new Date());
+//		order.setStatus(3);
+//		
+//		List<Order> orderList=orderDao.findOrderByUserId(34);
+//		
+//		List<Order> orderList1=orderService.findOrderByUserId(34);
+//		
+//		Order order1=orderService.find(1);
+//		System.out.println(order1.toString());
 //		System.out.println(orderList.toString());
 //		System.out.println(orderList1.toString());
 		
