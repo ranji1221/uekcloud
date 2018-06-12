@@ -22,6 +22,7 @@ public class Teacher extends AbstractModel {
     private String type;
     private String company;
     private String label;
+    private String link;
 
     public String getTeacher_name() {
         return teacher_name;
@@ -77,6 +78,14 @@ public class Teacher extends AbstractModel {
 
 	public void setLabel(String label) {
 		this.label = label;
+	}
+
+	public String getLink() {
+		return link;
+	}
+
+	public void setLink(String link) {
+		this.link = link;
 	}
 
 	@Override

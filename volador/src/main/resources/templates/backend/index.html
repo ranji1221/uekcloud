@@ -77,16 +77,16 @@
 				</li>
 			</ul>
 			<!-- 导航 结束 -->
-	<input type="hidden" th:value="${userId}?${userId}:''" name="userId" id="userId">
+	<input type="hidden" th:value="${userId}" name="userId" id="userId">
 			<!-- 登录状态 开始-->
 			<div class="is_login">
 				<!-- 已登陆 -->
 				<!-- 包含 类名 active则显示,否则隐藏 -->
-				<div class="login_yes active" th:class="${login_yes}?${login_yes}:''">
+				<div class="login_yes active" th:class="${login_yes}">
 					<div class="message">
 						<a href="javascript:;" class="fy_icon">&#xe61d;</a>
 						<!-- 消息数 -->
-						<span th:text="${notificationSize}?${notificationSize}:''">2</span>
+						<span th:text="${notificationSize}">2</span>
 						<!-- 消息弹框 -->
 						<div class="message_box">
 							<header>
@@ -121,7 +121,7 @@
 						</div>
 					</div>
 					<span class="line"></span>
-					<div class="self">
+					<div class="self"  th:style="${userName}?'':'display:none'"  >
 						<img src="images/wqf_user.png" th:src="${head_image}">
 	
 						<!-- 消息弹框 -->
@@ -475,7 +475,7 @@
 		<div class="teacher_banner swiper-container">
 			<ul class="clear_both swiper-wrapper">
 				<li class="swiper-slide"  th:each="teacher:${teacherList}" style="background: #fff url(images/wqf_teacher1.png) no-repeat right " th:style="'background: #fff url('+${teacher.teacher_image}+') no-repeat top right/cover' ">
-					<a href="javascript:;">
+					<a th:href="${teacher.link}">
 						<p class="type" th:text="${teacher.type}">WEB讲师<span>· 星级 ·</span></p>
 						<h2 th:text="${teacher.teacher_name}">候宁洲</h2>
 						<p class="hidd_more" th:text="${teacher.company}">阿里巴巴 <br> 资深人工智能开发工程师</p>

@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.ranji.lemon.volador.model.course.Teacher">
   <insert id="save" parameterType="VoladorTeacher" keyProperty="id" useGeneratedKeys="true">
-		insert into lemon_volador_course_teacher (guid,createTime,updateTime,teacher_name, teacher_info,teacher_position,teacher_image,type,company,label)
-		values (#{guid},#{createTime},#{updateTime},#{teacher_name}, #{teacher_info},#{teacher_position},#{teacher_image},#{type},#{company},#{label})
+		insert into lemon_volador_course_teacher (guid,createTime,updateTime,teacher_name, teacher_info,teacher_position,teacher_image,type,company,label,link)
+		values (#{guid},#{createTime},#{updateTime},#{teacher_name}, #{teacher_info},#{teacher_position},#{teacher_image},#{type},#{company},#{label},#{link})
 	</insert>
 	
 	<!-- 删除某条教师 -->
@@ -32,7 +32,8 @@
 			<if test="teacher_image != null and teacher_image != ''">teacher_image = #{teacher_image},</if>
 			<if test="type != null and type != ''">type = #{type},</if>
 			<if test="company != null and company != ''">company = #{company},</if>
-			<if test="label != null and label != ''">label = #{label},</if>
+			<if test="label != null and label != ''">label = #{label},</if>link
+			<if test="link != null and link != ''">link = #{link},</if>
 			<if test="updateTime != null ">updateTime = #{updateTime},</if>
 		</set>
 		where id = #{id}
@@ -49,6 +50,8 @@
 		FROM
 		lemon_volador_course_teacher t
 		LEFT JOIN lemon_volador_header_teacher c_t ON t.id = c_t.teacher_id
+		WHERE
+		t.id = c_t.teacher_id;
 	</select>
 	<!-- 删除首页推荐的某条教师 -->
 	<delete id="deleteHeaderTeacher" parameterType="Map">
