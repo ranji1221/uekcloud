@@ -132,7 +132,7 @@
                             </div>
                             <div class="wzq_zhiye_con_btn" th:style="${growthClassAndStage.studyChapter} and ${growthStageAndCourse.studying}?'':'display:none'">
                                 <span>上次学到这里</span>			
-                                <a th:href="${growthClassAndStage.studyChapter}?'course_chapter?courseId='+${growthClassAndStage.studyChapter.id}:''">继续学习</a>
+                                <a th:href="${growthClassAndStage.studyChapter}?'course_video?chapterId='+${growthClassAndStage.studyChapter.id}:''">继续学习</a>
                             </div>
                             <!-- 课程列表 -->
                             <ul class="wqf_classlist">
