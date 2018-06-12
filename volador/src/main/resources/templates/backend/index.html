@@ -77,16 +77,16 @@
 				</li>
 			</ul>
 			<!-- 导航 结束 -->
-	<input type="hidden" th:value="${userId}" name="userId" id="userId">
+	<input type="hidden" th:value="${userId}?${userId}:''" name="userId" id="userId">
 			<!-- 登录状态 开始-->
 			<div class="is_login">
 				<!-- 已登陆 -->
 				<!-- 包含 类名 active则显示,否则隐藏 -->
-				<div class="login_yes active" th:class="${login_yes}">
+				<div class="login_yes active" th:class="${login_yes}?${login_yes}:''">
 					<div class="message">
 						<a href="javascript:;" class="fy_icon">&#xe61d;</a>
 						<!-- 消息数 -->
-						<span th:text="${notificationSize}">2</span>
+						<span th:text="${notificationSize}?${notificationSize}:''">2</span>
 						<!-- 消息弹框 -->
 						<div class="message_box">
 							<header>
@@ -256,18 +256,18 @@
 <!-- 导航下方选项 结束-->
 
 <!-- 优质课程 开始 -->
-	<div class="wqf_course">
-		<h1 th:text="${themeCourse1.theme.title}">优质课程 免费来袭111</h1>
-		<p th:text="${themeCourse1.theme.describe}">独家研发，随时更新，流行技法一网打尽！</p>
+	<div class="wqf_course" th:display="${themeCourse1}?'block':'none'">
+		<h1 th:text="${themeCourse1}?${themeCourse1.theme.title}:''">优质课程 免费来袭111</h1>
+		<p th:text="${themeCourse1}?${themeCourse1.theme.describe}:''">独家研发，随时更新，流行技法一网打尽！</p>
 		<a href="findCourse" class="more">发现更多 <span class="fy_icon">&#xe604;</span> <span class="fy_icon">&#xe604;</span></a>
 		<!-- 课程列表 -->
 		<ul class="class_list clear_both">
-			<li th:each="course:${themeCourse1.courses}">
-				<a href="javascript:;"  th:href="'course_chapter?courseId='+${course.courseId}">
-					<div class="picture" style="background: url(images/wqf_list1.png) no-repeat center /cover;"  th:style="'background: #fff url('+${course.image}+') no-repeat center /cover' ">
+			<li th:each="course:${themeCourse1}?${themeCourse1.courses}:''">
+				<a href="javascript:;"  th:href="${themeCourse1}?'course_chapter?courseId='+${course.courseId}:''">
+					<div class="picture" style="background: url(images/wqf_list1.png) no-repeat center /cover;"  th:style="${themeCourse1}?'background: #fff url('+${course.image}+') no-repeat center /cover':'' ">
 						<header>
 							<span class="hot"></span>
-							<span class="title" th:text="${course.classify}">用户体验</span>
+							<span class="title" th:text="${themeCourse1}?${course.classify}:''">用户体验</span>
 						</header>
 						<div class="time">
 							<span class="fy_icon">&#xe626;</span>
@@ -278,10 +278,10 @@
 					<div class="bg1"></div>
 					<div class="bg2"></div>
 
-					<h3 class="title hidd_more2 fire" th:text="${course.courseName}">理论+实践，构建属于你的机器学习库单 <span class="fy_icon">&#xe606;</span></h3>
+					<h3 class="title hidd_more2 fire" th:text="${themeCourse1}?${course.courseName}:''">理论+实践，构建属于你的机器学习库单 <span class="fy_icon">&#xe606;</span></h3>
 					<p>
-						<span th:text="${course.course_price} == 0 ? '免费' : '￥'+${course.course_price}" class="price">￥199</span>
-						<span th:text="${course.student_count} + '人正在学习'">555人正在学习</span>
+						<span th:text="${themeCourse1}?(${course.course_price} == 0 ? '免费' : '￥'+${course.course_price}):''" class="price">￥199</span>
+						<span th:text="${themeCourse1}?${course.student_count} + '人正在学习':''">555人正在学习</span>
                     </p>
 				</a>
 			</li>
@@ -291,8 +291,8 @@
 
 <!-- 推陈出新 开始 -->
 	<div class="wqf_course wqf_new ">
-		<h1 th:text="${themeCourse2.theme.title}">推陈出新 震撼上市</h1>
-		<p th:text="${themeCourse2.theme.describe}">独家研发，随时更新，流行技法一网打尽！</p>
+		<h1 th:text="${themeCourse2}?${themeCourse2.theme.title}:''">推陈出新 震撼上市</h1>
+		<p th:text="${themeCourse2}?${themeCourse2.theme.describe}:''">独家研发，随时更新，流行技法一网打尽！</p>
 		<a href="findCourse" class="more">发现更多 <span class="fy_icon">&#xe604;</span> <span class="fy_icon">&#xe604;</span></a>
 		
 		<div class="class_list clear_both">
@@ -302,13 +302,13 @@
 				<a href="javascript:;" style="background: url(images/wqf_tu1.png) no-repeat center /cover;">
 				</a>
 			</div>
-			<li  th:each="course:${themeCourse2.courses}">
-				<a href="javascript:;"   th:href="'course_chapter?courseId='+${course.courseId}">
-					<div class="picture" style="background: url(images/wqf_list1.png) no-repeat center /cover;"   th:style="'background: #fff url('+${course.image}+') no-repeat center /cover' ">
+			<li  th:each="course:${themeCourse2}?${themeCourse2.courses}:''">
+				<a href="javascript:;"   th:href="${themeCourse2}?('course_chapter?courseId='+${course.courseId}):''">
+					<div class="picture" style="background: url(images/wqf_list1.png) no-repeat center /cover;"   th:style="${themeCourse2}?'background: #fff url('+${course.image}+') no-repeat center /cover':'' ">
 						<!-- <img src="images/wqf_list1.png"> -->
 						<header>
 							<span class="hot"></span>
-							<span class="title" th:text="${course.classify}">用户体验</span>
+							<span class="title" th:text="${themeCourse2}?${course.classify}:''">用户体验</span>
 						</header>
 						<div class="time">
 							<span class="fy_icon">&#xe626;</span>
@@ -316,10 +316,10 @@
 						</div>
 					</div>
 
-					<h3 class="title hidd_more2 fire" th:text="${course.courseName}">理论+实践，构建属于你的机器学习库单 <span class="fy_icon">&#xe606;</span></h3>
+					<h3 class="title hidd_more2 fire" th:text="${themeCourse2}?${course.courseName}:''">理论+实践，构建属于你的机器学习库单 <span class="fy_icon">&#xe606;</span></h3>
 					<p>
-						<span th:text="${course.course_price} == 0 ? '免费' : '￥'+${course.course_price}" class="price">￥199</span>
-						<span th:text="${course.student_count} + '人正在学习'">555人正在学习</span>
+						<span th:text="${themeCourse2}?(${course.course_price} == 0 ? '免费' : '￥'+${course.course_price}):''" class="price">￥199</span>
+						<span th:text="${themeCourse2}?${course.student_count} + '人正在学习':''">555人正在学习</span>
                     </p>
 				</a>
 			</li>
@@ -338,17 +338,17 @@
 
 <!-- 百万课程 开始 -->
 	<div class="wqf_course wqf_new wqf_classes">
-		<h1 th:text="${themeCourse3.theme.title}">百万级人气教程免费学，1键get 1000+优质资源</h1>
-		<p th:text="${themeCourse3.theme.describe}">独家研发，随时更新，流行技法一网打尽！</p>
+		<h1 th:text="${themeCourse3}?${themeCourse3.theme.title}:''">百万级人气教程免费学，1键get 1000+优质资源</h1>
+		<p th:text="${themeCourse3}?${themeCourse3.theme.describe}:''">独家研发，随时更新，流行技法一网打尽！</p>
 		<div class="line"></div>		
 		<div class="class_list clear_both">
-			<li th:each="course:${themeCourse3.courses}">
-				<a href="javascript:;"  th:href="'course_chapter?courseId='+${course.courseId}">
-					<div class="picture" style="background: url(images/wqf_list1.png) no-repeat center /cover;"  th:style="'background: #fff url('+${course.image}+') no-repeat center /cover' ">
+			<li th:each="course:${themeCourse3}?${themeCourse3.courses}:''">
+				<a href="javascript:;"  th:href="${themeCourse3}?'course_chapter?courseId='+${course.courseId}:''">
+					<div class="picture" style="background: url(images/wqf_list1.png) no-repeat center /cover;"  th:style="${themeCourse3}?'background: #fff url('+${course.image}+') no-repeat center /cover':'' ">
 						<!-- <img src="images/wqf_list1.png"> -->
 						<header>
 							<span class="hot"></span>
-							<span class="title" th:text="${course.classify}">用户体验</span>
+							<span class="title" th:text="${themeCourse3}?${course.classify}:''">用户体验</span>
 						</header>
 						<div class="time">
 							<span class="fy_icon">&#xe626;</span>
@@ -356,10 +356,10 @@
 						</div>
 					</div>
 
-					<h3 class="title hidd_more2 fire" th:text="${course.courseName}">理论+实践，构建属于你的机器学习库单 <span class="fy_icon">&#xe606;</span></h3>
+					<h3 class="title hidd_more2 fire" th:text="${themeCourse3}?${course.courseName}:''">理论+实践，构建属于你的机器学习库单 <span class="fy_icon">&#xe606;</span></h3>
 					<p>
-						<span th:text="${course.course_price} == 0 ? '免费' : '￥'+${course.course_price}" class="price">￥199</span>
-						<span th:text="${course.student_count} + '人正在学习'">555人正在学习</span>
+						<span th:text="${themeCourse3}?(${course.course_price} == 0 ? '免费' : '￥'+${course.course_price}):''" class="price">￥199</span>
+						<span th:text="${themeCourse3}?${course.student_count} + '人正在学习':''">555人正在学习</span>
                     </p>
 				</a>
 			</li>			
@@ -370,18 +370,18 @@
 
 <!-- 直播课 开始 -->
 	<div class="wqf_course  wqf_zhibo">
-		<h1 th:text="${themeCourse4.theme.title}">百万级人气教程免费学，1键get 1000+优质资源</h1>
-		<p th:text="${themeCourse4.theme.describe}">独家研发，随时更新，流行技法一网打尽！</p>
+		<h1 th:text="${themeCourse4}?${themeCourse4.theme.title}:''">百万级人气教程免费学，1键get 1000+优质资源</h1>
+		<p th:text="${themeCourse4}?${themeCourse4.theme.describe}:''">独家研发，随时更新，流行技法一网打尽！</p>
 		<div class="line"></div>
 		
 		<div class="class_list clear_both">
-			<li th:each="course:${themeCourse4.courses}">
-				<a href="javascript:;"  th:href="'course_chapter?courseId='+${course.courseId}">
-					<div class="picture" style="background: url(images/wqf_list1.png) no-repeat center /cover;"  th:style="'background: #fff url('+${course.image}+') no-repeat center /cover' ">
+			<li th:each="course:${themeCourse4}?${themeCourse4.courses}:''">
+				<a href="javascript:;"  th:href="${themeCourse4}?'course_chapter?courseId='+${course.courseId}:''">
+					<div class="picture" style="background: url(images/wqf_list1.png) no-repeat center /cover;"  th:style="${themeCourse4}?'background: #fff url('+${course.image}+') no-repeat center /cover':'' ">
 						<!-- <img src="images/wqf_list1.png"> -->
 						<header>
 							<span class="hot"></span>
-							<span class="title" th:text="${course.classify}">用户体验</span>
+							<span class="title" th:text="${themeCourse4}?${course.classify}:''">用户体验</span>
 						</header>
 						<div class="time">
 							<span class="fy_icon">&#xe626;</span>
@@ -392,10 +392,10 @@
 					<div class="bg1"></div>
 					<div class="bg2"></div>
 
-					<h3 class="title hidd_more2 fire" th:text="${course.courseName}">理论+实践，构建属于你的机器学习库单 <span class="fy_icon">&#xe606;</span></h3>
+					<h3 class="title hidd_more2 fire" th:text="${themeCourse4}?${course.courseName}:''">理论+实践，构建属于你的机器学习库单 <span class="fy_icon">&#xe606;</span></h3>
 					<p>
-						<span th:text="${course.course_price} == 0 ? '免费' : '￥'+${course.course_price}" class="price">￥199</span>
-						<span th:text="${course.student_count} + '人正在学习'">555人正在学习</span>
+						<span th:text="${themeCourse4}?(${course.course_price} == 0 ? '免费' : '￥'+${course.course_price}):''" class="price">￥199</span>
+						<span th:text="${themeCourse4}?${course.student_count} + '人正在学习':''">555人正在学习</span>
                     </p>
 				</a>
 			</li>			
