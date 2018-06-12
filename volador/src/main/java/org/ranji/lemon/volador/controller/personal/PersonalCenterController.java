@@ -119,7 +119,7 @@ public class PersonalCenterController {
 			SignIn signIn = signInService.findSignInByUserId(userId);
 			mv.addObject("siginDay", signIn.getDay());
 			
-			mv.setViewName("/backend/wqf_notice");
+			mv.setViewName("backend/wqf_notice");
 			
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -161,7 +161,7 @@ public class PersonalCenterController {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
-		mv.setViewName("/backend/wqf_comment");
+		mv.setViewName("backend/wqf_comment");
 		return mv;
 	}
 	
@@ -259,7 +259,7 @@ public class PersonalCenterController {
 			SignIn signIn = signInService.findSignInByUserId(userId);
 			mv.addObject("siginDay", signIn.getDay());
 			
-			mv.setViewName("/backend/wqf_learn_now");
+			mv.setViewName("backend/wqf_learn_now");
 		} catch (Exception e) {
 			// TODO: handle exception
 			mv.setViewName("redirect:/login");
@@ -416,7 +416,7 @@ public class PersonalCenterController {
 			mv.addObject("siginDay", signIn.getDay());
 			
 			
-			mv.setViewName("/backend/wqf_learn_end");
+			mv.setViewName("backend/wqf_learn_end");
 		} catch (Exception e) {
 			// TODO: handle exception
 			mv.setViewName("redirect:/login");
@@ -532,7 +532,7 @@ public class PersonalCenterController {
 			mv.addObject("user_name",userInfo.getNickname());
 			mv.addObject("gender", userInfo.getGender());
 			mv.addObject("address",userInfo.getAddress());
-			mv.setViewName("/backend/wzq_fiavourite_end");
+			mv.setViewName("backend/wzq_fiavourite_end");
 			
 			
 			//查询我的积分
@@ -602,7 +602,7 @@ public class PersonalCenterController {
 			SignIn signIn = signInService.findSignInByUserId(userId);
 			mv.addObject("siginDay", signIn.getDay());
 			
-			mv.setViewName("/backend/wqf_data_download");
+			mv.setViewName("backend/wqf_data_download");
 			
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -643,7 +643,7 @@ public class PersonalCenterController {
 			SignIn signIn = signInService.findSignInByUserId(userId);
 			mv.addObject("siginDay", signIn.getDay());
 			 
-			mv.setViewName("/backend/wzq_jifen");
+			mv.setViewName("backend/wzq_jifen");
 		} catch (Exception e) {
 			// TODO: handle exception
 			mv.setViewName("redirect:/login");
@@ -683,7 +683,7 @@ public class PersonalCenterController {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
-		mv.setViewName("/backend/wqf_draw_rule");
+		mv.setViewName("backend/wqf_draw_rule");
 		return mv;
 	}
 	
@@ -726,7 +726,7 @@ public class PersonalCenterController {
 			SignIn signIn = signInService.findSignInByUserId(userId);
 			mv.addObject("siginDay", signIn.getDay());
 			
-			mv.setViewName("/backend/wzq_list_work_upload");
+			mv.setViewName("backend/wzq_list_work_upload");
 		} catch (Exception e) {
 			// TODO: handle exception
 			mv.setViewName("redirect:/login");
@@ -755,7 +755,7 @@ public class PersonalCenterController {
 			
 			
 			
-			mv.setViewName("/backend/wqf_upload_work");
+			mv.setViewName("backend/wqf_upload_work");
 		} catch (Exception e) {
 			// TODO: handle exception
 			mv.setViewName("redirect:/login");
@@ -772,7 +772,7 @@ public class PersonalCenterController {
 			@RequestParam(value="name",required=false) String name,
 			@RequestParam(value="info",required=false) String info){
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("/backend/wqf_upload_work");
+		mv.setViewName("backend/wqf_upload_work");
 		return mv;
 	}
 	
@@ -782,7 +782,7 @@ public class PersonalCenterController {
 	@RequestMapping(value="/personalCenter_showHomework", method=RequestMethod.GET)
 	public ModelAndView personalCenterShowHomework(){
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("/backend/wzq_show_work");
+		mv.setViewName("backend/wzq_show_work");
 		return mv;
 	}
 	
@@ -819,7 +819,7 @@ public class PersonalCenterController {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
-		mv.setViewName("/backend/wqf_invitation");
+		mv.setViewName("backend/wqf_invitation");
 		return mv;
 	}
 	
@@ -889,7 +889,7 @@ public class PersonalCenterController {
 			SignIn signIn = signInService.findSignInByUserId(userId);
 			mv.addObject("siginDay", signIn.getDay());
 			
-			mv.setViewName("/backend/wzq_zhiye");
+			mv.setViewName("backend/wzq_zhiye");
 		} catch (Exception e) {
 			// TODO: handle exception
 			mv.setViewName("redirect:/login");

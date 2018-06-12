@@ -148,7 +148,7 @@
                 <!-- 
                     只需更换行内 图片地址即可更换 用户头像
                  -->
-                <div class="head_img" style="background: url(images/wqf_user.png) no-repeat center /cover;" th:style="'background: url('+${teacher.teacher_image == null? 'images/wqf_user.png':'${teacher.teacher_image}'}+') no-repeat center /cover;'">
+                <div class="head_img" style="background: url(images/wqf_user.png) no-repeat center /cover;" th:style="'background: url('+(${teacher.teacher_image} == null ? 'images/wqf_user.png' :${teacher.teacher_image})+') no-repeat center /cover;'" >
                 </div>
                 <h2 th:text="${teacher.teacher_name}">王起帆</h2>
                 <p class="type" th:text="${teacher.teacher_position}">全栈工程师</p>
@@ -196,11 +196,11 @@
 		var chapterJson= [[${chapterJson}]]
 		var userId=[[${userId}]]
 		var courseId=[[${courseId}]]
-		var isBuy = 222;
+		var isBuy = [[${isBuy}]];
 </script>
 <script>
 	var buyBox = $(".buyBox")
-	if (isBuy) {
+	if (!isBuy) {
 		buyBox.css({display:"none"})
 	}
 	$(".buyBox a:last-child").click(function(){

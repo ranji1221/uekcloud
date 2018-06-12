@@ -284,7 +284,7 @@ public class PersonalController {
 			return mv;
 		}
 
-		mv.setViewName("/backend/wqf_personal_basic");
+		mv.setViewName("backend/wqf_personal_basic");
 		return mv;
 	}
 	
@@ -429,7 +429,7 @@ public class PersonalController {
 
 		String userName = request.getSession().getAttribute("userName").toString();
 		mv.addObject("userName", userName);
-		mv.setViewName("/backend/wqf_personal_set");
+		mv.setViewName("backend/wqf_personal_set");
 		return mv;
 	}
 
@@ -443,7 +443,7 @@ public class PersonalController {
 		// Per person = personalService.findByUserName(userName);
 
 		mv.addObject("userName", userName);
-		mv.setViewName("/backend/wqf_personal_set");
+		mv.setViewName("backend/wqf_personal_set");
 		return mv;
 	}
 
@@ -476,7 +476,7 @@ public class PersonalController {
 	@RequestMapping(value = "/changePassword", method = RequestMethod.GET)
 	public ModelAndView changePassword(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("/backend/changePassword");
+		mv.setViewName("backend/changePassword");
 		return mv;
 	}
 
@@ -520,7 +520,7 @@ public class PersonalController {
 					}
 				} else {
 					mv.addObject("message", "两次输入新密码不一致");
-					mv.setViewName("/backend/changePassword");
+					mv.setViewName("backend/changePassword");
 				}
 			} else {
 				mv.setViewName("redirect:/login");
@@ -528,7 +528,7 @@ public class PersonalController {
 
 		} catch (AuthenticationException e) {
 			mv.addObject("message", "输入旧密码不正确");
-			mv.setViewName("/backend/changePassword");
+			mv.setViewName("backend/changePassword");
 		} catch (Exception e) {
 			e.printStackTrace();
 			mv.setViewName("redirect:/login");
@@ -541,7 +541,7 @@ public class PersonalController {
 	@RequestMapping(value = "/email", method = RequestMethod.GET)
 	public ModelAndView getEmail() {
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("/backend/email");
+		mv.setViewName("backend/email");
 		return mv;
 	}
 
@@ -562,11 +562,11 @@ public class PersonalController {
 				// 保存用户设置的邮箱
 				userInfo.setEmail(email);
 				userInfoService.update(userInfo);
-				mv.setViewName("/backend/wqf_personal_set");
+				mv.setViewName("backend/wqf_personal_set");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			mv.setViewName("/backend/wqf_personal_set");
+			mv.setViewName("backend/wqf_personal_set");
 		}
 
 		return mv;

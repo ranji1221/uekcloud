@@ -29,7 +29,7 @@ public class PerLoginController {
 	@RequestMapping(value="/login", method=RequestMethod.GET)
 	public ModelAndView loginPage(){
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("/backend/cp_login");
+		mv.setViewName("backend/cp_login");
 		return mv;
 	}
 	
@@ -48,7 +48,7 @@ public class PerLoginController {
 		
 		if(null == user){
 			mv.addObject("message", "用户未注册");
-			mv.setViewName("/backend/cp_login");
+			mv.setViewName("backend/cp_login");
 		}else{
 			Subject subject = SecurityUtils.getSubject();	
 			
@@ -60,7 +60,7 @@ public class PerLoginController {
 				mv.setViewName("redirect:/index");
 			} catch (AuthenticationException e){
 				mv.addObject("message", "用户名或密码不正确");
-				mv.setViewName("/backend/cp_login");
+				mv.setViewName("backend/cp_login");
 				e.printStackTrace();
 			}
 		}				

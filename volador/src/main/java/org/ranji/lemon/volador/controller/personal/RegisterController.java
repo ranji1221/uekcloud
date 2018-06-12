@@ -43,7 +43,7 @@ public class RegisterController {
 	@RequestMapping(value="/register", method=RequestMethod.GET)
 	public ModelAndView registerPage(){
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("/backend/cp_register");
+		mv.setViewName("backend/cp_register");
 		return mv;
 	}
 	
@@ -88,7 +88,7 @@ public class RegisterController {
 					UserInfo userInfo = new UserInfo();
 					
 					//设置默认头像
-					userInfo.setHead_image("photos\\wqf_user.png");
+					userInfo.setHead_image("images/wzq_user_img.jpg");
 					//设置默认昵称
 					userInfo.setNickname("飞鱼学员" + String.valueOf((int)(Math.random()*1000)));
 					//用户基本信息设置
@@ -124,7 +124,7 @@ public class RegisterController {
 			mv.addObject("message", "注册异常：注册用户失败!");
 			e.printStackTrace();
 		}
-		mv.setViewName("/backend/cp_register");
+		mv.setViewName("backend/cp_register");
 		return mv;
 	}
 

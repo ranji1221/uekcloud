@@ -9,6 +9,8 @@ import org.ranji.lemon.volador.service.personal.prototype.IAdminService;
 import org.ranji.lemon.volador.util.JWTUtil;
 import org.springframework.stereotype.Service;
 
+import io.jsonwebtoken.Claims;
+
 @Service("VoladorAdminServiceImpl")
 public class AdminServiceImpl extends GenericServiceImpl<Admin, Integer> implements IAdminService{
 
@@ -41,8 +43,15 @@ public class AdminServiceImpl extends GenericServiceImpl<Admin, Integer> impleme
 	public boolean parseJWT(String token) {
 		// TODO Auto-generated method stub
 		try {
-			JWTUtil.parseJWT(token);
-			return true;
+			Claims claims=JWTUtil.parseJWT(token);
+			try {
+				List<Admin> admin=((IAdminDao) dao).findAdminByUsername(claims.getId());
+				admin.get(0);
+				return true;
+			} catch (Exception e) {
+				// TODO: handle exception
+				return false;
+			}	
 		} catch (Exception e) {
 			// TODO: handle exception
 			return false;

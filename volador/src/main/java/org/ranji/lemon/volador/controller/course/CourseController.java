@@ -82,7 +82,7 @@ public class CourseController {
 	@RequestMapping(value="/professionalNavigation", method=RequestMethod.GET)
 	public ModelAndView professionalNavigationPage(){
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("/backend/wzq_zhiye");
+		mv.setViewName("backend/wzq_zhiye");
 		return mv;
 	}
 	
@@ -90,7 +90,7 @@ public class CourseController {
 	@RequestMapping(value="/courseChannel", method=RequestMethod.GET)
 	public ModelAndView courseChannelPage(){
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("/backend/cp_courseChannel");
+		mv.setViewName("backend/cp_courseChannel");
 		return mv;
 	}
 	
@@ -164,10 +164,10 @@ public class CourseController {
 				mv.addObject("option", "classfyId="+String.valueOf(classfyId));
 			}			
 			
-			mv.setViewName("/backend/wqf_find");
+			mv.setViewName("backend/wqf_find");
 		} catch (Exception e){
 			e.printStackTrace();
-			mv.setViewName("/backend/index");
+			mv.setViewName("backend/index");
 		}												
 		return mv;
 	}
@@ -197,7 +197,7 @@ public class CourseController {
 		}
 		
 		
-		mv.setViewName("/backend/cp_courseChannel");
+		mv.setViewName("backend/cp_courseChannel");
 		
 		
 		return mv;
@@ -286,7 +286,8 @@ public class CourseController {
 				mv.addObject(teacher);
 			}
 			
-			
+			//购买弹窗控制
+			mv.addObject("isBuy",request.getParameter("isBuy"));
 			
 			
 			//根据课程id查询章节标题集合
@@ -311,11 +312,11 @@ public class CourseController {
 			mv.addObject("chapterJson",chapterJson);
 			mv.addObject(chapterTitleList);
 			
-			mv.setViewName("/backend/wqf_chapter");
+			mv.setViewName("backend/wqf_chapter");
 		}
 		else{
 			//重定向到跳转到404
-			mv.setViewName("redirect:/index");
+			mv.setViewName("redirect:/error");
 //			mv.addObject("error", "operate error!");
 		}
 												
@@ -350,7 +351,7 @@ public class CourseController {
 			
 			//如果查询到的courseId为空，重定向到404页面
 			if(course == null){
-				mv.setViewName("redirect:/notFound");
+				mv.setViewName("redirect:/error");
 				return mv;
 			}
 			
@@ -381,7 +382,7 @@ public class CourseController {
 			
 			mv.addObject("commentCount",commentList.size());
 			mv.addObject(commentList);
-			mv.setViewName("/backend/cp_comment");
+			mv.setViewName("backend/cp_comment");
 		}else{
 			mv.setViewName("redirect:/index");
 		}
@@ -511,7 +512,7 @@ public class CourseController {
 	@RequestMapping(value="/course_jobDisplay", method=RequestMethod.GET)
 	public ModelAndView jobDisplayPage(){
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("/backend/cp_jobDisplay");
+		mv.setViewName("backend/cp_jobDisplay");
 		return mv;
 	}
 	
@@ -531,7 +532,7 @@ public class CourseController {
 		Chapter chapter=chapterService.find(chapterId);
 		//如果查到的内容为空，重定向到404页面
 		if(chapter==null){
-			mv.setViewName("redirect:/notFound");
+			mv.setViewName("redirect:/error");
 			return mv;
 		}
 		//根据章节id查找课程标题id,查找课程标题id查找课程id
@@ -594,9 +595,9 @@ public class CourseController {
 		if(power){
 			mv.addObject(chapter);
 			mv.addObject("courseId",courseId);
-			mv.setViewName("/backend/cp_video");
+			mv.setViewName("backend/cp_video");
 		}else{
-			mv.setViewName("redirect:/course_chapter?courseId="+courseId);
+			mv.setViewName("redirect:/course_chapter?isBuy=0&courseId="+courseId);
 		}
 		
 		return mv;
@@ -876,7 +877,7 @@ public class CourseController {
 			System.out.println(JsonUtil.objectToJson(noteList));
 			mv.addObject(noteList);
 			mv.addObject("noteCount", noteList.size());
-			mv.setViewName("/backend/cp_videoWork");
+			mv.setViewName("backend/cp_videoWork");
 		}catch (Exception e){
 			e.printStackTrace();
 			mv.setViewName("redirect:/index");
@@ -905,13 +906,13 @@ public class CourseController {
 
 			//保存用户与笔记的关系
 			noteService.saveNoteAndUserRelation(note.getId(), Integer.valueOf(userId));
-			mv.setViewName("/backend/cp_videoWork");
+			mv.setViewName("backend/cp_videoWork");
 		} catch (NullPointerException e){
 			e.printStackTrace();
-			mv.setViewName("/backend/login");
+			mv.setViewName("backend/login");
 		}catch (Exception e){
 			e.printStackTrace();
-			mv.setViewName("/backend/index");
+			mv.setViewName("backend/index");
 		}
 		
 		return mv;
@@ -987,7 +988,7 @@ public class CourseController {
 	@RequestMapping(value="/course_videoChapter", method=RequestMethod.GET)
 	public ModelAndView videoChapterPage(){
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("/backend/cp_videoChapter");
+		mv.setViewName("backend/cp_videoChapter");
 		return mv;
 	}
 }

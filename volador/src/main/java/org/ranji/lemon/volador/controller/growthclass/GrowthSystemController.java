@@ -88,7 +88,7 @@ public class GrowthSystemController {
 			e.printStackTrace();
 		}
 				
-		mv.setViewName("/backend/wqf_occupation");
+		mv.setViewName("backend/wqf_occupation");
 		return mv;
 	}
 	
