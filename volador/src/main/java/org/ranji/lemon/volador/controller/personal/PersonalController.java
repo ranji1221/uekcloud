@@ -90,8 +90,8 @@ public class PersonalController {
 	private IFeedbackService feedbackService;
 
 	// 发件人的 邮箱 和 密码（替换为自己的邮箱和密码）
-	public static String myEmailAccount = "fanxiaoya@uekedu.com";
-	public static String myEmailPassword = "RT2y3HAE3aCFzkwN";
+	public static String myEmailAccount = "uek@uekedu.com";
+	public static String myEmailPassword = "ejTDZnuknJUYtpxW";
 
 	// 首页
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
