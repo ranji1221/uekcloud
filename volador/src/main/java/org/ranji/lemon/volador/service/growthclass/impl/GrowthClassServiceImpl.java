@@ -6,12 +6,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.junit.internal.runners.statements.ExpectException;
 import org.ranji.lemon.core.service.impl.GenericServiceImpl;
 import org.ranji.lemon.volador.model.course.Chapter;
 import org.ranji.lemon.volador.model.course.Course;
 import org.ranji.lemon.volador.model.growthclass.GrowthClass;
 import org.ranji.lemon.volador.model.growthclass.GrowthStage;
 import org.ranji.lemon.volador.persist.growthclass.prototype.IGrowthClassDao;
+import org.ranji.lemon.volador.persist.growthclass.prototype.IGrowthStageDao;
 import org.ranji.lemon.volador.service.growthclass.prototype.IGrowthClassService;
 import org.ranji.lemon.volador.service.growthclass.prototype.IGrowthStageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,11 +61,6 @@ public class GrowthClassServiceImpl extends GenericServiceImpl<GrowthClass, Inte
 	}
 
 	@Override
-	public void saveUserAndGrowthClassRelation(int user_id, int growthclass_id) {
-		((IGrowthClassDao) dao).saveUserAndGrowthClassRelation(user_id, growthclass_id);
-	}
-
-	@Override
 	public List<GrowthClass> findGrowthClassByUserId(int user_id) {
 		return ((IGrowthClassDao) dao).findGrowthClassByUserId(user_id);
 	}
@@ -85,8 +82,14 @@ public class GrowthClassServiceImpl extends GenericServiceImpl<GrowthClass, Inte
 				growthClassAndStageMap.put("growthClassImage", growthClass.getImage());
 				//获取用户该职业导航正在学习的课程
 				   //获取用户正在该导航学习的章节
-				Chapter chaper = ((IGrowthClassDao) dao).findChapterByUserIdAndGrowthClassId(user_id, growthClass.getId()).get(0);
-				growthClassAndStageMap.put("studyChapter", chaper);
+				List<Chapter> chapterList = ((IGrowthClassDao) dao).findChapterByUserIdAndGrowthClassId(user_id, growthClass.getId());
+				if(0 != chapterList.size()){
+					Chapter chaper = chapterList.get(0);
+					growthClassAndStageMap.put("studyChapter", chaper);
+				}else{
+					growthClassAndStageMap.put("studyChapter", null);
+				}
+				
 				
 				List<Map> growthStageAndCourseList = new ArrayList<Map>();
 				//获取该职业导航写的所有阶段
@@ -99,7 +102,7 @@ public class GrowthClassServiceImpl extends GenericServiceImpl<GrowthClass, Inte
 					//查询用户正在学习的课程是否是该阶段的
 					Chapter stageChapter = growthStageService.findChapterByUserIdAndClassIdAndStageId(user_id, growthClass.getId(), growthStage.getId());
 					//用户在职业导航学习的章节是否是该阶段的章节
-					if(null != stageChapter && stageChapter.getId() == chaper.getId()){
+					if(null != stageChapter){
 						//添加正在学习
 						growthStageAndCourseMap.put("studying", true);
 					}else{
@@ -125,4 +128,65 @@ public class GrowthClassServiceImpl extends GenericServiceImpl<GrowthClass, Inte
 		
 	}
 
+	@Override
+	public GrowthClass findGrowthClassByCourseId(int course_id) {
+		
+		return ((IGrowthClassDao) dao).findGrowthClassByCourseId(course_id).get(0);
+	}
+
+	@Override
+	public Boolean saveGrowthClassOfChapterId(Integer user_id, Integer growthclass_id, Integer course_id, Integer chapterId) {
+		Boolean bResult = true;
+		
+		try{
+			
+			if(null == user_id || null == growthclass_id){
+				return false;
+			}
+
+			GrowthStage growthStage = new GrowthStage();
+			if(null != course_id){
+				growthStage = growthStageService.findGrowthStageByCourseId(course_id).get(0);
+			}
+				
+			//用户第一次收藏职业导航
+			List<Chapter> chapterList = ((IGrowthClassDao) dao).findChapterByUserIdAndGrowthClassId(user_id, growthclass_id);
+			if(0 == chapterList.size() && null == chapterId){
+				((IGrowthClassDao) dao).saveUserAndGrowthClassRelation(user_id, growthclass_id, 0);
+			}else if(0 == chapterList.size() && null != chapterId){
+				//如果用户已经在该职业导航中学习了章节，则更新章节
+				((IGrowthClassDao) dao).saveUserAndGrowthClassRelation(user_id, growthclass_id, chapterId);
+				//更新学习阶段与章节的关系表
+				if(null != growthStage){
+					growthStageService.saveUserStudyStage(user_id, growthclass_id, growthStage.getId(), chapterId);
+				}else{
+					growthStageService.saveUserStudyStage(user_id, growthclass_id, null, chapterId);
+				}
+				
+				
+			}else{
+				//保存用户在职业导航课程中看的章节
+				Chapter chaper = chapterList.get(0);
+				
+				if(null == chaper){
+					//保存职业导航与学习章节关系表，以便在职业导航显示正在学习的章节
+					((IGrowthClassDao) dao).saveUserAndGrowthClassRelation(user_id, growthclass_id, chapterId);
+					
+					//保存职业导航阶段与学习章节关系表，以便在职业导航阶段可以继续学习章节
+					//查看学习的阶段是否是该职业导航中的
+					//如果关系表不存在，则保存关系
+					growthStageService.saveUserStudyStage(user_id, growthclass_id, growthStage.getId(), chapterId);
+									
+				}else{
+					//如果用户已经在该职业导航中学习了章节，则更新章节
+					((IGrowthClassDao) dao).updateUserAndGrowthClassRelation(user_id, growthclass_id, chapterId);
+					//更新学习阶段与章节的关系表
+					growthStageService.updateUserStudyStage(user_id, growthclass_id, growthStage.getId(), chapterId);
+				}
+			}
+		}catch(Exception e){
+			bResult = false;
+		}
+		return bResult;
+	}
 }

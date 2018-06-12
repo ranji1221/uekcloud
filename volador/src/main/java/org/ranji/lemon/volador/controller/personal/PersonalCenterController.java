@@ -867,6 +867,7 @@ public class PersonalCenterController {
 			mv.addObject("pageUri", "/personalCenter_learning");
 			
 			List<Map> growthClassAndStageList = growthClassService.findUserCollectGrowth(userId);
+			System.out.println(growthClassAndStageList.toString());
 			mv.addObject("growthClassAndStageList", growthClassAndStageList);
 			//获得职业导航数目
 			mv.addObject("count", growthClassAndStageList.size());

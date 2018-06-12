@@ -57,7 +57,7 @@ public class GrowthStageDaoImpl extends GenericDaoImpl<GrowthStage, Integer> imp
 	}
 
 	@Override
-	public void saveUserStudyStage(int user_id, int growthclass_id, int growthstage_id, int chapter_id) {
+	public void saveUserStudyStage(Integer user_id, Integer growthclass_id, Integer growthstage_id, Integer chapter_id) {
 		Map<String, Object> parameter = new HashMap<String, Object>();
 		parameter.put("growthstage_id", growthstage_id);
 		parameter.put("user_id", user_id);
@@ -67,10 +67,10 @@ public class GrowthStageDaoImpl extends GenericDaoImpl<GrowthStage, Integer> imp
 	}
 
 	@Override
-	public List<GrowthStage> findStudyStageByUserIdAndChapterId(int user_id, int growthclass_id, int chapter_id) {
+	public List<GrowthStage> findStudyStageByUserIdAndChapterId(int user_id, int growthclass_id, int course_id) {
 		Map<String, Object> parameter = new HashMap<String, Object>();
 		parameter.put("user_id", user_id);
-		parameter.put("chapter_id", chapter_id);
+		parameter.put("chapter_id", course_id);
 		parameter.put("growthclass_id", growthclass_id);
 		return sqlSessionTemplate.selectList(typeNameSpace+".findStudyStageByUserIdAndChapterId", parameter);
 	}
@@ -92,6 +92,11 @@ public class GrowthStageDaoImpl extends GenericDaoImpl<GrowthStage, Integer> imp
 		parameter.put("user_id", user_id);
 		parameter.put("growthclass_id", growthclass_id);
 		return sqlSessionTemplate.selectList(typeNameSpace+".findChapterByUserIdAndClassIdAndStageId", parameter);
+	}
+
+	@Override
+	public List<GrowthStage> findGrowthStageByCourseId(int course_id) {
+		return sqlSessionTemplate.selectList(typeNameSpace+".findGrowthStageByCourseId", course_id);
 	}
 
 

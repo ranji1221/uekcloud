@@ -55,7 +55,15 @@ public interface IGrowthStageService extends IGenericService<GrowthStage, Intege
 	 * @param growthstage_id
 	 * @param chapter_id
 	 */
-	public void saveUserStudyStage(int user_id, int growthclass_id,int growthstage_id, int chapter_id);
+	public void saveUserStudyStage(Integer user_id, Integer growthclass_id,Integer growthstage_id, Integer chapter_id);
+	
+	/**
+	 * 更新用户正在学习的阶段及学习的章节
+	 * @param user_id
+	 * @param growthstage_id
+	 * @param chapter_id
+	 */
+	public void updateUserStudyStage(int user_id, int growthclass_id,int growthstage_id, int chapter_id);
 	
 	
 	/**
@@ -66,4 +74,13 @@ public interface IGrowthStageService extends IGenericService<GrowthStage, Intege
 	 * @return
 	 */
 	public Chapter findChapterByUserIdAndClassIdAndStageId(int user_id, int growthclass_id, int growthstage_id);
+	
+	/**
+	 * 根据课程ID查找职业导航阶段
+	 * @param course_id
+	 * @return
+	 */
+	public List<GrowthStage> findGrowthStageByCourseId(int course_id);
+	
+	
 }

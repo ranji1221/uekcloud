@@ -22,6 +22,7 @@ import org.ranji.lemon.volador.model.course.Direction;
 import org.ranji.lemon.volador.model.course.Note;
 import org.ranji.lemon.volador.model.course.Reply;
 import org.ranji.lemon.volador.model.course.Teacher;
+import org.ranji.lemon.volador.model.growthclass.GrowthClass;
 import org.ranji.lemon.volador.model.personal.UserInfo;
 import org.ranji.lemon.volador.service.course.prototype.IChapterService;
 import org.ranji.lemon.volador.service.course.prototype.IChapterTitleService;
@@ -31,6 +32,8 @@ import org.ranji.lemon.volador.service.course.prototype.ICourseService;
 import org.ranji.lemon.volador.service.course.prototype.IDirectionService;
 import org.ranji.lemon.volador.service.course.prototype.INoteService;
 import org.ranji.lemon.volador.service.course.prototype.IReplyService;
+import org.ranji.lemon.volador.service.growthclass.prototype.IGrowthClassService;
+import org.ranji.lemon.volador.service.growthclass.prototype.IGrowthStageService;
 import org.ranji.lemon.volador.service.personal.prototype.IPerService;
 import org.ranji.lemon.volador.service.personal.prototype.IheaderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,6 +74,10 @@ public class CourseController {
 	
 	@Autowired
 	private IheaderService headerService;
+	@Autowired
+	private IGrowthClassService growthClassService;
+	@Autowired
+	private IGrowthStageService growthStageService;
 	//职业导航
 	@RequestMapping(value="/professionalNavigation", method=RequestMethod.GET)
 	public ModelAndView professionalNavigationPage(){
@@ -548,6 +555,8 @@ public class CourseController {
 				{
 					personalService.saveUserAndStudyingCourseRelation(userId, courseId, new Date(), chapterId);
 				}
+			//根据课程ID查看是否是职业导航里的章节,如果是，则记录学习的章节ID
+			saveGrowthClassOfChapterId(userId, courseId, chapterId);
 		} catch (Exception e) {
 			// TODO: handle exception
 			UserInfo userInfo=new UserInfo();
@@ -592,7 +601,18 @@ public class CourseController {
 		
 		return mv;
 	}
-	
+	/**
+	 * 根据课程ID查看是否是职业导航里的章节,如果是，则记录学习的章节ID
+	 * @param courseId
+	 * @param chapterId
+	 */
+	public void saveGrowthClassOfChapterId(int userId, int courseId, int chapterId){
+		GrowthClass gorwthClass = growthClassService.findGrowthClassByCourseId(courseId);
+		if(null != gorwthClass){
+			//如果用户看的课程是职业导航中的课程，则保存观看记录
+			growthClassService.saveGrowthClassOfChapterId(userId, gorwthClass.getId(), courseId, chapterId);				
+		}
+	}
 	//获取章节信息AJax
 	@RequestMapping(value="/chapterList",method=RequestMethod.POST)
 	public void chapList(HttpServletRequest request,HttpServletResponse response) throws IOException{

@@ -59,7 +59,14 @@ public interface IGrowthClassDao extends IGenericDao<GrowthClass, Integer>{
 	 * @param user_id
 	 * @param growthclass_id
 	 */
-	public void saveUserAndGrowthClassRelation(int user_id, int growthclass_id);
+	public void saveUserAndGrowthClassRelation(int user_id, int growthclass_id, int chapter_id);
+	
+	/**
+	 * 保存用户收藏的职业导航
+	 * @param user_id
+	 * @param growthclass_id
+	 */
+	public void updateUserAndGrowthClassRelation(int user_id, int growthclass_id, int chapter_id);
 	
 	/**
 	 * 通过用户ID查找用户收藏的所有职业导航
@@ -72,8 +79,15 @@ public interface IGrowthClassDao extends IGenericDao<GrowthClass, Integer>{
 	 * 根据用户ID和职业导航ID获取章节
 	 * @param user_id
 	 * @param growthclass_id
-	 * @return
+	 * @return 章节列表
 	 */
 	public List<Chapter> findChapterByUserIdAndGrowthClassId(int user_id, int growthclass_id);
+	
+	/**
+	 * 根据课程ID查找职业导航
+	 * @param course_id
+	 * @return
+	 */
+	public List<GrowthClass> findGrowthClassByCourseId(int course_id);
 
 }

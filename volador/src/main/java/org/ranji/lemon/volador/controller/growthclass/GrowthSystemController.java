@@ -180,7 +180,7 @@ public class GrowthSystemController {
 			@RequestParam(value="userId", required=false) Integer userId,
 			HttpServletRequest request){
 		try{
-			growthClassService.saveUserAndGrowthClassRelation(userId, growthId);
+			growthClassService.saveGrowthClassOfChapterId(userId, growthId, null, null);
 			
 		}catch(NullPointerException e){
 			e.printStackTrace();

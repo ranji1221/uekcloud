@@ -85,7 +85,7 @@ public class GrowthStageServiceImpl extends GenericServiceImpl<GrowthStage, Inte
 	}
 
 	@Override
-	public void saveUserStudyStage(int user_id, int growthclass_id, int growthstage_id, int chapter_id) {
+	public void saveUserStudyStage(Integer user_id, Integer growthclass_id, Integer growthstage_id, Integer chapter_id) {
 		((IGrowthStageDao) dao).saveUserStudyStage(user_id, growthstage_id, chapter_id, chapter_id);
 	}
 
@@ -96,5 +96,15 @@ public class GrowthStageServiceImpl extends GenericServiceImpl<GrowthStage, Inte
 		}catch(Exception e){
 			return null;
 		}
+	}
+
+	@Override
+	public List<GrowthStage> findGrowthStageByCourseId(int course_id) {
+		return ((IGrowthStageDao) dao).findGrowthStageByCourseId(course_id);
+	}
+
+	@Override
+	public void updateUserStudyStage(int user_id, int growthclass_id, int growthstage_id, int chapter_id) {
+		((IGrowthStageDao) dao).updateUserStudyStage(user_id, growthclass_id, growthstage_id, chapter_id);
 	}
 }

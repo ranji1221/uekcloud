@@ -56,16 +56,16 @@ public interface IGrowthStageDao extends IGenericDao<GrowthStage, Integer>{
 	 * @param growthstage_id
 	 * @param chapter_id
 	 */
-	public void saveUserStudyStage(int user_id, int growthclass_id, int growthstage_id, int chapter_id);
+	public void saveUserStudyStage(Integer user_id, Integer growthclass_id, Integer growthstage_id, Integer chapter_id);
 	
 	/**
-	 * 根据用户Id，职业导航ID，章节ID获取用户学习的阶段
+	 * 根据用户Id，职业导航ID，课程ID获取用户学习的阶段
 	 * @param user_id
 	 * @param growthclass_id
-	 * @param chapter_id
+	 * @param course_id
 	 * @return
 	 */
-	public List<GrowthStage> findStudyStageByUserIdAndChapterId(int user_id,  int growthclass_id, int chapter_id);
+	public List<GrowthStage> findStudyStageByUserIdAndChapterId(int user_id,  int growthclass_id, int course_id);
 	
 	/**
 	 * 更新用户正在学习的阶段及学习的章节
@@ -84,4 +84,12 @@ public interface IGrowthStageDao extends IGenericDao<GrowthStage, Integer>{
 	 * @return
 	 */
 	public List<Chapter> findChapterByUserIdAndClassIdAndStageId(int user_id, int growthclass_id, int growthstage_id);
+	
+	/**
+	 * 根据课程ID查找职业导航阶段
+	 * @param course_id
+	 * @return
+	 */
+	public List<GrowthStage> findGrowthStageByCourseId(int course_id);
+	
 }

@@ -55,13 +55,6 @@ public interface IGrowthClassService extends IGenericService<GrowthClass, Intege
 	public GrowthClass findGrowthClassByGrowthStageId(int stage_id);
 	
 	/**
-	 * 保存用户收藏的职业导航
-	 * @param user_id
-	 * @param growthclass_id
-	 */
-	public void saveUserAndGrowthClassRelation(int user_id, int growthclass_id);
-	
-	/**
 	 * 通过用户ID查找用户收藏的所有职业导航
 	 * @param user_id
 	 * @return
@@ -75,5 +68,19 @@ public interface IGrowthClassService extends IGenericService<GrowthClass, Intege
 	 * @return
 	 */
 	public List<Map> findUserCollectGrowth(Integer user_id);
+	
+	/**
+	 * 根据课程ID查找职业导航
+	 * @param course_id
+	 * @return
+	 */
+	public GrowthClass findGrowthClassByCourseId(int course_id);
+	
+	/**
+	 * 记录学习的章节ID
+	 * @param courseId
+	 * @param chapterId
+	 */
+	public Boolean saveGrowthClassOfChapterId(Integer user_id, Integer growthclass_id, Integer course_id , Integer chapterId);
 
 }

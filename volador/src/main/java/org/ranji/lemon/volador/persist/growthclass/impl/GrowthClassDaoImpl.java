@@ -62,11 +62,21 @@ public class GrowthClassDaoImpl extends GenericDaoImpl<GrowthClass, Integer> imp
 	}
 
 	@Override
-	public void saveUserAndGrowthClassRelation(int user_id, int growthclass_id) {
+	public void saveUserAndGrowthClassRelation(int user_id, int growthclass_id, int chapter_id) {
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("user_id", user_id);
 		param.put("growthclass_id", growthclass_id);
+		param.put("chapter_id", chapter_id);
 		sqlSessionTemplate.insert(typeNameSpace+".saveUserAndGrowthClassRelation", param);
+	}
+
+	@Override
+	public void updateUserAndGrowthClassRelation(int user_id, int growthclass_id, int chapter_id) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("user_id", user_id);
+		param.put("growthclass_id", growthclass_id);
+		param.put("chapter_id", chapter_id);
+		sqlSessionTemplate.insert(typeNameSpace+".updateUserAndGrowthClassRelation", param);
 	}
 
 	@Override
@@ -80,6 +90,11 @@ public class GrowthClassDaoImpl extends GenericDaoImpl<GrowthClass, Integer> imp
 		param.put("user_id", user_id);
 		param.put("growthclass_id", growthclass_id);
 		return sqlSessionTemplate.selectList(typeNameSpace+".findChapterByUserIdAndGrowthClassId", param);
+	}
+
+	@Override
+	public List<GrowthClass> findGrowthClassByCourseId(int course_id) {
+		return sqlSessionTemplate.selectList(typeNameSpace+".findGrowthClassByCourseId", course_id);
 	}
 
 }

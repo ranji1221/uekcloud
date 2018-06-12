@@ -73,21 +73,45 @@
 		WHERE
 		c.id = #{id}
 	</select>
-	<!-- -->
-	<!-- -->
-	<!-- -->
-	<!-- -->
-	<!-- 根据用户ID和职业导航ID获取章节-->
-	<select id="findChapterByUserIdAndClassIdAndStageId" parameterType="Map" resultType ="VoladorChapter">
+	<!-- 保存用户正在学习的阶段及学习的章节-->
+	<insert id="saveUserStudyStage" parameterType="Map" keyProperty="id" useGeneratedKeys="true">
+		insert into lemon_volador_personal_study_stage (user_id, growthclass_id, growthstage_id, chapter_id) values (#{user_id}, #{growthclass_id}, #{growthstage_id}, #{chapter_id})
+	</insert>
+	<!-- 更新用户收藏的职业导航学习章节-->
+	<update id="updateUserStudyStage" parameterType="Map">
+		update lemon_volador_personal_study_stage
+		<set>
+			growthstage_id = #{growthstage_id},
+			chapter_id = #{chapter_id}
+		</set>
+		where user_id = #{user_id} and growthclass_id = #{growthclass_id}
+	</update>
+	
+	<!-- 根据用户Id，职业导航ID，课程ID获取用户学习的阶段-->
+	<select id="findStudyStageByUserIdAndChapterId" parameterType="Map" resultType ="VoladorGrowthStage">
 		SELECT
 		t.*
 		FROM
-		lemon_volador_course_chapter t
-		LEFT JOIN lemon_volador_personal_study_stage c_t ON t.id = c_t.chapter_id
-		LEFT JOIN lemon_volador_personal_user u ON u.id = c_t.user_id
-		LEFT JOIN lemon_volador_growthclass g ON g.id = c_t.growthclass_id
-		LEFT JOIN lemon_volador_growthstage s ON s.id = c_t.growthstage_id
+		lemon_volador_growthstage t
+		LEFT JOIN lemon_volador_personal_user u ON u.id = g.user_id
+		LEFT JOIN lemon_volador_growthclass_stage c_t ON t.id = c_t.growthstage_id
+		LEFT JOIN lemon_volador_personal_collect_growthclass g ON g.growthclass_id = c_t.growthclass_id
+		
+		
+		LEFT JOIN lemon_volador_course_course c ON c.id = c_t.growthstage_id
 		WHERE
-		u.id = #{user_id} and g.id = #{growthclass_id} and s.id = #{growthstage_id}
+		u.id = #{user_id} and g.growthclass_id = #{growthclass_id} and c.id = #{course_id}
+	</select>
+	
+	<!-- 根据课程ID查找职业导航阶段 -->
+	<select id="findGrowthStageByCourseId" parameterType="Integer" resultType ="VoladorGrowthStage">
+		SELECT
+		t.*
+		FROM
+		lemon_volador_growthstage t
+		LEFT JOIN lemon_volador_growthstage_course g_c ON t.id = g_c.growthstage_id
+		LEFT JOIN lemon_volador_course_course c ON c.id = g_c.course_id
+		WHERE
+		c.id = #{id}
 	</select>
 </mapper>
