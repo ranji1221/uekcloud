@@ -44,7 +44,7 @@ public class UploadController {
 		           String fileName=System.currentTimeMillis()+"."+suffix;
 
 		           //文件存放路径
-		           String filePath = "f:/feiyu/pic/";
+		           String filePath = "C:/volador_home/data/Img/pic/";
 		    	   
 		           FileUtil.uploadFile(file.getBytes(), filePath, fileName);
 		           result.put("code", 200);

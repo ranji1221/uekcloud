@@ -230,8 +230,6 @@ public class PersonalController {
 			courseMap.put("student_count", course.getStudent_count());
 			courseMap.put("image", course.getCourse_image_address());
 			courseMap.put("classify", classifyService.findClassifyByCourseId(course.getId()).getClassify_name());
-			System.out.println(courseMap.toString());
-			System.out.println("-----------------");
 			CourseAndClassifyList.add(courseMap);
 		}
 
@@ -406,9 +404,9 @@ public class PersonalController {
 				// 设置头像默认后缀
 				String suffix = ".png";
 				// 设置图像保存地址
-				filePath = "photos\\" + username + suffix;
+				filePath = "user/" + username + suffix;
 				File saveDir = new File(
-						"E:\\JAVA_WORKSPACE\\UNIQUE\\uekcloud\\volador\\src\\main\\resources\\static\\" + filePath);
+						"C:/volador_home/data/Img/"+ filePath);
 
 				if (!saveDir.getParentFile().exists())
 					saveDir.getParentFile().mkdirs();

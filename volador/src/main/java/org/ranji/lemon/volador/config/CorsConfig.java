@@ -35,7 +35,7 @@ public class CorsConfig extends WebMvcConfigurerAdapter {
                 .addResourceLocations("classpath:/static/")
                 .addResourceLocations("classpath:/public/");
 //        		.addResourceLocations("file:f:/feiyu/");
-        registry.addResourceHandler("/we/**").addResourceLocations("file:F:/feiyu/");
+        registry.addResourceHandler("/we/**").addResourceLocations("file:C:/volador_home/data/Img/");
         super.addResourceHandlers(registry);
     }
   
