@@ -66,7 +66,10 @@ public class IndexController {
 				themeService.save(theme);
 				
 				//保存主題及其課程的關係表
-				themeService.saveCourseAndThemeRelation(theme.getId(), Integer.parseInt(courseId));
+				if(null != courseId){
+					themeService.saveCourseAndThemeRelation(theme.getId(), Integer.parseInt(courseId));
+				}
+				
 				
 				result.put("code", 200);
 				result.put("message", "增加成功");
@@ -140,7 +143,6 @@ public class IndexController {
 		response.setHeader("Content-Type", "application/json;charset=utf-8");
 		PrintWriter pw = response.getWriter();
 		Map<String, Object> result = new HashMap<>();
-		//List<>
 								
 		if(adminService.parseJWT(request.getHeader("token"))){
 			try {
@@ -152,7 +154,8 @@ public class IndexController {
 				}
 				
 				//根据分类ID查找分类及课程
-				Map<String, Object> themeAndcourseList = themeService.findCourseByThemeId(themeId);								
+				List<Map> themeAndcourseList = themeService.findCourseByThemeId(themeId);		
+				System.out.println(themeAndcourseList.toString());
 				result.put("code", 200);
 				result.put("message", "获取成功");
 				result.put("data", themeAndcourseList);
@@ -612,14 +615,15 @@ public class IndexController {
 								
 		if(adminService.parseJWT(request.getHeader("token"))){
 			try {
-				Integer studentId = Integer.parseInt(request.getParameter("studentId"));
+				String strStudentId = request.getParameter("studentId");
 				List<Student> studentList = new ArrayList<>();
-				if(null == studentId){
+				if(null == strStudentId){
 					studentList = studentService.findAll();
 				}else{
+					Integer studentId = Integer.parseInt(strStudentId);
 					studentList.add(studentService.find(studentId));
 				}
-												
+				
 				result.put("code", 200);
 				result.put("message", "获取成功");
 				result.put("data", studentList);

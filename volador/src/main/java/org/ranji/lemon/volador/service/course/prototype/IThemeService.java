@@ -40,6 +40,6 @@ public interface IThemeService extends IGenericService<Theme, Integer>{
 	 * @param themeId  课程分类主题ID
 	 * @return  课程列表
 	 */
-	public Map<String, Object> findCourseByThemeId(Integer themeId);
+	public List<Map> findCourseByThemeId(Integer themeId);
 
 }

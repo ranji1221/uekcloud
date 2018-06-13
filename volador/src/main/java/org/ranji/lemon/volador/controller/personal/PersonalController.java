@@ -205,18 +205,12 @@ public class PersonalController {
 	// 获取首页推荐课程
 	public void getIndexRecommendedCourse(ModelAndView mv) {
 		// 首页主题展示列表
-		List<Theme> themeList = themeService.findAll();
-		List<Map> themeCourseList = new ArrayList<Map>();
-		for (Theme theme : themeList) {
-			// 返回课程分类
-			// 返回分类下的课程
-			Map<String, Object> themeAndCourseMap = themeService.findCourseByThemeId(theme.getId());
-			List<Course> courseList = (List<Course>) themeAndCourseMap.get("courseList");
-			themeAndCourseMap.put("courses", getCourseAndClassify(courseList));
-
+		
+		List<Map> themeAndCourseList = themeService.findCourseByThemeId(null);
+		for(Map themeAndCourseMap:themeAndCourseList){
+			Theme theme = (Theme) themeAndCourseMap.get("theme");
 			mv.addObject("themeCourse" + Integer.toString(theme.getId()), themeAndCourseMap);
 		}
-		mv.addObject("themeCourseList", themeCourseList);
 	}
 
 	// 获取课程及其对应分类

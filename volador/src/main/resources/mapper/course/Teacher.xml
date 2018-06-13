@@ -32,7 +32,7 @@
 			<if test="teacher_image != null and teacher_image != ''">teacher_image = #{teacher_image},</if>
 			<if test="type != null and type != ''">type = #{type},</if>
 			<if test="company != null and company != ''">company = #{company},</if>
-			<if test="label != null and label != ''">label = #{label},</if>link
+			<if test="label != null and label != ''">label = #{label},</if>
 			<if test="link != null and link != ''">link = #{link},</if>
 			<if test="updateTime != null ">updateTime = #{updateTime},</if>
 		</set>
