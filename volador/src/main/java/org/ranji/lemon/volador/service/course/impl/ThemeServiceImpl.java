@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.ranji.lemon.core.service.impl.GenericServiceImpl;
+import org.ranji.lemon.volador.model.course.Classify;
 import org.ranji.lemon.volador.model.course.Course;
 import org.ranji.lemon.volador.model.course.Theme;
 import org.ranji.lemon.volador.persist.course.prototype.IThemeDao;
@@ -21,6 +22,11 @@ public class ThemeServiceImpl extends GenericServiceImpl<Theme, Integer> impleme
 	@Override
 	public void saveCourseAndThemeRelation(int themeId, int courseId) {
 		((IThemeDao) dao).saveCourseAndThemeRelation(themeId,courseId);
+	}
+
+	@Override
+	public void updateCourseAndThemeRelation(Integer themeId, Integer courseId) {
+		((IThemeDao) dao).updateCourseAndThemeRelation(themeId, courseId);
 	}
 
 	@Override
@@ -92,9 +98,14 @@ public class ThemeServiceImpl extends GenericServiceImpl<Theme, Integer> impleme
 			courseMap.put("course_price", course.getCourse_price());
 			courseMap.put("student_count", course.getStudent_count());
 			courseMap.put("image", course.getCourse_image_address());
-			courseMap.put("classify", classifyService.findClassifyByCourseId(course.getId()).getClassify_name());
+			//查询课程章节
+			Classify classify = classifyService.findClassifyByCourseId(course.getId());
+			if(null != classify){
+				courseMap.put("classify", classify.getClassify_name());
+			}
+			
 			System.out.println(courseMap.toString());
-			System.out.println("-----------------");
+			
 			CourseAndClassifyList.add(courseMap);
 		}
 

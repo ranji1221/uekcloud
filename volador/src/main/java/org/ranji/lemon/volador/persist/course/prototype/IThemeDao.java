@@ -16,6 +16,13 @@ public interface IThemeDao extends IGenericDao<Theme, Integer>{
 	public void saveCourseAndThemeRelation(int themeId, int courseId);
 	
 	/**
+	 * 修改首页课程分类主题及对应课程的关系表
+	 * @param themeId  课程分类主题ID
+	 * @param courseId 课程ID
+	 */
+	public void updateCourseAndThemeRelation(int themeId, int courseId);
+	
+	/**
 	 * 删除指定首页课程分类与课程的关系
 	 * @param themeId   课程分类主题ID
 	 * @param courseId  课程ID

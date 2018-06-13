@@ -16,6 +16,15 @@
 		insert into lemon_volador_course_themeid (course_id, theme_id) values (#{course_id}, #{theme_id})
 	</insert>
 	
+	<!-- 修改首页课程分类主题及对应课程的关系表-->
+	<update id="updateCourseAndThemeRelation" parameterType="Map">
+		update lemon_volador_course_themeid
+		<set>
+			<if test="themeId != null and themeId != ''">theme_id = #{themeId},</if>
+			<if test="courseId != null and courseId != ''">course_id = #{courseId},</if>
+		</set>
+	</update>
+	
 	<!-- 删除指定首页课程分类与课程的关系 -->
 	<delete id="deleteCourseAndThemeRelation" parameterType="Map">
 		delete from lemon_volador_course_themeid where course_id = #{course_id} and theme_id = #{theme_id}

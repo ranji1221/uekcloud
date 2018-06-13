@@ -36,8 +36,17 @@ public class ClassifyServiceImpl extends GenericServiceImpl<Classify, Integer> i
 	}
 
 	@Override
-	public Classify findClassifyByCourseId(int course_id) {
-		return ((IClassifyDao) dao).findClassifyByCourseId(course_id).get(0);
+	public Classify findClassifyByCourseId(Integer course_id) {
+		if(null != course_id){
+			List<Classify> classifyList = ((IClassifyDao) dao).findClassifyByCourseId(course_id);
+			if(0 != classifyList.size()){
+				return classifyList.get(0);
+			}else{
+				return null;
+			}
+			
+		}else{
+			return null;
+		}
 	}
-    
 }

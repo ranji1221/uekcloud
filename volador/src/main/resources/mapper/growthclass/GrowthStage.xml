@@ -16,9 +16,9 @@
 		select * from lemon_volador_growthstage where id = #{id}
 	</select>
 	
-	<!-- 查询全部GrowthClass -->
+	<!-- 查询全部GrowthStage -->
 	<select id="findAll" resultType="VoladorGrowthStage" parameterType="Map">
-		select * from lemon_volador_growthstage
+		select * from lemon_volador_growthstage order by number
 	</select>
 		
 	<!-- 保存成长阶段与课程章节的关系 -->

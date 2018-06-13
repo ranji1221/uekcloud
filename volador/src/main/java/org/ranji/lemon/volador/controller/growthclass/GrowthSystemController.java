@@ -65,7 +65,7 @@ public class GrowthSystemController {
 		try{
 			//获取全都职业导航
 			List<GrowthClass> growthClassList = growthClassService.findAll();
-			if(null == growthClassId){
+			if(null == growthClassId && 0 != growthClassList.size()){
 				growthClassId = growthClassList.get(0).getId();
 			}
 			

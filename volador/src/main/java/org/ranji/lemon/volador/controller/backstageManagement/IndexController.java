@@ -55,30 +55,81 @@ public class IndexController {
 		if(adminService.parseJWT(request.getHeader("token"))){
 			try {
 				//推薦主題，描述及課程id都為必選字段
-				String title = map.get("title");
-				String description = map.get("description");
+				String themeId = map.get("themeId");
 				String courseId = map.get("courseId");
-				
-				Theme theme = new Theme();
-				//設置為輸入的主題及描述
-				theme.setTitle(title);
-				theme.setDescribe(description);
-				themeService.save(theme);
-				
-				//保存主題及其課程的關係表
-				if(null != courseId){
-					themeService.saveCourseAndThemeRelation(theme.getId(), Integer.parseInt(courseId));
+				if(null == themeId && null == courseId){
+					//如果增加课程分类
+					String title = map.get("title");
+					String description = map.get("description");
+					
+					Theme theme = new Theme();
+					//設置為輸入的主題及描述
+					theme.setTitle(title);
+					theme.setDescribe(description);
+					themeService.save(theme);
+					
+					result.put("code", 200);
+					result.put("message", "增加成功");
+				}else if(null != themeId && null != courseId){
+					//保存主題及其課程的關係表
+					themeService.saveCourseAndThemeRelation(Integer.parseInt(themeId), Integer.parseInt(courseId));
+					
+					result.put("code", 200);
+					result.put("message", "增加成功");
+				}else{
+					result.put("code",404);
+					result.put("message", "增加失败");
 				}
 				
-				
-				result.put("code", 200);
-				result.put("message", "增加成功");
-				
 			} catch (Exception e) {
-				// TODO: handle exception
 				e.printStackTrace();
 				result.put("code",404);
 				result.put("message", "增加失败");
+				
+			}
+		}else{
+			result.put("code", "404");
+			result.put("message", "非法请求");
+		}
+		pw.print(JsonUtil.objectToJson(result));
+		pw.flush();
+		pw.close();
+		
+	}
+	@RequestMapping(value="/themeRecommend", method=RequestMethod.PUT)
+	public void updateIndexTheme(HttpServletRequest request,HttpServletResponse response,@RequestBody Map<String,String> map) throws IOException{
+		response.setHeader("Content-Type", "application/json;charset=utf-8");
+		PrintWriter pw = response.getWriter();
+		Map<String, Object> result = new HashMap<>();
+								
+		if(adminService.parseJWT(request.getHeader("token"))){
+			try {
+				//推薦主題，描述及課程id都為必選字段
+				String themeId = map.get("themeId");
+				if(null != themeId){
+					Theme theme = themeService.find(Integer.parseInt(themeId));
+					//修改课程分类
+					String title = map.get("title");
+					String description = map.get("description");
+					
+					//設置為輸入的主題及描述
+					theme.setTitle(title);
+					theme.setDescribe(description);
+					themeService.update(theme);
+
+					
+					result.put("code", 200);
+					result.put("message", "修改成功");
+				}else{
+					result.put("code",404);
+					result.put("message", "修改失败");
+				}
+				
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+				result.put("code",404);
+				result.put("message", "修改失败");
 				
 			}
 		}else{
@@ -105,10 +156,18 @@ public class IndexController {
 		if(adminService.parseJWT(request.getHeader("token"))){
 			try {
 				//首页推荐主题ID及课程ID
-				Integer themeId = Integer.parseInt(request.getParameter("themeId"));
-				Integer courseId = Integer.parseInt(request.getParameter("courseId"));
+				String themeId = request.getParameter("themeId");
+				String courseId = request.getParameter("courseId");
 				
-				if(themeService.deleteCourseAndThemeRelation(themeId, courseId)){
+				Integer intThemeId = null;
+				Integer intCourseId = null;
+				if(null != themeId){
+					intThemeId = Integer.parseInt(themeId);
+				}
+				if(!courseId.equals("undefined")){
+					intCourseId = Integer.parseInt(courseId);
+				}
+				if(themeService.deleteCourseAndThemeRelation(intThemeId, intCourseId)){
 					result.put("code", 200);
 					result.put("message", "删除成功");
 				}else{
@@ -155,7 +214,7 @@ public class IndexController {
 				
 				//根据分类ID查找分类及课程
 				List<Map> themeAndcourseList = themeService.findCourseByThemeId(themeId);		
-				System.out.println(themeAndcourseList.toString());
+//				System.out.println(themeAndcourseList.toString());
 				result.put("code", 200);
 				result.put("message", "获取成功");
 				result.put("data", themeAndcourseList);

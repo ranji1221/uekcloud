@@ -22,6 +22,15 @@ public class ThemeDaoImpl extends GenericDaoImpl<Theme, Integer> implements IThe
 	}
 
 	@Override
+	public void updateCourseAndThemeRelation(int themeId, int courseId) {
+		Map<String,Object> params=new HashMap<String,Object>();
+        params.put("theme_id",themeId);
+        params.put("course_id",courseId);
+		sqlSessionTemplate.update(typeNameSpace+".updateCourseAndThemeRelation",params);
+		
+	}
+
+	@Override
 	public void deleteCourseAndThemeRelation(int themeId, int courseId) {
 		Map<String,Object> params=new HashMap<String, Object>();
 		params.put("theme_id",themeId);
