@@ -28,7 +28,7 @@
                 <!-- 导航 开始 -->
                 <ul class="menu">
                     <li th:each="growthClass:${growthClassList}" style="width:auto;margin-right:30px;">
-                        <a th:href="'growth_system?growthClassId='+${growthClass.id}">
+                        <a th:href="${growthClass}?'growth_system?growthClassId='+${growthClass.id}:''">
                             <i class="fy_icon" th:text="${growthClass.title}">&#xe60c;</i>
                             
                         </a>
@@ -109,12 +109,12 @@
 
     <!-- banner  开始     -->
         <!-- 修改背景图路径即可修改banner背景图片 -->
-    <div class="wqf_banner" th:style="'background:url('+${growthClass.image}+') no-repeat center /cover;'">
+    <div class="wqf_banner" th:style="${growthClass}?'background:url('+${growthClass.image}+') no-repeat center /cover;':''">
         <!-- 背景蒙版 -->
         <div class="banner_bg"></div>
         <div class="message">
-            <h1 th:text="${growthClass.title}">UI／UX设计师 需要的技能都在这里</h1>
-            <p class="subheading" th:text="${growthClass.send_word}">从入门到实战 助你加薪升职</p>
+            <h1 th:text="${growthClass}?${growthClass.title}:''">UI／UX设计师 需要的技能都在这里</h1>
+            <p class="subheading" th:text="${growthClass}?${growthClass.send_word}:''">从入门到实战 助你加薪升职</p>
             <p class="number">
                 <span>时长<i th:text="${timeCount}">1200</i>分钟</span>
                 <span>学生人数<i th:text="${studentCount}">1200</i>人</span>
@@ -329,7 +329,7 @@
 </body>
     <script src="js/swiper.min.js"></script>
 <script type="text/javascript" th:inline="javascript">
-	var growthId=[[${growthClass.id}]];
+	var growthId=[[${growthClass}?${growthClass.id}:null]];
 	var userId = [[${userId}]];
 </script>
 <script>

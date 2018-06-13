@@ -50,8 +50,13 @@ public class GrowthClassServiceImpl extends GenericServiceImpl<GrowthClass, Inte
 	}
 
 	@Override
-	public List<GrowthStage> findGrowthStageByGrowthClassId(int class_id) {
-		return ((IGrowthClassDao) dao).findGrowthStageByGrowthClassId(class_id);
+	public List<GrowthStage> findGrowthStageByGrowthClassId(Integer class_id) {
+		if(null != class_id){
+			return ((IGrowthClassDao) dao).findGrowthStageByGrowthClassId(class_id);
+		}else{
+			return null;
+		}
+		
 	}
 
 	@Override

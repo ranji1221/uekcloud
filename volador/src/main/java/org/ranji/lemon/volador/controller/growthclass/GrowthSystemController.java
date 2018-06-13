@@ -71,15 +71,28 @@ public class GrowthSystemController {
 			
 			//获取用户查看的职业导航			
 			List<GrowthStage> growthStageList= growthClassService.findGrowthStageByGrowthClassId(growthClassId);
+			if(null != growthStageList && 0 != growthStageList.size()){
+				mv = getStageAndLebalList(growthStageList);
+				mv.addObject("growthStageList", growthStageList);
+			}
 			
-			mv = getStageAndLebalList(growthStageList);
-			mv.addObject("growthClassList", growthClassList);
-			mv.addObject("growthClass", growthClassService.find(growthClassId));
+			if(0 != growthClassList.size()){
+				mv.addObject("growthClassList", growthClassList);
+			}
 			
+			GrowthClass growthClass = growthClassService.find(growthClassId);
+			if(null != growthClass){
+				mv.addObject("growthClass", growthClassService.find(growthClassId));
+			}
 			
 			//根据导航ID查找对应的老师
-			mv.addObject("teacherList", teacherService.findTeacherByGrowthClassId(growthClassId));
-			mv.addObject("growthStageList", growthStageList);
+			if(null != growthClassId ){
+				List<Teacher> teacherList = teacherService.findTeacherByGrowthClassId(growthClassId);
+				if(0 != teacherList.size()){
+					mv.addObject("teacherList", teacherList);
+				}
+			}
+			
 			
 			//获取头部
 			getHeader(mv, request);

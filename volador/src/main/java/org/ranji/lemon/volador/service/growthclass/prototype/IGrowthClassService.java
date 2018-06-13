@@ -46,7 +46,7 @@ public interface IGrowthClassService extends IGenericService<GrowthClass, Intege
 	 * 通过成长方向查询成长阶段
 	 * @param class_id          成长方向ID
 	 */
-	public List<GrowthStage> findGrowthStageByGrowthClassId(int class_id);
+	public List<GrowthStage> findGrowthStageByGrowthClassId(Integer class_id);
 	
 	/**
 	 * 通过成长阶段查询成长方向
