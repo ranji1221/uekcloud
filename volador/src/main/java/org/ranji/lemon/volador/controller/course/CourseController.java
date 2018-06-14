@@ -237,6 +237,7 @@ public class CourseController {
 			}else{
 				mv.addObject("headLogin_yes","login_yes");
 				mv.addObject("headLogin_no","login_no active");
+				mv.addObject("display", 0);
 			}		
 			
 		}
@@ -557,7 +558,11 @@ public class CourseController {
 					personalService.saveUserAndStudyingCourseRelation(userId, courseId, new Date(), chapterId);
 				}
 			//根据课程ID查看是否是职业导航里的章节,如果是，则记录学习的章节ID
-			saveGrowthClassOfChapterId(userId, courseId, chapterId);
+			try {
+				saveGrowthClassOfChapterId(userId, courseId, chapterId);
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
 		} catch (Exception e) {
 			// TODO: handle exception
 			UserInfo userInfo=new UserInfo();

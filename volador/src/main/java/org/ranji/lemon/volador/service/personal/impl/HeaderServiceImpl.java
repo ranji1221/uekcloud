@@ -68,9 +68,13 @@ public class HeaderServiceImpl implements IheaderService {
 				ignoreNitificationNumber = Integer.parseInt(map.get("ignore_notification_number").toString());
 			}
 			int startIgnNotificationNumber = ignoreNitificationNumber+1;
-			int endIgnNotificationNumber = notificationService.maxNotificationId();
-			notificationList = notificationService.findTop3Notification(startIgnNotificationNumber, endIgnNotificationNumber);
-			notificationSize = notificationService.notReadNumber(startIgnNotificationNumber, endIgnNotificationNumber);
+			int endIgnNotificationNumber=0;
+		    endIgnNotificationNumber = notificationService.maxNotificationId();
+			if(endIgnNotificationNumber!=0){
+				notificationList = notificationService.findTop3Notification(startIgnNotificationNumber, endIgnNotificationNumber);
+				notificationSize = notificationService.notReadNumber(startIgnNotificationNumber, endIgnNotificationNumber);
+			}
+			
 			mv.addObject("headnotificationList", notificationList);
 			mv.addObject("headnotificationSize", notificationSize);
 			mv.addObject("userId", userId);

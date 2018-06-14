@@ -61,7 +61,13 @@ public class NotificationDaoImpl extends GenericDaoImpl<Notification, Integer> i
 	@Override
 	public int maxNotificationId() {
 		// TODO Auto-generated method stub
-		return sqlSessionTemplate.selectOne(typeNameSpace+".maxNotificationId");
+		int a=0;
+		try {
+			a=sqlSessionTemplate.selectOne(typeNameSpace+".maxNotificationId");
+		} catch (NullPointerException e) {
+			// TODO: handle exception
+		}
+		return a;
 	}
 
 	@Override

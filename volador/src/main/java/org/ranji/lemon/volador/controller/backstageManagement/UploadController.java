@@ -33,8 +33,9 @@ public class UploadController {
 		PrintWriter pw=response.getWriter();
 		
 		Map result=new HashMap();
+		String token=request.getHeader("token");
 		
-		if(adminService.parseJWT(request.getHeader("token"))){
+		if(adminService.parseJWT(token)){
 			
 	        //调用文件处理类FileUtil，处理文件，将文件写入指定位置
 		       try {
@@ -44,7 +45,7 @@ public class UploadController {
 		           String fileName=System.currentTimeMillis()+"."+suffix;
 
 		           //文件存放路径
-		           String filePath = "C:/volador_home/data/Img/pic/";
+		           String filePath = "D:/volador_home/data/Img/pic/";
 		    	   
 		           FileUtil.uploadFile(file.getBytes(), filePath, fileName);
 		           result.put("code", 200);

@@ -262,9 +262,14 @@ public class PersonalController {
 			String address = userInfo.getAddress();
 			if (null != address && !address.isEmpty()) {
 				String[] addressArray = address.split("-");
-				mv.addObject("provincial", addressArray[0]);
-				mv.addObject("municipal", addressArray[1]);
-				mv.addObject("county", addressArray[2]);
+				if(addressArray[0].equals("火星")){
+					
+				}else{
+					mv.addObject("provincial", addressArray[0]);
+					mv.addObject("municipal", addressArray[1]);
+					mv.addObject("county", addressArray[2]);
+				}
+				
 			}
 
 			// 返回页面需要显示的用户信息
@@ -400,7 +405,7 @@ public class PersonalController {
 				// 设置图像保存地址
 				filePath = "user/" + username + suffix;
 				File saveDir = new File(
-						"C:/volador_home/data/Img/"+ filePath);
+						"D:/volador_home/data/Img/"+ filePath);
 
 				if (!saveDir.getParentFile().exists())
 					saveDir.getParentFile().mkdirs();
