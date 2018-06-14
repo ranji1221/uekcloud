@@ -28,7 +28,7 @@
 	margin: 0px auto;
 	padding-top: 40px;
 }
-.cp_login .form_control{
+.cp_login .form_control, #cp_email .form_control{
 	overflow: hidden;
 }
 .cp_login .form_control .con{
@@ -43,16 +43,16 @@
 .cp_login .form_control input::-webkit-input-placeholder{
 	color: #dedede;
 }
-.cp_login .form_control label{
+.cp_login .form_control label,#cp_email .form_control label{
 	float: left;
 	font-size: 14px;
 	color: #848484;
 	line-height: 43px;
 }
-.cp_login .mid {
+.cp_login .mid,#cp_email .mid {
 	margin: 21px 0px;
 }
-.cp_login .mid input{
+.cp_login .mid input ,#cp_email .mid input{
 	height: 47px;
 	box-sizing: border-box;
 	border: 2px solid #f7f7f7;
@@ -63,7 +63,10 @@
 .cp_login .mid .code{
 	width: 210px;
 }
-.cp_login .mid .getCode{
+#cp_email .mid .code{
+	width: 194px;
+}
+.cp_login .mid .getCode , #cp_email .mid .getCode{
 	width: 138px;
 	padding: 0px;
 	color: #FD6755;

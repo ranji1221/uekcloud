@@ -223,25 +223,4 @@ public class RegisterController {
 		}
 		return isValidCode;
 	}
-	/*
-	// 验证短信验证码是否正确     
-	@RequestMapping(value = "/register_checkCode", method = RequestMethod.POST)
-    public void checkCode(HttpServletRequest request, HttpServletResponse response) throws Exception{      
-        String result = "0";      
-        // 获取手动输入的手机短信验证码     
-        String SmsCheckCode = (String)(request.getParameter("SmsCheckCode"));       
-        // 获取session中存放的手机短信验证码      
-        Object code =request.getSession().getAttribute("code");      
-        try {      
-            if(SmsCheckCode != code.toString() && !SmsCheckCode.equals(code.toString())){      
-                result = "0";      
-            }else{      
-                result = "1";      
-            }      
-        } catch (Exception e) {      
-            throw new RuntimeException("短信验证失败", e);      
-        }       
-        PrintWriter out = response.getWriter();      
-        out.write(result.toString());      
-    }*/
 }

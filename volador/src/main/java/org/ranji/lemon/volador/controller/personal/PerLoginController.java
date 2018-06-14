@@ -12,6 +12,7 @@ import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authc.credential.DefaultPasswordService;
 import org.apache.shiro.subject.Subject;
+import org.ranji.lemon.core.util.DateUtil;
 import org.ranji.lemon.volador.model.personal.Per;
 import org.ranji.lemon.volador.service.personal.prototype.IPerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -113,4 +114,98 @@ public class PerLoginController {
 		return true;
 	}
 
+	// 忘记密码
+	@RequestMapping(value = "/forgetPassword", method = RequestMethod.GET)
+	public ModelAndView changePassword(HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("backend/forgetPassword");
+		return mv;
+	}
+
+	// 忘记密码
+	@RequestMapping(value = "/forgetPassword", method = RequestMethod.POST)
+	public ModelAndView setPassword(@RequestParam(value = "userName", required = false) String userName,
+			@RequestParam(value="code",required=false) String code,
+			@RequestParam(value = "passwordOld", required = false) String passwordOld,
+			@RequestParam(value = "passwordNew", required = false) String passwordNew, HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView();
+		try {
+			//输入账号合法性检查
+			String regEx = "^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\\d{8}$";
+			Pattern pattern = Pattern.compile(regEx);
+			Matcher matcher = pattern.matcher(userName);
+			boolean rs = matcher.matches();
+			if (rs){
+				Per user = personalService.findByUserName(userName);
+				//如果用户名存在
+				if(null != user){
+					//短信验证
+					if(null ==request.getSession().getAttribute("code") || !checkCode(request.getSession().getAttribute("code").toString(), code)){
+						//验证短信验证码
+						mv.addObject("message", "验证码错误!");
+						mv.setViewName("backend/forgetPassword");
+					}else{
+						// 新旧密码是否一致
+						if (passwordOld.equals(passwordNew)) {
+							// 检查密码是否合法
+							regEx = "^[^\\s]{6,20}$";
+							pattern = Pattern.compile(regEx);
+							matcher = pattern.matcher(passwordNew);
+							boolean bresult = matcher.matches();
+							if (!bresult) {
+								mv.addObject("messege", "新旧密码不一致");
+								return mv;
+							} else {
+								// 清除session
+								HttpSession session = request.getSession();
+								session.invalidate();
+								Subject subject = SecurityUtils.getSubject();
+								subject.logout();
+								user.setPassword(passwordNew);
+								user.setUpdateTime(DateUtil.now());
+								personalService.update(user);
+
+								// 用户重新登录
+								mv.setViewName("redirect:/login");
+							}
+							
+						} else {
+							mv.addObject("message", "两次输入新密码不一致");
+							mv.setViewName("backend/forgetPassword");
+						}
+					}
+					
+				}else{
+					mv.addObject("message", "账号不存在，请注册！");
+					mv.setViewName("backend/forgetPassword");
+				}
+			}else{
+				mv.addObject("message", "账号不合法！");
+				mv.setViewName("backend/forgetPassword");
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			mv.setViewName("redirect:/login");
+		}
+
+		return mv;
+	}
+	/**
+	 * 验证短信验证码是否正确 
+	 * @param smsCheckCode   手动输入的手机短信验证码
+	 * @param code           session中存放的手机短信验证码
+	 * @return               验证码正确返回True
+	 */
+	public Boolean checkCode(String smsCheckCode, String code){
+		Boolean isValidCode = false;
+		try{
+			if(!smsCheckCode.isEmpty() && smsCheckCode.equals(code.toString())){
+				isValidCode = true;
+			}
+		}catch (Exception e) {
+			throw new RuntimeException("短信验证失败", e);
+		}
+		return isValidCode;
+	}
 }
