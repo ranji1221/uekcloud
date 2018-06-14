@@ -86,7 +86,7 @@
 				<!-- 已登陆 -->
 				<!-- 包含 类名 active则显示,否则隐藏 -->
 				<div class="login_yes active" th:class="${headLogin_yes}">
-					<div class="message">
+					<div class="message" th:style="${userId}?'':'display:none'">
 						<a href="javascript:;" class="fy_icon">&#xe61d;</a>
 						<!-- 消息数 -->
 						<span th:text="${headnotificationSize}">2</span>
@@ -123,8 +123,8 @@
 							</ul>
 						</div>
 					</div>
-					<span class="line"></span>
-					<div class="self">
+					<!-- <span class="line"></span> -->
+					<div class="self"  th:style="${userId}?'':'display:none'">
 						<img src="images/wqf_user.png" th:src="${head_image}">
 	
 						<!-- 消息弹框 -->

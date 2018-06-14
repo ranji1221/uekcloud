@@ -26,7 +26,7 @@
                 </div>
                 <div class="form_control mid" >
                     <label for="coded" class='noselect' >验证码</label>
-                    <input type="button"  class='getCode'  onclick="sendMessage()" value='获取验证码' id='code'>
+                    <input type="button"  class='getCode'  value='获取验证码' id='code'>
                     <input type="text"  maxlength="10" placeholder="请输入您的手机验证码"  class='code'  id='coded'  data-message="请输入验证码"  data-easytip="position:right;class:easy-red"  data-easyform="regex:^\d{4}$;real-time;"  name='code' >
                 </div>
                 <div>
@@ -94,6 +94,8 @@
 
         
       //短信验证码    
+      	$("#code").click(sendMessage)
+      
         var InterValObj; //timer变量，控制时间      
         var count = 60; //间隔函数，1秒执行      
         var curCount;//当前剩余秒数      
@@ -112,11 +114,11 @@
                         code += parseInt(Math.random() * 9).toString();      
                     }      
                     // 设置button效果，开始计时      
-                    $("#btnSendCode").attr("disabled", "true");      
-                    $("#btnSendCode").val("请在" + curCount + "秒内输入验证码");      
+                    $("#code").attr("disabled", "true");      
+                    $("#code").val("请在" + curCount + "秒内输入");      
                     InterValObj = window.setInterval(SetRemainTime, 1000); // 启动计时器，1秒执行一次      
                     // 向后台发送处理数据      
-                    $.ajax({      
+                   /*  $.ajax({      
                         type: "POST", // 用POST方式传输      
                         dataType: "text", // 数据格式:JSON      
                         url: "register_sms", // 目标地址      
@@ -135,7 +137,7 @@
                                 $("#telephonenameTip").html("<font color='red'>× 该手机号码今天发送验证码过多</font>");      
                             }      
                         }      
-                    });      
+                    });       */
                /*  }  */     
             }else{      
                 $("#telephonenameTip").html("<font color='red'>× 手机号码不能为空</font>");      
@@ -146,12 +148,12 @@
         function SetRemainTime() {      
             if (curCount == 0) {                      
                 window.clearInterval(InterValObj);// 停止计时器      
-                $("#btnSendCode").removeAttr("disabled");// 启用按钮      
-                $("#btnSendCode").val("重新发送验证码");      
+                $("#code").removeAttr("disabled");// 启用按钮      
+                $("#code").val("重新发送验证码");      
                 code = ""; // 清除验证码。如果不清除，过时间后，输入收到的验证码依然有效      
             }else {      
                 curCount--;      
-                $("#btnSendCode").val("请在" + curCount + "秒内输入验证码");      
+                $("#code").val("请在" + curCount + "秒内输入");      
             }      
         }      
               
