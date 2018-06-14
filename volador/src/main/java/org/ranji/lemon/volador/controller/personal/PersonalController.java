@@ -105,9 +105,13 @@ public class PersonalController {
 		try {
 			// 登录成功，返回userName及head_image
 			String userName = (String) request.getSession().getAttribute("userName");
-			userId = (int) request.getSession().getAttribute("userId");
-			UserInfo userInfo = personalService.findUserInfoByUserId(userId);
-			mv.addObject("head_image", userInfo.getHead_image());
+			if(null != request.getSession().getAttribute("userId")){
+				userId = (int) request.getSession().getAttribute("userId");
+				UserInfo userInfo = personalService.findUserInfoByUserId(userId);
+				mv = headerService.headInfo(userId, userName);
+				mv.addObject("head_image", userInfo.getHead_image());
+			}
+			
 			mv.addObject("login_yes", "login_yes active");
 			mv.addObject("login_no", "login_no");
 			mv.addObject("userName", userName);
@@ -115,23 +119,26 @@ public class PersonalController {
 			// 查看用户是否已经签到
 			// 获取用户签到表
 			SignIn signIn = signInService.findSignInByUserId(userId);
-			// 日期格式化
-			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+			if(null != signIn){
+				// 日期格式化
+				SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
 
-			// 格式化需要判断的日期
-			String strNeedCheckDate = simpleDateFormat.format(signIn.getUpdateTime());
+				// 格式化需要判断的日期
+				String strNeedCheckDate = simpleDateFormat.format(signIn.getUpdateTime());
 
-			// 格式化当前日期
-			Date currentDate = new Date();
-			String strCurrentDate = simpleDateFormat.format(currentDate);
+				// 格式化当前日期
+				Date currentDate = new Date();
+				String strCurrentDate = simpleDateFormat.format(currentDate);
 
-			// 比较是否在同一天
-			if (strNeedCheckDate.equals(strCurrentDate)) {
-				// 如果是同一天说明用户已经签到
-				mv.addObject("isSignIn", "done");
-			} else {
-				mv.addObject("isSignIn", "no");
+				// 比较是否在同一天
+				if (strNeedCheckDate.equals(strCurrentDate)) {
+					// 如果是同一天说明用户已经签到
+					mv.addObject("isSignIn", "done");
+				} else {
+					mv.addObject("isSignIn", "no");
+				}
 			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			mv.addObject("login_yes", "login_yes");

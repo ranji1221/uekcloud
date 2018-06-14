@@ -41,7 +41,13 @@ public class NotificationServiceImpl extends GenericServiceImpl<Notification, In
 	@Override
 	public int getTotalOfItems() {
 		// TODO Auto-generated method stub
-		return ((INotificationDao)dao).getTotalOfItems();
+		//判空
+		List<Notification> notificationList = ((INotificationDao)dao).findAll();
+		if(0 != notificationList.size()){
+			return ((INotificationDao)dao).getTotalOfItems();
+		}else{
+			return 0;
+		}
 	}
 
 	@Override

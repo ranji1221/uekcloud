@@ -14,7 +14,12 @@ public class SignInServiceImpl extends GenericServiceImpl<SignIn, Integer> imple
 	@Override
 	public SignIn findSignInByUserId(int userId) {
 		List<SignIn> signInList = ((ISignInDao) dao).findSignInByUserId(userId);
-		return signInList.get(0);
+		if(0 != signInList.size()){
+			return signInList.get(0);
+		}else{
+			return null;
+		}
+		
 	}
 
 }
