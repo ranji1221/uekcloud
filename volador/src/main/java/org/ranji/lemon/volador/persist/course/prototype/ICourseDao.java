@@ -85,5 +85,11 @@ public interface ICourseDao extends IGenericDao<Course,Integer>{
      * @return	List<Course>
      */
     public List<Course> keywordSreachCourse(String keyword);
+    /**
+     * 查询正在学习人数
+     * @param courseId    课程Id
+     * @return	int
+     */
+    public int findStudyingStudent(int courseId);
     
 }

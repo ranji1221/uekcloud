@@ -33,7 +33,7 @@ public class UploadController {
 		PrintWriter pw=response.getWriter();
 		
 		Map result=new HashMap();
-		String token=request.getHeader("token");
+		String token=request.getParameter("token");
 		
 		if(adminService.parseJWT(token)){
 			

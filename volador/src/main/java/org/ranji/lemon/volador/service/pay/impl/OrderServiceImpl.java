@@ -3,9 +3,11 @@ package org.ranji.lemon.volador.service.pay.impl;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.ranji.lemon.core.service.impl.GenericServiceImpl;
 import org.ranji.lemon.volador.model.pay.Order;
+import org.ranji.lemon.volador.model.pay.VoladorCode;
 import org.ranji.lemon.volador.persist.pay.prototype.IOrderDao;
 import org.ranji.lemon.volador.service.pay.prototype.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +51,33 @@ public class OrderServiceImpl extends GenericServiceImpl<Order, Integer> impleme
 			result.put("code", 404);
 		}
 		return result;
+	}
+
+	@Override
+	public void saveVoladorCode(int courseId) {
+		// TODO Auto-generated method stub
+		String voladorCode=UUID.randomUUID().toString().replaceAll("-", "");
+		orderDao.saveVoladorCode(courseId, voladorCode);
+		
+	}
+
+	@Override
+	public void useVoladorCode(String voladorCode) {
+		// TODO Auto-generated method stub
+		orderDao.useVoladorCode(voladorCode);
+		
+	}
+
+	@Override
+	public VoladorCode findVoladorCode(String voladorCode) {
+		// TODO Auto-generated method stub
+		return orderDao.findVoladorCode(voladorCode);
+	}
+
+	@Override
+	public List<VoladorCode> findVoladorCodeAll() {
+		// TODO Auto-generated method stub
+		return orderDao.findVoladorCodeAll();
 	}
 
 }

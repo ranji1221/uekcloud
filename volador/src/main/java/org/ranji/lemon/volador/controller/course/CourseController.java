@@ -274,7 +274,17 @@ public class CourseController {
 					// TODO: handle exception
 				}
 			}
+			//查询正在学习人数
+			int studentCount=courseService.findStudyingStudent(courseId);
+			course.setStudent_count(studentCount);
+			Course updateCourse=new Course();
+			updateCourse.setStudent_count(studentCount);
+			updateCourse.setId(courseId);
+			courseService.update(updateCourse);
+			//查询课程时长
+			mv.addObject("courseTime", courseService.findCourseTotalTime(courseId));
 			mv.addObject(course);
+			
 			
 			//查找课程对应教师
 			try {

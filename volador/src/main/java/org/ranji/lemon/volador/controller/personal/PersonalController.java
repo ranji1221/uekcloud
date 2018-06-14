@@ -152,7 +152,7 @@ public class PersonalController {
 			List<Carouse> carouseList = carouseService.findAll();
 			mv.addObject("carouseList", carouseList);
 
-			// 或许优秀学员
+			// 获取优秀学员
 			List<Student> studentList = studentService.findAll();
 			mv.addObject("studentList", studentList);
 
@@ -214,9 +214,11 @@ public class PersonalController {
 		// 首页主题展示列表
 		
 		List<Map> themeAndCourseList = themeService.findCourseByThemeId(null);
+		int i = 0;
 		for(Map themeAndCourseMap:themeAndCourseList){
 			Theme theme = (Theme) themeAndCourseMap.get("theme");
-			mv.addObject("themeCourse" + Integer.toString(theme.getId()), themeAndCourseMap);
+			i++;
+			mv.addObject("themeCourse" + Integer.toString(i), themeAndCourseMap);
 		}
 	}
 
