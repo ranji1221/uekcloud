@@ -269,9 +269,7 @@ public class PersonalController {
 			String address = userInfo.getAddress();
 			if (null != address && !address.isEmpty()) {
 				String[] addressArray = address.split("-");
-				if(addressArray[0].equals("火星")){
-					
-				}else{
+				if(3 < addressArray.length ||3 == addressArray.length){
 					mv.addObject("provincial", addressArray[0]);
 					mv.addObject("municipal", addressArray[1]);
 					mv.addObject("county", addressArray[2]);
@@ -430,9 +428,19 @@ public class PersonalController {
 	@RequestMapping(value = "/personal_set", method = RequestMethod.GET)
 	public ModelAndView personalSetPage(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView();
-
-		String userName = request.getSession().getAttribute("userName").toString();
+		
+		String userName = (String) request.getSession().getAttribute("userName");
+		if(null != request.getSession().getAttribute("userId")){
+			int userId = (int) request.getSession().getAttribute("userId");
+			UserInfo userInfo = personalService.findUserInfoByUserId(userId);
+			mv = headerService.headInfo(userId, userName);
+			mv.addObject("head_image", userInfo.getHead_image());
+		}
+		
+		mv.addObject("login_yes", "login_yes active");
+		mv.addObject("login_no", "login_no");
 		mv.addObject("userName", userName);
+
 		mv.setViewName("backend/wqf_personal_set");
 		return mv;
 	}

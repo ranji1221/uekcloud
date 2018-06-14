@@ -16,7 +16,7 @@
 </head>
 <body>
 	
-
+	<div th:include="backend/wy_header" ></div>
 	<!-- 基本资料  开始-->
 	<div class="wqf_information_box ">
 		<div class="wqf_information clear_both">
@@ -55,21 +55,20 @@
 							<span>邮箱</span>
 							<a href="email">新增邮箱</a>
 						</div>
-						<div class="set_line clear_both">
+						<!-- <div class="set_line clear_both">
 							<span>账号绑定</span>
 							<p>
 								<span><i class="fy_icon">&#xe65b;</i>未绑定 <a href="javascript:;">立刻绑定</a></span>
 								<span><i class="fy_icon">&#xe60b;</i>未绑定 <a href="javascript:;">立刻绑定</a></span>
 							</p>
-						</div>
-
+						</div> -->
 					</div>
 			</div>
 		</div>
 
 		
 	</div>
-
+	<div th:include="backend/wy_footer"></div>
 </body>
 
 </html>
