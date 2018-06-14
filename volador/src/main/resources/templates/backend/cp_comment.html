@@ -14,6 +14,7 @@
 	<link rel="stylesheet" href="http://at.alicdn.com/t/font_614432_1smgafue2yg8ehfr.css">
 </head>
 <body>
+<div th:include="backend/wy_header" ></div>
 	<!-- 面包屑导航 -->
     <div class="cp_head">
         <div class="cp_breadCrumb">
@@ -69,23 +70,30 @@
                         课程时长
                         <b>160分钟</b>
                     </span>
-                    <span>
+<!--                     <span>
                         点赞
                         <b>10</b>
-                    </span>
+                    </span> -->
                 </div>
-                <div class="con_son4">
-                   本节价格<b th:text="${course.course_price == 0 ? '免费':course.course_price}">300</b><span th:text="${course.course_price == 0 ? '':'元'}">元</span>
-                </div>
-                <div class="con_son5">
-                   <a href="#" class='putchase' th:class="${course.course_price == 0 ? '':'putchase'}" th:text="${course.course_price == 0 ? '':'立即购买'}">
+            <div class="con_son4">	
+               本节价格<b th:text="(${course.course_price}==0?'免费':(${course.course_price} == -1? '已购买': ${course.course_price}))">300</b><span th:text="(${course.course_price}==0?'':(${course.course_price} == -1? '': '元'))">元</span>
+            </div>
+            <div class="con_son5">
+               <a href="javascript:;" id="buy" class='putchase' th:class="(${course.course_price}==0?'':(${course.course_price} == -1? '': 'putchase'))" th:text="(${course.course_price}==0?'':(${course.course_price} == -1? '': '立即购买'))">
                    立刻购买
-                   </a>
-                   <a href="#" class='study'>
-                       去学习
-                   </a>
-                   <a href="#" th:text="${course.course_price == 0 ? '':'试听一节课'}">试听5分钟</a>
-                </div>
+               </a>
+               <a th:href="'course_chapter?courseId='+${course.id}" class='study' th:class="(${course.course_price}==0?'putchase':(${course.course_price} == -1? 'putchase': ''))" th:text="(${course.course_price}==0?'去学习':(${course.course_price} == -1? '去学习': ''))">
+                   去学习
+               </a>
+               <a href="javascript:;" class='study' id="collect"  th:style="${display == 0 ? 'display:block':'display:none'}" >
+                   收藏该课程
+               </a>
+               <a href="javascript:;" class='study' id="uncollect" th:style="${display == 0 ? 'display:none':'display:block'}">
+                  取消收藏
+               </a>
+               
+               <a href="#" th:href="'course_video?chapterId='+${goStudy}"  th:text="${course.course_price == 0 ? '':'试听一节课'}">试听5分钟</a>
+            </div>
             </div>
         </div>
         <!-- 产品售价区结束 -->
@@ -191,12 +199,12 @@
                 
 
                 <!-- 查看更多评论开始 -->
-                <div class="wzq_show_comment_more">
+<!--                 <div class="wzq_show_comment_more">
                     <div class="wzq_show_more">
                         <span>查看更多评论</span>
                         <i class="fy_icon">&#xe98f;</i>
                     </div>
-                </div> 
+                </div>  -->
                 <!-- 查看更多结束 -->
                 
 
@@ -231,6 +239,101 @@
     </div>
      <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')</script>
+    <script type="text/javascript" th:inline="javascript">
+		var userId=[[${userId}]]
+		var courseId=[[${course.id}]]
+		var isBuy = [[${isBuy}]];
+</script>
+<script>
+	var buyBox = $(".buyBox")
+	if (!isBuy) {
+		buyBox.css({display:"none"})
+	}
+	$(".buyBox a:last-child").click(function(){
+		buyBox.css({display:"none"})
+	})
+	
+	
+	var loginBox = $(".loginBox")
+	$("#buy").click(function(){
+		if(userId){
+			location.href = "buy"
+		}else{
+			loginBox.css({display:"block"})
+		}
+	})
+	$(".loginBox a:first-child").click(function(){
+		location.href = "login"
+	})
+	$(".loginBox a:last-child").click(function(){
+		loginBox.css({display:"none"})
+	})
+</script>
+    
+    <script>
+	/* 收藏课程 */
+	var collect = $("#collect")
+	var uncollect = $("#uncollect")
+	collect.click(function(){
+		if(userId!=null){
+			$.ajax({
+				url: 'course_collect',
+				method:"post",
+				data:{
+					userId : userId,
+					courseId : courseId
+				},
+				success: function(){
+					collect.css({display:'none'})
+					uncollect.css({display:'block'})
+				}
+			})
+		}else{
+			getTips("未登录","点击此处登录","login")
+		}
+		
+	})
+	//  取消收藏
+	
+	uncollect.click(function(){
+		$.ajax({
+			url: 'course_uncollect',
+			method:"post",
+			data:{
+				userId : userId,
+				courseId : courseId
+			},
+			success: function(){
+				uncollect.css({display:'none'})
+				collect.css({display:'block'})
+			}
+		})
+	})
+    </script>
+    
     <script src="js/wzq_show_work.js"></script>
+    <div th:include="backend/wy_footer"></div> 
+    	<div class="isLogin_box buyBox">
+		<div class="isLogin">
+			<h2>温馨提示</h2>
+			<p>亲，您还没有购买哦~</p>
+			<div class="btn">
+				<a href="">去购买</a>
+				<a href="javascript:;">取消</a>
+			</div>
+		</div>
+	</div>
+	
+	<div class="isLogin_box loginBox" style="display:none">
+		<div class="isLogin">
+			<h2>温馨提示</h2>
+			<p>亲，您还没有登录哦~</p>
+			<div class="btn">
+				<a href="javascript:;">去登录</a>
+				<a href="javascript:;">取消</a>
+			</div>
+		</div>
+	</div>
+    
 </body>
 </html>

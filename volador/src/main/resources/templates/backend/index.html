@@ -244,7 +244,7 @@
 		<div class="class_list clear_both">
 			<li th:each="course:${themeCourse4}?${themeCourse4.courses}:''">
 				<a href="javascript:;"  th:href="${themeCourse4}?'course_chapter?courseId='+${course.courseId}:''">
-					<div class="picture" style="background: url(images/wqf_list1.png) no-repeat center /cover;"  th:style="${themeCourse4}?'background: #fff url('+${course.image}+') no-repeat center /cover':'' ">
+					<div class="picture" style="background: url(images/wqf_list1.png) no-repeat center /cover;"  th:style="${themeCourse4}?'background: #fff url('+${course.image}+') no-repeat center / contain':'' ">
 						<!-- <img src="images/wqf_list1.png"> -->
 						<header>
 							<span class="hot"></span>
@@ -536,7 +536,7 @@ $clearNotification.click(function(){
 		}
 	}) 
 	
-	location.replace("/volador/index");
+	location.replace("index");
 })
 
 </script>
