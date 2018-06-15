@@ -63,6 +63,37 @@ public class OrderDaoImpl extends GenericDaoImpl<Order, Integer> implements IOrd
 		// TODO Auto-generated method stub
 		return sqlSessionTemplate.selectList(typeNameSpace+".findVoladorCodeAll");
 	}
+
+	@Override
+	public List<VoladorCode> findPageVoladorCodeAll(int page, int limit) {
+		// TODO Auto-generated method stub
+		Map<String,Object> params=new HashMap<String,Object>();
+		params.put("offset", (page-1)*limit);
+		params.put("limit", limit);
+		return sqlSessionTemplate.selectList(typeNameSpace+".findPageVoladorCodeAll", params);
+	}
+
+	@Override
+	public List<VoladorCode> findPageVoladorCode(int page, int limit, int status) {
+		// TODO Auto-generated method stub
+		Map<String,Object> params=new HashMap<String,Object>();
+		params.put("offset", (page-1)*limit);
+		params.put("limit", limit);
+		params.put("status", status);
+		return sqlSessionTemplate.selectList(typeNameSpace+".findPageVoladorCode", params);
+	}
+
+	@Override
+	public int findVoladorCodeCount() {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectOne(typeNameSpace+".findVoladorCodeCount");
+	}
+
+	@Override
+	public int findPageVoladorCodeCount(int status) {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectOne(typeNameSpace+".findPageVoladorCodeCount", status);
+	}
 	
 	
 }

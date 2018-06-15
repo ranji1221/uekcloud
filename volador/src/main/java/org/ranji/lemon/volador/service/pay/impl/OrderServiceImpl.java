@@ -1,5 +1,6 @@
 package org.ranji.lemon.volador.service.pay.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,6 +9,7 @@ import java.util.UUID;
 import org.ranji.lemon.core.service.impl.GenericServiceImpl;
 import org.ranji.lemon.volador.model.pay.Order;
 import org.ranji.lemon.volador.model.pay.VoladorCode;
+import org.ranji.lemon.volador.persist.course.prototype.ICourseDao;
 import org.ranji.lemon.volador.persist.pay.prototype.IOrderDao;
 import org.ranji.lemon.volador.service.pay.prototype.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,9 @@ public class OrderServiceImpl extends GenericServiceImpl<Order, Integer> impleme
 
 	@Autowired
 	private IOrderDao orderDao;
+	
+	@Autowired
+	private ICourseDao courseDao;
 	
 	@Override
 	public List<Order> findOrderByUserId(int userId) {
@@ -78,6 +83,81 @@ public class OrderServiceImpl extends GenericServiceImpl<Order, Integer> impleme
 	public List<VoladorCode> findVoladorCodeAll() {
 		// TODO Auto-generated method stub
 		return orderDao.findVoladorCodeAll();
+	}
+
+	@Override
+	public Map<String,Object> pageVoladorCode(int page, int limit, int status) {
+		Map<String,Object> result=new HashMap<String,Object>();
+		if (status==0){
+			List<VoladorCode> voladorCodeList=orderDao.findPageVoladorCodeAll(page, limit);
+			Map<String,Object> pageMap=new HashMap<String,Object>();
+			int totalCount=orderDao.findVoladorCodeCount();
+			pageMap.put("totalCount", totalCount);
+			pageMap.put("pageNo", page);
+			if(totalCount%limit==0){
+				pageMap.put("pageCount", totalCount/limit);
+			}else{
+				pageMap.put("pageCount", totalCount/limit+1);
+			}
+			
+			List<Map> voladorCodeListMap=new ArrayList<Map>();
+			for(VoladorCode voladorCode:voladorCodeList){
+				Map<String,Object> voladorCodeMap=new HashMap<String,Object>();
+				try {
+					voladorCodeMap.put("courseName", courseDao.find(voladorCode.getCourseId()).getCourse_name());
+				} catch (Exception e) {
+					// TODO: handle exception
+					voladorCodeMap.put("courseName", "该课程已被删除");
+				}
+				voladorCodeMap.put("voladorCode", voladorCode.getVoladorCode());
+				voladorCodeMap.put("status", voladorCode.getStatus());
+				voladorCodeListMap.add(voladorCodeMap);
+			}
+			result.put("page", pageMap);
+			result.put("voladorCode", voladorCodeListMap);
+		}else{
+			List<VoladorCode> voladorCodeList=orderDao.findPageVoladorCode(page, limit, status);
+			Map<String,Object> pageMap=new HashMap<String,Object>();
+			int totalCount=orderDao.findPageVoladorCodeCount(status);
+			pageMap.put("totalCount", totalCount);
+			pageMap.put("pageNo", page);
+			if(totalCount%limit==0){
+				pageMap.put("pageCount", totalCount/limit);
+			}else{
+				pageMap.put("pageCount", totalCount/limit+1);
+			}
+			List<Map> voladorCodeListMap=new ArrayList<Map>();
+			for(VoladorCode voladorCode:voladorCodeList){
+				Map<String,Object> voladorCodeMap=new HashMap<String,Object>();
+				try {
+					voladorCodeMap.put("courseName", courseDao.find(voladorCode.getCourseId()).getCourse_name());
+				} catch (Exception e) {
+					// TODO: handle exception
+					voladorCodeMap.put("courseName", "该课程已被删除");
+				}
+				voladorCodeMap.put("voladorCode", voladorCode.getVoladorCode());
+				voladorCodeMap.put("status", voladorCode.getStatus());
+				voladorCodeListMap.add(voladorCodeMap);
+			}
+			result.put("page", pageMap);
+			result.put("voladorCode", voladorCodeListMap);
+		}
+		
+		
+		// TODO Auto-generated method stub
+		return result;
+	}
+
+	@Override
+	public List<VoladorCode> findPageVoladorCodeAll(int page, int limit) {
+		// TODO Auto-generated method stub
+		return orderDao.findPageVoladorCodeAll(page, limit);
+	}
+
+	@Override
+	public List<VoladorCode> findPageVoladorCode(int page, int limit, int status) {
+		// TODO Auto-generated method stub
+		return orderDao.findPageVoladorCode(page, limit, status);
 	}
 
 }

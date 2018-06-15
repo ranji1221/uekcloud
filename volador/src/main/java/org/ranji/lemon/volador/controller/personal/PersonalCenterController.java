@@ -480,7 +480,13 @@ public class PersonalCenterController {
 			
 			for(int i=0;i<courseList.size();i++){
 				//获取最新学习时间及获取章节id
-				StudyingCourse studyingCourse=personalService.findStudyingCourse(userId,courseList.get(i).getId());
+				StudyingCourse studyingCourse=new StudyingCourse();
+				try {
+					studyingCourse=personalService.findStudyingCourse(userId,courseList.get(i).getId());
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+				
 				
 				//课程名字
 				studyingCourse.setCourseName(courseList.get(i).getCourse_name());
@@ -492,10 +498,19 @@ public class PersonalCenterController {
 				}
 				//获得课程ID
 				studyingCourse.setCourseId(courseList.get(i).getId());
-				//获取章节名称
-				studyingCourse.setChapterName(chapterService.find(studyingCourse.getChapterId()).getChapter_name());
-				//获取评论总数
-				studyingCourse.setCommentCount(chapterService.findCommentListByChapter(studyingCourse.getChapterId()).size());
+				
+				try {
+					//获取章节名称
+					studyingCourse.setChapterName(chapterService.find(studyingCourse.getChapterId()).getChapter_name());
+					//获取评论总数
+					studyingCourse.setCommentCount(chapterService.findCommentListByChapter(studyingCourse.getChapterId()).size());
+				} catch (Exception e) {
+					// TODO: handle exception
+					studyingCourse.setChapterName("：未开始学习");
+					List<ChapterTitle> chapterTitleList=courseService.findChapterTitleByCourse(courseList.get(i).getId());
+					studyingCourse.setChapterId(chapterTitleService.findChapterByChapterTitle(chapterTitleList.get(0).getId()).get(0).getId());
+				}
+				
 				//获取笔记总数
 				studyingCourse.setNoteCount(noteService.findNoteByUserId(userId,studyingCourse.getChapterId()).size());
 				//获取更新到哪一章

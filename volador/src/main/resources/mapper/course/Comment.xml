@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.ranji.lemon.volador.model.course.Comment">
   <insert id="save" parameterType="VoladorComment" keyProperty="id" useGeneratedKeys="true">
-		insert into lemon_volador_comment (guid,content,createTime,updateTime) 
-		values (#{guid},#{content},#{createTime},#{updateTime})
+		insert into lemon_volador_comment (guid,content,createTime,updateTime,call) 
+		values (#{guid},#{content},#{createTime},#{updateTime},0)
 	</insert>
 	
 	<!-- 存储某个用户和评论的对应关系 -->
@@ -52,5 +52,15 @@
 	<select id="findUserIdByCommentId" parameterType="Integer" resultType ="int">
 		select user_id from lemon_volador_user_comment where comment_id = #{commentId}
 	</select>
+	
+	<!-- 修改个某条评论信息 -->
+	<update id="update" parameterType="VoladorComment">
+		update lemon_volador_comment
+		<set>
+			<if test="reprot != null and reprot != ''">reprot = #{reprot},</if>
+			<if test="call != null and call != ''">call = #{call},</if>
+		</set>
+		where id = #{id}
+	</update>
 	
 </mapper>

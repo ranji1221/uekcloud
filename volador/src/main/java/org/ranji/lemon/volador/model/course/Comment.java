@@ -11,6 +11,24 @@ public class Comment extends AbstractModel {
 	private String nickName;
 	private String head_image;
 	private int userId;
+	private int call;
+	private int reprot;
+
+	public int getCall() {
+		return call;
+	}
+
+	public void setCall(int call) {
+		this.call = call;
+	}
+
+	public int getReprot() {
+		return reprot;
+	}
+
+	public void setReprot(int reprot) {
+		this.reprot = reprot;
+	}
 
 	public int getUserId() {
 		return userId;

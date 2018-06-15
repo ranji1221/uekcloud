@@ -304,7 +304,8 @@ public class CourseController {
 			
 			//查找课程对应教师
 			try {
-				Teacher teacher=courseService.findTeacherbyCourse(courseId).get(0);
+				List<Teacher> teacherList=courseService.findTeacherbyCourse(courseId);
+				Teacher teacher=teacherList.get(0);
 				//返回教师信息
 				mv.addObject(teacher);
 			} catch (Exception e) {
@@ -606,6 +607,7 @@ public class CourseController {
 			List<ChapterTitle> chapterTitleList=courseService.findChapterTitleByCourse(courseId);
 			List<Chapter> chapterList=chapterTitleService.findChapterByChapterTitle(chapterTitleList.get((chapterTitleList.size()-1)).getId());
 			if(chapterId == chapterList.get(chapterList.size()-1).getId()){
+				personalService.deleteStudyedCourseRelation(userId, courseId);
 				personalService.saveUserAndStudyedCourseRelation(userId, courseId);
 			}else
 				{

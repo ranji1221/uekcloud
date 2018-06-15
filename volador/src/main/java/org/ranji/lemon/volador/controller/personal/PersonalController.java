@@ -410,7 +410,7 @@ public class PersonalController {
 				// 设置头像默认后缀
 				String suffix = ".png";
 				// 设置图像保存地址
-				filePath = "user/" + username + suffix;
+				filePath = "/we/user/" + username + suffix;
 				File saveDir = new File(
 						"D:/volador_home/data/Img/"+ filePath);
 

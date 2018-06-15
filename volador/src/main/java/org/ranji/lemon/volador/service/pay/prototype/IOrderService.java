@@ -46,4 +46,26 @@ public interface IOrderService extends IGenericService<Order, Integer> {
      * @param voladorCode
      */
     public List<VoladorCode> findVoladorCodeAll();
+    
+    /**
+     * 分页条件查询激活码
+     * @param courseId
+     * @param voladorCode
+     */
+    public Map<String,Object> pageVoladorCode(int page,int limit,int status);
+    
+    /**
+     * 分页查询所有激活码
+     * @param page
+     * @param limit
+     */
+    public List<VoladorCode> findPageVoladorCodeAll(int page,int limit);
+    
+    /**
+     * 分页条件查询所有激活码
+     * @param page
+     * @param limit
+     */
+    public List<VoladorCode> findPageVoladorCode(int page,int limit,int status);
+    
 }
