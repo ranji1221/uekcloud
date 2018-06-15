@@ -14,7 +14,8 @@
 		</div>
 		<h3>新增邮箱账号</h3>
 		<form action="email" method="post">
-			<input type="email" name='ownEmail' class='my_email' id="ownEmail" placeholder="请输入您的邮箱">
+		    <p style="color: red;" th:text="${message}"></p>
+			<input type="email" name='ownEmail' class='my_email' required id='ownEmail' id="ownEmail" placeholder="请输入您的邮箱" data-message="请输入正确的邮箱" data-easytip="position:right;class:easy-red"  data-easyform="regex:^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$;real-time;">
 			<div class="cp_code">
 				<input type="text" name= "code" placeholder="验证码">
 				<button class="cp_block">
@@ -32,6 +33,7 @@
 	</div>
 </body>
 <script>
+
 	var code = $(".cp_block");
 	var time = 60;  // 倒计时时间
 	var setT ;
@@ -50,14 +52,13 @@
 	code.click(function(e){
 		if($("input[type=email]").val().length>0){
 			var ownEmail = $("#ownEmail").val();
+			
 			// 产生验证码      
 	        for ( var i = 0; i < codeLength; i++) {      
 	        	emailCode += parseInt(Math.random() * 9).toString();      
 	        } 
 			e.preventDefault()
-			// $.ajax({
-			// 	// 发送验证码
-			// })
+			// 发送验证码
 			$.ajax({      
 	               type: "POST", // 用POST方式传输      
 	               dataType: "text", // 数据格式:JSON      

@@ -22,6 +22,12 @@
 		select * from lemon_volador_personal_userinfo where id = #{id}
 	</select>
 	
+	<!-- 通过email查找用户信息 -->
+	<select id="findUserInfoByEmail" resultType="VoladorUserInfo" parameterType="String">
+		select * from lemon_volador_personal_userinfo where email = #{email}
+		<include refid="paramsSQL"/>
+	</select>
+	
 	<!-- 查询全部用户信息 -->
 	<select id="findAll" resultType="VoladorUserInfo" parameterType="Map">
 		select * from lemon_volador_personal_userinfo

@@ -567,15 +567,23 @@ public class PersonalController {
 			int userId = (int) request.getSession().getAttribute("userId");
 			UserInfo userInfo = personalService.findUserInfoByUserId(userId);
 
-			if (!checkCode(request.getSession().getAttribute("code").toString(), code)) {
-				// 验证短信验证码
-				mv.addObject("message", "验证码错误!");
-			} else {
-				// 保存用户设置的邮箱
-				userInfo.setEmail(email);
-				userInfoService.update(userInfo);
-				mv.setViewName("backend/wqf_personal_set");
+			//查看邮箱是否已经绑定
+			if(null == userInfoService.findUserInfoByEmail(email)){
+				if (!checkCode(request.getSession().getAttribute("code").toString(), code)) {
+					// 验证短信验证码
+					mv.addObject("message", "验证码错误!");
+					mv.setViewName("backend/email");
+				} else {
+					// 保存用户设置的邮箱
+					userInfo.setEmail(email);
+					userInfoService.update(userInfo);
+					mv.setViewName("backend/wqf_personal_set");
+				}
+			}else{
+				mv.addObject("message", "邮箱已被绑定!");
+				mv.setViewName("backend/email");
 			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			mv.setViewName("backend/wqf_personal_set");
