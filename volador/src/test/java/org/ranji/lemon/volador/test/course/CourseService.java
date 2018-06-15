@@ -14,6 +14,7 @@ import org.ranji.lemon.volador.model.course.Course;
 import org.ranji.lemon.volador.model.course.Reply;
 import org.ranji.lemon.volador.model.course.Teacher;
 import org.ranji.lemon.volador.model.pay.Order;
+import org.ranji.lemon.volador.model.pay.VoladorCode;
 import org.ranji.lemon.volador.model.personal.UserInfo;
 import org.ranji.lemon.volador.persist.pay.prototype.IOrderDao;
 import org.ranji.lemon.volador.service.auth.prototype.IUserService;
@@ -61,8 +62,19 @@ public class CourseService {
 	@Test
 	public void testReplyService(){
 		
-		List<Course> courseList=courseService.keywordSreachCourse("python");
-		System.out.println(JsonUtil.objectToJson(courseList));
+		
+		Comment comment=new Comment();
+		comment.setContent("哈哈");
+		commentService.save(comment);
+		
+//		orderService.saveVoladorCode(36);
+//		int a=orderDao.findPageVoladorCodeCount(1);
+//		System.out.println(a);
+//		List<VoladorCode> voladorCodeList=orderDao.findPageVoladorCode(1, 2,-1);
+//		System.out.println(voladorCodeList);
+		
+//		List<Course> courseList=courseService.keywordSreachCourse("python");
+//		System.out.println(JsonUtil.objectToJson(courseList));
 //		Order order=new Order();
 //		order.setGuid("a4a82bed5222499db36af107c5527491");
 //		order.setCloseTime(new Date());

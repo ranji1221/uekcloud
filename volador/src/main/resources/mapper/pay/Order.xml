@@ -76,8 +76,8 @@
 	
 	<!--保存激活码 -->
 	<select id="saveVoladorCode" parameterType="Map">
-		insert into lemon_volador_pay_volador_code (course_id,volador_code)
-		values (#{courseId},#{voladorCode})
+		insert into lemon_volador_pay_volador_code (course_id,volador_code,status)
+		values (#{courseId},#{voladorCode},-1)
 	</select>
 	
 	<!--使用课程激活码 -->
@@ -94,5 +94,26 @@
 	<select id="findVoladorCodeAll" resultMap="voladorCodeMap">
 		select * from lemon_volador_pay_volador_code
 	</select>
+	
+	<!-- 分页查询所有激活码 -->
+	<select id="findPageVoladorCodeAll" parameterType="Map" resultMap="voladorCodeMap">
+		select * from lemon_volador_pay_volador_code limit #{offset},#{limit}
+	</select>
+	
+	<!-- 查询激活码总数 -->
+	<select id="findVoladorCodeCount" resultType="int">
+		select count(*) from lemon_volador_pay_volador_code
+	</select>
+	
+	<!-- 分页条件查询所有激活码 -->
+	<select id="findPageVoladorCode" parameterType="Map" resultMap="voladorCodeMap">
+		select * from lemon_volador_pay_volador_code where status=#{status} limit #{offset},#{limit}
+	</select>
+	
+	<!-- 条件查询激活码总数 -->
+	<select id="findPageVoladorCodeCount"  parameterType="int" resultType="int">
+ 		select count(*) from lemon_volador_pay_volador_code where status=#{status}
+	</select>
+	
 
 </mapper>

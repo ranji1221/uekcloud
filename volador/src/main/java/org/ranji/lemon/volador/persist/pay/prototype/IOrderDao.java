@@ -37,23 +37,44 @@ public interface IOrderDao extends IGenericDao<Order, Integer>{
     
     /**
      * 使用激活码
-     * @param courseId
      * @param voladorCode
      */
     public void useVoladorCode(String voladorCode);
     
     /**
      * 查询激活码
-     * @param courseId
      * @param voladorCode
      */
     public VoladorCode findVoladorCode(String voladorCode);
     
     /**
      * 查询所有激活码
-     * @param courseId
-     * @param voladorCode
      */
     public List<VoladorCode> findVoladorCodeAll();
+    
+    /**
+     * 查询激活码总数
+     */
+    public int findVoladorCodeCount();
+    
+    /**
+     * 分页查询所有激活码
+     * @param page
+     * @param limit
+     */
+    public List<VoladorCode> findPageVoladorCodeAll(int page,int limit);
+    
+    /**
+     * 分页条件查询所有激活码
+     * @param page
+     * @param limit
+     */
+    public List<VoladorCode> findPageVoladorCode(int page,int limit,int status);
+    
+    
+    /**
+     * 条件查询激活码总数
+     */
+    public int findPageVoladorCodeCount(int status);
     
 }

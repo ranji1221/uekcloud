@@ -33,7 +33,7 @@ public class FeedbackServiceImpl extends GenericServiceImpl<Feedback, Integer> i
 		feebackListMap.put("feedbackList", feedbackList);
 		resultMap.put("totalCount", totalCount);
 		resultMap.put("pageCount", pageCount);
-		resultMap.put("pageNo ", page);
+		resultMap.put("pageNo", page);
 		resultMap.put("data", feebackListMap);
 		return resultMap;
 	}
