@@ -15,6 +15,7 @@ import org.ranji.lemon.volador.service.global.prototype.INotificationService;
 import org.ranji.lemon.volador.service.personal.prototype.IAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -63,7 +64,6 @@ private IAdminService adminService;
 			result.put("code", "404");
 			result.put("message", "非法请求");
 		}
-		System.out.println(JsonUtil.objectToJson(result));
 		pw.print(JsonUtil.objectToJson(result));
 		pw.flush();
 		pw.close();
@@ -78,16 +78,16 @@ private IAdminService adminService;
 	 * @throws Exception 
 	 */
 	@RequestMapping(value="/notification", method=RequestMethod.PUT)
-	public void updateTeacherInfo(HttpServletRequest request,HttpServletResponse response) throws Exception{
+	public void updateTeacherInfo(HttpServletRequest request,HttpServletResponse response,@RequestBody Map<String,String> map) throws Exception{
 		response.setHeader("Content-Type", "application/json;charset=utf-8");
 		PrintWriter pw = response.getWriter();
 		Map result = new HashMap<>();
 		if(adminService.parseJWT(request.getHeader("token"))){
 			try {
 				int notificationId =Integer.parseInt(request.getParameter("notification_id"));
-				String notificationTitle = request.getParameter("notification_title");
-				String notificationContent = request.getParameter("notification_content"); 
-				int notificationType = Integer.parseInt(request.getParameter("notification_type"));
+				String notificationTitle = map.get("notification_title");
+				String notificationContent = map.get("notification_content"); 
+				int notificationType = Integer.parseInt(map.get("notification_type"));
 				Notification notification = new Notification();
 				notification.setId(notificationId);
 				notification.setNotificationTitle(notificationTitle);
@@ -156,15 +156,15 @@ private IAdminService adminService;
 	 * @throws IOException 
 	 */
 	@RequestMapping(value="/notification", method=RequestMethod.POST)
-	public void addTeacherInfo(HttpServletRequest request,HttpServletResponse response) throws IOException{
+	public void addTeacherInfo(HttpServletRequest request,HttpServletResponse response,@RequestBody Map<String,String> map) throws IOException{
 		response.setHeader("Content-Type", "application/json;charset=utf-8");
 		PrintWriter pw = response.getWriter();
 		Map result = new HashMap<>();
 		if(adminService.parseJWT(request.getHeader("token"))){
 			try {
-				String notificationTitle = request.getParameter("notification_title");
-				String notificationContent = request.getParameter("notification_content"); 
-				int notificationType = Integer.parseInt(request.getParameter("notification_type"));
+				String notificationTitle = map.get("notification_title");
+				String notificationContent = map.get("notification_content"); 
+				int notificationType = Integer.parseInt(map.get("notification_type"));
 				Notification notification = new Notification();
 				notification.setNotificationTitle(notificationTitle);
 				notification.setNotificationContent(notificationContent);

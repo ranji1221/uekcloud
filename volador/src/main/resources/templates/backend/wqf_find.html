@@ -40,8 +40,8 @@
 			<a th:class="${session.price}?'':active" href="findCourse">全部</a>
 			<a href="findCourse?price=0" th:class="${session.price} == 0? active:''" th:href="${option}?'findCourse?'+${option}+'&price=0':'findCourse?price=0'">免费课</a>
 			<a href="findCourse?price=9.9" th:class="${session.price} == 9.9? active:''" th:href="${option}?'findCourse?'+${option}+'&price=9.9':'findCourse?price=9.9'">9.9元课</a>
-			<a>直播课</a>
-			<a>系列课</a>
+<!-- 			<a>直播课</a>
+			<a>系列课</a> -->
 		</ul>
 		
 		<div class="sort clear_both">

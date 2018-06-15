@@ -274,7 +274,17 @@ public class CourseController {
 					// TODO: handle exception
 				}
 			}
+			//查询正在学习人数
+			int studentCount=courseService.findStudyingStudent(courseId);
+			course.setStudent_count(studentCount);
+			Course updateCourse=new Course();
+			updateCourse.setStudent_count(studentCount);
+			updateCourse.setId(courseId);
+			courseService.update(updateCourse);
+			//查询课程时长
+			mv.addObject("courseTime", courseService.findCourseTotalTime(courseId));
 			mv.addObject(course);
+			
 			
 			//查找课程对应教师
 			try {
@@ -331,20 +341,39 @@ public class CourseController {
 		ModelAndView mv = new ModelAndView();
 		//检测是否登录,并获取用户信息
 		try{
-			String userName = request.getSession().getAttribute("userName").toString();
-			int userId=(int) request.getSession().getAttribute("userId");
-			UserInfo userInfo=personalService.findUserInfoByUserId(userId);
-			mv.addObject(userInfo);
-			mv.addObject("userId", userId);
-			mv.addObject("login_yes","login_yes active");
-			mv.addObject("login_no","login_no");
-			mv.addObject("userName", userName);
+			if(request.getSession().getAttribute("userId")!=null
+					&&request.getSession().getAttribute("userName")!=null){
+				int userId=(int) request.getSession().getAttribute("userId");
+				String userName=(String) request.getSession().getAttribute("userName");
+				mv =headerService.headInfo(userId, userName);
+				mv.addObject("pageUri", "/findCourse");
+				mv.addObject("pageUri", "/course_chapter?courseId="+courseId);
+				UserInfo userInfo=personalService.findUserInfoByUserId(userId);
+				mv.addObject(userInfo);
+				mv.addObject("login_yes","login_yes active");
+				mv.addObject("login_no","login_no");
+				mv.addObject("userName", userName);
+				mv.addObject("userId",userId);
+				//查询是否已经收藏该课程
+				List<Integer> courseIdList=personalService.findCollectCourseRelationByUserId(userId);
+				int display=0;
+				for(int courseNum:courseIdList){
+					if(courseNum == courseId){
+						display=1;
+					};
+				}
+				mv.addObject("display", display);
+			}else{
+				mv.addObject("headLogin_yes","login_yes");
+				mv.addObject("headLogin_no","login_no active");
+				mv.addObject("display", 0);
+			}		
+			
 		}
 		catch (Exception e) {
-			UserInfo userInfo=new UserInfo();
-			mv.addObject(userInfo);
 			mv.addObject("login_yes","login_yes");
 			mv.addObject("login_no","login_no active");
+			mv.addObject("display", 0);
 		}
 		if(null != courseId){
 			//查询课程
@@ -363,10 +392,19 @@ public class CourseController {
 			mv.addObject(course);
 			
 			//查找课程对应教师
-			Teacher teacher=courseService.findTeacherbyCourse(courseId).get(0);
+			try {
+				Teacher teacher=courseService.findTeacherbyCourse(courseId).get(0);
+				
+				//返回教师信息
+				mv.addObject(teacher);
+				
+			} catch (Exception e) {
+				// TODO: handle exception
+				Teacher teacher=new Teacher();
+				teacher.setTeacher_name("神秘人");
+				mv.addObject(teacher);
+			}
 			
-			//返回教师信息
-			mv.addObject(teacher);
 			
 			
 			

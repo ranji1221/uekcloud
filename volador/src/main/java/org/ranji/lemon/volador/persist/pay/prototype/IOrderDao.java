@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.ranji.lemon.core.persist.prototype.IGenericDao;
 import org.ranji.lemon.volador.model.pay.Order;
+import org.ranji.lemon.volador.model.pay.VoladorCode;
 
 public interface IOrderDao extends IGenericDao<Order, Integer>{
     /**
@@ -26,5 +27,33 @@ public interface IOrderDao extends IGenericDao<Order, Integer>{
      * @return 订单列表
      */
     public int orderCount();
+    
+    /**
+     * 生成激活码
+     * @param courseId
+     * @param voladorCode
+     */
+    public void saveVoladorCode(int courseId,String voladorCode);
+    
+    /**
+     * 使用激活码
+     * @param courseId
+     * @param voladorCode
+     */
+    public void useVoladorCode(String voladorCode);
+    
+    /**
+     * 查询激活码
+     * @param courseId
+     * @param voladorCode
+     */
+    public VoladorCode findVoladorCode(String voladorCode);
+    
+    /**
+     * 查询所有激活码
+     * @param courseId
+     * @param voladorCode
+     */
+    public List<VoladorCode> findVoladorCodeAll();
     
 }

@@ -117,6 +117,11 @@
 	<select id="getTotalOfItems" parameterType="Map" resultType="VoladorCourse">
 		select count(*) from lemon_volador_course_course
 	</select>
+	
+	<!-- 查询正在学习人数 -->
+	<select id="findStudyingStudent" parameterType="int" resultType="Integer">
+		select count(*) from lemon_volador_personal_studying_course where course_id=#{courseId}
+	</select>
 
 	
 

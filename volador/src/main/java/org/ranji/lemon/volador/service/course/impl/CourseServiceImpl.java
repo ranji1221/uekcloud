@@ -9,6 +9,8 @@ import org.ranji.lemon.volador.model.course.Comment;
 import org.ranji.lemon.volador.model.course.Course;
 import org.ranji.lemon.volador.model.course.Teacher;
 import org.ranji.lemon.volador.persist.course.prototype.ICourseDao;
+import org.ranji.lemon.volador.service.course.prototype.IChapterService;
+import org.ranji.lemon.volador.service.course.prototype.IChapterTitleService;
 import org.ranji.lemon.volador.service.course.prototype.ICourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +27,12 @@ public class CourseServiceImpl extends GenericServiceImpl<Course,Integer> implem
 
     @Autowired
     ICourseService courseService;
+    
+    @Autowired
+    IChapterTitleService chapterTitleService;
+    
+    @Autowired
+    IChapterService chapterService;
 
     @Override
     public void saveCourseAndTeacherRelation(int course_id, int teacher_id) {
@@ -83,5 +91,32 @@ public class CourseServiceImpl extends GenericServiceImpl<Course,Integer> implem
 	public List<Course> keywordSreachCourse(String keyword) {
 		// TODO Auto-generated method stub
 		return ((ICourseDao) dao).keywordSreachCourse(keyword);
+	}
+
+	@Override
+	public int findStudyingStudent(int courseId) {
+		// TODO Auto-generated method stub
+		return ((ICourseDao) dao).findStudyingStudent(courseId);
+	}
+
+	@Override
+	public int findCourseTotalTime(int courseId) {
+		// TODO Auto-generated method stub
+		List<ChapterTitle> chapterTitleList=courseService.findChapterTitleByCourse(courseId);
+		int totaltime=0;
+		for(ChapterTitle chapterTitle:chapterTitleList){
+			List<Chapter> chapterList =chapterTitleService.findChapterByChapterTitle(chapterTitle.getId());
+			for(Chapter chapter:chapterList){
+				try {
+					String time=chapter.getTotal_time();
+					String[] timeList=time.split(":");
+					totaltime+= Integer.parseInt(timeList[0]);
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+			}
+		}
+		
+		return totaltime;
 	}
 }
