@@ -33,7 +33,7 @@ private IAdminService adminService;
  * @throws IOException 
  */
 	@RequestMapping(value="/notification", method=RequestMethod.GET)
-	public void allTeacherInfoByPage(HttpServletRequest request,HttpServletResponse response) throws IOException{
+	public void allNotificationInfoByPage(HttpServletRequest request,HttpServletResponse response) throws IOException{
 		response.setHeader("Content-Type", "application/json;charset=utf-8");
 		PrintWriter pw = response.getWriter();
 		Map result = new HashMap<>();
@@ -78,7 +78,7 @@ private IAdminService adminService;
 	 * @throws Exception 
 	 */
 	@RequestMapping(value="/notification", method=RequestMethod.PUT)
-	public void updateTeacherInfo(HttpServletRequest request,HttpServletResponse response,@RequestBody Map<String,String> map) throws Exception{
+	public void updateNotificationInfo(HttpServletRequest request,HttpServletResponse response,@RequestBody Map<String,String> map) throws Exception{
 		response.setHeader("Content-Type", "application/json;charset=utf-8");
 		PrintWriter pw = response.getWriter();
 		Map result = new HashMap<>();
@@ -121,7 +121,7 @@ private IAdminService adminService;
 	 * @throws IOException 
 	 */
 	@RequestMapping(value="/notification", method=RequestMethod.DELETE)
-	public void deleteTeacherInfo(HttpServletRequest request,HttpServletResponse response) throws IOException{
+	public void deleteNotificationInfo(HttpServletRequest request,HttpServletResponse response) throws IOException{
 		response.setHeader("Content-Type", "application/json;charset=utf-8");
 		PrintWriter pw = response.getWriter();
 		Map result = new HashMap<>();
@@ -156,7 +156,7 @@ private IAdminService adminService;
 	 * @throws IOException 
 	 */
 	@RequestMapping(value="/notification", method=RequestMethod.POST)
-	public void addTeacherInfo(HttpServletRequest request,HttpServletResponse response,@RequestBody Map<String,String> map) throws IOException{
+	public void addNotificationInfo(HttpServletRequest request,HttpServletResponse response,@RequestBody Map<String,String> map) throws IOException{
 		response.setHeader("Content-Type", "application/json;charset=utf-8");
 		PrintWriter pw = response.getWriter();
 		Map result = new HashMap<>();

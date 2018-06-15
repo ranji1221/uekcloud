@@ -84,7 +84,7 @@ public class NotificationServiceImpl extends GenericServiceImpl<Notification, In
 			pageCount = notificationCount/limit+1;
 		}
 		resultMap.put("pageCount", pageCount);
-		resultMap.put("pageNo ", page);
+		resultMap.put("pageNo", page);
 		return resultMap;
 	}
     
