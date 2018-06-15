@@ -110,6 +110,9 @@ public class PersonalController {
 				UserInfo userInfo = personalService.findUserInfoByUserId(userId);
 				mv = headerService.headInfo(userId, userName);
 				mv.addObject("head_image", userInfo.getHead_image());
+			}else{
+				mv.addObject("headLogin_yes","login_yes");
+				mv.addObject("headLogin_no","login_no active");
 			}
 			
 			mv.addObject("login_yes", "login_yes active");
