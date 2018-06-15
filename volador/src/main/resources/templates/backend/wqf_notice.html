@@ -115,26 +115,7 @@
         </div>
         
         <ul class="wqf_content">
-            <li class="clear_both" th:each="notification:${notificationList}">
-                <img src="images/wqf_user.png" >
-                <div class="message">
-                <div>
-                <span class="wy_notification_span" th:text="发布时间：+${#dates.format(notification.createTime, 'yyyy年MM月dd日')}">发布时间：2018年03月03日</span>
-                    <h2 th:text="${notification.notificationType} == 0 ? '系统通知' : '系统公告'">
-                        系统公告 
-                        
-                    </h2>
-                    
-                    </div>
-                    <p class="hidd_more" th:text="${notification.notificationContent}">美的空调创意海报征集大赛来啦~
-                        在你心中什么才是“无风感”？
-                        这个春天，美的空调联合站酷开启无风感创意海报设计大赛，
-                        创作风格不限，形式不限，
-                        不管是搞怪手绘，还是炫酷科技风，只要你能传达出“无风感”的产品特点，
-                        你就是我们的“灵魂画手”~ 
-                        快来秀出你的创意吧！详情戳： http://www.zcool.com.cn/event/mdwfg/
-                    </p>
-                </div>
+            <li class="clear_both" >
             </li>
            <!--  <li class="clear_both">
                 <img src="images/wqf_user.png" >
@@ -163,9 +144,44 @@
 <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')</script>
 
+<script type="text/javascript" th:inline="javascript">
+	var data = [[${notificationList}]];
+	
+	data =JSON.parse(data);
+	console.log(data)
+</script>
 <script>
-    $(".wzq_work_content_item").click(function(){
-
+	var num = 2; // 每页显示条数
+	var noticeBox = $(".wzq_main_r .wqf_content");
+	update()
+	function update(){
+		var str = "";
+		data.slice(0,num).forEach((val,i)=>{
+			
+			if(val.notificationType==0){
+            	
+            	val.notificationType = '系统通知';
+            }else{
+            	val.notificationType = '系统公告';
+            }
+			
+			str+=`<li class="clear_both">
+	                <img src="images/wqf_user.png" >
+	                <div class="message">
+	                    <h2>
+	                        ${val.notificationType}
+	                        <span>发布时间：${new Date(val.createTime).toLocaleDateString()}</span>
+	                    </h2>
+	                    <p class="hidd_more">${val.notificationContent}
+	                    </p>
+	                </div>
+	            </li>`
+		})
+		noticeBox.html(str)
+	}
+    $(".wzq_show_more").click(function(){
+    	num+=num
+    	update()
     })
 </script>
 </body>

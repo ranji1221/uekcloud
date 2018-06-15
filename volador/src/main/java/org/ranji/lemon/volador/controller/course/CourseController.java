@@ -146,7 +146,23 @@ public class CourseController {
 			}
 			//保存用户选择价格
 			request.getSession().setAttribute("price", strPrice);
-			mv.addObject(courseList);
+			
+			//获取找页面中课程显示字段
+			if(0 != courseList.size()){
+				List<Map> courseMapList = new ArrayList<>();
+				for(Course course:courseList){
+					Map<String, Object> courseMap = new HashMap<String, Object>();
+					courseMap.put("id", course.getId());
+					courseMap.put("course_image_address", course.getCourse_image_address());
+					courseMap.put("time", courseService.findCourseTotalTime(course.getId()));
+					courseMap.put("course_name", course.getCourse_name());
+					courseMap.put("course_price", course.getCourse_price());
+					courseMap.put("student_count", course.getStudent_count());
+					courseMapList.add(courseMap);
+				}
+				mv.addObject("courseList",courseMapList);
+			}
+			
 			
 			//界面显示课程分类
 			if(null == directionId){

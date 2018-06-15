@@ -30,5 +30,12 @@ public interface IUserInfoDao extends IGenericDao<UserInfo, Integer>{
 	 * @return
 	 */
 	public List<String> findUserInfoByUserInfoId(int userinfoId);
+	
+	/**
+	 * 通过email查找用户信息
+	 * @param email
+	 * @return
+	 */
+	public List<UserInfo> findUserInfoByEmail(String email);
 
 }

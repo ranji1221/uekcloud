@@ -22,5 +22,12 @@ public interface IUserInfoService extends IGenericService<UserInfo, Integer>{
 	 * @return
 	 */
 	public List<String> findUserInfoByUserInfoId(int userinfoId);
+	
+	/**
+	 * 通过email查找用户信息
+	 * @param email
+	 * @return
+	 */
+	public UserInfo findUserInfoByEmail(String email);
 
 }
