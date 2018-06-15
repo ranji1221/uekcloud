@@ -360,8 +360,11 @@ public class PersonalController {
 
 						userinfo.setHead_image(head_image);
 					}
-
-					userinfo.setGender(sex.equals("man") ? "男" : "女");
+					
+					if(null != sex){
+						userinfo.setGender(sex.equals("man") ? "男" : "女");
+					}
+					
 					userinfo.setNickname(nickname);
 					userinfo.setQq(qq);
 					userinfo.setReal_name(realname);
