@@ -27,4 +27,20 @@ public class UserInfoServiceImpl extends GenericServiceImpl<UserInfo, Integer> i
 		return ((IUserInfoDao) dao).findUserInfoByUserInfoId(userinfoId);
 	}
 
+	@Override
+	public UserInfo findUserInfoByEmail(String email) {
+		if(null != email){
+			List<UserInfo> userInfoList = ((IUserInfoDao) dao).findUserInfoByEmail(email);
+			if(0 != userInfoList.size()){
+				return userInfoList.get(0);
+			}else{
+				return null;
+			}
+			 
+		}else{
+			return null;
+		}
+		
+	}
+
 }

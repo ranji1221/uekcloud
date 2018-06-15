@@ -30,4 +30,9 @@ public class UserInfoDaoImpl extends GenericDaoImpl<UserInfo, Integer> implement
 		return sqlSessionTemplate.selectList(typeNameSpace + ".findUserInfoByUserInfoId", userinfoId);
 	}
 
+	@Override
+	public List<UserInfo> findUserInfoByEmail(String email) {
+		return sqlSessionTemplate.selectList(typeNameSpace+".findUserInfoByEmail", email);
+	}
+
 }
