@@ -44,17 +44,11 @@
                         加群咨询
                     </span>
                 </a>
-                <div class="share">
+                <div class="share bdsharebuttonbox" data-tag="share_1">
                     分享到
-                    <a href="#">
-                        <i class='fy_icon'>&#xe63d;</i>
-                    </a>
-                    <a href="#">
-                        <i class='fy_icon'>&#xe60b;</i>
-                    </a>
-                    <a href="#" class='wechat' >
-                        <i class='fy_icon'>&#xe65b;</i>
-                    </a>
+                     <a href="javascript:;" data-cmd="weixin" class="bds_weixin fy_icon" title="微信" style="background:none; float:none; padding-left:0">&#xe65b;</a>
+                       <a href="javascript:;" data-cmd="sqq" class="bds_sqq fy_icon" title="QQ" style="background:none; float:none; padding-left:0">&#xe60b;</a>
+                       <a href="javascript:;" data-cmd="tsina" class="bds_tsina fy_icon" title="微博" style="background:none; float:none; padding-left:0">&#xe62f;</a>
                 </div>
             </div>
             <div th:text="${course.course_info}" class="con_son2" >
@@ -90,8 +84,8 @@
                <a href="javascript:;" class='study' id="uncollect" th:style="${display == 0 ? 'display:none':'display:block'}">
                   取消收藏
                </a>
-               
-               <a href="#" th:href="'course_video?chapterId='+${goStudy}"  th:text="${course.course_price == 0 ? '':'试听一节课'}">试听5分钟</a>
+               			
+               <a href="#" th:href="'course_video?chapterId='+${goStudy}"  th:text="(${course.course_price}==0?'':(${course.course_price} == -1? '': '试听一节课'))">试听5分钟</a>
             </div>
         </div>
 

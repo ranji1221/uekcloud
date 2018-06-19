@@ -120,10 +120,24 @@
 <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')</script>
 <script src="js/wzq_work.js"></script>
-
+<script src="js/layer.js"></script>
 <script>
-    $(".wzq_work_content_item").click(function(){
-
+    $(".wzq_main_r button").click(function(){
+		$.ajax({
+			url: 'useCDKey',
+			method: 'POST',
+			data: {
+				CDKey: $(".wzq_main_r input").val(),
+				userId: null
+			},
+			success(d){
+				if(d.code==200){
+					layer.msg(d.message)
+				}else{
+					layer.msg(d.message);
+				}
+			}
+		})
     })
 </script>
 </body>

@@ -45,17 +45,11 @@
                             加群咨询
                         </span>
                     </a>
-                    <div class="share">
+                    <div class="share bdsharebuttonbox" data-tag="share_1">
                         分享到
-                        <a href="#">
-                            <i class='fy_icon'>&#xe62f;</i>
-                        </a>
-                        <a href="#">
-                            <i class='fy_icon'>&#xe60b;</i>
-                        </a>
-                        <a href="#" class='wechat' >
-                            <i class='fy_icon'>&#xe65b;</i>
-                        </a>
+                        <a href="javascript:;" data-cmd="weixin" class="bds_weixin fy_icon" title="微信" style="background:none; float:none; padding-left:0">&#xe65b;</a>
+                        <a href="javascript:;" data-cmd="sqq" class="bds_sqq fy_icon" title="QQ" style="background:none; float:none; padding-left:0">&#xe60b;</a>
+                        <a href="javascript:;" data-cmd="tsina" class="bds_tsina fy_icon" title="微博" style="background:none; float:none; padding-left:0">&#xe62f;</a>
                     </div>
                 </div>
                 <div th:text="${course.course_info}" class="con_son2 hidd_more2">
@@ -244,6 +238,7 @@
 		var courseId=[[${course.id}]]
 		var isBuy = [[${isBuy}]];
 </script>
+<script src="js/layer.js"></script>
 <script>
 	var buyBox = $(".buyBox")
 	if (!isBuy) {
@@ -270,7 +265,7 @@
 	})
 </script>
     
-    <script>
+<script>
 	/* 收藏课程 */
 	var collect = $("#collect")
 	var uncollect = $("#uncollect")
@@ -289,7 +284,15 @@
 				}
 			})
 		}else{
-			getTips("未登录","点击此处登录","login")
+			// getTips("未登录","点击此处登录","login")
+            layer.msg('您还没有登录', {
+              time: 0 //不自动关闭
+              ,btn: ['点击登录', '取消']
+              ,yes: function(index){
+                layer.close(index);
+                location.href="login"
+              }
+            });
 		}
 		
 	})
@@ -309,8 +312,18 @@
 			}
 		})
 	})
-    </script>
-    
+</script>
+<script>
+    // 分享
+    window._bd_share_config = {
+        share : [{
+            "bdSize" : 16
+        }],
+    }
+    with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+  
     <script src="js/wzq_show_work.js"></script>
     <div th:include="backend/wy_footer"></div> 
 

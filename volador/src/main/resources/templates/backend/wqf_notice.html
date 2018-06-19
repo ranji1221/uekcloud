@@ -151,11 +151,14 @@
 	console.log(data)
 </script>
 <script>
-	var num = 2; // 每页显示条数
+	var num = 3; // 每页显示条数
 	var noticeBox = $(".wzq_main_r .wqf_content");
 	update()
 	function update(){
 		var str = "";
+		if (num>=data.length) {
+            $(".wzq_show_comment_more").css({display:"none"})
+        }
 		data.slice(0,num).forEach((val,i)=>{
 			
 			if(val.notificationType==0){
