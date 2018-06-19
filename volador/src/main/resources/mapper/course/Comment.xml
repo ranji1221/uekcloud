@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.ranji.lemon.volador.model.course.Comment">
   <insert id="save" parameterType="VoladorComment" keyProperty="id" useGeneratedKeys="true">
-		insert into lemon_volador_comment (guid,content,createTime,updateTime,call) 
+		insert into lemon_volador_comment (guid,content,createTime,updateTime,good) 
 		values (#{guid},#{content},#{createTime},#{updateTime},0)
 	</insert>
 	
@@ -58,7 +58,7 @@
 		update lemon_volador_comment
 		<set>
 			<if test="reprot != null and reprot != ''">reprot = #{reprot},</if>
-			<if test="call != null and call != ''">call = #{call},</if>
+			<if test="good != null and good != ''">good = #{good},</if>
 		</set>
 		where id = #{id}
 	</update>

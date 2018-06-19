@@ -7,13 +7,17 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.ranji.lemon.core.service.impl.GenericServiceImpl;
+import org.ranji.lemon.volador.model.course.Course;
 import org.ranji.lemon.volador.model.pay.Order;
 import org.ranji.lemon.volador.model.pay.VoladorCode;
 import org.ranji.lemon.volador.persist.course.prototype.ICourseDao;
 import org.ranji.lemon.volador.persist.pay.prototype.IOrderDao;
+import org.ranji.lemon.volador.service.course.prototype.ICourseService;
 import org.ranji.lemon.volador.service.pay.prototype.IOrderService;
+import org.ranji.lemon.volador.service.personal.prototype.IPerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service("VoladorPayOrderServiceImpl")
 public class OrderServiceImpl extends GenericServiceImpl<Order, Integer> implements IOrderService {
@@ -23,6 +27,15 @@ public class OrderServiceImpl extends GenericServiceImpl<Order, Integer> impleme
 	
 	@Autowired
 	private ICourseDao courseDao;
+	
+	@Autowired
+	private ICourseService courseService;
+	
+	@Autowired
+	private IOrderService orderService;
+	
+	@Autowired
+	private IPerService perService;
 	
 	@Override
 	public List<Order> findOrderByUserId(int userId) {
@@ -158,6 +171,34 @@ public class OrderServiceImpl extends GenericServiceImpl<Order, Integer> impleme
 	public List<VoladorCode> findPageVoladorCode(int page, int limit, int status) {
 		// TODO Auto-generated method stub
 		return orderDao.findPageVoladorCode(page, limit, status);
+	}
+
+	@Override
+	@Transactional
+	public Map<String,Object> useCDKey(int userId, String CDKey) {
+		// TODO Auto-generated method stub
+		Map<String,Object> result=new HashMap<String,Object>();
+		try {
+			VoladorCode voladorCode=orderService.findVoladorCode(CDKey);
+			if(voladorCode.getStatus()==-1){
+				Course course=courseService.find(voladorCode.getCourseId());
+				orderService.useVoladorCode(CDKey);
+				perService.saveUserAndBuyCourseRelation(userId, voladorCode.getCourseId());
+				result.put("code", 200);
+				result.put("courseName", course.getCourse_name());
+				result.put("massage", "您成功兑换课程:"+course.getCourse_name());
+				
+			}else{
+				result.put("code", 404);
+				result.put("message", "无效的CDKey");
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			result.put("code", 404);
+			result.put("message", "无效的CDKey");
+		}
+		
+		return result;
 	}
 
 }

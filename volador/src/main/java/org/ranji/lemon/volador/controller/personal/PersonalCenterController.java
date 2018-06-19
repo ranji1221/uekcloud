@@ -1,5 +1,7 @@
 package org.ranji.lemon.volador.controller.personal;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -9,8 +11,10 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.ranji.lemon.core.pagination.PagerModel;
+import org.ranji.lemon.core.util.JsonUtil;
 import org.ranji.lemon.volador.model.course.Chapter;
 import org.ranji.lemon.volador.model.course.ChapterTitle;
 import org.ranji.lemon.volador.model.course.Course;
@@ -29,6 +33,7 @@ import org.ranji.lemon.volador.service.course.prototype.INoteService;
 import org.ranji.lemon.volador.service.global.prototype.INotificationService;
 import org.ranji.lemon.volador.service.growthclass.prototype.IGrowthClassService;
 import org.ranji.lemon.volador.service.growthclass.prototype.IGrowthStageService;
+import org.ranji.lemon.volador.service.pay.prototype.IOrderService;
 import org.ranji.lemon.volador.service.personal.prototype.IIntegralService;
 import org.ranji.lemon.volador.service.personal.prototype.IPerService;
 import org.ranji.lemon.volador.service.personal.prototype.ISignInService;
@@ -84,6 +89,9 @@ public class PersonalCenterController {
 	@Autowired
 	private IGrowthStageService growthStageService;
 	
+	@Autowired
+	private IOrderService orderService;
+	
 	//用户签到获得的积分
 	private Integer SIGNIN_INTRGRAL_NUM = 20;
 	
@@ -108,7 +116,14 @@ public class PersonalCenterController {
 			UserInfo userInfo=personalService.findUserInfoByUserId(userId);
 			mv.addObject("user_name",userInfo.getNickname());
 			mv.addObject("gender", userInfo.getGender());
-			mv.addObject("address",userInfo.getAddress());
+			String address = userInfo.getAddress();
+			if (null != address && !address.isEmpty()) {
+				String[] addressArray = address.split("-");
+				if(3 < addressArray.length ||3 == addressArray.length){
+					mv.addObject("address", addressArray[1]);
+				}
+			}
+			
 			
 			
 			//查询我的积分
@@ -146,7 +161,14 @@ public class PersonalCenterController {
 			UserInfo userInfo=personalService.findUserInfoByUserId(userId);
 			mv.addObject("user_name",userInfo.getNickname());
 			mv.addObject("gender", userInfo.getGender());
-			mv.addObject("address",userInfo.getAddress());
+			String address = userInfo.getAddress();
+			if (null != address && !address.isEmpty()) {
+				String[] addressArray = address.split("-");
+				if(3 < addressArray.length ||3 == addressArray.length){
+					mv.addObject("address", addressArray[1]);
+				}
+			}
+			
 			
 			
 			
@@ -246,7 +268,14 @@ public class PersonalCenterController {
 			UserInfo userInfo=personalService.findUserInfoByUserId(userId);
 			mv.addObject("user_name",userInfo.getNickname());
 			mv.addObject("gender", userInfo.getGender());
-			mv.addObject("address",userInfo.getAddress());
+			String address = userInfo.getAddress();
+			if (null != address && !address.isEmpty()) {
+				String[] addressArray = address.split("-");
+				if(3 < addressArray.length ||3 == addressArray.length){
+					mv.addObject("address", addressArray[1]);
+				}
+			}
+			
 			
 			//查询学习时长
 			
@@ -401,7 +430,14 @@ public class PersonalCenterController {
 			UserInfo userInfo=personalService.findUserInfoByUserId(userId);
 			mv.addObject("user_name",userInfo.getNickname());
 			mv.addObject("gender", userInfo.getGender());
-			mv.addObject("address",userInfo.getAddress());
+			String address = userInfo.getAddress();
+			if (null != address && !address.isEmpty()) {
+				String[] addressArray = address.split("-");
+				if(3 < addressArray.length ||3 == addressArray.length){
+					mv.addObject("address", addressArray[1]);
+				}
+			}
+			
 			mv.addObject("interfaceName","personalCenter_learn_end");
 			
 			//查询学习时长
@@ -546,7 +582,14 @@ public class PersonalCenterController {
 			UserInfo userInfo=personalService.findUserInfoByUserId(userId);
 			mv.addObject("user_name",userInfo.getNickname());
 			mv.addObject("gender", userInfo.getGender());
-			mv.addObject("address",userInfo.getAddress());
+			String address = userInfo.getAddress();
+			if (null != address && !address.isEmpty()) {
+				String[] addressArray = address.split("-");
+				if(3 < addressArray.length ||3 == addressArray.length){
+					mv.addObject("address", addressArray[1]);
+				}
+			}
+			
 			mv.setViewName("backend/wzq_fiavourite_end");
 			
 			
@@ -605,7 +648,14 @@ public class PersonalCenterController {
 			UserInfo userInfo=personalService.findUserInfoByUserId(userId);
 			mv.addObject("user_name",userInfo.getNickname());
 			mv.addObject("gender", userInfo.getGender());
-			mv.addObject("address",userInfo.getAddress());
+			String address = userInfo.getAddress();
+			if (null != address && !address.isEmpty()) {
+				String[] addressArray = address.split("-");
+				if(3 < addressArray.length ||3 == addressArray.length){
+					mv.addObject("address", addressArray[1]);
+				}
+			}
+			
 			
 			
 			
@@ -646,7 +696,14 @@ public class PersonalCenterController {
 			UserInfo userInfo=personalService.findUserInfoByUserId(userId);
 			mv.addObject("user_name",userInfo.getNickname());
 			mv.addObject("gender", userInfo.getGender());
-			mv.addObject("address",userInfo.getAddress());
+			String address = userInfo.getAddress();
+			if (null != address && !address.isEmpty()) {
+				String[] addressArray = address.split("-");
+				if(3 < addressArray.length ||3 == addressArray.length){
+					mv.addObject("address", addressArray[1]);
+				}
+			}
+			
 			
 			
 			
@@ -683,7 +740,14 @@ public class PersonalCenterController {
 			UserInfo userInfo=personalService.findUserInfoByUserId(userId);
 			mv.addObject("user_name",userInfo.getNickname());
 			mv.addObject("gender", userInfo.getGender());
-			mv.addObject("address",userInfo.getAddress());
+			String address = userInfo.getAddress();
+			if (null != address && !address.isEmpty()) {
+				String[] addressArray = address.split("-");
+				if(3 < addressArray.length ||3 == addressArray.length){
+					mv.addObject("address", addressArray[1]);
+				}
+			}
+			
 			
 			
 			
@@ -730,7 +794,14 @@ public class PersonalCenterController {
 			UserInfo userInfo=personalService.findUserInfoByUserId(userId);
 			mv.addObject("user_name",userInfo.getNickname());
 			mv.addObject("gender", userInfo.getGender());
-			mv.addObject("address",userInfo.getAddress());
+			String address = userInfo.getAddress();
+			if (null != address && !address.isEmpty()) {
+				String[] addressArray = address.split("-");
+				if(3 < addressArray.length ||3 == addressArray.length){
+					mv.addObject("address", addressArray[1]);
+				}
+			}
+			
 			
 			
 			//查询我的积分
@@ -766,7 +837,14 @@ public class PersonalCenterController {
 			UserInfo userInfo=personalService.findUserInfoByUserId(userId);
 			mv.addObject("user_name",userInfo.getNickname());
 			mv.addObject("gender", userInfo.getGender());
-			mv.addObject("address",userInfo.getAddress());
+			String address = userInfo.getAddress();
+			if (null != address && !address.isEmpty()) {
+				String[] addressArray = address.split("-");
+				if(3 < addressArray.length ||3 == addressArray.length){
+					mv.addObject("address", addressArray[1]);
+				}
+			}
+			
 			
 			
 			
@@ -817,9 +895,13 @@ public class PersonalCenterController {
 			UserInfo userInfo=personalService.findUserInfoByUserId(userId);
 			mv.addObject("user_name",userInfo.getNickname());
 			mv.addObject("gender", userInfo.getGender());
-			mv.addObject("address",userInfo.getAddress());
-			
-			
+			String address = userInfo.getAddress();
+			if (null != address && !address.isEmpty()) {
+				String[] addressArray = address.split("-");
+				if(3 < addressArray.length ||3 == addressArray.length){
+					mv.addObject("address", addressArray[1]);
+				}
+			}
 			
 			//查询我的积分
 			Integral integral = integralService.findIntegralByUserId(userId);
@@ -891,7 +973,14 @@ public class PersonalCenterController {
 			UserInfo userInfo=personalService.findUserInfoByUserId(userId);
 			mv.addObject("user_name",userInfo.getNickname());
 			mv.addObject("gender", userInfo.getGender());
-			mv.addObject("address",userInfo.getAddress());
+			String address = userInfo.getAddress();
+			if (null != address && !address.isEmpty()) {
+				String[] addressArray = address.split("-");
+				if(3 < addressArray.length ||3 == addressArray.length){
+					mv.addObject("address", addressArray[1]);
+				}
+			}
+			
 			
 			//查询学习时长
 			
@@ -910,6 +999,23 @@ public class PersonalCenterController {
 			mv.setViewName("redirect:/login");
 		}
 		return mv;
+	}
+	
+	//使用CDKey
+	@RequestMapping(value="/useCDKey",method=RequestMethod.POST)
+	public void useCDkey(HttpServletRequest request,HttpServletResponse response) throws IOException{
+		response.setHeader("Content-Type", "application/json;charset=utf-8");
+		PrintWriter pw=response.getWriter();
+		
+		int userId=(int) request.getSession().getAttribute("userId");
+		String CDKey=request.getParameter("CDKey");
+		
+		Map<String,Object> result=orderService.useCDKey(userId,CDKey);
+		
+		pw.print(JsonUtil.objectToJson(result));
+		pw.flush();
+		pw.close();
+		
 	}
 
 }

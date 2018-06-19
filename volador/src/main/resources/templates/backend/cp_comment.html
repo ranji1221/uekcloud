@@ -68,7 +68,7 @@
                     </span>
                     <span>
                         课程时长
-                        <b>160分钟</b>
+                        <b th:text="${courseTime}+'分钟'">160分钟</b>
                     </span>
 <!--                     <span>
                         点赞
@@ -162,7 +162,7 @@
                             <!--评论区内容开始，回复评论区时候，添加此节点-->
                             <div class="wzq_comment_item_info">
                                 <h6 class="wzq_comment_item_title" th:text="${c.nickName}">也入耳朵</h6>
-                                <span class="wzq_comment_item_time">5小时前</span>
+                                <span class="wzq_comment_item_time" th:text="${#calendars.format(c.updateTime,'yyyy')}+'年'+${#calendars.format(c.updateTime,'MM')}+'月'+${#calendars.format(c.updateTime,'dd')}+'日'">5小时前</span>
                                 <div class="wzq_comment_item_des">
                                     <p class="hidd_more" th:text="${c.content}">向手写大佬低头～向手写大佬低头～向手写大佬低头～效果图？太牛了吧。什么软件做的？？？？效果图？太牛了吧。什么软件做的？？？？</p>
                                     <div class="wzq_comment_reply">
@@ -313,16 +313,7 @@
     
     <script src="js/wzq_show_work.js"></script>
     <div th:include="backend/wy_footer"></div> 
-    	<div class="isLogin_box buyBox">
-		<div class="isLogin">
-			<h2>温馨提示</h2>
-			<p>亲，您还没有购买哦~</p>
-			<div class="btn">
-				<a href="">去购买</a>
-				<a href="javascript:;">取消</a>
-			</div>
-		</div>
-	</div>
+
 	
 	<div class="isLogin_box loginBox" style="display:none">
 		<div class="isLogin">
@@ -330,6 +321,17 @@
 			<p>亲，您还没有登录哦~</p>
 			<div class="btn">
 				<a href="javascript:;">去登录</a>
+				<a href="javascript:;">取消</a>
+			</div>
+		</div>
+	</div>
+	
+	   	<div class="isLogin_box buyBox" style="display:none">
+		<div class="isLogin">
+			<h2>温馨提示</h2>
+			<p>亲，您还没有购买哦~</p>
+			<div class="btn">
+				<a href="">去购买</a>
 				<a href="javascript:;">取消</a>
 			</div>
 		</div>

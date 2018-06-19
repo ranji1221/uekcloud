@@ -381,6 +381,9 @@ public class CourseController {
 				}
 				mv.addObject("display", display);
 			}else{
+				UserInfo userInfo=new UserInfo();
+				userInfo.setHead_image("images/wqf_user.png");
+				mv.addObject(userInfo);
 				mv.addObject("headLogin_yes","login_yes");
 				mv.addObject("headLogin_no","login_no active");
 				mv.addObject("display", 0);
@@ -407,6 +410,8 @@ public class CourseController {
 			}
 			//将课程信息返回
 			mv.addObject(course);
+			//查询课程时长
+			mv.addObject("courseTime", courseService.findCourseTotalTime(courseId));
 			
 			//查找课程对应教师
 			try {
@@ -1044,6 +1049,60 @@ public class CourseController {
 			writer.close();
 	}
 	
+	//点赞
+	@RequestMapping(value="/comment_good",method=RequestMethod.POST)
+	public void commentGood(HttpServletRequest request,HttpServletResponse response) throws IOException{
+		response.setHeader("Content-Type", "application/json;charset=utf-8");
+		PrintWriter writer = response.getWriter();
+		Map<String,Object> result=new HashMap<String,Object>();
+		
+		try {
+			int commentId=Integer.parseInt(request.getParameter("commentId"));
+			Comment comment=commentService.find(commentId);
+			Comment updateComment=new Comment();
+			updateComment.setId(commentId);
+			updateComment.setGood(comment.getGood()+1);
+			commentService.update(updateComment);
+			result.put("code", 200);
+			result.put("message", "点赞成功");
+		} catch (Exception e) {
+			// TODO: handle exception
+			result.put("code", 404);
+			result.put("message", "点赞失败");
+		}
+		
+		
+		writer.write(JsonUtil.objectToJson(result));
+		writer.flush();
+		writer.close();
+	}
+	
+	//举报
+	@RequestMapping(value="/comment_reprot",method=RequestMethod.POST)
+	public void commentReprot(HttpServletRequest request,HttpServletResponse response) throws IOException{
+		response.setHeader("Content-Type", "application/json;charset=utf-8");
+		PrintWriter writer = response.getWriter();
+		Map<String,Object> result=new HashMap<String,Object>();
+		
+		try {
+			int commentId=Integer.parseInt(request.getParameter("commentId"));
+			Comment updateComment=new Comment();
+			updateComment.setId(commentId);
+			updateComment.setReprot(-1);
+			commentService.update(updateComment);
+			result.put("code", 200);
+			result.put("message", "举报成功");
+		} catch (Exception e) {
+			// TODO: handle exception
+			result.put("code", 404);
+			result.put("message", "举报失败");
+		}
+		
+		
+		writer.write(JsonUtil.objectToJson(result));
+		writer.flush();
+		writer.close();
+	}
 	
 	//视频章节页面
 	@RequestMapping(value="/course_videoChapter", method=RequestMethod.GET)

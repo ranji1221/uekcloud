@@ -64,8 +64,10 @@ public class CourseService {
 		
 		
 		Comment comment=new Comment();
-		comment.setContent("哈哈");
-		commentService.save(comment);
+		comment.setId(24);
+//		comment.setGood(23);
+		comment.setReprot(1);
+		commentService.update(comment);
 		
 //		orderService.saveVoladorCode(36);
 //		int a=orderDao.findPageVoladorCodeCount(1);

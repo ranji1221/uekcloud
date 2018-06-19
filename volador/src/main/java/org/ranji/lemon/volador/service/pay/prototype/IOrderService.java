@@ -68,4 +68,11 @@ public interface IOrderService extends IGenericService<Order, Integer> {
      */
     public List<VoladorCode> findPageVoladorCode(int page,int limit,int status);
     
+    /**
+     * 分页条件查询所有激活码
+     * @param page
+     * @param limit
+     */
+    public Map<String,Object> useCDKey(int userId,String CDKey);
+    
 }
