@@ -1,14 +1,13 @@
-/* 澶撮儴 */
+/* 婢舵挳鍎� */
 .cp_head{
 	width: 100%;
-	height: 86px;
+	height: 85px;
 	background-color: #1b1b1b;
 	margin: 0px auto;
 	box-sizing: border-box;
-	overflow: hidden;
 	border-bottom: 1px solid #2e2e2e;
 }
-/* 宸︿晶杩斿洖閮ㄥ垎  */
+/* 瀹革缚鏅舵潻鏂挎礀闁劌鍨�  */
 .cp_head .cp_return {
 	float: left;
 	line-height: 86px;
@@ -28,9 +27,21 @@
 	margin-right: 23px;
 }
 
-/* 鍒嗕韩 */
+#public_header>.container .login_yes>.message .message_box ul *{
+	float:none;
+}
+
+#public_header>.container .login_yes>.message .message_box ul{
+	margin-right:0;
+	float:none;
+	overflow:hidden;
+}
+#public_header>.container .login_yes>.message .message_box ul li{
+	margin-right:0;
+}
+/* 閸掑棔闊� */
 .cp_head .cp_share{
-	width: 265px;
+	width: auto;
 	float: right;
 	margin-right: 10%;
 	color: #4c4c4c;
@@ -57,6 +68,21 @@
 	position: relative;
 	margin-left: 11px;
 }
+#public_header>.container .login_yes>.message .message_box>header{
+	float : none;
+}
+/* #public_header>.container ul, #public_header>.container ul *{
+	float: none;
+} */
+#public_header>.container .login_yes>.self .message_box ul{
+	margin-right:0;
+}
+/* #public_header>.container .login_yes>.self .message_box li{
+	width:100%;
+	box-sizing:border-box;
+	margin: 0;
+} */
+
 .cp_head .cp_share .sign span{
 	width: 13px;
 	height: 13px;
@@ -93,7 +119,7 @@
 	margin-right: 12px;
 }
 
-/* 瑙嗛妗� */
+/* 鐟欏棝顣跺锟� */
 .cp_videoBox{
 	width:100%;
 	height: 586px;
@@ -249,7 +275,7 @@
 .cp_div ul:nth-child(1)~ul{
 	margin-top: 37px;
 }
-/* 浜у搧璇︽儏 */
+/* 娴溠冩惂鐠囷附鍎� */
 .cp_purchase{
     width: 100%;
     background-color: white;
@@ -257,7 +283,7 @@
 }
 
 
-/* tab鍒嗙被鍐呭鍖哄煙 */
+/* tab閸掑棛琚崘鍛啇閸栧搫鐓� */
 .cp_tabCon{
     width: 1140px;
     margin: 0px auto;
@@ -272,7 +298,7 @@
 .cp_tabCon .tips span{
     margin-left: 8px;
 }
-/* tab鍒嗙被鍐呭 */
+/* tab閸掑棛琚崘鍛啇 */
 .cp_tabCon .container .col_left{
     width:850px;
     background-color: white;
@@ -307,7 +333,7 @@
     margin-left: 16px;
     width: 690px;
 }
-/* 鏃犺瘎璁� */
+/* 閺冪姾鐦庣拋锟� */
 .cp_tabCon .container .noComment{
     height: 575px;
     position: relative;
@@ -360,7 +386,7 @@
 
 }
 
-/* tab鍒嗙被鍐呭鍖哄煙 */
+/* tab閸掑棛琚崘鍛啇閸栧搫鐓� */
 .cp_tabCon{
     width: 1140px;
     margin: 0px auto;
@@ -375,7 +401,7 @@
 .cp_tabCon .tips span{
     margin-left: 8px;
 }
-/* tab鍒嗙被鍐呭 */
+/* tab閸掑棛琚崘鍛啇 */
 .cp_tabCon .container .col_left{
     width:850px;
     background-color: white;
@@ -462,7 +488,7 @@
 .cp_tabCon .col_right .load:hover{
 	background-color: #93D8AC;
 }
-/* 鏃犺瘎璁� */
+/* 閺冪姾鐦庣拋锟� */
 .cp_tabCon .container .noComment{
     height: 575px;
     position: relative;

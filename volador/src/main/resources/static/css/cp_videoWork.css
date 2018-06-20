@@ -1,24 +1,23 @@
-/* 头部 */
+/* 澶撮儴 */
 .cp_head{
 	width: 100%;
-	height: 86px;
+	height: 85px;
 	background-color: #1b1b1b;
 	margin: 0px auto;
 	box-sizing: border-box;
-	overflow: hidden;
 	border-bottom: 1px solid #2e2e2e;
 }
-/* 左侧返回部分  */
+/* 宸︿晶杩斿洖閮ㄥ垎  */
 .cp_head .cp_return {
 	float: left;
-	line-height: 86px;
+	line-height: 85px;
 	margin-left:10%;
 }
 .cp_head .cp_return  a{
 	color: #b3b3b3;
 }
 .cp_head .cp_return span{
-	color:#5d5d5d;
+	color:#ccc;
 	font-size: 16px;
 }
 .cp_head .cp_return  *{
@@ -27,21 +26,49 @@
 .cp_head .cp_return  a{
 	margin-right: 23px;
 }
-
-/* 分享 */
+#public_header{
+    background: #1b1b1b;
+    margin-bottom: 0;
+    position:relative;
+    z-index:99999999;
+}
+/* 鍒嗕韩 */
 .cp_head .cp_share{
-	width: 265px;
+	
 	float: right;
 	margin-right: 10%;
 	color: #4c4c4c;
 	line-height: 86px;
 }
-.cp_head .cp_share *{
+
+.cp_head .cp_share>*{
 	float: left;
 	margin-right: 9px;
 }
+.cp_head .cp_share .bdsharebuttonbox a{
+	line-height:86px;
+	margin-top:0;
+}
+#public_header>.container>a {
+    float: left;
+    color: #ccc;
+}
+
+#public_header>.container .is_login .line{
+	margin-top: 10px;
+	margin-left: 2px;
+}
+/* #public_header a{
+	color: #ccc;
+} */
 .cp_head .cp_share a:nth-child(1){
 	margin-right: 23px;
+}
+.cp_head .cp_share .login_no  a:nth-child(1){
+	margin-right: 0;
+}
+.cp_head .cp_share .login_no  a{
+	color: #ccc;
 }
 .cp_head .cp_share .fy_icon{
 	font-size: 15px;
@@ -51,6 +78,13 @@
 	font-size: 23px;
 	color: #B3B3B3;
 }
+#public_header>.container .is_login .login_no .line{
+	margin-top:26px;
+}
+#public_header>.container .is_login{
+	margin-top:10px;
+}
+
 .cp_head .cp_share .sign{
 	width: 25px;
 	height: 25px;
@@ -93,7 +127,7 @@
 	margin-right: 12px;
 }
 
-/* 视频框 */
+/* 瑙嗛妗� */
 .cp_videoBox{
 	width:100%;
 	height: 586px;
@@ -245,7 +279,7 @@
 .cp_div ul:nth-child(1)~ul{
 	margin-top: 37px;
 }
-/* 产品详情 */
+/* 浜у搧璇︽儏 */
 .cp_purchase{
     width: 100%;
     background-color: white;
@@ -253,7 +287,7 @@
 }
 
 
-/* tab分类内容区域 */
+/* tab鍒嗙被鍐呭鍖哄煙 */
 .cp_tabCon{
     width: 1140px;
     margin: 0px auto;
@@ -303,13 +337,13 @@
 	background-color: transparent;
 	cursor: pointer;
 }
-/* tab分类内容 */
+/* tab鍒嗙被鍐呭 */
 .cp_tabCon .container .col_left{
     width:850px;
     background-color: white;
     float: left;
 }
-/*笔记部分*/
+/*绗旇閮ㄥ垎*/
 .cp_note {
 	width:100%;
 	box-sizing: border-box;
@@ -375,7 +409,7 @@
 .cp_note .active .right p:nth-child(1){
 	color:#7ACE4C;
 }
-/* 无评论 */
+/* 鏃犺瘎璁� */
 .cp_tabCon .container .noComment{
     height: 575px;
     position: relative;
@@ -405,7 +439,7 @@
     color: #FD7363;
 }
 
-/*查看更多*/
+/*鏌ョ湅鏇村*/
 .wzq_show_comment_more{
     width: 100%;
     text-align: center;
@@ -447,7 +481,7 @@
 
 }
 
-/* tab分类内容区域 */
+/* tab鍒嗙被鍐呭鍖哄煙 */
 .cp_tabCon{
     width: 1140px;
     margin: 0px auto;
@@ -462,7 +496,7 @@
 .cp_tabCon .tips span{
     margin-left: 8px;
 }
-/* tab分类内容 */
+/* tab鍒嗙被鍐呭 */
 .cp_tabCon .container .col_left{
     width:850px;
     background-color: white;
@@ -549,7 +583,7 @@
 .cp_tabCon .col_right .load:hover{
 	background-color: #93D8AC;
 }
-/* 无评论 */
+/* 鏃犺瘎璁� */
 .cp_tabCon .container .noComment{
     height: 575px;
     position: relative;

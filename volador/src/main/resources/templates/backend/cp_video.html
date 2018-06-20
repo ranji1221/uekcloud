@@ -11,19 +11,22 @@
     <meta name="description" content="飞鱼平台" />
     <link rel="shortcut icon" href="favicon.ico" />
 	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/public_header.css">
 	<link rel="stylesheet" href="css/wzq_show_work.css">
 	<link rel="stylesheet" href="css/wqf_chapter.css">
 	<link rel="stylesheet" href="css/cp_videoChapter.css">
 	<link rel="stylesheet" href="css/cp_video.css">
 	<link rel="stylesheet" href="css/cp_videoWork.css">
+<script src="js/jquery.min.js"></script>
 	<link rel="stylesheet" href="http://at.alicdn.com/t/font_614432_gmnl71zjylcsdcxr.css">
+	<script src="js/headerfooter.js"></script>
 	<script type="text/javascript" src="js/ckplayer.js"></script>
 </head>
 <body>
 		<!-- 头部 -->
-	<div class="cp_head">
+	<div class="cp_head" id="public_header">
 		<!-- 左侧 -->
-		<div class="cp_return">
+		<div class="cp_return ">
 			<a href="#"  th:href="'course_chapter?courseId='+${courseId}">
 				<i class='fy_icon'>&#xe7a7;</i>
 			</a>
@@ -35,18 +38,15 @@
 		</div>
 		
 		<!-- 右侧 -->
-		<div class="cp_share">
+		<div class="cp_share container" >
 			<a href="#">分享到</a>
-			<a href="#">
-				<i class='fy_icon'>&#xe65b;</i>
-			</a>
-			<a href="#">
-				<i class='fy_icon'>&#xe60b;</i>
-			</a>
-			<a href="#">
-				<i class='fy_icon'>&#xe63d;</i>
-			</a>
-			<a href="personalCenter_notice" class='sign'>
+			<p class="bdsharebuttonbox" data-tag="share_1">
+				<a href="javascript:;" data-cmd="weixin" class="bds_weixin fy_icon" title="微信" style="background:none; padding-left:0;margin-right:9px;">&#xe65b;</a>
+				<a href="javascript:;" data-cmd="sqq" class="bds_sqq fy_icon" title="QQ" style="background:none;padding-left:0;">&#xe60b;</a>
+				<a href="javascript:;" data-cmd="tsina" class="bds_tsina fy_icon" title="微博" style="background:none;padding-left:0;">&#xe62f;</a>
+			</p>
+			
+			<!-- <a href="personalCenter_notice" class='sign'>
 				<span>1</span>
 				<i class='fy_icon'>&#xe628;</i>
 			</a>
@@ -54,7 +54,74 @@
 			<a href="personalCenter_notice" class='image'>
 				<img src="images/cp_14.png" alt="" th:src="${userInfo.head_image}" style="border-radius:50%">
 				
-			</a>
+			</a> -->
+			
+			<!-- 登录状态 开始-->
+			<div class="is_login">
+				<!-- 已登陆 -->
+				<!-- 包含 类名 active则显示,否则隐藏 -->
+				<div class="login_yes active" >
+					<div class="message" th:style="${userId}?'':'display:none'">
+						<a href="javascript:;" class="fy_icon" style="margin-right:0;">&#xe61d;</a>
+						<!-- 消息数 -->
+						<span th:text="${headnotificationSize}" style="margin-right:0;">2</span>
+						<!-- 消息弹框 -->
+						<div class="message_box">
+							<header>
+								<span>消息中心</span>
+								<span id="clearNotification">清空</span>
+							</header>
+							<ul>
+								<li th:each="eachnotification:${headnotificationList}">
+									<a href="javascript:;" class="clear_both">
+										<span th:text="${eachnotification.notification_type} == 0 ? '【通知】' : '【公告】'">【私信】</span>
+										<span class="hidd_more2" th:text="${eachnotification.notification_content}">第一届logo设计大赛正式开启</span>
+									</a>
+								</li>
+								
+								<li>
+									<a href="personalCenter_allnotice" class="clear_both">
+										查看全部
+									</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					
+					<div class="self"  th:style="${userId}?'':'display:none'">
+						<img src="images/wqf_user.png" th:src="${head_image}">
+	
+						<!-- 消息弹框 -->
+						<div class="message_box">
+							<h3 th:text="${headUserName}">游客</h3>
+							<ul>
+								<li>
+									<a href="personalCenter_jifen">我的积分</a>
+								</li>
+								<li>
+									<a href="personalCenter_homework">我的作业</a>
+								</li>
+								<li>
+									<a href="personalCenter_learning">我的课程</a>
+								</li>
+								<li>
+									<a href="personal_basic">我的资料</a>
+								</li>
+							</ul>
+							<a href="logout"><h3>退出账号</h3></a>
+						</div>
+					</div>
+				</div>
+	
+				<!-- 未登录 -->
+				<div class="login_no" th:class="${headLogin_no}">
+					<a href="login">登录</a>
+					<span class="line"></span>
+					<a href="register">注册</a>
+				</div>
+			</div>
+			<!-- 登录状态 结束-->
+	    <input type="hidden" th:value="${pageUri}" name="pageUri" id="pageUri">
 		</div>
 	</div>
 
@@ -190,6 +257,7 @@
         </div>
     </div>
 </body>
+<div th:include="backend/wy_footer"></div> 
 <script src='js/jquery.min.js'></script>
 <!-- <script>
     /*$("#tijiao").click(function(){
@@ -203,6 +271,14 @@
 		})
 	}) */	
 </script> -->
+<script>
+	window._bd_share_config = {
+		share : [{
+			"bdSize" : 16
+		}],
+	}
+	with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
 <script type="text/javascript" th:inline="javascript">
 	 let chapterId=[[${chapter.id}]];
 	 let userId=[[${userId}]];

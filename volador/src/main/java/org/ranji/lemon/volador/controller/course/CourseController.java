@@ -601,29 +601,41 @@ public class CourseController {
 		
 		try {
 			//判断用户是否登录，获取用户登录信息
-			int userId=(int) request.getSession().getAttribute("userId");
-			UserInfo userInfo=personalService.findUserInfoByUserId(userId);
-			mv.addObject(userInfo);
-			mv.addObject("userId", userId);
-			mv.addObject("login_yes","login_yes active");
-			mv.addObject("login_no","login_no");
-			personalService.deleteStudyingCourseRelation(userId, courseId);
-			
-			List<ChapterTitle> chapterTitleList=courseService.findChapterTitleByCourse(courseId);
-			List<Chapter> chapterList=chapterTitleService.findChapterByChapterTitle(chapterTitleList.get((chapterTitleList.size()-1)).getId());
-			if(chapterId == chapterList.get(chapterList.size()-1).getId()){
-				personalService.deleteStudyedCourseRelation(userId, courseId);
-				personalService.saveUserAndStudyedCourseRelation(userId, courseId);
-			}else
-				{
-					personalService.saveUserAndStudyingCourseRelation(userId, courseId, new Date(), chapterId);
+			if(request.getSession().getAttribute("userId")!=null){
+				int userId=(int) request.getSession().getAttribute("userId");
+				String userName=(String) request.getSession().getAttribute("userName");
+				mv =headerService.headInfo(userId, userName);
+				mv.addObject("pageUri", "/course_video");
+				UserInfo userInfo=personalService.findUserInfoByUserId(userId);
+				mv.addObject(userInfo);
+				mv.addObject("userId", userId);
+				mv.addObject("login_yes","login_yes active");
+				mv.addObject("login_no","login_no");
+				personalService.deleteStudyingCourseRelation(userId, courseId);
+				
+				List<ChapterTitle> chapterTitleList=courseService.findChapterTitleByCourse(courseId);
+				List<Chapter> chapterList=chapterTitleService.findChapterByChapterTitle(chapterTitleList.get((chapterTitleList.size()-1)).getId());
+				if(chapterId == chapterList.get(chapterList.size()-1).getId()){
+					personalService.deleteStudyedCourseRelation(userId, courseId);
+					personalService.saveUserAndStudyedCourseRelation(userId, courseId);
+				}else
+					{
+						personalService.saveUserAndStudyingCourseRelation(userId, courseId, new Date(), chapterId);
+					}
+				//根据课程ID查看是否是职业导航里的章节,如果是，则记录学习的章节ID
+				try {
+					saveGrowthClassOfChapterId(userId, courseId, chapterId);
+				} catch (Exception e) {
+					// TODO: handle exception
+					
+					
 				}
-			//根据课程ID查看是否是职业导航里的章节,如果是，则记录学习的章节ID
-			try {
-				saveGrowthClassOfChapterId(userId, courseId, chapterId);
-			} catch (Exception e) {
-				// TODO: handle exception
 			}
+			else{//用户未登录
+				mv.addObject("headLogin_yes","login_yes");
+				mv.addObject("headLogin_no","login_no active");
+			}
+			
 		} catch (Exception e) {
 			// TODO: handle exception
 			UserInfo userInfo=new UserInfo();
