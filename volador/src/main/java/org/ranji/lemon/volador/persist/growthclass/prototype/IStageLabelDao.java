@@ -30,9 +30,26 @@ public interface IStageLabelDao extends IGenericDao<StageLabel, Integer>{
 	 */
 	public void deleteStageAndLabelRelationByStageId(int growthstage_id);
 	/**
+	 * 根据阶段标签删除阶段关系
+	 * @param growthstage_id
+	 */
+	public void deleteStageAndLabelRelationByLabelId(int stagelabel_id);
+	/**
 	 * 根据阶段ID查询阶段图标
 	 * @param growthstage_id
 	 * @return
 	 */
-	public List<StageLabel> findStageLabelByStageId(int growthstage_id);	
+	public List<StageLabel> findStageLabelByStageId(int growthstage_id);
+	/**
+	 * 根据阶段ID删除阶段图标
+	 * @param growthstage_id
+	 */
+	public void deleteStageLabelByStageId(int growthstage_id);
+	
+	/**
+	 * 通过标签ID删除标签与分类的关系
+	 * @param stagelabel_id
+	 */
+	public void deleteLableAndClassifyRelationByLabelId(int stagelabel_id);
+	
 }

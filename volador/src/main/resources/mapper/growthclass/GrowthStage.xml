@@ -127,4 +127,26 @@
 		WHERE
 		u.id = #{user_id} and g.id = #{growthclass_id} and s.id= #{growthstage_id};
 	</select>
+	
+	<!-- 通过阶段ID删除与标签的绑定关系 -->
+	<delete id="deleteStageAndLabelRelationByStageId" parameterType="Integer">
+		delete from lemon_volador_growthstage_stagelabel where growthstage_id = #{growthstage_id}
+	</delete>
+	
+	<!-- 通过职业导航ID查询所有阶段 -->
+	<select id="findGrowthStageByGrowthClassId" parameterType="Integer" resultType ="VoladorGrowthStage">
+		SELECT
+		t.*
+		FROM
+		lemon_volador_growthstage t
+		LEFT JOIN lemon_volador_growthclass_stage g_c ON t.id = g_c.growthstage_id
+		LEFT JOIN lemon_volador_growthclass c ON c.id = g_c.growthclass_id
+		WHERE
+		c.id = #{id}
+	</select>
+	
+	<!-- 通过成长阶段删除成长方向和阶段的关系 -->
+	<delete id="deleteGrowthClassAndStageRelationByStageId" parameterType="Integer">
+		delete from lemon_volador_growthclass_stage where growthstage_id = #{stage_id}
+	</delete>
 </mapper>

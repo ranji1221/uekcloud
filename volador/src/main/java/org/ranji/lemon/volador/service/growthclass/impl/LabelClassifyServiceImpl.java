@@ -44,4 +44,15 @@ public class LabelClassifyServiceImpl extends GenericServiceImpl<LabelClassify, 
 		}
 	}
 
+	@Override
+	public void delete(Integer id) {
+		super.delete(id);
+		if(null != id){
+			((ILabelClassifyDao) dao).delete(id);
+			//删除与分类绑定的关系
+			((ILabelClassifyDao) dao).deletLabelAndClassifyRelationByClassifyId(id);
+		}
+		
+	}
+
 }

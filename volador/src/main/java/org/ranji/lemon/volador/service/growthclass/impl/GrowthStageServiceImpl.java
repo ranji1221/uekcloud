@@ -1,14 +1,20 @@
 package org.ranji.lemon.volador.service.growthclass.impl;
 
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.ranji.lemon.core.service.impl.GenericServiceImpl;
 import org.ranji.lemon.volador.model.course.Chapter;
 import org.ranji.lemon.volador.model.course.Course;
 import org.ranji.lemon.volador.model.growthclass.GrowthStage;
+import org.ranji.lemon.volador.model.growthclass.StageLabel;
 import org.ranji.lemon.volador.persist.growthclass.prototype.IGrowthStageDao;
 import org.ranji.lemon.volador.service.growthclass.prototype.IGrowthStageService;
+import org.ranji.lemon.volador.service.growthclass.prototype.IStageLabelService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 /**
  * 成长阶段service实现类
@@ -20,6 +26,8 @@ import org.springframework.stereotype.Service;
 @Service("VoladorGrowthStageServiceImpl")
 public class GrowthStageServiceImpl extends GenericServiceImpl<GrowthStage, Integer> implements IGrowthStageService{
 
+	@Autowired
+	private IStageLabelService stageLabelService;
 	@Override
 	public void saveGrowthStageAndCourseRelation(int stage_id, int course_id) {
 		((IGrowthStageDao) dao).saveGrowthStageAndCourseRelation(stage_id, course_id);		
@@ -28,6 +36,11 @@ public class GrowthStageServiceImpl extends GenericServiceImpl<GrowthStage, Inte
 	@Override
 	public void deleteGrowthStageAndCourseRelation(int stage_id, int course_id) {
 		((IGrowthStageDao) dao).deleteGrowthStageAndCourseRelation(stage_id, course_id);
+	}
+
+	@Override
+	public void deleteGrowthClassAndStageRelationByClassId(int stage_id) {
+		((IGrowthStageDao) dao).deleteGrowthClassAndStageRelationByStageId(stage_id);
 	}
 
 	@Override
@@ -107,4 +120,58 @@ public class GrowthStageServiceImpl extends GenericServiceImpl<GrowthStage, Inte
 	public void updateUserStudyStage(int user_id, int growthclass_id, int growthstage_id, int chapter_id) {
 		((IGrowthStageDao) dao).updateUserStudyStage(user_id, growthclass_id, growthstage_id, chapter_id);
 	}
+
+	@Override
+	public List<Map> listGrowthStageAndLebal(Integer growthclass_id) {
+		List<Map> growthstageList = new ArrayList<Map>();
+		List<GrowthStage> allGowthStageList = new ArrayList<>();
+		if(null == growthclass_id){
+			//查询全部阶段及所有标签
+			allGowthStageList = findAll();
+			
+		}else{
+			//查询指定阶段及所有标签
+			allGowthStageList = findGrowthStageByGrowthClassId(growthclass_id);
+		}
+		if(0 != allGowthStageList.size()){
+			for(GrowthStage growthStage:allGowthStageList){
+				Map<String, Object> growthstageMap = new HashMap<String, Object>();
+				if(null != growthStage){
+					growthstageMap.put("growthStage", growthStage);
+					growthstageMap.put("stageLabelList", stageLabelService.listStageLabelAndClassify(growthStage.getId()));
+					growthstageMap.put("courseList", findCourseByGrowthStageId(growthStage.getId()));
+				}
+				growthstageList.add(growthstageMap);
+			}
+		}
+		return growthstageList;
+	}
+
+	@Override
+	public void delete(Integer id) {
+		if(null != id){
+			((IGrowthStageDao) dao).delete(id);
+			
+			List<StageLabel> stageLabelList = stageLabelService.findStageLabelByStageId(id);
+			if(0 != stageLabelList.size()){
+				for(StageLabel stageLabel:stageLabelList){
+					//查找与阶段绑定的标签
+					stageLabelService.deleteLableAndClassifyRelationByLabelId(stageLabel.getId());
+					//查找与阶段绑定的课程
+					((IGrowthStageDao) dao).deleteGrowthStageAndCourseRelationByStageId(stageLabel.getId());
+				}
+			}
+			//删除与导航的绑定关系
+			deleteGrowthClassAndStageRelationByClassId(id);
+			//删除与阶段绑定的关系
+			((IGrowthStageDao) dao).deleteStageAndLabelRelationByStageId(id);
+		}
+	}
+
+	@Override
+	public List<GrowthStage> findGrowthStageByGrowthClassId(int growthclass_id) {
+		return ((IGrowthStageDao) dao).findGrowthStageByGrowthClassId(growthclass_id);
+	}
+	
+	
 }

@@ -21,7 +21,7 @@ public class GrowthStage extends AbstractModel{
 	
 	private Integer timeCount;
 	private Integer studentCount;
-	private Integer coursePrice;
+	private double coursePrice;
 	
 	
 	public String getImage() {
@@ -61,10 +61,10 @@ public class GrowthStage extends AbstractModel{
 	public void setStudentCount(Integer studentCount) {
 		this.studentCount = studentCount;
 	}
-	public Integer getCoursePrice() {
+	public double getCoursePrice() {
 		return coursePrice;
 	}
-	public void setCoursePrice(Integer coursePrice) {
+	public void setCoursePrice(double coursePrice) {
 		this.coursePrice = coursePrice;
 	}
 	@Override

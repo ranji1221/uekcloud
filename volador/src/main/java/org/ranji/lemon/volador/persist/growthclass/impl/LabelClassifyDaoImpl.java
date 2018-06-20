@@ -44,6 +44,11 @@ public class LabelClassifyDaoImpl extends GenericDaoImpl<LabelClassify, Integer>
 	}
 
 	@Override
+	public void deletLabelAndClassifyRelationByClassifyId(int labalclassify_id) {
+		sqlSessionTemplate.delete(typeNameSpace+".deletLabelAndClassifyRelationByClassifyId", labalclassify_id);
+	}
+
+	@Override
 	public List<LabelClassify> findLabelClassifyByLabelId(int stagelabel_id) {
 		return sqlSessionTemplate.selectList(typeNameSpace+".findLabelClassifyByLabelId", stagelabel_id);
 	}

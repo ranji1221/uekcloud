@@ -39,6 +39,11 @@ public class GrowthStageDaoImpl extends GenericDaoImpl<GrowthStage, Integer> imp
 	}
 
 	@Override
+	public void deleteGrowthClassAndStageRelationByStageId(int stage_id) {
+		sqlSessionTemplate.delete(typeNameSpace+".deleteGrowthClassAndStageRelationByStageId", stage_id);
+	}
+
+	@Override
 	public void deleteGrowthStageAndCourseRelationByStageId(int stage_id) {
 		sqlSessionTemplate.delete(typeNameSpace+".deleteGrowthStageAndCourseRelationByStageId", stage_id);		
 	}
@@ -99,5 +104,13 @@ public class GrowthStageDaoImpl extends GenericDaoImpl<GrowthStage, Integer> imp
 		return sqlSessionTemplate.selectList(typeNameSpace+".findGrowthStageByCourseId", course_id);
 	}
 
+	@Override
+	public void deleteStageAndLabelRelationByStageId(int growthstage_id) {
+		sqlSessionTemplate.delete(typeNameSpace+".deleteStageAndLabelRelationByStageId", growthstage_id);
+	}
 
+	@Override
+	public List<GrowthStage> findGrowthStageByGrowthClassId(int growthclass_id) {
+		return sqlSessionTemplate.selectList(typeNameSpace+".findGrowthStageByGrowthClassId", growthclass_id);
+	}
 }

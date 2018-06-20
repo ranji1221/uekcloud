@@ -2,6 +2,7 @@ package org.ranji.lemon.volador.service.growthclass.prototype;
 
 
 import java.util.List;
+import java.util.Map;
 
 import org.ranji.lemon.core.service.prototype.IGenericService;
 import org.ranji.lemon.volador.model.course.Chapter;
@@ -29,6 +30,12 @@ public interface IGrowthStageService extends IGenericService<GrowthStage, Intege
 	 */
 	public void deleteGrowthStageAndCourseRelation(int stage_id, int course_id);
 
+	/**
+	 * 通过阶段ID删除成长阶段与课程章节的关系
+	 * @param stage_id				成长阶段ID
+	 */
+	public void deleteGrowthClassAndStageRelationByClassId(int stage_id);
+	
 	/**
 	 * 通过阶段ID删除成长阶段与课程章节的关系
 	 * @param stage_id				成长阶段ID
@@ -82,5 +89,17 @@ public interface IGrowthStageService extends IGenericService<GrowthStage, Intege
 	 */
 	public List<GrowthStage> findGrowthStageByCourseId(int course_id);
 	
+	/**
+	 * 根据阶段ID查询所有阶段及标签
+	 * @param growthstage_id
+	 * @return
+	 */
+	public List<Map> listGrowthStageAndLebal(Integer growthstage_id);
 	
+	/**
+	 * 通过职业导航ID查询所有阶段
+	 * @param growthclass_id
+	 * @return 
+	 */
+	public List<GrowthStage> findGrowthStageByGrowthClassId(int growthclass_id);
 }

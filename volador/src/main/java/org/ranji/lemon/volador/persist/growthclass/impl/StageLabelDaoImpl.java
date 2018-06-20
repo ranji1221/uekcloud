@@ -40,7 +40,24 @@ public class StageLabelDaoImpl extends GenericDaoImpl<StageLabel, Integer> imple
 	}
 
 	@Override
+	public void deleteStageAndLabelRelationByLabelId(int stagelabel_id) {
+		sqlSessionTemplate.delete(typeNameSpace+".deleteStageAndLabelRelationByLabelId", stagelabel_id);
+	}
+
+	@Override
 	public List<StageLabel> findStageLabelByStageId(int growthstage_id) {
 		return sqlSessionTemplate.selectList(typeNameSpace+".findStageLabelByStageId", growthstage_id);
 	}
+
+	@Override
+	public void deleteStageLabelByStageId(int growthstage_id) {
+		sqlSessionTemplate.delete(typeNameSpace+".deleteStageLabelByStageId", growthstage_id);
+		
+	}
+
+	@Override
+	public void deleteLableAndClassifyRelationByLabelId(int stagelabel_id) {
+		sqlSessionTemplate.delete(typeNameSpace+".deleteLableAndClassifyRelationByLabelId", stagelabel_id);
+	}
+	
 }

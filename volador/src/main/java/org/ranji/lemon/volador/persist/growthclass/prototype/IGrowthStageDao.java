@@ -28,6 +28,8 @@ public interface IGrowthStageDao extends IGenericDao<GrowthStage, Integer>{
 	 * @param course_id				课程ID
 	 */
 	public void deleteGrowthStageAndCourseRelation(int stage_id, int course_id);
+	
+	public void deleteGrowthClassAndStageRelationByStageId(int stage_id);
 
 	/**
 	 * 通过阶段ID删除成长阶段与课程章节的关系
@@ -91,5 +93,18 @@ public interface IGrowthStageDao extends IGenericDao<GrowthStage, Integer>{
 	 * @return
 	 */
 	public List<GrowthStage> findGrowthStageByCourseId(int course_id);
+	
+	/**
+	 * 通过阶段ID删除与标签的绑定关系
+	 * @param growthstage_id
+	 */
+	public void deleteStageAndLabelRelationByStageId(int growthstage_id);
+	
+	/**
+	 * 通过职业导航ID查询所有阶段
+	 * @param growthclass_id
+	 * @return 
+	 */
+	public List<GrowthStage> findGrowthStageByGrowthClassId(int growthclass_id);
 	
 }

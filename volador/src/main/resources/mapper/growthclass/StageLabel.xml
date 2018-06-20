@@ -10,7 +10,15 @@
 	<delete id="delete" parameterType="int" >
 		delete from lemon_volador_growthclass_stagelabel where id = #{id}
 	</delete>
+	<!-- 根据阶段ID删除阶段图标 -->
+	<delete id="deleteStageLabelByStageId" parameterType="int" >
+		delete from lemon_volador_stagelabel_classify where growthstage_id = #{growthstage_id}
+	</delete>
 	
+	<!-- 根据阶段标签删除阶段关系 -->
+	<delete id="deleteStageAndLabelRelationByLabelId" parameterType="int" >
+		delete from lemon_volador_growthstage_stagelabel where stagelabel_id = #{stagelabel_id}
+	</delete>
 	<!-- 查询根据id -->
 	<select id="find" parameterType="int" resultType="VoladorGrowthClassStageLabel">
 		select * from lemon_volador_growthclass_stagelabel where id = #{id}
@@ -58,4 +66,9 @@
 		WHERE
 		c.id = #{id}
 	</select>
+	
+	<!-- 通过标签ID删除标签与分类的关系 -->
+	<delete id="deleteLableAndClassifyRelationByLabelId" parameterType="int" >
+		delete from lemon_volador_stagelabel_classify where stagelabel_id = #{stagelabel_id}
+	</delete>
 </mapper>

@@ -35,6 +35,10 @@
 	<delete id="deletLabelAndClassifyRelationByLabelId" parameterType="Integer">
 		delete from lemon_volador_stagelabel_classify where stagelabel_id = #{stagelabel_id}
 	</delete>
+	<!-- 根据标签分类ID删除阶段标签与标签分类关系-->
+	<delete id="deletLabelAndClassifyRelationByClassifyId" parameterType="Integer">
+		delete from lemon_volador_stagelabel_classify where labalclassify_id = #{labalclassify_id}
+	</delete>
 	
 	<!-- 修改个某条GrowthStage信息 -->
 	<update id="update" parameterType="VoladorLabelClassify">

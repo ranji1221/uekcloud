@@ -193,4 +193,54 @@ public class GrowthClassServiceImpl extends GenericServiceImpl<GrowthClass, Inte
 		}
 		return bResult;
 	}
+
+	@Override
+	public List<Map> listGrowthClassAndStage(Integer growthclass_id) {
+		List<Map> growthclassList = new ArrayList<Map>();
+		if(null == growthclass_id){
+			//查询所有
+			List<GrowthClass> allGrowthClassList = findAll();
+			if(0 != allGrowthClassList.size()){
+				for(GrowthClass growthClass:allGrowthClassList){
+					Map<String, Object> growthclassMap = new HashMap<String, Object>();
+					if(null != growthClass){
+						growthclassMap.put("growthClass", growthClass);
+						growthclassMap.put("growthStageList", growthStageService.listGrowthStageAndLebal(growthClass.getId()));
+					}
+					growthclassList.add(growthclassMap);
+				}
+			}
+			
+		}else{
+			//查询指定
+			Map<String, Object> growthclassMap = new HashMap<String, Object>();
+			GrowthClass growthClass = find(growthclass_id);
+			if(null != growthClass){
+				growthclassMap.put("growthClass", growthClass);
+				growthclassMap.put("growthStageList", growthStageService.listGrowthStageAndLebal(growthclass_id));
+			}
+			growthclassList.add(growthclassMap);
+		}
+		return growthclassList;
+	}
+
+	@Override
+	public void delete(Integer id) {
+		//删除职业导航
+		((IGrowthClassDao) dao).delete(id);
+		deleteGrowthClassAndStageRelationByClassId(id);
+		//获取所有与职业导航绑定的阶段
+		List<GrowthStage> growthStageList = growthStageService.findGrowthStageByGrowthClassId(id);
+		if(0 != growthStageList.size()){
+			for(GrowthStage growthStage:growthStageList){
+				
+				//删除与阶段的绑定关系
+				growthStageService.delete(growthStage.getId());
+			}
+		}
+		//删除导航与阶段的关系
+		deleteGrowthClassAndStageRelationByClassId(id);
+	}
+	
+	
 }

@@ -82,5 +82,12 @@ public interface IGrowthClassService extends IGenericService<GrowthClass, Intege
 	 * @param chapterId
 	 */
 	public Boolean saveGrowthClassOfChapterId(Integer user_id, Integer growthclass_id, Integer course_id , Integer chapterId);
+	
+	/**
+	 * 根据职业导航ID查询绑定的阶段，标签及分类
+	 * @param growthclass_id
+	 * @return
+	 */
+	public List<Map> listGrowthClassAndStage(Integer growthclass_id);
 
 }

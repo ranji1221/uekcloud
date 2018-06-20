@@ -30,6 +30,11 @@ public interface ILabelClassifyDao extends IGenericDao<LabelClassify, Integer>{
 	 */
 	public void deletLabelAndClassifyRelationByLabelId(int stagelabel_id);
 	/**
+	 * 根据标签分类ID删除阶段标签与标签分类关系
+	 * @param labalclassify_id
+	 */
+	public void deletLabelAndClassifyRelationByClassifyId(int labalclassify_id);
+	/**
 	 * 根据阶段标签ID查询阶段分类
 	 * @param stagelabel_id
 	 * @return
