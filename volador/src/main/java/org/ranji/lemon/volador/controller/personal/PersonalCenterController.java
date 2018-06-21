@@ -309,7 +309,7 @@ public class PersonalCenterController {
 	@RequestMapping(value="/personSignIn", method=RequestMethod.GET)
 	public ModelAndView personSignIn(HttpServletRequest request){
 		ModelAndView mv =new ModelAndView();
-		try{
+		if(request.getSession().getAttribute("userId")!=null) {
 			
 			int userId = (int) request.getSession().getAttribute("userId");
 			
@@ -344,8 +344,7 @@ public class PersonalCenterController {
 			
 			mv.setViewName("redirect:/index");
 			
-		} catch (Exception e){
-			e.printStackTrace();
+		} else{
 			mv.setViewName("redirect:/login");
 		}
 		return mv;
@@ -357,7 +356,7 @@ public class PersonalCenterController {
 	public ModelAndView personalCenterLearn_end(HttpServletRequest request){
 		ModelAndView mv = new ModelAndView();
 		//异常处理，当没有获取到登录信息时，跳转到登录页面
-		try {
+		if(request.getSession().getAttribute("userId")!=null) {
 			//根据session获取userId，查询已学习，并查询当前用户信息
 			int userId=(int) request.getSession().getAttribute("userId");
 			String userName=(String) request.getSession().getAttribute("userName");
@@ -460,7 +459,7 @@ public class PersonalCenterController {
 			
 			
 			mv.setViewName("backend/wqf_learn_end");
-		} catch (Exception e) {
+		} else{
 			// TODO: handle exception
 			mv.setViewName("redirect:/login");
 		}
@@ -475,7 +474,7 @@ public class PersonalCenterController {
 	public ModelAndView deleteEndCourse(HttpServletRequest request){
 		ModelAndView mv = new ModelAndView();
 		//异常处理，当没有获取到登录信息时，跳转到登录页面
-		try {
+		if(request.getSession().getAttribute("userId")!=null) {
 			//根据session获取userId，查询已学习，并查询当前用户信息
 			int userId=(int) request.getSession().getAttribute("userId");
 
@@ -486,7 +485,7 @@ public class PersonalCenterController {
 			//重定向到当前页
 			mv.setViewName("redirect:/personalCenter_learn_end");
 			
-			}catch (Exception e) {
+			}else {
 				// TODO: handle exception
 				mv.setViewName("redirect:/personalCenter_learn_end");
 			}
@@ -502,7 +501,7 @@ public class PersonalCenterController {
 		ModelAndView mv = new ModelAndView();
 		
 		//异常处理，当没有获取到登录信息时候，跳转到登录页面
-		try {
+		if(request.getSession().getAttribute("userId")!=null) {
 			int userId=(int) request.getSession().getAttribute("userId");
 			String userName=(String) request.getSession().getAttribute("userName");
 			mv =headerService.headInfo(userId, userName);
@@ -607,7 +606,7 @@ public class PersonalCenterController {
 			//查询签到天数
 			SignIn signIn = signInService.findSignInByUserId(userId);
 			mv.addObject("siginDay", signIn.getDay());
-		} catch (Exception e) {
+		} else{
 			// TODO: handle exception
 			mv.setViewName("redirect:/login");
 		}
@@ -622,7 +621,7 @@ public class PersonalCenterController {
 		ModelAndView mv = new ModelAndView();
 		
 		//异常处理，当没有获取到登录信息时候，跳转到登录页面
-		try {
+		if(request.getSession().getAttribute("userId")!=null)  {
 			int userId=(int) request.getSession().getAttribute("userId");
 			String userName=(String) request.getSession().getAttribute("userName");
 			
@@ -632,7 +631,7 @@ public class PersonalCenterController {
 			
 			mv.setViewName("redirect:/personalCenter_collect_course");
 			
-			}catch (Exception e) {
+			}else {
 				// TODO: handle exception
 				mv.setViewName("redirect:/personalCenter_collect_course");
 			}
@@ -645,7 +644,7 @@ public class PersonalCenterController {
 	@RequestMapping(value="/personalCenter_data_download", method=RequestMethod.GET)
 	public ModelAndView personalCenterData_download(HttpServletRequest request){
 		ModelAndView mv = new ModelAndView();
-		try {
+		if(request.getSession().getAttribute("userId")!=null) {
 			//获取userId
 			int userId=(int) request.getSession().getAttribute("userId");
 			String userName=(String) request.getSession().getAttribute("userName");
@@ -676,7 +675,7 @@ public class PersonalCenterController {
 			
 			mv.setViewName("backend/wqf_data_download");
 			
-		} catch (Exception e) {
+		} else {
 			// TODO: handle exception
 			mv.setViewName("redirect:/login");
 		}
@@ -693,7 +692,7 @@ public class PersonalCenterController {
 	public ModelAndView personalCenterJifen(HttpServletRequest request){
 		ModelAndView mv = new ModelAndView();
 		
-		try {
+		if(request.getSession().getAttribute("userId")!=null) {
 			int userId=(int) request.getSession().getAttribute("userId");
 			String userName=(String) request.getSession().getAttribute("userName");
 			 mv = headerService.headInfo(userId, userName);	
@@ -723,7 +722,7 @@ public class PersonalCenterController {
 			mv.addObject("siginDay", signIn.getDay());
 			 
 			mv.setViewName("backend/wzq_jifen");
-		} catch (Exception e) {
+		} else {
 			// TODO: handle exception
 			mv.setViewName("redirect:/login");
 		}
@@ -737,7 +736,7 @@ public class PersonalCenterController {
 	@RequestMapping(value="/personalCenter_draw_rule", method=RequestMethod.GET)
 	public ModelAndView personalCenterDraw_rule(HttpServletRequest request){
 		ModelAndView mv = new ModelAndView();
-		try {
+		if(request.getSession().getAttribute("userId")!=null) {
 			String userName = request.getSession().getAttribute("userName").toString();
 			int userId=(int) request.getSession().getAttribute("userId");
 			mv =headerService.headInfo(userId, userName);
@@ -765,11 +764,11 @@ public class PersonalCenterController {
 			//查询签到天数
 			SignIn signIn = signInService.findSignInByUserId(userId);
 			mv.addObject("siginDay", signIn.getDay());
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
+			mv.setViewName("backend/wqf_draw_rule");
+		} else {
+			mv.setViewName("redirect:/login");
 		}
-		mv.setViewName("backend/wqf_draw_rule");
+		
 		return mv;
 	}
 	
@@ -779,7 +778,7 @@ public class PersonalCenterController {
 	@RequestMapping(value="/personalCenter_homework", method=RequestMethod.GET)
 	public ModelAndView personalCenterHomework(HttpServletRequest request){
 		ModelAndView mv = new ModelAndView();
-		try {
+		if(request.getSession().getAttribute("userId")!=null) {
 			int userId=(int) request.getSession().getAttribute("userId");
 			String userName=(String) request.getSession().getAttribute("userName");
 			mv =headerService.headInfo(userId, userName);
@@ -820,7 +819,7 @@ public class PersonalCenterController {
 			mv.addObject("siginDay", signIn.getDay());
 			
 			mv.setViewName("backend/wzq_list_work_upload");
-		} catch (Exception e) {
+		} else {
 			// TODO: handle exception
 			mv.setViewName("redirect:/login");
 		}
@@ -893,7 +892,7 @@ public class PersonalCenterController {
 	@RequestMapping(value="/personalCenter_invitation", method=RequestMethod.GET)
 	public ModelAndView personalCenterInvitation(HttpServletRequest request){
 		ModelAndView mv = new ModelAndView();
-		try {
+		if(request.getSession().getAttribute("userId")!=null){
 			String userName=(String) request.getSession().getAttribute("userName");
 			int userId=(int) request.getSession().getAttribute("userId");
 			mv =headerService.headInfo(userId, userName);
@@ -919,11 +918,12 @@ public class PersonalCenterController {
 			mv.addObject("siginDay", signIn.getDay());
 			
 			mv.addObject("pageUri", "/personalCenter_invitation");
-		} catch (Exception e) {
+			mv.setViewName("backend/wqf_invitation");
+		} else{
 			// TODO: handle exception
-			e.printStackTrace();
+			mv.setViewName("redirect:/login");
 		}
-		mv.setViewName("backend/wqf_invitation");
+		
 		return mv;
 	}
 	

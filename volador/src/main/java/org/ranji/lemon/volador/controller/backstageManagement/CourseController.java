@@ -88,12 +88,14 @@ public class CourseController {
 				String courseInfo = map.get("course_info");
 				double price =Double.parseDouble(map.get("price"));
 				String courseImageAddress = map.get("course_image_address");
+				String flag =map.get("flag");
 				Course course = new Course();
 				course.setId(courseId);
 				course.setCourse_name(courseName);
 				course.setCourse_info(courseInfo);
 				course.setCourse_price(price);
 				course.setCourse_image_address(courseImageAddress);
+				course.setFlag(flag);
 				courseService.update(course);
 				result.put("code", 200);
 				result.put("message", "修改成功");
@@ -174,11 +176,13 @@ public class CourseController {
 				String courseImageAddress = map.get("course_image_address");
 				int classifyId =Integer.parseInt(request.getParameter("classify_id"));
 				int teacherId =Integer.parseInt(map.get("teacher_id"));
+				String flag =map.get("flag");
 				Course course = new Course();
 				course.setCourse_name(courseName);
 				course.setCourse_info(courseInfo);
 				course.setCourse_price(price);
 				course.setCourse_image_address(courseImageAddress);
+				course.setFlag(flag);
 				courseService.save(course);
 				int courseId = course.getId();
 				classifyService.saveClassifyAndCourseRelation(courseId, classifyId);

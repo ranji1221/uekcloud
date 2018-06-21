@@ -18,9 +18,16 @@ public class Course extends AbstractModel {
     private double course_price;
     private int student_count;
     private String course_image_address;
+    private String flag;
 
 
-    public Course(){
+    public String getFlag() {
+		return flag;
+	}
+	public void setFlag(String flag) {
+		this.flag = flag;
+	}
+	public Course(){
     	this.course_image_address = "images/cp_10.png";
     }
 	public String getCourse_name() {

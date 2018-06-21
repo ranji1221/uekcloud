@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.ranji.lemon.volador.model.course.Course">
   <insert id="save" parameterType="VoladorCourse" keyProperty="id" useGeneratedKeys="true">
-		insert into lemon_volador_course_course (guid,createTime,updateTime,course_name, course_info,course_price,student_count,course_image_address)
-		values (#{guid},#{createTime},#{updateTime},#{course_name}, #{course_info},#{course_price},#{student_count},#{course_image_address})
+		insert into lemon_volador_course_course (guid,createTime,updateTime,course_name, course_info,course_price,student_count,course_image_address,flag)
+		values (#{guid},#{createTime},#{updateTime},#{course_name}, #{course_info},#{course_price},#{student_count},#{course_image_address},#{flag})
 	</insert>
 	
 	<!-- 删除某条记录 -->
@@ -103,6 +103,7 @@
 			<if test="course_info != null and course_info != ''">course_info = #{course_info},</if>
 			<if test="course_price != null and course_price != ''">course_price = #{course_price},</if>
 			<if test="student_count != null and student_count != ''">student_count = #{student_count},</if>
+			<if test="flag != null and flag != ''">flag = #{flag},</if>
 			<if test="updateTime != null ">updateTime = #{updateTime},</if>
 		</set>
 		where id = #{id}
