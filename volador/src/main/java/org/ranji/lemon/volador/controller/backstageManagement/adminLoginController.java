@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class adminLoginController {
@@ -66,15 +67,12 @@ public class adminLoginController {
 		pw.close();
 	}
 	
-	public static String convertStreamToString(InputStream is,String charSet,int lengthOfContent) throws Exception{    
-        
-	    ByteArrayOutputStream outStream = new ByteArrayOutputStream();    
-	    byte[] data = new byte[lengthOfContent];    
-	        int count = -1;    
-	        while((count = is.read(data,0,lengthOfContent)) != -1)    
-	            outStream.write(data, 0, count);    
-	            
-	        data = null;    
-	        return new String(outStream.toByteArray(),charSet);    
-	}    
+	@RequestMapping(value="/admin",method=RequestMethod.GET)
+	public ModelAndView adminIndex(){
+		ModelAndView mv=new ModelAndView();
+		mv.setViewName("admin/index");
+		
+		return mv;
+		
+	}
 }

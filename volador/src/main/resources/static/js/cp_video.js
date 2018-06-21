@@ -85,7 +85,7 @@ $(function(){
     if(videoData){
         if(videoData.src==video.src){
             video.currentTime=videoData.time;
-            video.muted='muted'
+            // video.muted='muted'  
             video.pause();
         }
     }else{
@@ -100,17 +100,94 @@ $(function(){
         localStorage.setItem('video',JSON.stringify(obj));  
     }
 
+    var data = {
+        "code": 200,
+        "message": "获取成功",
+        "data": {
+            "userInfo": {
+                "head_image": "/images/wzq_user_img.jpg",
+                "nickname": "飞鱼学员213"
+            },
+            "commentAndReply": [{
+                "comment": {
+                    "id": 67,
+                    "createTime": 1528167382000,
+                    "updateTime": 1528167382000,
+                    "guid": "218d8480c50f49c699efbc50ebea248e",
+                    "content": "测试评论1",
+                    "nickName": "飞鱼学员001",
+                    "head_image": "photos\\13096919464.png"
+                },
+                "reply": [{
+                    "id": 1,
+                    "createTime": 1528167382000,
+                    "updateTime": 1528167382000,
+                    "guid": "218d8480c50f49c699efbc50ebea248e",
+                    "userId": 89,
+                    "userName": "飞鱼学院378",
+                    "replyUserId": 0,
+                    "replyUserName": null,
+                    "reply": "我的回复1",
+                    "commentId": 67
+                }, {
+                    "id": 2,
+                    "createTime": 1528167382000,
+                    "updateTime": 1528167382000,
+                    "guid": "218d8480c50f49c699efbc50ebea248e",
+                    "userId": 89,
+                    "userName": "飞鱼学院379",
+                    "replyUserId": 0,
+                    "replyUserName": null,
+                    "reply": "我的回复2",
+                    "commentId": 67
+                }]
+            }, {
+                "comment": {
+                    "id": 67,
+                    "createTime": 1528167382000,
+                    "updateTime": 1528167382000,
+                    "guid": "218d8480c50f49c699efbc50ebea248e",
+                    "content": "测试评论1",
+                    "nickName": "飞鱼学员002",
+                    "head_image": "photos\\wqf_user.png"
+                },
+                "reply": [{
+                    "id": 1,
+                    "createTime": 1528167382000,
+                    "updateTime": 1528167382000,
+                    "guid": "218d8480c50f49c699efbc50ebea248e",
+                    "userId": 89,
+                    "userName": "飞鱼学院378",
+                    "replyUserId": null,
+                    "replyUserName": "张三",
+                    "reply": "我的回复1",
+                    "commentId": 67
+                }, {
+                    "id": 2,
+                    "createTime": 1528167382000,
+                    "updateTime": 1528167382000,
+                    "guid": "218d8480c50f49c699efbc50ebea248e",
+                    "userId": 89,
+                    "userName": "飞鱼学院379",
+                    "replyUserId": null,
+                    "replyUserName": null,
+                    "reply": "我的回复2",
+                    "commentId": 67
+                }]
+            }]
+        }
+    }
     function getComment(){
             let content = $('.cp_tabCon .container .col_left .cp_commentBox');
             let wzq_page = $('.cp_tabCon .container .col_left .wzq_page');
             let tips =  $('.cp_tabCon .tips');
             tips.css('display','block');
             $.ajax({
-                url:"chapterCommentList",
-                type:'post',
+                url:"chapter_commentList.txt",
+                type:'get',
                 data:{userId,chapterId},
-                dataType:'json',
-                success:function(data){
+                dataType:'text',
+                success:function(){
                     console.log(data)
                     data = data.data
                     tips.html('全部评论 <span>'+data.commentAndReply.length+'</span>');
@@ -151,16 +228,16 @@ $(function(){
                                         <div class="wzq_comment_item_des clear_both">
                                             <p class="hidd_more">${val.comment['content']}</p>
                                             <div class="wzq_comment_reply">
-                                                <span class="wzq_jubao"><i class="fy_icon">&#xe652;</i>举报</span>
                                                 <span title="回复" class="wzq_comment_replys" data-flag="true" replyUserName="${val.comment.nickName}"><i class="fy_icon">&#xe679;</i></span>
                                                 <span class="wzq_comment_zan wzq_comment_zanend"><i class="fy_icon">&#xe6b3;</i></span>
                                             </div>
                                         </div>`
+                                        // 这是举报，放到回复的span之前 <span class="wzq_jubao"><i class="fy_icon">&#xe652;</i>举报</span>
                             val.reply.forEach((ele,i)=>{
                                 str+=`<div class="wqf_reply">
                                     <span uid="${ele.userId}">${ele.userName} 回复 ${ele.replyUserName==null?'':'@'+ele.replyUserName}：${ele.reply}</span>
                                     <div class="wzq_comment_reply">
-                                        
+
                                         <span title="回复" class="wzq_comment_replys" data-flag="true" replyUserName="${ele.userName}"><i class="fy_icon">&#xe679;</i></span>
                                     </div>
                                 </div>`   // wqf_reply 结束
@@ -230,7 +307,7 @@ $(function(){
                                 }else{
                                     next.before($('<a class="cp_num" >').html(n));
                                 }
-                            }  
+                            }
                         }
                         getData();
                         // 分页按钮的点击效果
@@ -310,7 +387,6 @@ $(function(){
                                             <div class="wzq_comment_item_des">
                                                 <p class="hidd_more">${val.comment['content']}</p>
                                                 <div class="wzq_comment_reply">
-                                                    <span class="wzq_jubao"><i class="fy_icon">&#xe652;</i>举报</span>
                                                     <span title="回复" class="wzq_comment_replys" data-flag="true" ><i class="fy_icon">&#xe679;</i></span>
                                                     <span class="wzq_comment_zan wzq_comment_zanend"><i class="fy_icon">&#xe6b3;</i></span>
                                                 </div>
@@ -390,12 +466,15 @@ $(function(){
                     }
                     // 发表评论判断与ajax数据发送
                     $('.col_left').on('click','.wzq_add_submit>input',function(){
+                        console.log("评论")
+
                         let con = $('#wzq_textarea');
                         if(con.val().trim()==""){
                          getTips("内容不能为空");
                         }else{
                             let content = con.val();
                             $.ajax({
+                                // 发表评论
                                 url:'course_chapter_comment',
                                 data:{userId,chapterId,content},
                                 type:'post',
@@ -419,7 +498,6 @@ $(function(){
                                                         <div class="wzq_comment_item_des">
                                                             <p class="hidd_more">${content}</p>
                                                             <div class="wzq_comment_reply">
-                                                                <span class="wzq_jubao"><i class="fy_icon">&#xe652;</i>举报</span>
                                                                 <span title="回复" class="wzq_comment_replys" data-flag="true"><i class="fy_icon">&#xe679;</i></span>
                                                                 <span class="wzq_comment_zan wzq_comment_zanend"><i class="fy_icon">&#xe6b3;</i></span>
                                                             </div>
@@ -468,6 +546,7 @@ $(function(){
                      var my_parent = '';
                     // 发表回复的功能的ajax触发  
                     $('.col_left').on('click','.wzq_reply_submit input',function(){
+                        console.log("回复")
                         let con = $('.wzq_reply_textarea',$(this).parents('.wzq_reply_form'));
                         if(con.val().trim()==""){
                             getTips("内容不能为空");
@@ -477,7 +556,9 @@ $(function(){
                             let  replayId = $('span[uid]',my_parent).attr('uid');
                             console.log(user,replayId);
                             let content = con.val();
+                            replayId = replayId===undefined?null:replayId
                             $.ajax({
+                                // 发表回复
                                 url:'course_chapter_comment',
                                 data:{userId,chapterId,content,replayId},
                                 type:'post',
@@ -488,7 +569,6 @@ $(function(){
                                         getTips("评论成功");
                                         let reply = $('<div class="wqf_reply">').html(`<span uid="null">我 回复 ${user}：${content}</span>
                                             <div class="wzq_comment_reply">
-                                                <span class="wzq_jubao"><i class="fy_icon"></i>举报</span>
                                                 <span title="回复" class="wzq_comment_replys" data-flag="false" replyusername="${user}"><i class="fy_icon"></i></span>
                                             </div>`).insertAfter(my_parent);
                                     }else if(val.info=='fail'){
@@ -770,7 +850,7 @@ $(function(){
                                 <a href="course_video?chapterId=${m.id}">
                                     <i class="fy_icon">&#xe629;</i>
                                     ${m.chapter_name}
-                                    <span class="time">${m.total_time}</span>
+                                    <span class="time">${m.totalTime}</span>
                                 </a>
                                 <p class="hidd_more">${m.chapter_info}</p>
                             `).appendTo(ul);

@@ -195,7 +195,7 @@ public class PersonalCenterController {
 	public ModelAndView personalCenterLearn_now(HttpServletRequest request){
 		ModelAndView mv = new ModelAndView();
 		//异常处理，当没有获取到登录信息时，跳转到登录页面
-		try {
+		if(request.getSession().getAttribute("userId")!=null) {
 			//根据session获取userId，查询正在学习课程
 			int userId=(int) request.getSession().getAttribute("userId");
 			String userName=(String) request.getSession().getAttribute("userName");
@@ -230,7 +230,14 @@ public class PersonalCenterController {
 					studyingCourse.setCourseImage(courseList.get(i).getCourse_image_address());
 				}
 				//获取章节名称
-				studyingCourse.setChapterName(chapterService.find(studyingCourse.getChapterId()).getChapter_name());
+				try {
+					studyingCourse.setChapterName(chapterService.find(studyingCourse.getChapterId()).getChapter_name());
+				} catch (Exception e) {
+					// TODO: handle exception
+					studyingCourse.setChapterName("你要看的章节消失啦");
+					personalService.deleteStudyingCourseRelation(userId, courseList.get(i).getId());
+				}
+
 				//获取评论总数
 				studyingCourse.setCommentCount(chapterService.findCommentListByChapter(studyingCourse.getChapterId()).size());
 				//获取笔记总数
@@ -289,7 +296,7 @@ public class PersonalCenterController {
 			mv.addObject("siginDay", signIn.getDay());
 			
 			mv.setViewName("backend/wqf_learn_now");
-		} catch (Exception e) {
+		} else{
 			// TODO: handle exception
 			mv.setViewName("redirect:/login");
 		}

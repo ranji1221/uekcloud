@@ -585,7 +585,7 @@ public class CourseController {
 		ModelAndView mv = new ModelAndView();
 		if(chapterId == null){
 			//重定向到404页面
-			mv.setViewName("redirect:/index");
+			mv.setViewName("error/404");
 			return mv;
 		}
 		
@@ -593,7 +593,7 @@ public class CourseController {
 		Chapter chapter=chapterService.find(chapterId);
 		//如果查到的内容为空，重定向到404页面
 		if(chapter==null){
-			mv.setViewName("redirect:/error");
+			mv.setViewName("error/404");
 			return mv;
 		}
 		//根据章节id查找课程标题id,查找课程标题id查找课程id
