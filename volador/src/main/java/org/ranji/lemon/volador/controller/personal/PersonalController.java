@@ -231,6 +231,7 @@ public class PersonalController {
 		for (Course course : courseList) {
 			HashMap<String, Object> courseMap = new HashMap<String, Object>();
 			courseMap.put("courseId", course.getId());
+			courseMap.put("flag", course.getFlag());
 			courseMap.put("courseName", course.getCourse_name());
 			courseMap.put("course_price", course.getCourse_price());
 			courseMap.put("student_count", course.getStudent_count());

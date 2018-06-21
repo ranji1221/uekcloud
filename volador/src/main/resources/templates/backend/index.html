@@ -134,7 +134,7 @@
 				<a href="javascript:;"  th:href="${themeCourse1}?'course_chapter?courseId='+${course.courseId}:''">
 					<div class="picture" style="background: url(images/wqf_list1.png) no-repeat center /cover;"  th:style="${themeCourse1}?'background: #fff url('+${course.image}+') no-repeat center /cover':'' ">
 						<header>
-							<span class="hot"></span>
+							<span th:class="${themeCourse1}?${course.flag}:''"></span>
 							<span class="title" th:text="${themeCourse1}?${course.classify}:''">用户体验</span>
 						</header>
 <!-- 						<div class="time">
@@ -148,7 +148,7 @@
 
 					<h3 class="title hidd_more2 fire" th:text="${themeCourse1}?${course.courseName}:''">理论+实践，构建属于你的机器学习库单 <span class="fy_icon">&#xe606;</span></h3>
 					<p>
-						<span th:text="${themeCourse1}?(${course.course_price} == 0 ? '免费' : '￥'+${course.course_price}):''" class="price">￥199</span>
+						<span th:text="${themeCourse1}?(${course.course_price} == 0 ? '免费' : '￥'+${course.course_price}):''" class="price" th:class="${themeCourse1}?(${course.course_price} == 0 ? '' : 'price'):''">￥199</span>
 						<span th:text="${themeCourse1}?${course.student_count} + '人正在学习':''">555人正在学习</span>
                     </p>
 				</a>
@@ -186,7 +186,7 @@
 
 					<h3 class="title hidd_more2 fire" th:text="${themeCourse2}?${course.courseName}:''">理论+实践，构建属于你的机器学习库单 <span class="fy_icon">&#xe606;</span></h3>
 					<p>
-						<span th:text="${themeCourse2}?(${course.course_price} == 0 ? '免费' : '￥'+${course.course_price}):''" class="price">￥199</span>
+						<span th:text="${themeCourse2}?(${course.course_price} == 0 ? '免费' : '￥'+${course.course_price}):''" class="price" th:class="${themeCourse2}?(${course.course_price} == 0 ? '' : 'price'):''">￥199</span>
 						<span th:text="${themeCourse2}?${course.student_count} + '人正在学习':''">555人正在学习</span>
                     </p>
 				</a>
@@ -226,7 +226,7 @@
 
 					<h3 class="title hidd_more2 fire" th:text="${themeCourse3}?${course.courseName}:''">理论+实践，构建属于你的机器学习库单 <span class="fy_icon">&#xe606;</span></h3>
 					<p>
-						<span th:text="${themeCourse3}?(${course.course_price} == 0 ? '免费' : '￥'+${course.course_price}):''" class="price">￥199</span>
+						<span th:text="${themeCourse3}?(${course.course_price} == 0 ? '免费' : '￥'+${course.course_price}):''" class="price" th:class="${themeCourse3}?(${course.course_price} == 0 ? '' : 'price'):''">￥199</span>
 						<span th:text="${themeCourse3}?${course.student_count} + '人正在学习':''">555人正在学习</span>
                     </p>
 				</a>
@@ -262,7 +262,7 @@
 
 					<h3 class="title hidd_more2 fire" th:text="${themeCourse4}?${course.courseName}:''">理论+实践，构建属于你的机器学习库单 <span class="fy_icon">&#xe606;</span></h3>
 					<p>
-						<span th:text="${themeCourse4}?(${course.course_price} == 0 ? '免费' : '￥'+${course.course_price}):''" class="price">￥199</span>
+						<span th:text="${themeCourse4}?(${course.course_price} == 0 ? '免费' : '￥'+${course.course_price}):''" class="price" th:class="${themeCourse4}?(${course.course_price} == 0 ? '' : 'price'):''">￥199</span>
 						<span th:text="${themeCourse4}?${course.student_count} + '人正在学习':''">555人正在学习</span>
                     </p>
 				</a>
