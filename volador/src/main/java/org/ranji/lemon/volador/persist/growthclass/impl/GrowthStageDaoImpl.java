@@ -91,7 +91,7 @@ public class GrowthStageDaoImpl extends GenericDaoImpl<GrowthStage, Integer> imp
 	}
 
 	@Override
-	public List<Chapter> findChapterByUserIdAndClassIdAndStageId(int user_id, int growthclass_id, int growthstage_id) {
+	public List<Integer> findChapterByUserIdAndClassIdAndStageId(int user_id, int growthclass_id, int growthstage_id) {
 		Map<String, Object> parameter = new HashMap<String, Object>();
 		parameter.put("growthstage_id", growthstage_id);
 		parameter.put("user_id", user_id);

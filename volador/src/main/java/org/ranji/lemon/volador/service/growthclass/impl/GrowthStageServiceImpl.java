@@ -12,6 +12,7 @@ import org.ranji.lemon.volador.model.course.Course;
 import org.ranji.lemon.volador.model.growthclass.GrowthStage;
 import org.ranji.lemon.volador.model.growthclass.StageLabel;
 import org.ranji.lemon.volador.persist.growthclass.prototype.IGrowthStageDao;
+import org.ranji.lemon.volador.service.course.prototype.IChapterService;
 import org.ranji.lemon.volador.service.growthclass.prototype.IGrowthStageService;
 import org.ranji.lemon.volador.service.growthclass.prototype.IStageLabelService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,8 @@ public class GrowthStageServiceImpl extends GenericServiceImpl<GrowthStage, Inte
 
 	@Autowired
 	private IStageLabelService stageLabelService;
+	@Autowired
+	private IChapterService chapterService;
 	@Override
 	public void saveGrowthStageAndCourseRelation(int stage_id, int course_id) {
 		((IGrowthStageDao) dao).saveGrowthStageAndCourseRelation(stage_id, course_id);		
@@ -105,7 +108,13 @@ public class GrowthStageServiceImpl extends GenericServiceImpl<GrowthStage, Inte
 	@Override
 	public Chapter findChapterByUserIdAndClassIdAndStageId(int user_id, int growthclass_id, int growthstage_id) {	
 		try{
-			return ((IGrowthStageDao) dao).findChapterByUserIdAndClassIdAndStageId(user_id, growthclass_id, growthstage_id).get(0);
+			List<Integer> chapterIdList = ((IGrowthStageDao) dao).findChapterByUserIdAndClassIdAndStageId(user_id, growthclass_id, growthstage_id);
+			if(0 != chapterIdList.size()){
+				return chapterService.find(chapterIdList.get(0));
+			}else{
+				return null;
+			}
+			 
 		}catch(Exception e){
 			return null;
 		}

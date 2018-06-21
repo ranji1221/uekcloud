@@ -115,17 +115,13 @@
 		c.id = #{id}
 	</select>
 	<!-- 通过用户ID，职业导航ID，阶段ID查找正在学习的章节-->
-	<select id="findChapterByUserIdAndClassIdAndStageId" parameterType="Map" resultType ="VoladorChapter">
+	<select id="findChapterByUserIdAndClassIdAndStageId" parameterType="Map" resultType ="Integer">
 		SELECT
-		t.*
+			chapter_id
 		FROM
-		lemon_volador_course_chapter t
-		LEFT JOIN lemon_volador_personal_study_stage c_t ON t.id = c_t.chapter_id
-		LEFT JOIN lemon_volador_personal_user u ON u.id = c_t.user_id
-		LEFT JOIN lemon_volador_growthclass g ON g.id = c_t.growthclass_id
-        LEFT JOIN lemon_volador_growthstage s ON s.id = c_t.chapter_id
+			lemon_volador_personal_study_stage
 		WHERE
-		u.id = #{user_id} and g.id = #{growthclass_id} and s.id= #{growthstage_id};
+			growthstage_id =#{growthstage_id} and user_id=#{user_id} and growthclass_id=#{growthclass_id};
 	</select>
 	
 	<!-- 通过阶段ID删除与标签的绑定关系 -->

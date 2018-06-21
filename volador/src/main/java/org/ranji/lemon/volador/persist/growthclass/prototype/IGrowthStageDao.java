@@ -85,7 +85,7 @@ public interface IGrowthStageDao extends IGenericDao<GrowthStage, Integer>{
 	 * @param growthstage_id
 	 * @return
 	 */
-	public List<Chapter> findChapterByUserIdAndClassIdAndStageId(int user_id, int growthclass_id, int growthstage_id);
+	public List<Integer> findChapterByUserIdAndClassIdAndStageId(int user_id, int growthclass_id, int growthstage_id);
 	
 	/**
 	 * 根据课程ID查找职业导航阶段
