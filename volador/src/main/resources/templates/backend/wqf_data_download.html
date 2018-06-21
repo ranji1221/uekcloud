@@ -23,9 +23,8 @@
             <div class="wzq_user_info">
                 <h3 class="wzq_user_info_name"><span th:text="${user_name}"id="wzq_user_name">杉泽小哥</span></h3>
                 <h4 class="wzq_user_info_con">
-                    <span th:text="${gender}">男</span>|
-                    <span th:text="${address}">泸州</span>|
-<!--                     <span>艺术工作者</span> -->
+                    <span th:text="${userInfo.gender}">男</span>|
+                    <a href="personal_basic" style="color:#fff; margin-left:3px;">账号设置<span class="fy_icon">&#xe604;</span></a>
                 </h4>
             </div>
         </div>
@@ -66,13 +65,13 @@
                     <i class="fy_icon"> &#xe604; </i>
                 </a>
             </li>
-            <li class="wzq_left_nav_item">
+            <!-- <li class="wzq_left_nav_item">
                 <a href="personalCenter_homework">
                     <em class="wzq_icon"></em>
                     作业上传
                     <i class="fy_icon"> &#xe604; </i>
                 </a>
-            </li>
+            </li> -->
             <li class="wzq_left_nav_item">
                 <a href="myGrowthSystem" >
                     <em class="wzq_icon"></em>

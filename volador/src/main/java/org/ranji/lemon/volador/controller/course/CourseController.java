@@ -155,6 +155,7 @@ public class CourseController {
 					courseMap.put("id", course.getId());
 					courseMap.put("course_image_address", course.getCourse_image_address());
 					courseMap.put("time", courseService.findCourseTotalTime(course.getId()));
+					courseMap.put("flag", course.getFlag());
 					courseMap.put("course_name", course.getCourse_name());
 					courseMap.put("course_price", course.getCourse_price());
 					courseMap.put("student_count", course.getStudent_count());

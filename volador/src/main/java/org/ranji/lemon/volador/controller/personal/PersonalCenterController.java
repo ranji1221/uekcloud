@@ -114,6 +114,7 @@ public class PersonalCenterController {
 			
 			//查询当前用户信息
 			UserInfo userInfo=personalService.findUserInfoByUserId(userId);
+			mv.addObject(userInfo);
 			mv.addObject("user_name",userInfo.getNickname());
 			mv.addObject("gender", userInfo.getGender());
 			String address = userInfo.getAddress();
@@ -159,6 +160,7 @@ public class PersonalCenterController {
 			
 			//查询当前用户信息
 			UserInfo userInfo=personalService.findUserInfoByUserId(userId);
+			mv.addObject(userInfo);
 			mv.addObject("user_name",userInfo.getNickname());
 			mv.addObject("gender", userInfo.getGender());
 			String address = userInfo.getAddress();
@@ -273,6 +275,7 @@ public class PersonalCenterController {
 			
 			//查询当前用户信息
 			UserInfo userInfo=personalService.findUserInfoByUserId(userId);
+			mv.addObject(userInfo);
 			mv.addObject("user_name",userInfo.getNickname());
 			mv.addObject("gender", userInfo.getGender());
 			String address = userInfo.getAddress();
@@ -434,6 +437,7 @@ public class PersonalCenterController {
 			
 			//查询当前用户信息
 			UserInfo userInfo=personalService.findUserInfoByUserId(userId);
+			mv.addObject(userInfo);
 			mv.addObject("user_name",userInfo.getNickname());
 			mv.addObject("gender", userInfo.getGender());
 			String address = userInfo.getAddress();
@@ -586,6 +590,7 @@ public class PersonalCenterController {
 			
 			//查询当前用户信息，并传递页面需要的用户信息
 			UserInfo userInfo=personalService.findUserInfoByUserId(userId);
+			mv.addObject(userInfo);
 			mv.addObject("user_name",userInfo.getNickname());
 			mv.addObject("gender", userInfo.getGender());
 			String address = userInfo.getAddress();
@@ -652,6 +657,7 @@ public class PersonalCenterController {
 			mv.addObject("pageUri", "/personalCenter_data_download");
 			//查询当前用户信息
 			UserInfo userInfo=personalService.findUserInfoByUserId(userId);
+			mv.addObject(userInfo);
 			mv.addObject("user_name",userInfo.getNickname());
 			mv.addObject("gender", userInfo.getGender());
 			String address = userInfo.getAddress();
@@ -700,6 +706,7 @@ public class PersonalCenterController {
 			 
 			//查询当前用户信息
 			UserInfo userInfo=personalService.findUserInfoByUserId(userId);
+			mv.addObject(userInfo);
 			mv.addObject("user_name",userInfo.getNickname());
 			mv.addObject("gender", userInfo.getGender());
 			String address = userInfo.getAddress();
@@ -744,6 +751,7 @@ public class PersonalCenterController {
 			
 			//查询当前用户信息
 			UserInfo userInfo=personalService.findUserInfoByUserId(userId);
+			mv.addObject(userInfo);
 			mv.addObject("user_name",userInfo.getNickname());
 			mv.addObject("gender", userInfo.getGender());
 			String address = userInfo.getAddress();
@@ -798,6 +806,7 @@ public class PersonalCenterController {
 			
 			//查询当前用户信息
 			UserInfo userInfo=personalService.findUserInfoByUserId(userId);
+			mv.addObject(userInfo);
 			mv.addObject("user_name",userInfo.getNickname());
 			mv.addObject("gender", userInfo.getGender());
 			String address = userInfo.getAddress();
@@ -841,6 +850,7 @@ public class PersonalCenterController {
 			mv.addObject("pageUri", "/personalCenter_uploadHomework");
 			//查询当前用户信息
 			UserInfo userInfo=personalService.findUserInfoByUserId(userId);
+			mv.addObject(userInfo);
 			mv.addObject("user_name",userInfo.getNickname());
 			mv.addObject("gender", userInfo.getGender());
 			String address = userInfo.getAddress();
@@ -899,6 +909,7 @@ public class PersonalCenterController {
 			
 			//查询当前用户信息
 			UserInfo userInfo=personalService.findUserInfoByUserId(userId);
+			mv.addObject(userInfo);
 			mv.addObject("user_name",userInfo.getNickname());
 			mv.addObject("gender", userInfo.getGender());
 			String address = userInfo.getAddress();
@@ -978,6 +989,7 @@ public class PersonalCenterController {
 			
 			//查询当前用户信息
 			UserInfo userInfo=personalService.findUserInfoByUserId(userId);
+			mv.addObject(userInfo);
 			mv.addObject("user_name",userInfo.getNickname());
 			mv.addObject("gender", userInfo.getGender());
 			String address = userInfo.getAddress();
