@@ -15,7 +15,7 @@
 	padding:40px 40px 100px;
 }
 .wqf_set_main .set_line{
-	font-size: 20px;
+	font-size: 16px;
 	line-height: 50px;
 	color: #3e3e3e;
 }
@@ -159,5 +159,8 @@
 	font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
 	font-weight: bold;
 	cursor: pointer;
+}
+.wqf_basic_main>form  .submit button:hover{
+	background: #fcad86;
 }
 /*閸╃儤婀扮挧鍕灐  缂佹挻娼�*/

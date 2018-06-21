@@ -250,7 +250,9 @@
 
 
 
-
+.wzq_main_r{
+	min-height:auto;
+}
 .wzq_zhiye_no_nav_con{
     width: 100%;
     min-height: 448px;

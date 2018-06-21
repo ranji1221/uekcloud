@@ -83,6 +83,7 @@
 }
 .wzq_main{
     margin-top: 54px;
+    margin-bottom: 54px;
 }
 .wzq_main_l{
     width: 165px;
@@ -142,6 +143,7 @@
 .wzq_main_r{
     width: 946px;
     height: auto;
+    min-height:450px;;
     float: right;
 }
 .wzq_r_tit{

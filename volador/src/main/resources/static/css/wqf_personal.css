@@ -4,6 +4,7 @@
 }
 .wqf_information{
 	width: 1140px;
+	min-height:500px;
 	margin:0 auto ;
 }
 .wqf_information .menu_left{
@@ -43,7 +44,7 @@
 }
 
 
-/*右侧主界面*/
+/*鍙充晶涓荤晫闈�*/
 .wqf_main{
 	width: 945px; 
 	float: right;
