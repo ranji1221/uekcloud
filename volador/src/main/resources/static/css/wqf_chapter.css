@@ -67,6 +67,7 @@
 
 }
 .wqf_chapter .container{
+	min-height: 350px;
     padding:20px 0 0 0 ;
 }
 .wqf_chapter .wqf_chapter_list{

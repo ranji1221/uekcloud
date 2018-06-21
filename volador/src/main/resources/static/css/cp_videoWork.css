@@ -1,4 +1,4 @@
-/* 澶撮儴 */
+/* 婢舵挳鍎� */
 .cp_head{
 	width: 100%;
 	height: 85px;
@@ -7,7 +7,7 @@
 	box-sizing: border-box;
 	border-bottom: 1px solid #2e2e2e;
 }
-/* 宸︿晶杩斿洖閮ㄥ垎  */
+/* 瀹革缚鏅舵潻鏂挎礀闁劌鍨�  */
 .cp_head .cp_return {
 	float: left;
 	line-height: 85px;
@@ -32,7 +32,7 @@
     position:relative;
     z-index:99999999;
 }
-/* 鍒嗕韩 */
+/* 閸掑棔闊� */
 .cp_head .cp_share{
 	
 	float: right;
@@ -127,7 +127,7 @@
 	margin-right: 12px;
 }
 
-/* 瑙嗛妗� */
+/* 鐟欏棝顣跺锟� */
 .cp_videoBox{
 	width:100%;
 	height: 586px;
@@ -174,6 +174,9 @@
 }
 .cp_videoBox .cp_work a{
 	color:#FD6756;
+}
+.cp_videoBox .cp_work .cp_div li:not(.active)  a{
+	color: #B7B7B7
 }
 .cp_videoBox .cp_cate{
 	width: 65px;
@@ -279,7 +282,7 @@
 .cp_div ul:nth-child(1)~ul{
 	margin-top: 37px;
 }
-/* 浜у搧璇︽儏 */
+/* 娴溠冩惂鐠囷附鍎� */
 .cp_purchase{
     width: 100%;
     background-color: white;
@@ -287,7 +290,7 @@
 }
 
 
-/* tab鍒嗙被鍐呭鍖哄煙 */
+/* tab閸掑棛琚崘鍛啇閸栧搫鐓� */
 .cp_tabCon{
     width: 1140px;
     margin: 0px auto;
@@ -337,13 +340,13 @@
 	background-color: transparent;
 	cursor: pointer;
 }
-/* tab鍒嗙被鍐呭 */
+/* tab閸掑棛琚崘鍛啇 */
 .cp_tabCon .container .col_left{
     width:850px;
     background-color: white;
     float: left;
 }
-/*绗旇閮ㄥ垎*/
+/*缁楁棁顔囬柈銊ュ瀻*/
 .cp_note {
 	width:100%;
 	box-sizing: border-box;
@@ -409,7 +412,7 @@
 .cp_note .active .right p:nth-child(1){
 	color:#7ACE4C;
 }
-/* 鏃犺瘎璁� */
+/* 閺冪姾鐦庣拋锟� */
 .cp_tabCon .container .noComment{
     height: 575px;
     position: relative;
@@ -439,7 +442,7 @@
     color: #FD7363;
 }
 
-/*鏌ョ湅鏇村*/
+/*閺屻儳婀呴弴鏉戭樋*/
 .wzq_show_comment_more{
     width: 100%;
     text-align: center;
@@ -481,7 +484,7 @@
 
 }
 
-/* tab鍒嗙被鍐呭鍖哄煙 */
+/* tab閸掑棛琚崘鍛啇閸栧搫鐓� */
 .cp_tabCon{
     width: 1140px;
     margin: 0px auto;
@@ -496,7 +499,7 @@
 .cp_tabCon .tips span{
     margin-left: 8px;
 }
-/* tab鍒嗙被鍐呭 */
+/* tab閸掑棛琚崘鍛啇 */
 .cp_tabCon .container .col_left{
     width:850px;
     background-color: white;
@@ -583,7 +586,7 @@
 .cp_tabCon .col_right .load:hover{
 	background-color: #93D8AC;
 }
-/* 鏃犺瘎璁� */
+/* 閺冪姾鐦庣拋锟� */
 .cp_tabCon .container .noComment{
     height: 575px;
     position: relative;

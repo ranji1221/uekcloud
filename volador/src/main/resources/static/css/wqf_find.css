@@ -1,4 +1,4 @@
-/*闈㈠寘灞戝鑸�*/
+/*闂堛垹瀵樼仦鎴濐嚤閼革拷*/
 .wqf_navigation{
 	width: 1140px; 
 	margin:0 auto;
@@ -10,7 +10,7 @@
 	color: #5d5d5d;
 }
 
-/*璇剧▼鍒嗙被閫夐」*/
+/*鐠囧墽鈻奸崚鍡欒闁銆�*/
 .wqf_class_select{
 	width: 1140px; 
 	margin:7px auto 0; 
@@ -103,7 +103,7 @@
 
 
 
-/*浼樿川璇剧▼*/
+/*娴兼宸濈拠鍓р柤*/
 .wqf_course{
 	width: 100%; 
 	margin-top: 22px;
@@ -138,9 +138,10 @@
 	color: #febc15;
 }
 
-	/*璇剧▼鍒楄〃*/
+	/*鐠囧墽鈻奸崚妤勩��*/
 .wqf_course>.class_list{
 	width: 1140px; 
+	min-height:400px;
 	margin:0 auto ;
 }
 .wqf_course>.class_list>li{
@@ -166,6 +167,7 @@
 	z-index: 3;
 	top: 0;
 	transition: top 0.3s;
+	border-radius:4px;
 }
 .wqf_course>.class_list>li>a .picture img{
 	width: 100%;
@@ -240,7 +242,9 @@
 	border-radius: 4px;
     padding: 0 12px;
 }
-
+.wqf_course>.class_list>li>a:hover{
+	box-shadow: 0  10px 20px 0 rgba(0,0,0,0.1)
+}
 .wqf_course>.class_list>li>a:hover .picture{
 	top:-3px;
 }

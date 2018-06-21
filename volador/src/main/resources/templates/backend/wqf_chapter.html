@@ -13,6 +13,7 @@
 	<link rel="stylesheet" href="css/wqf_chapter.css">
 	<link rel="stylesheet" href="http://at.alicdn.com/t/font_614432_t2xlvt8n4ody4x6r.css">
 	<script src="js/jquery.min.js"></script>
+	<script src="js/layer.js"></script>
 </head>
 <body>
 <div th:include="backend/wy_header" ></div>
@@ -236,7 +237,13 @@
 				}
 			})
 		}else{
-			getTips("未登录","点击此处登录","login")
+			// getTips("未登录","点击此处登录","login")
+			layer.confirm('您未登录？', {
+			  btn: ['去登陆','取消'] //按钮
+			}, function(){
+			  location.href="login"
+			});
+			
 		}
 		
 	})

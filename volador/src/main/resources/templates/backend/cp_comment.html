@@ -285,14 +285,11 @@
 			})
 		}else{
 			// getTips("未登录","点击此处登录","login")
-            layer.msg('您还没有登录', {
-              time: 0 //不自动关闭
-              ,btn: ['点击登录', '取消']
-              ,yes: function(index){
-                layer.close(index);
-                location.href="login"
-              }
-            });
+			layer.confirm('您未登录？', {
+			  btn: ['去登陆','取消'] //按钮
+			}, function(){
+			  location.href="login"
+			});
 		}
 		
 	})
