@@ -194,7 +194,7 @@
             <div class="container right" th:each="stageAndLebal,iterStat:${stageAndLebalList}" th:class="${iterStat.even}?'container right':'container left'">
                 <img alt="" th:src="${stageAndLebal.stage.image}">
                 <div class="content clear_both">
-                    <div class="num" th:text="stageAndLebal.stage">1</div>
+                    <div class="num" th:text="${stageAndLebal.stage.number}">1</div>
                     <div class="message ">
                         <h1 th:text="${stageAndLebal.stage.title}">基础入门</h1>
                         <h2>阶段</h2>

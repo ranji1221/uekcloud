@@ -111,7 +111,7 @@
                         <h5 th:text="${growthClassAndStage.growthClassSendword}">距离成为一个UI设计师，你还差了30%的距离</h5>
                         <p class="wzq_zhiye_info_p" th:text="${growthClassAndStage.growthClassDescription}">树立设计师意识，了解UI发展规律及就业前景，并通过本阶段的学习能独立完成图标作品设计、平面作品设计及手绘作品设计等。</p>
                         <p class="wzq_zhiye_info_p2">
-                            <em>正在学习</em>
+                            <em th:text="${growthClassAndStage.studyChapter}?'正在学习':''">正在学习</em>
                             <!-- <b>用时20分</b> -->
                             <span th:text="${growthClassAndStage.studyChapter}?'学习至'+${growthClassAndStage.studyChapter.chapter_name}:''">学习至1-1Python课程初探</span>
                         </p>
