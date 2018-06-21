@@ -246,6 +246,7 @@ nav.wqf_menu .wqf_banner .swiper-slide .message .mess{
 	z-index: 3;
 	top: 0;
 	transition: top 0.3s;
+	border-radius: 4px;
 }
 .wqf_course>.class_list>li>a .picture img{
 	width: 100%;
@@ -304,20 +305,22 @@ nav.wqf_menu .wqf_banner .swiper-slide .message .mess{
 
 .wqf_course>.class_list>li>a .bg1{
 	width: 239px; height: 146px;
-	background: rgba(112,112,112,0.4);
+	background: rgba(211,211,211,0.4);
 	position: absolute;
 	top: 7px; left: 11px;
 	z-index: 2;
 	border-radius: 4px;
 	transition: top 0.3s;
+	transition: background 0.3s;
 }
 .wqf_course>.class_list>li>a .bg2{
 	width: 217px; height: 146px;
-	background: rgba(112,112,112,0.2);
+	background: rgba(204,204,204,0.2);
 	position: absolute;
 	top: 14px; left: 22px;
 	z-index: 2;
 	border-radius: 4px;
+	transition: background 0.3s;
 }
 
 .wqf_course>.class_list>li>a:hover .picture{
@@ -325,6 +328,10 @@ nav.wqf_menu .wqf_banner .swiper-slide .message .mess{
 }
 .wqf_course>.class_list>li>a:hover .bg1{
 	top:6px;
+	background: rgba(176,176,176,0.4);
+}
+.wqf_course>.class_list>li>a:hover .bg2{
+	background: rgba(179,179,179,0.2);
 }
 
 .wqf_course>.class_list>li>a>.title{
@@ -381,7 +388,7 @@ nav.wqf_menu .wqf_banner .swiper-slide .message .mess{
 	border-radius: 4px;
 }
 .wqf_new>.class_list>li>a:hover{
-	box-shadow: 0  10px 20px 0 rgba(0,0,0,0.2)
+	box-shadow: 0  10px 20px 0 rgba(0,0,0,0.1)
 }
 .wqf_new>.class_list>li>a>.title{
 	padding: 0 12px;
@@ -399,6 +406,7 @@ nav.wqf_menu .wqf_banner .swiper-slide .message .mess{
 }
 .wqf_banner2 img{
 	width: 100%;
+	border-radius: 4px;
 }
 
 /*鐧句竾璇剧▼*/
@@ -606,7 +614,9 @@ nav.wqf_menu .wqf_banner .swiper-slide .message .mess{
 /*鍚堜綔浼欎即*/
 .wqf_friend{
 	width: 1140px;
-	margin:48px auto 60px;
+	margin:0 auto;
+	padding: 48px 0 60px;
+	background: #fff;
 }
 .wqf_friend>li{
 	width: 264px; height: 66px;
@@ -636,7 +646,7 @@ nav.wqf_menu .wqf_banner .swiper-slide .message .mess{
 	position: fixed;
 	left: 50%; bottom: 100px;
 	z-index:999;
-	margin-left: 625px;
+	margin-left: 645px;
 	box-shadow: 0 0 40px 0 rgba(0,0,0,0.2);
 }
 @media screen and (max-width:1450px){
@@ -662,9 +672,9 @@ nav.wqf_menu .wqf_banner .swiper-slide .message .mess{
 	position: relative;
 }
 .wqf_totop .menu>span{
-	padding:0 20px;
+	padding:8px 20px;
 	line-height: 30px;
-	font-size: 14px;
+	font-size: 16px;
 	color: #fff;
 	background: #fd6756;
 	position: absolute;
@@ -685,4 +695,10 @@ nav.wqf_menu .wqf_banner .swiper-slide .message .mess{
 }
 .wqf_totop .menu:nth-child(2){
 	color: #fd6756;
+}
+.wqf_totop .menu:nth-child(3){
+	font-size:44px;
+}
+.wqf_totop .menu:nth-child(4){
+	font-size:34px;
 }
