@@ -297,7 +297,8 @@
 						
 			<ul  class="student_list clear_both" th:each="student:${studentList}">
 				<li class="student">
-					<div class="top"   th:style="'background:#fff url('+${student.image}+') no-repeat right /contain;'">
+					<div class="top"   >
+						<div class="head_photo" th:style="'background:#fff url('+${student.image}+') no-repeat right /cover;'"></div>
 						<p class="type">优秀学员风采</p>
 						<h3 th:text="${student.name}">贾童鞋</h3>
 						<p class="place" th:text="${student.company}">西安xx科技有限公司</p>

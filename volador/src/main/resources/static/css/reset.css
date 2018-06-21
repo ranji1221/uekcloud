@@ -1,5 +1,5 @@
 body{
-	font-family: "微软雅黑";
+	font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
 	background: #fbfbfb;
 }
 body,h1,h2,h3,h4,h5,h6,p,pre,ul,li,ol,input{
@@ -14,7 +14,7 @@ img,button,input,textarea{
 }
 button,input,textarea,select{
 	outline:0;
-	font-family: "微软雅黑";
+	font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
 	transition:background 0.3s;
 }
 a{
@@ -55,7 +55,7 @@ input:focus{
 	outline: none;
 }
 
-/*内宽*/
+/*鍐呭*/
 .container{
 	width: 1140px;
 	margin-left:auto;
@@ -67,27 +67,27 @@ input:focus{
 	clear: both;
 }
 
-/* 单行文字超出显示省略号 */
+/* 鍗曡鏂囧瓧瓒呭嚭鏄剧ず鐪佺暐鍙� */
 .hidden_one{
 	overflow:hidden;
 	text-overflow:ellipsis;
 	white-space:nowrap; 
 }
 
-/* 多行文字超出显示省略号 */
+/* 澶氳鏂囧瓧瓒呭嚭鏄剧ず鐪佺暐鍙� */
 .hidd_more{
 	display: -webkit-box;
 	-webkit-box-orient: vertical;
-	-webkit-line-clamp: 3;     /* 固定显示3行*/
+	-webkit-line-clamp: 3;     /* 鍥哄畾鏄剧ず3琛�*/
 	overflow: hidden;
-	/* 要求容器不能固定高度 */
+	/* 瑕佹眰瀹瑰櫒涓嶈兘鍥哄畾楂樺害 */
 }
 .hidd_more2{
 	display: -webkit-box;
 	-webkit-box-orient: vertical;
-	-webkit-line-clamp: 2;     /* 固定显示2行*/
+	-webkit-line-clamp: 2;     /* 鍥哄畾鏄剧ず2琛�*/
 	overflow: hidden;
-	/* 要求容器不能固定高度 */
+	/* 瑕佹眰瀹瑰櫒涓嶈兘鍥哄畾楂樺害 */
 }
 .clear_both::after{
 	content: "";
@@ -95,7 +95,7 @@ input:focus{
 	clear: both;
 }
 
-/*禁止文字选中*/
+/*绂佹鏂囧瓧閫変腑*/
 .noselect {
 	-webkit-touch-callout: none; /* iOS Safari */
 	-webkit-user-select: none; /* Chrome/Safari/Opera */
