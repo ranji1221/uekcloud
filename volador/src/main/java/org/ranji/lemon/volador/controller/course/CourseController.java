@@ -616,7 +616,7 @@ public class CourseController {
 				
 				List<ChapterTitle> chapterTitleList=courseService.findChapterTitleByCourse(courseId);
 				List<Chapter> chapterList=chapterTitleService.findChapterByChapterTitle(chapterTitleList.get((chapterTitleList.size()-1)).getId());
-				if(chapterId == chapterList.get(chapterList.size()-1).getId()){
+				if(0 != chapterList.size() && chapterId == chapterList.get(chapterList.size()-1).getId()){
 					personalService.deleteStudyedCourseRelation(userId, courseId);
 					personalService.saveUserAndStudyedCourseRelation(userId, courseId);
 				}else
