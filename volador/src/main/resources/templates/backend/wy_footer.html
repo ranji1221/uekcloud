@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
@@ -7,16 +7,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta name="keywords" content="飞鱼平台" />
     <meta name="description" content="飞鱼平台" />
-<!--     <link rel="shortcut icon" href="favicon.ico" />
+    <link rel="shortcut icon" href="favicon.ico" />
 	<link rel="stylesheet" href="css/reset.css">
 	<link rel="stylesheet" href="css/public_header.css">
 	<link rel="stylesheet" href="http://at.alicdn.com/t/font_614432_35sjs0mry3c8fr.css">
 	<script src="js/jquery.min.js"></script>
-	<script src="js/headerfooter.js"></script>	 -->
+	<script src="js/headerfooter.js"></script>	 
 </head>
-<body>
+<body>-->
 	<!-- 底部 开始 -->
-	<div id="public_footer">
+	<div id="public_footer" th:fragment="foot">
 		<div class="container">
 			<!-- 联系方式 -->
 			<div class="tel_message">
@@ -79,7 +79,7 @@
 		<p class="record">Copyright 2013-2018 版权所有优逸客网络科技有限公司 陕ICP备16015874号-1</p>
 	</div>
 	<!-- 底部 结束 -->
-<script>
+<script th:fragment="js_foot">
 	window._bd_share_config = {
 		share : [{
 			"bdSize" : 16
@@ -88,4 +88,4 @@
 	with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
 </script>
 </body>
-
+</html>

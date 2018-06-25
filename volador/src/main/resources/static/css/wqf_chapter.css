@@ -73,6 +73,7 @@
 .wqf_chapter .wqf_chapter_list{
     float: left;
     width: 848px;
+    min-height:300px;
 }
 .wqf_chapter .wqf_chapter_list>li{
     padding:35px 30px 0 30px;

@@ -70,13 +70,20 @@
             }
             flag = !flag;
         });
+        // 数据提交
+        $(window).keydown(function(e){
+        	if(e.keyCode==13){
+        		$("form").submit()
+        	}
+        })
+        
         // 数据验证
         $('#user').keyup(function(event) {
             /* Act on the event */
             let con = $(this).val().replace(/[^\d]/g,'');
             $(this).val(con);
         });
-        $("#form").easyform();
+        // $("#form").easyform();
     </script>
 </body>
 </html>

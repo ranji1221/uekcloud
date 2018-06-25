@@ -8,13 +8,22 @@
     <meta name="keywords" content="飞鱼平台" />
     <meta name="description" content="飞鱼平台" />
     <link rel="shortcut icon" href="favicon.ico" />
-	<link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/public_header.css">
+	<script src="js/jquery.min.js"></script>
+	<script src="js/headerfooter.js"></script>
+    
     <link rel="stylesheet" href="css/wzq_show_work.css">
     <link rel="stylesheet" href="css/cp_comment.css">
-	<link rel="stylesheet" href="http://at.alicdn.com/t/font_614432_1smgafue2yg8ehfr.css">
 </head>
 <body>
-<div th:include="backend/wy_header" ></div>
+	<!-- 头部 开始 -->
+	
+<!-- <div th:include="backend/wy_header" ></div> -->
+	<div id="public_header" th:include="backend/wy_header :: head"></div>
+	<script th:include="backend/wy_header :: js_head"></script>  
+	<!-- 头部 结束 -->
+	
 	<!-- 面包屑导航 -->
     <div class="cp_head">
         <div class="cp_breadCrumb">
@@ -322,8 +331,12 @@
 
   
     <script src="js/wzq_show_work.js"></script>
-    <div th:include="backend/wy_footer"></div> 
-
+    
+	<!-- 底部 -->
+	<div id="public_footer" th:include="backend/wy_footer :: foot"></div>
+	<script th:include="backend/wy_header :: js_foot"></script>  
+	<!-- <div th:include="backend/wy_footer"></div>  -->
+	<!-- 底部  结束 -->
 	
 	<div class="isLogin_box loginBox" style="display:none">
 		<div class="isLogin">

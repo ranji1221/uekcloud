@@ -10,10 +10,21 @@
     <meta name="description" content="飞鱼平台" />
     <link rel="shortcut icon" href="favicon.ico" />
     <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/public_header.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/headerfooter.js"></script>
+
+    <link rel="stylesheet" href="css/cp_noResult.css">
     <link rel="stylesheet" href="css/cp_courseChannel.css">
 </head>
 <body>
-<div th:include="backend/wy_header" ></div>
+    <!-- 头部 开始 -->
+        
+    <!-- <div th:include="backend/wy_header" ></div> -->
+    <div id="public_header" th:include="backend/wy_header :: head"></div>
+    <script th:include="backend/wy_header :: js_head"></script>  
+    <!-- 头部 结束 -->
+    
     <!-- 面包屑导航 -->
     <div class="cp_head">
         <div class="cp_breadCrumb">
@@ -24,14 +35,23 @@
     </div>
     
     <!-- 面包屑导航结束 -->
+    
+        <!-- 搜索无结果提示 -->
+    <div class="cp_searchError"  th:style="(${code}==404?'':'display:none')">
+        <div class="con hidden_one">
+            系统没有找到您搜索的<span th:text="${message}">pyttoe</span>，请试试以下课程
+<!--             您是否在找<a href="#">python</a> -->
+        </div> 
+    </div>
+    
 
     <!-- 选项 -->
-    <div class="cp_conList">
+<!--     <div class="cp_conList">
         <ul class="cp_contentList">
             <li><a href="professionalNavigation">职业导航 </a><span></span></li>
             <li class='active'><a href="#">课程频道</a> <span></span></li>
         </ul>
-    </div>
+    </div> -->
     
 
     <!-- 选项内容 -->
@@ -51,7 +71,7 @@
                 <div class="cp_icon">
                     <span>
                         <i class='fy_icon'>&#xe626;</i>
-                        <b>20</b>分钟
+                        <b th:text="${course.time}">20</b> 分钟
                     </span>
                     <span th:text="${course.student_count}+'人正在学习'">300人正在学习</span>
                 </div>
@@ -63,11 +83,11 @@
 
     <!-- 相关搜索 -->
     <div class="cp_search">
-        <h4>相关搜索</h4>
+<!--         <h4>相关搜索</h4> -->
         <div class="cp_con">
+<!--             <a href="#">用户界面设计原则</a>
             <a href="#">用户界面设计原则</a>
-            <a href="#">用户界面设计原则</a>
-            <a href="#">用户界面设计原则</a>
+            <a href="#">用户界面设计原则</a> -->
         </div>
     </div>
 
@@ -106,6 +126,10 @@
         </li>
     </ul> -->
     
-    <div th:include="backend/wy_footer"></div> 
+   <!-- 底部 -->
+   <div id="public_footer" th:include="backend/wy_footer :: foot"></div>
+   <script th:include="backend/wy_header :: js_foot"></script>  
+   <!-- <div th:include="backend/wy_footer"></div>  -->
+   <!-- 底部  结束 -->
 </body>
 </html>

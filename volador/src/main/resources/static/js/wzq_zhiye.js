@@ -13,7 +13,7 @@ $(function () {
     })
 
     $(".wzq_zhiye_con_info").click(function(){
-        $(this).nextAll(".wqf_classlist").slideToggle()
+        $(this).find(".wqf_classlist").slideToggle()
     })
 
 })

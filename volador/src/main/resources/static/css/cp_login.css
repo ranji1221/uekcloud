@@ -9,6 +9,8 @@
 	margin: auto;
 	border-radius: 20px;
 	background-color: white;
+	border:1px solid #eee;
+	border-top:0;
 }
 .cp_login .cp_title{
 	height:85px;

@@ -82,7 +82,7 @@ public class CourseController {
 	@RequestMapping(value="/professionalNavigation", method=RequestMethod.GET)
 	public ModelAndView professionalNavigationPage(){
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("backend/wzq_zhiye");
+		mv.setViewName("backend/cp_zhiyedaohang");
 		return mv;
 	}
 	
@@ -159,6 +159,7 @@ public class CourseController {
 					courseMap.put("course_name", course.getCourse_name());
 					courseMap.put("course_price", course.getCourse_price());
 					courseMap.put("student_count", course.getStudent_count());
+					courseMap.put("classify", classifyService.findClassifyByCourseId(course.getId()));
 					courseMapList.add(courseMap);
 				}
 				mv.addObject("courseList",courseMapList);
@@ -207,10 +208,36 @@ public class CourseController {
 		
 		//关键字搜索
 		List<Course> courseList=courseService.keywordSreachCourse(request.getParameter("c"));
-		if(courseList.toString()==null){
+		if(courseList.size()==0){
 			mv.addObject("code",404);
+			mv.addObject("message",request.getParameter("c"));
+			courseList=courseService.findAll();
+			List<Map> courseMapList = new ArrayList<>();
+			for(Course course:courseList){
+				Map<String, Object> courseMap = new HashMap<String, Object>();
+				courseMap.put("id", course.getId());
+				courseMap.put("course_image_address", course.getCourse_image_address());
+				courseMap.put("time", courseService.findCourseTotalTime(course.getId()));
+				courseMap.put("course_name", course.getCourse_name());
+				courseMap.put("course_info", course.getCourse_info());
+				courseMap.put("student_count", course.getStudent_count());
+				courseMapList.add(courseMap);
+			}
+			mv.addObject("courseList",courseMapList);
+			
 		}else{
-			mv.addObject(courseList);
+			List<Map> courseMapList = new ArrayList<>();
+			for(Course course:courseList){
+				Map<String, Object> courseMap = new HashMap<String, Object>();
+				courseMap.put("id", course.getId());
+				courseMap.put("course_image_address", course.getCourse_image_address());
+				courseMap.put("time", courseService.findCourseTotalTime(course.getId()));
+				courseMap.put("course_name", course.getCourse_name());
+				courseMap.put("course_info", course.getCourse_info());
+				courseMap.put("student_count", course.getStudent_count());
+				courseMapList.add(courseMap);
+			}
+			mv.addObject("courseList",courseMapList);
 		}
 		
 		
@@ -810,7 +837,7 @@ public class CourseController {
 				UserInfo userInfo=personalService.findUserInfoByUserId(user_Id);
 				comment.setNickName(userInfo.getNickname());
 				comment.setHead_image(userInfo.getHead_image());
-				comment.setUserId(userInfo.getId());
+				comment.setUserId(user_Id);
 				commentAndReplyMap.put("comment", comment);
 				
 				//获取回复信息

@@ -108,12 +108,13 @@ not supported by any browser */
 
 @font-face {
   font-family: 'fy_icon';  /* project id 614432 */
-  src: url('http://at.alicdn.com/t/font_614432_k2h5744260uul3di.eot');
-  src: url('http://at.alicdn.com/t/font_614432_k2h5744260uul3di.eot?#iefix') format('embedded-opentype'),
-  url('http://at.alicdn.com/t/font_614432_k2h5744260uul3di.woff') format('woff'),
-  url('http://at.alicdn.com/t/font_614432_k2h5744260uul3di.ttf') format('truetype'),
-  url('http://at.alicdn.com/t/font_614432_k2h5744260uul3di.svg#fy_icon') format('svg');
+  src: url('http://at.alicdn.com/t/font_614432_iukzfke5n4yj5rk9.eot');
+  src: url('http://at.alicdn.com/t/font_614432_iukzfke5n4yj5rk9.eot?#iefix') format('embedded-opentype'),
+  url('http://at.alicdn.com/t/font_614432_iukzfke5n4yj5rk9.woff') format('woff'),
+  url('http://at.alicdn.com/t/font_614432_iukzfke5n4yj5rk9.ttf') format('truetype'),
+  url('http://at.alicdn.com/t/font_614432_iukzfke5n4yj5rk9.svg#fy_icon') format('svg');
 }
+
 .fy_icon {
 	font-family:"fy_icon" !important;
 	font-size:16px;

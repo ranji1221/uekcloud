@@ -93,7 +93,7 @@ public class GrowthSystemController {
 				}
 			}
 			
-			
+			mv.addObject("nowId",growthClassId);
 			//获取头部
 			getHeader(mv, request);
 			

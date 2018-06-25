@@ -85,7 +85,7 @@ $(function(){
     if(videoData){
         if(videoData.src==video.src){
             video.currentTime=videoData.time;
-            // video.muted='muted'  
+            video.muted='muted'
             video.pause();
         }
     }else{
@@ -99,97 +99,18 @@ $(function(){
         obj.time = this.currentTime;
         localStorage.setItem('video',JSON.stringify(obj));  
     }
-
-    var data = {
-        "code": 200,
-        "message": "获取成功",
-        "data": {
-            "userInfo": {
-                "head_image": "/images/wzq_user_img.jpg",
-                "nickname": "飞鱼学员213"
-            },
-            "commentAndReply": [{
-                "comment": {
-                    "id": 67,
-                    "createTime": 1528167382000,
-                    "updateTime": 1528167382000,
-                    "guid": "218d8480c50f49c699efbc50ebea248e",
-                    "content": "测试评论1",
-                    "nickName": "飞鱼学员001",
-                    "head_image": "photos\\13096919464.png"
-                },
-                "reply": [{
-                    "id": 1,
-                    "createTime": 1528167382000,
-                    "updateTime": 1528167382000,
-                    "guid": "218d8480c50f49c699efbc50ebea248e",
-                    "userId": 89,
-                    "userName": "飞鱼学院378",
-                    "replyUserId": 0,
-                    "replyUserName": null,
-                    "reply": "我的回复1",
-                    "commentId": 67
-                }, {
-                    "id": 2,
-                    "createTime": 1528167382000,
-                    "updateTime": 1528167382000,
-                    "guid": "218d8480c50f49c699efbc50ebea248e",
-                    "userId": 89,
-                    "userName": "飞鱼学院379",
-                    "replyUserId": 0,
-                    "replyUserName": null,
-                    "reply": "我的回复2",
-                    "commentId": 67
-                }]
-            }, {
-                "comment": {
-                    "id": 67,
-                    "createTime": 1528167382000,
-                    "updateTime": 1528167382000,
-                    "guid": "218d8480c50f49c699efbc50ebea248e",
-                    "content": "测试评论1",
-                    "nickName": "飞鱼学员002",
-                    "head_image": "photos\\wqf_user.png"
-                },
-                "reply": [{
-                    "id": 1,
-                    "createTime": 1528167382000,
-                    "updateTime": 1528167382000,
-                    "guid": "218d8480c50f49c699efbc50ebea248e",
-                    "userId": 89,
-                    "userName": "飞鱼学院378",
-                    "replyUserId": null,
-                    "replyUserName": "张三",
-                    "reply": "我的回复1",
-                    "commentId": 67
-                }, {
-                    "id": 2,
-                    "createTime": 1528167382000,
-                    "updateTime": 1528167382000,
-                    "guid": "218d8480c50f49c699efbc50ebea248e",
-                    "userId": 89,
-                    "userName": "飞鱼学院379",
-                    "replyUserId": null,
-                    "replyUserName": null,
-                    "reply": "我的回复2",
-                    "commentId": 67
-                }]
-            }]
-        }
-    }
     function getComment(){
             let content = $('.cp_tabCon .container .col_left .cp_commentBox');
             let wzq_page = $('.cp_tabCon .container .col_left .wzq_page');
             let tips =  $('.cp_tabCon .tips');
             tips.css('display','block');
             $.ajax({
-                url:"chapter_commentList.txt",
-                type:'get',
+                url:"chapterCommentList",
+                type:'post',
                 data:{userId,chapterId},
-                dataType:'text',
-                success:function(){
-                    console.log(data)
-                    data = data.data
+                dataType:'json',
+                success:function(data){
+                    data = data.data;
                     tips.html('全部评论 <span>'+data.commentAndReply.length+'</span>');
                     let comment=$('<ul class="wzq_show_comment_list wqf_comment">');
                     content.html(`
@@ -228,17 +149,15 @@ $(function(){
                                         <div class="wzq_comment_item_des clear_both">
                                             <p class="hidd_more">${val.comment['content']}</p>
                                             <div class="wzq_comment_reply">
-                                                <span title="回复" class="wzq_comment_replys" data-flag="true" replyUserName="${val.comment.nickName}"><i class="fy_icon">&#xe679;</i></span>
+                                                <span title="回复" class="wzq_comment_replys" data-flag="true" replyusername="${val.comment.nickName}" replyUserd="${val.comment.id}"><i class="fy_icon">&#xe679;</i></span>
                                                 <span class="wzq_comment_zan wzq_comment_zanend"><i class="fy_icon">&#xe6b3;</i></span>
                                             </div>
                                         </div>`
-                                        // 这是举报，放到回复的span之前 <span class="wzq_jubao"><i class="fy_icon">&#xe652;</i>举报</span>
                             val.reply.forEach((ele,i)=>{
                                 str+=`<div class="wqf_reply">
-                                    <span uid="${ele.userId}">${ele.userName} 回复 ${ele.replyUserName==null?'':'@'+ele.replyUserName}：${ele.reply}</span>
+                                    <span uid="${ele.userId}">${ele.userName} 回复 ${ele.replyusername==null?'':'@'+ele.replyusername}：${ele.reply}</span>
                                     <div class="wzq_comment_reply">
-
-                                        <span title="回复" class="wzq_comment_replys" data-flag="true" replyUserName="${ele.userName}"><i class="fy_icon">&#xe679;</i></span>
+                                        <span title="回复" class="wzq_comment_replys" data-flag="true" replyusername="${ele.userName}"><i class="fy_icon">&#xe679;</i></span>
                                     </div>
                                 </div>`   // wqf_reply 结束
                             }) 
@@ -283,7 +202,6 @@ $(function(){
                             </div>
                         </div>`);
                         comment.appendTo(content);
-                        wzq_page.css('display','none');
                         tips.css('display','none');
                     }else{
                         
@@ -307,7 +225,7 @@ $(function(){
                                 }else{
                                     next.before($('<a class="cp_num" >').html(n));
                                 }
-                            }
+                            }  
                         }
                         getData();
                         // 分页按钮的点击效果
@@ -374,24 +292,33 @@ $(function(){
                             comment.html("");
                             let activeNum = (parseInt($('.wzq_page_active',wzq_page).html())-1)*5>0?(parseInt($('.wzq_page_active',wzq_page).html())-1)*5:0;
                             let dataObj = data.commentAndReply.slice(activeNum,activeNum+5);
-                            dataObj.forEach(function(val,n){
-                                $('<li class="wzq_show_comment_item">').html(`
-                                    <div class="wzq_clear">
+                                dataObj.forEach(function(val,n){
+                                var str = "";
+                                str+=`<div class="wzq_clear">
                                         <div class="wzq_user_img">
-                                            <img src="${val.head_image}" alt="">
+                                            <img src="${val.comment.head_image}" alt="">
                                         </div>
                                         <!--评论区内容开始，回复评论区时候，添加此节点-->
                                         <div class="wzq_comment_item_info">
                                             <h6 class="wzq_comment_item_title">${val.comment.nickName}</h6>
                                             <span class="wzq_comment_item_time">${getDate(val.comment.createTime)}</span>
-                                            <div class="wzq_comment_item_des">
+                                            <div class="wzq_comment_item_des clear_both">
                                                 <p class="hidd_more">${val.comment['content']}</p>
                                                 <div class="wzq_comment_reply">
-                                                    <span title="回复" class="wzq_comment_replys" data-flag="true" ><i class="fy_icon">&#xe679;</i></span>
+                                                    <span title="回复" class="wzq_comment_replys" data-flag="true" replyusername="${val.comment.nickName}" commentId="${val.comment.id}" replyUserId="${val.comment.userId}"><i class="fy_icon">&#xe679;</i></span>
                                                     <span class="wzq_comment_zan wzq_comment_zanend"><i class="fy_icon">&#xe6b3;</i></span>
                                                 </div>
-                                            </div>
+                                            </div>`
+                                val.reply.forEach((ele,i)=>{
+                                    str+=`<div class="wqf_reply">
+                                        <span uid="${ele.userId}">${ele.userName} 回复 ${ele.replyusername==null?'':'@'+ele.replyusername}：${ele.reply}</span>
+                                        <div class="wzq_comment_reply">
+                                            <span title="回复" class="wzq_comment_replys" data-flag="true" replyusername="${ele.userName}" commentId="${ele.replyUserId}" replyUserId="${ele.userId}><i class="fy_icon">&#xe679;</i></span>
                                         </div>
+                                    </div>`   // wqf_reply 结束
+                                }) 
+                                // wzq_comment_item_info 结束    wzq_clear 结束
+                                str+=`</div>  
                                         <!--评论区内容结束-->
                                     </div>
                                     <!--评论区回复表单开始-->
@@ -409,13 +336,14 @@ $(function(){
 
                                                     </div>
                                                 </div>
-                                                <div class="wzq_reply_submit"><input type="submit" value="回复"></div>
+                                                <div class="wzq_reply_submit"><input type="button" value="回复"></div>
                                             </div>
                                         </form>
                                     </div>
                                     <!--评论区回复表单结束-->
-                                `).appendTo(comment);
-                            });
+                                    `
+                                $('<li class="wzq_show_comment_item" index='+n+'>').html(str).appendTo(comment);
+                            })
                             comment.appendTo(content);
                         }
                         //分页判断函数
@@ -466,15 +394,12 @@ $(function(){
                     }
                     // 发表评论判断与ajax数据发送
                     $('.col_left').on('click','.wzq_add_submit>input',function(){
-                        console.log("评论")
-
                         let con = $('#wzq_textarea');
                         if(con.val().trim()==""){
                          getTips("内容不能为空");
                         }else{
                             let content = con.val();
                             $.ajax({
-                                // 发表评论
                                 url:'course_chapter_comment',
                                 data:{userId,chapterId,content},
                                 type:'post',
@@ -485,12 +410,15 @@ $(function(){
                                         getTips("未登录","点击此处登录","login");
                                     }else if(val.info=='success'){
                                         getTips("评论成功");
-                                        if(data.commentAndReply.length<5){
-                                            // 评论成功后创建节点，添加刚才评论的内容
-                                            $('<li class="wzq_show_comment_item">').html(`
+                                        let con = $('.wzq_show_comment_list .noComment');
+                                        if(con[0]){
+                                            con.remove();
+                                        }
+                                        // 评论成功后创建节点，添加刚才评论的内容
+                                        $('<li class="wzq_show_comment_item">').html(`
                                                 <div class="wzq_clear">
                                                     <div class="wzq_user_img">
-                                                        <img src="${data.UserHeadImage}" alt="">
+                                                        <img src="${data.userInfo.head_image}" alt="">
                                                     </div>
                                                     <div class="wzq_comment_item_info">
                                                         <h6 class="wzq_comment_item_title">也入耳朵</h6>
@@ -522,17 +450,19 @@ $(function(){
                                                         </div>
                                                     </form>
                                                 </div>
-                                            `).appendTo('.wzq_show_comment_list');
-                                        }else{
-                                            let obj = {
-                                                "createTime" : sum,
-                                                "updateTime" : sum,
-                                                "content" : content,
-                                                "nickName" : "小小新",
-                                                "head_image" : data.UserHeadImage
-                                            };
-                                            data.commentAndReply.push(obj);
-                                        }
+                                            `).prependTo('.wzq_show_comment_list');
+                                        let obj = {
+                                                    "comment":{"id":67,
+                                                                "createTime":sum,
+                                                                "updateTime":sum,
+                                                                "guid":"218d8480c50f49c699efbc50ebea248e",
+                                                                "content":"测试评论1",
+                                                                "nickName":"飞鱼学员371",
+                                                                "head_image":data.userInfo.head_image
+                                                            },
+                                                    "reply":[]
+                                                };
+                                            data.commentAndReply.unshift(obj);
                                     }else if(val.info=='fail'){
                                         getTips("评论失败");
                                     }
@@ -542,54 +472,60 @@ $(function(){
                         }
                     })
 
-
-                     var my_parent = '';
+                    var my_parent = "";
                     // 发表回复的功能的ajax触发  
                     $('.col_left').on('click','.wzq_reply_submit input',function(){
-                        console.log("回复")
+                    	console.log(my_parent)
                         let con = $('.wzq_reply_textarea',$(this).parents('.wzq_reply_form'));
+                    	
                         if(con.val().trim()==""){
                             getTips("内容不能为空");
                         }
                         else{
-                            let user = $('.wzq_comment_replys',my_parent).attr('replyusername');
-                            let  replayId = $('span[uid]',my_parent).attr('uid');
-                            console.log(user,replayId);
-                            let content = con.val();
-                            replayId = replayId===undefined?null:replayId
-                            $.ajax({
-                                // 发表回复
-                                url:'course_chapter_comment',
-                                data:{userId,chapterId,content,replayId},
-                                type:'post',
-                                success:function(val){
-                                    let tim = new Date();
-                                    let sum = tim.getTime();
-                                    if(val.info=='success'){
-                                        getTips("评论成功");
-                                        let reply = $('<div class="wqf_reply">').html(`<span uid="null">我 回复 ${user}：${content}</span>
-                                            <div class="wzq_comment_reply">
-                                                <span title="回复" class="wzq_comment_replys" data-flag="false" replyusername="${user}"><i class="fy_icon"></i></span>
-                                            </div>`).insertAfter(my_parent);
-                                    }else if(val.info=='fail'){
-                                        getTips("评论失败");
-                                    }
-                                    con.val('');
-                                }
-                            })
+                            // let user = $('.wzq_comment_replys',my_parent).attr('replyusername');   // 小写变大写
+                            let commentId = my_parent.attr("commentid")
+                            let replyUserId = my_parent.attr("replyUserId")
+                           // let  replyId = $('span[uid]',my_parent).attr('uid');
+                            let reply = con.val();
+                            console.log(userId,commentId,reply,replyUserId)
+//                            $.ajax({
+//                                url:'chapter_comment_reply',
+//                                data:{userId,commentId,reply,replyUserId},
+//                                // data:{userId,chapterId,reply,replayId},
+//                                type:'post',
+//                                success:function(val){
+//                                    let tim = new Date();
+//                                    let sum = tim.getTime();
+//                                    if(val.info=='success'){
+//                                        getTips("评论成功");
+//                                        let reply = $('<div class="wqf_reply">').html(`<span uid="null">我 回复 ${user}：${content}</span>
+//                                            <div class="wzq_comment_reply">
+//                                                                                                            
+//                                                <span title="回复" class="wzq_comment_replys" data-flag="false" replyusername="${user}" ><i class="fy_icon"></i></span>
+//                                            </div>`).insertAfter(my_parent);
+//                                        // replyuserName小写变大写
+//                                    }else if(val.info=='fail'){
+//                                        getTips("评论失败");
+//                                    }
+//                                    con.val('');
+//                                }
+//                            })
                         }
                     })
                    
                     //点击回复评论区出现
-                    $(".wzq_show_comment_item").delegate(".wzq_comment_reply .wzq_comment_replys","click",function () {
-                        my_parent  = $(this).parents('.wqf_reply');
+                    $(".col_left").delegate(".wzq_comment_reply .wzq_comment_replys","click",function () {
+                    	
+                        // my_parent  = $(this).parents('.wzq_reply');
+                        my_parent  = $(this);
+                        console.log(my_parent)
                         var flag = $(this).attr("data-flag");
                         var $that = $(this)
                         
                         var reply = $(this).parents(".wzq_show_comment_item").find(".wzq_reply")
                         if(flag == 'true'){
                             reply.slideDown(200,function () {
-                                reply.find(".wzq_reply_user").html($that.attr("replyusername"))
+                                reply.find(".wzq_reply_user").html($that.attr("replyusername"))    // 小写变大写
                                 $that.attr("data-flag","false");
                             });
                         }else{
@@ -610,13 +546,14 @@ $(function(){
                         }
 
                     })
-
                 }
 
             })
     }
     getComment();
 
+
+    let noteAll = '';
     // 笔记、评论、章节的切换
     $('.cp_purchase .cp_tabBox>li').click(function(){
         let num = $(this).index();
@@ -627,10 +564,12 @@ $(function(){
         content.html('');
         // 评论
         if(num==0){
+            wzq_page.css('display','none');
             getComment();
         // 笔记
         }else if(num==1){
             tips.css('display','block');
+            wzq_page.css('display','none');
             // 笔记
             $.ajax({
                 url:"userNoteList",
@@ -641,7 +580,7 @@ $(function(){
                     tips.html('全部笔记 <span>'+obj.length+'</span>');
                     let note = $("<ul class='cp_note' >");
                     let data = obj;
-                    wzq_page.css('display','block');
+                    noteAll = obj;
                     if(obj.length < 5 && obj.length!=0 ){
                         data.forEach(function(val,n){
                             $('<li>').html(`
@@ -885,30 +824,29 @@ $(function(){
                         getTips("未登录","点击此处登录","登陆页面的路径");
                     }else if(val.info=='success'){
                         getTips("笔记添加成功");
-                        // if(obj.length<5){
-                        //     // 笔记成功后创建节点，添加刚才评论的内容
-                        //     $('<li>').html(`
-                        //         <div class="left">
-                        //             <span>${getLocal(sum).year}</span><br><span>${getLocal(sum)['dateTime']}</span>
-                        //         </div>
-                        //         <div class="middle">
-                        //             <div class="line"></div>
-                        //         </div>
-                        //         <div class="right">
-                        //             <p class='hidden_one'>${biaoti}</p>
-                        //             <p class='hidd_more2' >${content}</p>
-                        //         </div>
-                        //     `).appendTo('.cp_commentBox .cp_note');
-                        // }else{
-                        //     let obj1 = {
-                        //         "createTime" : sum,
-                        //         "updateTime" : sum,
-                        //         "content" : content,
-                        //         "title" : biaoti,
-                        //         "chapterId" : 0
-                        //     };
-                        //     obj.push(obj1);
-                        // }
+                        let note = $('.cp_note .noComment');
+                        if(note[0]){
+                            note.remove();
+                        }
+                        $('<li>').html(`
+                            <div class="left">
+                                <span>${getLocal(sum).year}</span><br><span>${getLocal(sum)['dateTime']}</span>
+                            </div>
+                            <div class="middle">
+                                <div class="line"></div>
+                            </div>
+                            <div class="right">
+                                <p class='hidden_one'>${biaoti}</p>
+                                <p class='hidd_more2' >${content}</p>
+                            </div>
+                        `).prependTo('.cp_commentBox .cp_note');
+
+                        let obj = {
+                                    "date":sum,
+                                    "content":content,
+                                    "title":biaoti
+                                };
+                        noteAll.unshift(obj);
                     }else if(val.info=='fail'){
                         getTips("笔记添加失败");
                     }

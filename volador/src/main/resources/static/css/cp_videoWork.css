@@ -350,7 +350,7 @@
 .cp_note {
 	width:100%;
 	box-sizing: border-box;
-	padding-left: 35px;
+	padding: 35px;
 }
 .cp_note li{
 	overflow: hidden;
@@ -487,6 +487,7 @@
 /* tab閸掑棛琚崘鍛啇閸栧搫鐓� */
 .cp_tabCon{
     width: 1140px;
+    min-height:400px;
     margin: 0px auto;
     overflow: hidden;
 

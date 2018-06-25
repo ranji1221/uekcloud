@@ -9,12 +9,20 @@
     <meta name="description" content="飞鱼平台" />
     <link rel="shortcut icon" href="favicon.ico" />
     <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/public_header.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/headerfooter.js"></script>
     <link rel="stylesheet" href="css/wzq_list_public.css">
     <link rel="stylesheet" href="css/wqf_list_public.css">
     <link rel="stylesheet" href="css/wzq_learning.css">
 </head>
 <body>
-<div th:include="backend/wy_header" ></div>
+<!-- 头部 开始 -->
+<!-- <div th:include="backend/wy_header" ></div> -->
+<div id="public_header" th:include="backend/wy_header :: head"></div>
+<script th:include="backend/wy_header :: js_head"></script>  
+<!-- 头部 结束 -->
+
 <!--banner处信息开始-->
 <div class="wzq_learning_banner" style="background: url(images/wzq_learning_banner.jpg) no-repeat center/cover">
     <div class="wzq_inside">
@@ -142,7 +150,7 @@
                         </div>
                         <div class="button"> 
                             <a href="javascript:;" th:href="'course_video?chapterId='+${courseList.chapterId}">继续学习</a><br>
-                            <a href="javascript:;">上传作业</a>
+                            <!-- <a href="javascript:;">上传作业</a> -->
                         </div>
                     </li>
                 </ul>
@@ -164,8 +172,12 @@
         </div>
     </div>
 </div>
-<div th:include="backend/wy_footer"></div> 
 
+<!-- 底部 -->
+<div id="public_footer" th:include="backend/wy_footer :: foot"></div>
+<script th:include="backend/wy_header :: js_foot"></script>  
+<!-- <div th:include="backend/wy_footer"></div>  -->
+<!-- 底部  结束 -->
 
 <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')</script>

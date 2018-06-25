@@ -62,12 +62,18 @@ public class CourseService {
 	@Test
 	public void testReplyService(){
 		
+		Course course=new Course();
+		course.setCourse_name("测试");
+		course.setCourse_info("测试");
+		course.setCourse_price(13);
+		course.setFlag("hot");
+		courseService.save(course);
 		
-		Comment comment=new Comment();
-		comment.setId(24);
-//		comment.setGood(23);
-		comment.setReprot(1);
-		commentService.update(comment);
+//		Comment comment=new Comment();
+//		comment.setId(24);
+////		comment.setGood(23);
+//		comment.setReprot(1);
+//		commentService.update(comment);
 		
 //		orderService.saveVoladorCode(36);
 //		int a=orderDao.findPageVoladorCodeCount(1);

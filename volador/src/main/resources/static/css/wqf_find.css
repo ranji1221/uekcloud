@@ -23,6 +23,7 @@
 	overflow:hidden;
 	padding: 23px 0;
 	line-height: 34px;
+	border-bottom:1px solid #eee;
 }
 .wqf_class_select>ul>li,.wqf_class_select>ul a{
 	float: left;
@@ -245,9 +246,7 @@
 .wqf_course>.class_list>li>a:hover{
 	box-shadow: 0  10px 20px 0 rgba(0,0,0,0.1)
 }
-.wqf_course>.class_list>li>a:hover .picture{
-	top:-3px;
-}
+
 .wqf_course>.class_list>li>a:hover .bg1{
 	top:6px;
 }

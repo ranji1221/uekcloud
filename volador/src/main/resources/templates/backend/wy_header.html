@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
@@ -14,9 +14,9 @@
 	<script src="js/jquery.min.js"></script>
 	<script src="js/headerfooter.js"></script>
 </head>
-<body>
+<body> -->
 	<!-- 头部 开始 -->
-	<div id="public_header" >
+	<div id="public_header" th:fragment="head">
 		<div class="container">
 			<!-- logo -->
 			<a href="index.html;"><img src="images/header_logo.png" alt=""></a>
@@ -70,13 +70,15 @@
 			</ul>
 			
 			<script>
-				$("#header_search").click(function(){
+				$(window).click(sub)
+				$("#header_search").click(sub)
+				function sub(){
 					var text = $(".search input[type=text]").val();
 					if(text){
 						location.href = "searchCourse?c="+text
 					}
-					
-				})
+				}
+				
 			</script>
 			
 			<!-- 导航 结束 -->
@@ -162,8 +164,8 @@
 	</div>
 	<!-- 头部 结束 -->
 
-</body>
-<script type="text/javascript">
+
+<script type="text/javascript" th:fragment="js_head">
 var $clearNotification = $("#clearNotification");
 $clearNotification.click(function(){
 	
@@ -184,4 +186,4 @@ $clearNotification.click(function(){
 })
 
 </script>
-</html>
+
