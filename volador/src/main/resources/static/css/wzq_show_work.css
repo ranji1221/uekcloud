@@ -384,3 +384,8 @@
     padding-left: 0;
     padding-right: 0;
 }
+
+.wzq_comment_item_info .wqf_reply {
+    color: #666;
+    margin: 12px 0;
+}

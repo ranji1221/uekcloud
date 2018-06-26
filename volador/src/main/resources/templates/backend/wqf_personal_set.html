@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 	<meta charset="UTF-8">
 	<title>飞鱼平台 - 个人中心</title>
@@ -60,7 +60,8 @@
 						</div>
 						<div class="set_line clear_both">
 							<span>邮箱</span>
-							<a href="email">新增邮箱</a>
+							<a href="email" th:style="${existEmail}?'display: none':''">新增邮箱</a>
+							<p th:style="${existEmail}?'':'display: none'" th:text="${email}"></p>
 						</div>
 						<!-- <div class="set_line clear_both">
 							<span>账号绑定</span>
@@ -77,9 +78,11 @@
 	</div>
 	<!-- 底部 -->
 	<div id="public_footer" th:include="backend/wy_footer :: foot"></div>
-	<script th:include="backend/wy_header :: js_foot"></script>  
+	<script th:include="backend/wy_footer :: js_foot"></script>  
 	<!-- <div th:include="backend/wy_footer"></div>  -->
 	<!-- 底部  结束 -->
 </body>
-
+<script>
+	
+</script>
 </html>

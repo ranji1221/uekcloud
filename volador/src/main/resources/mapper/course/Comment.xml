@@ -25,6 +25,11 @@
 	<select id="findAll" resultType="VoladorComment">
 	select * from lemon_volador_comment
 	</select>
+	
+	<!-- 查询根据id -->
+	<select id="find" parameterType="int" resultType="VoladorComment">
+		select * from lemon_volador_comment where id = #{id}
+	</select>
 
 	<!-- 删除用户评论之间关系 -->
 	<delete id="deleteCommentAndUserRelation" parameterType="Map">
@@ -58,7 +63,7 @@
 		update lemon_volador_comment
 		<set>
 			<if test="reprot != null and reprot != ''">reprot = #{reprot},</if>
-			<if test="good != null and good != ''">good = #{good},</if>
+			good = #{good}
 		</set>
 		where id = #{id}
 	</update>

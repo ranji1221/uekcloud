@@ -1,114 +1,15 @@
 $(function(){
-   
-    // 视频侧边栏部分的js控制
-    let work = $('.cp_work');
-    let flag =true;
-    let tab = $(".cp_cate span");
-    let cp_tab = $('.cp_work .cp_tab');
-    let old ="";
-    let flag1 = true;
-    work.click(function(e){
-        e.stopPropagation()
-    });
-    $('.cp_videoBox').click(function(){
-        work.css({'right':'-352px'});
-        old='';
-        flag1=true;
-    });
-    tab.click(function(){
-        let index = $(this).index();
-        tab.removeClass('active');
-        $(this).addClass('active');
-        cp_tab.css({'display':'none'}).eq(index).css({'display':'block'});
-        if($('.cp_chapter').hasClass('active')){
-            $('.cp_videoBox .cp_div').html('');
-
-            // 视频侧边的章节显示的ajax部分
-            $.ajax({
-            	url:"chapterList",
-                type:'post',
-                data:{userId,courseId},
-                dataType:'json',
-                success:function(record){
-                    let obj = record;
-                    obj.chapterTitle.forEach(function(val,n){
-                        let arr1 =  val.chapter_title.split(/：|:/);
-                        let parent = $('<ul class="hidden_one">').html('<span class="title">'+arr1[0]+'</span>'+arr1[1]);
-                        obj.chapterList['chapter'+n].forEach(function(k,j){
-                            let arr2 = k.chapter_name.split(/\s/);
-                            console.log(k.id)
-                            if(chapterId==k.id){
-                                // $('<li class="hidden_one active">').html("<i class='fy_icon'>&#xe629;</i><span>"+(n+1)+"-"+(j+1)+"</span>"+k.chapter_name+"<b>正在学</b>").appendTo(parent);
-                                $('<li class="hidden_one  active">').html("<i class='fy_icon'>&#xe629;</i><a href='course_video?chapterId="+k.id+"' >"+k.chapter_name+"</a><b>正在学</b>").appendTo(parent);
-                            }else{
-                                $('<li class="hidden_one">').html("<i class='fy_icon'>&#xe629;</i><a href='course_video?chapterId="+k.id+"' >"+k.chapter_name+"</a>").appendTo(parent);
-                            }
-                            
-                        })
-                        parent.appendTo($('.cp_videoBox .cp_div'));
-                    })
-                }
-            })
-        }
-        if(flag1){
-            work.css({right:'0px'});
-            console.log(100);
-            flag1=false;
-            return;
-        }
-        if(old!=this&&old!=""){
-            old =this;
-            return ;
-        }
-        if(flag){
-            work.css({right:'0px'});
-            old =this;
-        }else{
-            old='';
-            flag1=true;
-            work.css({right:'-352px'});
-        }
-        flag=!flag;
-        return false;
-    });
-
-    if(!userId){
-        $('.cp_videoBox .cp_form  :input').hide();
-        $('.cp_videoBox .cp_form p').show();
-    }else{
-        $('.cp_videoBox .cp_form p').hide();
-        $('.cp_videoBox .cp_form:input').show();
-    }
-    //页面刷新状态下不会改变视频的播放进度设置
-    let videoData = localStorage.getItem('video')?JSON.parse(localStorage.getItem('video')):'';
-    let video = $('video')[0];
-    if(videoData){
-        if(videoData.src==video.src){
-            video.currentTime=videoData.time;
-            video.muted='muted'
-            video.pause();
-        }
-    }else{
-        let obj = {src:video.src,time:0}
-        localStorage.setItem('video',JSON.stringify(obj));  
-    }
-
-
-    video.ontimeupdate=function(){
-        let obj = JSON.parse(localStorage.getItem('video'));
-        obj.time = this.currentTime;
-        localStorage.setItem('video',JSON.stringify(obj));  
-    }
     function getComment(){
-            let content = $('.cp_tabCon .container .col_left .cp_commentBox');
-            let wzq_page = $('.cp_tabCon .container .col_left .wzq_page');
+            let content = $('.col_left .cp_commentBox');
+            
+            let wzq_page = $('.col_left .wzq_page');
             let tips =  $('.cp_tabCon .tips');
             tips.css('display','block');
-            console.log(chapterId)
+            console.log(courseId)
             $.ajax({
-                url:"chapterCommentList",
+                url:"courseCommentList",
                 type:'post',
-                data:{userId,chapterId},
+                data:{courseId,userId},
                 dataType:'json',
                 success:function(data){
                     data = data.data;
@@ -149,15 +50,15 @@ $(function(){
                                         <div class="wzq_comment_item_des clear_both">
                                             <p class="hidd_more">${val.comment['content']}</p>
                                             <div class="wzq_comment_reply">
-                                                <span title="回复" class="wzq_comment_replys" data-flag="true" replyusername="${val.comment.nickName}" commentId="${val.comment.id}"><i class="fy_icon">&#xe679;</i></span>
-                                                <span class="wzq_comment_zan wzq_comment_zanend" commentId="${val.comment.id}"><i class="fy_icon" commentId="${val.comment.id}">&#xe6b3;</i> ${val.comment.good}</span>
+                                                <span title="回复" class="wzq_comment_replys" data-flag="true" replyusername="${val.comment.nickName}" replyUserId="${val.comment.id}"><i class="fy_icon">&#xe679;</i></span>
+                                                <span class="wzq_comment_zan wzq_comment_zanend" commentId="${val.comment.id}"><i class="fy_icon">&#xe6b3;</i> ${val.comment.good}</span>
                                             </div>
                                         </div>`
                             val.reply.forEach((ele,i)=>{
                                 str+=`<div class="wqf_reply">
                                     <span uid="${ele.userId}">${ele.userName} 回复 ${ele.replyusername==null?'':'@'+ele.replyusername}：${ele.reply}</span>
                                     <div class="wzq_comment_reply">
-                                        <span title="回复" class="wzq_comment_replys" data-flag="true" replyusername="${ele.userName}"><i class="fy_icon">&#xe679;</i></span>
+                                        <span title="回复" class="wzq_comment_replys" data-flag="true" replyusername="${ele.userName}" commentId="${ele.commentId}" replyUserId="${ele.userId}"><i class="fy_icon">&#xe679;</i></span>
                                     </div>
                                 </div>`   // wqf_reply 结束
                             }) 
@@ -291,7 +192,6 @@ $(function(){
                             comment.html("");
                             let activeNum = (parseInt($('.wzq_page_active',wzq_page).html())-1)*5>0?(parseInt($('.wzq_page_active',wzq_page).html())-1)*5:0;
                             let dataObj = data.commentAndReply.slice(activeNum,activeNum+5);
-                            console.log(dataObj)
                                 dataObj.forEach(function(val,n){
                                 var str = "";
                                 str+=`<div class="wzq_clear">
@@ -305,13 +205,13 @@ $(function(){
                                             <div class="wzq_comment_item_des clear_both">
                                                 <p class="hidd_more">${val.comment['content']}</p>
                                                 <div class="wzq_comment_reply">
-                                                    <span title="回复" class="wzq_comment_replys" data-flag="true" replyusername="${val.comment.nickName}" commentId="${val.comment.id}" replyuserid="${val.comment.userId}"><i class="fy_icon">&#xe679;</i></span>
-                                                    <span class="wzq_comment_zan wzq_comment_zanend" commentId="${val.comment.id}"><i class="fy_icon" commentId="${val.comment.id}">&#xe6b3;</i> ${val.comment.good}</span>
+                                                    <span title="回复" class="wzq_comment_replys" data-flag="true" replyusername="${val.comment.nickName}" commentId="${val.comment.id}" replyUserId="${val.comment.userId}"><i class="fy_icon">&#xe679;</i></span>
+                                                    <span class="wzq_comment_zan wzq_comment_zanend" commentId="${val.comment.id}"><i class="fy_icon">&#xe6b3;</i> ${val.comment.good}</span>
                                                 </div>
                                             </div>`
                                 val.reply.forEach((ele,i)=>{
                                     str+=`<div class="wqf_reply">
-                                        <span uid="${ele.userId}">${ele.userName} 回复 ${ele.replyUserName==null?'':'@'+ele.replyUserName}：${ele.reply}</span>
+                                        <span uid="${ele.userId}">${ele.userName} 回复 ${ele.replyusername==null?'':'@'+ele.replyusername}：${ele.reply}</span>
                                         <div class="wzq_comment_reply">
                                             <span title="回复" class="wzq_comment_replys" data-flag="true" replyusername="${ele.userName}" commentId="${ele.commentId}" replyUserId="${ele.userId}"><i class="fy_icon">&#xe679;</i></span>
                                         </div>
@@ -392,10 +292,9 @@ $(function(){
                         } 
                     }
                     // 发表评论判断与ajax数据发送
-                  //   $('.col_left').off('click').on('click','.wzq_add_submit>input',function(){
+                   // $('.col_left').off('click').on('click','.wzq_add_submit>input',function(){
                     $(".wzq_add_submit>input").on('click',function(){
-                    	console.log($(".wzq_add_submit>input"))
-                        let con = $('#wzq_textarea');
+                    	let con = $('#wzq_textarea');
                         if(con.val().trim()=="快来发布评论吧..."||con.val().trim()==""){
                          // getTips("内容不能为空");
                          layer.msg('内容不能为空', function(){
@@ -404,8 +303,8 @@ $(function(){
                         }else{
                             let content = con.val();
                             $.ajax({
-                                url:'course_chapter_comment',
-                                data:{userId,chapterId,content},
+                                url:'course_addcomment',
+                                data:{userId,courseId,content},
                                 type:'post',
                                 success:function(val){
                                     let tim = new Date();
@@ -413,9 +312,9 @@ $(function(){
                                     if(val.info=='未登录'){
                                         // getTips("未登录","点击此处登录","login");
                                         layer.confirm('您未登录？', {
-                                            btn: ['去登陆','取消'] //按钮
+                                          btn: ['去登陆','取消'] //按钮
                                         }, function(){
-                                            location.href="login"
+                                          location.href="login"
                                         });
                                     }else if(val.info=='success'){
                                         // getTips("评论成功");
@@ -436,7 +335,7 @@ $(function(){
                                                         <div class="wzq_comment_item_des clear_both">
                                                             <p class="hidd_more">${content}</p>
                                                             <div class="wzq_comment_reply">
-                                                                <span title="回复" class="wzq_comment_replys" data-flag="true" replyusername="${data.userInfo.nickname}" commentId="${val.commentId}" replyuserid="${userId}"><i class="fy_icon">&#xe679;</i></span>
+                                                                <span title="回复" class="wzq_comment_replys" data-flag="true" replyusername="${val.nickName}" commentId="${val.commentId}" replyuserid="${userId}"><i class="fy_icon">&#xe679;</i></span>
                                                                 <span class="wzq_comment_zan wzq_comment_zanend" commentId="${val.commentId}"><i class="fy_icon">&#xe6b3;</i> 0</span>
                                                             </div>
                                                         </div>
@@ -488,7 +387,7 @@ $(function(){
                     	console.log(my_parent)
                         let con = $('.wzq_reply_textarea',$(this).parents('.wzq_reply_form'));
                     	
-                    	if(userId==null){
+                    	if(userId){
                             layer.confirm('您未登录？', {
                                 btn: ['去登陆','取消'] //按钮
                             }, function(){
@@ -507,28 +406,25 @@ $(function(){
                            // let  replyId = $('span[uid]',my_parent).attr('uid');
                             let reply = con.val();
                             console.log(userId,commentId,reply,replyUserId)
+                            
                             $.ajax({
                                 url:'chapter_comment_reply',
                                 data:{userId,commentId,reply,replyUserId},
+                               //  data:{userId,chapterId,reply,replayId},
                                 type:'post',
                                 success:function(val){
                                     let tim = new Date();
                                     let sum = tim.getTime();
-                                    console.log(val)
                                     if(val.code==200){
-                                        layer.msg("评论成功")
-                                        
-                                        console.log(my_parent.parents(".wzq_comment_item_des"))
+                                    	layer.msg("评论成功")
                                         let content = $('<div class="wqf_reply">').html(`<span uid="null">我 回复 ${user}：${reply}</span>
                                             <div class="wzq_comment_reply">
                                                                                                             
-                                                <span title="回复" class="wzq_comment_replys" data-flag="false" replyusername="${user}" ><i class="fy_icon"></i></span>
+                                                <span title="回复" class="wzq_comment_replys" data-flag="false" replyusername="${user}" commentId="${val.commentId}" replyuserid="${userId}"><i class="fy_icon"></i></span>
                                             </div>`).appendTo(my_parent.parents(".wzq_comment_item_info"));
-                                        
-                                        
                                          // replyuserName小写变大写
                                     }else if(val.info=='fail'){
-                                        layer.msg("评论失败")
+                                    	layer.msg("评论失败")
                                     }
                                     con.val('');
                                 }
@@ -558,19 +454,17 @@ $(function(){
                         }
                     })
                     //添加表情点击事件委托
-//                    $(".wzq_icon_add").delegate("span","click",function () {
-//                        var iconFlag = $(this).attr("data-icon-flag");
-//                        if(iconFlag == "true"){
-//                            $(this).next().css("display","block");
-//                            $(this).attr("data-icon-flag","false") ;
-//                        }else{
-//                            $(this).next().css("display","none");
-//                            $(this).attr("data-icon-flag","true") ;
-//                        }
-//
-//                    })
+                    // $(".wzq_icon_add").delegate("span","click",function () {
+                    //     var iconFlag = $(this).attr("data-icon-flag");
+                    //     if(iconFlag == "true"){
+                    //         $(this).next().css("display","block");
+                    //         $(this).attr("data-icon-flag","false") ;
+                    //     }else{
+                    //         $(this).next().css("display","none");
+                    //         $(this).attr("data-icon-flag","true") ;
+                    //     }
 
-
+                    // })
                     // 点赞功能
                     $(".col_left").delegate(".wzq_comment_zan.wzq_comment_zanend","click",function () {
                         var commentId = $(this).attr("commentid")
@@ -609,323 +503,6 @@ $(function(){
     }
     getComment();
 
-
-    let noteAll = '';
-    // 笔记、评论、章节的切换
-    $('.cp_purchase .cp_tabBox>li').click(function(){
-        let num = $(this).index();
-        let content = $('.cp_tabCon .container .col_left .cp_commentBox');
-        let wzq_page = $('.cp_tabCon .container .col_left .wzq_page');
-        let tips =  $('.cp_tabCon .tips');
-        $('.cp_purchase .cp_tabBox>li').removeClass('active').eq(num).addClass('active');
-        content.html('');
-        // 评论
-        if(num==0){
-            wzq_page.css('display','none');
-            getComment();
-        // 笔记
-        }else if(num==1){
-            tips.css('display','block');
-            wzq_page.css('display','none');
-            // 笔记
-            $.ajax({
-                url:"userNoteList",
-                type:'post',
-                data:{userId,chapterId},
-                dataType:'json',
-                success:function(obj){
-                    tips.html('全部笔记 <span>'+obj.length+'</span>');
-                    let note = $("<ul class='cp_note' >");
-                    let data = obj;
-                    noteAll = obj;
-                    if(obj.length < 5 && obj.length!=0 ){
-                        data.forEach(function(val,n){
-                            $('<li>').html(`
-                                <div class="left">
-                                    <span>${getLocal(val.createTime).year}</span><br><span>${getLocal(val.createTime)['dateTime']}</span>
-                                </div>
-                                <div class="middle">
-                                    <div class="line"></div>
-                                </div>
-                                <div class="right">
-                                    <p class='hidden_one'>${val['title']}</p>
-                                    <p class='hidd_more2' >${val['content']}</p>
-                                </div>
-                            `).appendTo(note);
-                        }) 
-                        note.appendTo(content);
-                    }else if(obj.length==0){
-                        wzq_page.css('display','none');
-                        note.html(`
-                        <div class="noComment">
-                            <div class="con">
-                             <img src="images/cp_13.png" alt="">
-                             <p>
-                                还没有<a href="#">笔记</a><br>快点记下笔记呗！！！
-                             </p>
-                            </div>
-                        </div>`);
-                        note.appendTo(content);
-                        wzq_page.css('display','none');
-                        tips.css('display','none');
-                    }else{
-                        let num = Math.ceil(obj.length/5); 
-                        let next = $('.wzq_page_next',wzq_page);
-                        wzq_page.css('display','block');
-                        $('.cp_num',wzq_page).remove();
-                        // 控制分页的呈现
-                        if(num<10){
-                            for(let n=1;n<=num;n++){
-                                if(n==1){
-                                    next.before($('<a class="cp_num wzq_page_active" >').html(n));
-                                }else{
-                                    next.before($('<a class="cp_num" >').html(n));
-                                }
-                            } 
-                        }else{
-                            for(let n=1;n<=10;n++){
-                                if(n==1){
-                                    next.before($('<a class="cp_num wzq_page_active" >').html(n));  
-                                }else{
-                                    next.before($('<a class="cp_num" >').html(n));
-                                }
-                            }  
-                        }
-                        getData();
-                        // 分页按钮的点击效果
-                        wzq_page.off('click','a').on('click','a',tabClick);
-                        function tabClick(){
-                            let next = $(this).next();
-                            // 注册分页的点击事件
-                            if($(this).hasClass('cp_num')){
-                                $('.wzq_page_active',wzq_page).removeClass('wzq_page_active');
-                                $(this).addClass('wzq_page_active');
-                                if(next.hasClass('wzq_page_next')){
-                                    let val = parseInt($(this).html());
-                                    checkPage(val+1,num,$(this),wzq_page,next);
-                                }
-                            }
-                            // 分页前进按钮的执行程序
-                            if($(this).hasClass('wzq_page_prev')){
-                                let active = $('.wzq_page_active',wzq_page);
-                                let prev = $('.wzq_page_active',wzq_page).prev();
-                                if(prev.hasClass('cp_num')){
-                                    $('.wzq_page_active',wzq_page).removeClass('wzq_page_active');
-                                    prev.addClass('wzq_page_active');
-                                }else{
-                                    let val = parseInt(active.html());
-                                    let next = $('.wzq_page_next',wzq_page);
-                                    if(val>10){
-                                        checkPage(val-10,num,$(this),wzq_page,next,'desc');
-                                    }
-                                }
-                            }
-                            // 分页后退按钮的执行程序
-                            if($(this).hasClass('wzq_page_next')){
-                                let active = $('.wzq_page_active',wzq_page);
-                                let next = $('.wzq_page_active',wzq_page).next();
-                                if(next.hasClass('cp_num')){
-                                    $('.wzq_page_active',wzq_page).removeClass('wzq_page_active');
-                                    next.addClass('wzq_page_active');
-                                }else{
-                                    let val = parseInt(active.html());
-                                    if(val<num){
-                                        checkPage(val+1,num,$(this),wzq_page,next);
-                                    }
-                                }
-                            }
-                            // 分页首页功能的实现
-                            if($(this).hasClass('wzq_page_index')){
-                                let next = $('.wzq_page_next',wzq_page);
-                                checkPage(1,num,$(this),wzq_page,next);
-                            }
-                            // 分页尾页功能的实现
-                            if($(this).hasClass('wzq_page_last')){
-                                let next = $('.wzq_page_next',wzq_page);
-                                if(num>10){
-                                    checkPage(num-9,num,$(this),wzq_page,next,'desc');
-                                }else{
-                                    checkPage(1,num,$(this),wzq_page,next,'desc');
-                                }
-                                
-                            }
-                            getData();
-                        }
-                        // 获取相应分页的数据
-                        function getData(){
-                            note.html("");
-                            let activeNum = (parseInt($('.wzq_page_active',wzq_page).html())-1)*5>0?(parseInt($('.wzq_page_active',wzq_page).html())-1)*5:0;
-                            let dataObj = data.slice(activeNum,activeNum+5);
-                            dataObj.forEach(function(val,n){
-                            $('<li>').html(`
-                                    <div class="left">
-                                        <span>${getLocal(val.createTime).year}</span><br><span>${getLocal(val.createTime)['dateTime']}</span>
-                                    </div>
-                                    <div class="middle">
-                                        <div class="line"></div>
-                                    </div>
-                                    <div class="right">
-                                        <p class='hidden_one'>${val['title']}</p>
-                                        <p class='hidd_more2' >${val['content']}</p>
-                                    </div>
-                                `).appendTo(note);
-                            }) 
-                            note.appendTo(content);
-                        }
-                        //分页判断函数
-                        function checkPage(val,num,obj,wzq_page,next,type){
-                            var type = type || 'asc';
-                            console.log(num,val);
-                            if((val-1)==num){
-                                $('.wzq_page_active',wzq_page).removeClass('wzq_page_active');
-                                obj.addClass('wzq_page_active');
-                                return;
-                            }
-                            let flag = (num-val)/10>1?true:false;
-                            $('.cp_num',wzq_page).remove();
-                            if(flag){
-                                for(let n=val;n<(val+10);n++){
-                                    if(type=='asc'){
-                                       if(n==val){
-                                        next.before($('<a class="cp_num wzq_page_active" >').html(n));
-                                        }else{
-                                            next.before($('<a class="cp_num" >').html(n));
-                                        } 
-                                    }else{
-                                        if(n==(val+9)){
-                                        next.before($('<a class="cp_num wzq_page_active" >').html(n));
-                                        }else{
-                                            next.before($('<a class="cp_num" >').html(n));
-                                        }
-                                    } 
-                                } 
-                            }else{
-                                for(let n=val;n<=num;n++){
-                                    if(type=='asc'){
-                                       if(n==val){
-                                        next.before($('<a class="cp_num wzq_page_active" >').html(n));
-                                        }else{
-                                            next.before($('<a class="cp_num" >').html(n));
-                                        } 
-                                    }else{
-                                        if(n==num){
-                                        next.before($('<a class="cp_num wzq_page_active" >').html(n));
-                                        }else{
-                                            next.before($('<a class="cp_num" >').html(n));
-                                        }
-                                    } 
-                                } 
-                            }
-                        } 
-                    }       
-                }
-            })
-        // 章节
-        }else if(num==2){
-            wzq_page.css('display','none');
-            tips.css('display','none');
-            // 章节
-            $.ajax({
-                url:"chapterList",
-                type:'post',
-                data:{userId,courseId},
-                dataType:'json',
-                success:function(data){
-                    console.dir(data);
-                    let chapter = $('<ul class="wqf_chapter_list">');
-                    data.chapterTitle.forEach(function(val,index){
-                        let li = $("<li>").html(`
-                            <h2 class="title">
-                                <i class="icon">=</i>
-                                <span>${val.chapter_title}</span>
-                            </h2>
-                        `);
-                        let ul = $('<ul class="list" >');
-                        data.chapterList["chapter"+index].forEach(function(m,n){
-                            $('<li>').html(`
-                                <a href="course_video?chapterId=${m.id}">
-                                    <i class="fy_icon">&#xe629;</i>
-                                    ${m.chapter_name}
-                                    <span class="time">${m.total_time}</span>
-                                </a>
-                                <p class="hidd_more">${m.chapter_info}</p>
-                            `).appendTo(ul);
-                        })
-                        ul.appendTo(li);
-                        li.appendTo(chapter);
-                    })
-                    chapter.appendTo(content);
-                }
-            })
-        }    
-    });
-
-    
-    // 发表笔记判断与ajax数据发送
-    $('.cp_videoBox .cp_form>input[type="button"]').click(function(){
-        let con = $('.cp_form>textarea');
-        let title = $('.cp_form>input[name="title"]');
-        if(con.val().trim()==""||title.val().trim()==""){
-            // getTips("内容不能为空");
-            layer.msg('内容不能为空', function(){
-            //关闭后的操作
-            });
-        }else{
-            let content = con.val();
-            let biaoti = title.val();
-            $.ajax({
-                url:'addNote',
-                data:{userId,chapterId,"noteTitle":biaoti,'noteContent':content},
-                type:'post',
-                success:function(val){
-                    let tim = new Date();
-                    let sum = tim.getTime();
-                    if(val.info=='未登录'){
-                        // getTips("未登录","点击此处登录","登陆页面的路径");
-                        layer.confirm('您未登录？', {
-                          btn: ['去登陆','取消'] //按钮
-                        }, function(){
-                          location.href="login"
-                        });
-                    }else if(val.info=='success'){
-                        // getTips("笔记添加成功");
-                        layer.msg("笔记添加成功")
-                        let note = $('.cp_note .noComment');
-                        if(note[0]){
-                            note.remove();
-                        }
-                        $('<li>').html(`
-                            <div class="left">
-                                <span>${getLocal(sum).year}</span><br><span>${getLocal(sum)['dateTime']}</span>
-                            </div>
-                            <div class="middle">
-                                <div class="line"></div>
-                            </div>
-                            <div class="right">
-                                <p class='hidden_one'>${biaoti}</p>
-                                <p class='hidd_more2' >${content}</p>
-                            </div>
-                        `).prependTo('.cp_commentBox .cp_note');
-
-                        let obj = {
-                                    "date":sum,
-                                    "content":content,
-                                    "title":biaoti
-                                };
-                        noteAll.unshift(obj);
-                    }else if(val.info=='fail'){
-                        // getTips("笔记添加失败");
-                        layer.msg("笔记添加失败")
-                    }
-                    con.val('');
-                    title.val('');
-                }
-            })
-        }
-    })
-    
-
-    
 
 
 
@@ -970,4 +547,5 @@ $(function(){
         return time.toLocaleString();
     }
 
+    
 })

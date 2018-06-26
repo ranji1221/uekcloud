@@ -59,8 +59,15 @@ public class GrowthSystemController {
 	
 	@RequestMapping(value="/growth_system", method=RequestMethod.GET)
 	public ModelAndView getGrowthSystmePage(
-			@RequestParam(value="growthClassId", required=false) Integer growthClassId,
 			HttpServletRequest request){
+		Integer growthClassId;
+		try {
+			growthClassId=Integer.parseInt(request.getParameter("growthClassId"));
+		} catch (Exception e) {
+			// TODO: handle exception
+			growthClassId=null;
+		}
+		
 		ModelAndView mv = new ModelAndView();
 		try{
 			//获取全都职业导航

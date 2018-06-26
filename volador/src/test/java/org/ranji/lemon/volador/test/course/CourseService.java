@@ -16,6 +16,7 @@ import org.ranji.lemon.volador.model.course.Teacher;
 import org.ranji.lemon.volador.model.pay.Order;
 import org.ranji.lemon.volador.model.pay.VoladorCode;
 import org.ranji.lemon.volador.model.personal.UserInfo;
+import org.ranji.lemon.volador.persist.course.prototype.ICommentDao;
 import org.ranji.lemon.volador.persist.pay.prototype.IOrderDao;
 import org.ranji.lemon.volador.service.auth.prototype.IUserService;
 import org.ranji.lemon.volador.service.course.prototype.IChapterService;
@@ -58,16 +59,20 @@ public class CourseService {
 	@Autowired
 	private IOrderDao orderDao;
 	
+	@Autowired
+	private ICommentDao commentDao;
+	
 	
 	@Test
 	public void testReplyService(){
 		
-		Course course=new Course();
-		course.setCourse_name("测试");
-		course.setCourse_info("测试");
-		course.setCourse_price(13);
-		course.setFlag("hot");
-		courseService.save(course);
+		Comment comment=commentDao.find(19);
+//		Course course=new Course();
+//		course.setCourse_name("测试");
+//		course.setCourse_info("测试");
+//		course.setCourse_price(13);
+//		course.setFlag("hot");
+//		courseService.save(course);
 		
 //		Comment comment=new Comment();
 //		comment.setId(24);

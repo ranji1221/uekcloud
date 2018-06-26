@@ -35,6 +35,7 @@ import org.ranji.lemon.volador.model.course.Direction;
 import org.ranji.lemon.volador.model.course.Teacher;
 import org.ranji.lemon.volador.model.course.Theme;
 import org.ranji.lemon.volador.model.global.Feedback;
+import org.ranji.lemon.volador.model.growthclass.GrowthClass;
 import org.ranji.lemon.volador.model.personal.Per;
 import org.ranji.lemon.volador.model.personal.SignIn;
 import org.ranji.lemon.volador.model.personal.Student;
@@ -47,6 +48,7 @@ import org.ranji.lemon.volador.service.course.prototype.ITeacherService;
 import org.ranji.lemon.volador.service.course.prototype.IThemeService;
 import org.ranji.lemon.volador.service.global.prototype.IFeedbackService;
 import org.ranji.lemon.volador.service.global.prototype.INotificationService;
+import org.ranji.lemon.volador.service.growthclass.prototype.IGrowthClassService;
 import org.ranji.lemon.volador.service.personal.prototype.IPerService;
 import org.ranji.lemon.volador.service.personal.prototype.ISignInService;
 import org.ranji.lemon.volador.service.personal.prototype.IStudentService;
@@ -88,13 +90,16 @@ public class PersonalController {
 	private IStudentService studentService;
 	@Autowired
 	private IFeedbackService feedbackService;
+	
+	@Autowired
+	private IGrowthClassService growthClassService;
 
 	// 发件人的 邮箱 和 密码（替换为自己的邮箱和密码）
 	public static String myEmailAccount = "uek@uekedu.com";
 	public static String myEmailPassword = "ejTDZnuknJUYtpxW";
 
 	// 首页
-	@RequestMapping(value = "/index", method = RequestMethod.GET)
+	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView indexPage(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView();
 		List<Map> notificationList = new ArrayList<>();
@@ -167,6 +172,19 @@ public class PersonalController {
 
 			// 获取首页推荐老师
 			getIndexRecommendedTeacher(mv);
+			
+			//获取职业导航相应链接
+			List<GrowthClass> growthClassList=growthClassService.findAll();
+			System.out.println(growthClassList.toString());
+			for(int i=1;i<6;i++){
+				try {
+					mv.addObject("growthClassId"+i,growthClassList.get(i-1).getId());
+				} catch (Exception e) {
+					// TODO: handle exception
+					mv.addObject("growthClassId"+i,null);
+				}
+				
+			}
 
 			// 绑定用户未忽略的信息
 			int ignoreNitificationNumber = 0;
@@ -444,6 +462,15 @@ public class PersonalController {
 			UserInfo userInfo = personalService.findUserInfoByUserId(userId);
 			mv = headerService.headInfo(userId, userName);
 			mv.addObject("head_image", userInfo.getHead_image());
+			
+			//查询用户时候已经添加了邮箱
+			if(null != userInfo &&( null != userInfo.getEmail() && !userInfo.getEmail().equals(""))){
+				mv.addObject("existEmail", true);
+				mv.addObject("email", userInfo.getEmail());
+			}else{
+				mv.addObject("existEmail", false);
+			}
+
 		}
 		
 		mv.addObject("login_yes", "login_yes active");
@@ -586,7 +613,7 @@ public class PersonalController {
 					// 保存用户设置的邮箱
 					userInfo.setEmail(email);
 					userInfoService.update(userInfo);
-					mv.setViewName("backend/wqf_personal_set");
+					mv.setViewName("redirect:/wqf_personal_set");
 				}
 			}else{
 				mv.addObject("message", "邮箱已被绑定!");

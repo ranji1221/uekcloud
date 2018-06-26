@@ -1,4 +1,4 @@
-/*瀵艰埅鑿滃崟杞挱 寮�濮�*/
+/*鐎佃壈鍩呴懣婊冨礋鏉烆喗鎸� 瀵拷婵拷*/
 nav.wqf_menu{
 	width: 1140px; height: 467px;
 	margin: 3px auto 26px;
@@ -13,10 +13,24 @@ nav.wqf_menu .wqf_list>ul>li{
 	width: 232px; height: 78px;
 	box-sizing: border-box;
 	border:1px solid #f4f4f4;
+	border-bottom:0;
 	color: #3e3e3e;
 	padding: 0 22px 0;
 	line-height: 78px;
 	font-size: 18px;
+}
+nav.wqf_menu .wqf_list>ul>li:first-child{
+	border-radius: 4px 4px 0 0 ;
+}
+nav.wqf_menu .wqf_list>ul>li:last-child{
+	border-radius: 0 0 4px 4px;
+	border-bottom:1px solid #f4f4f4;
+}
+nav.wqf_menu .wqf_list>ul>li:hover{
+	background: #eee;
+}
+nav.wqf_menu .wqf_list>ul>li:hover>a{
+	color: #e64444;
 }
 nav.wqf_menu .wqf_list>ul>li>a{
 	display: block;
@@ -86,6 +100,7 @@ nav.wqf_menu .wqf_banner{
 	width: 903px; height: 100%;
 	float: right;
 	position: relative;
+	border-radius: 4px;
 }
 /* nav.wqf_menu .wqf_banner>a{
 	display: block;
@@ -187,7 +202,7 @@ nav.wqf_menu .wqf_banner .swiper-slide .message .mess{
 	color: #8e8e8e;
 }
 
-/*浼樿川璇剧▼*/
+/*娴兼宸濈拠鍓р柤*/
 .wqf_course{
 	width: 100%; 
 	margin-top: 86px;
@@ -222,7 +237,7 @@ nav.wqf_menu .wqf_banner .swiper-slide .message .mess{
 	color: #febc15;
 }
 
-	/*璇剧▼鍒楄〃*/
+	/*鐠囧墽鈻奸崚妤勩��*/
 .wqf_course>.class_list{
 	width: 1140px; 
 	margin:66px auto 0;
@@ -363,7 +378,7 @@ nav.wqf_menu .wqf_banner .swiper-slide .message .mess{
 }
 
 
-/*鎺ㄩ檲鍑烘柊*/
+/*閹恒劑妾查崙鐑樻煀*/
 .wqf_new{
 	background: #fff;
 }
@@ -398,7 +413,7 @@ nav.wqf_menu .wqf_banner .swiper-slide .message .mess{
 }
 
 
-/*鍒嗗睆banner*/
+/*閸掑棗鐫哹anner*/
 .wqf_banner2{
 	display: block;
 	width: 1140px; height: 326px;
@@ -409,7 +424,7 @@ nav.wqf_menu .wqf_banner .swiper-slide .message .mess{
 	border-radius: 4px;
 }
 
-/*鐧句竾璇剧▼*/
+/*閻у彞绔剧拠鍓р柤*/
 .wqf_classes{
 	background: #f8f8f8;
 }
@@ -422,12 +437,12 @@ nav.wqf_menu .wqf_banner .swiper-slide .message .mess{
 	margin-bottom: 18px;
 }
 
-/*鐩存挱璇�*/
+/*閻╁瓨鎸辩拠锟�*/
 .wqf_zhibo{
 	background: #fff;
 }
 
-/*浼樼瀛﹀憳*/
+/*娴兼顫呯�涳箑鎲�*/
 
 .wqf_students .wqf_box{
 	width: 1140px;
@@ -547,7 +562,7 @@ nav.wqf_menu .wqf_banner .swiper-slide .message .mess{
 }
 
 
-/*鏁欏笀鍥㈤槦*/
+/*閺佹瑥绗�閸ャ垽妲�*/
 .wqf_teacher{
 	background: url(../images/wqf_bg.png) no-repeat center /cover;
 	color: #fff;
@@ -622,7 +637,7 @@ nav.wqf_menu .wqf_banner .swiper-slide .message .mess{
 }
 
 
-/*鍚堜綔浼欎即*/
+/*閸氬牅缍旀导娆庡嵆*/
 .wqf_friend{
 	width: 1140px;
 	margin:0 auto;
@@ -647,7 +662,7 @@ nav.wqf_menu .wqf_banner .swiper-slide .message .mess{
 }
 
 
-/*鍥炲埌椤堕儴*/
+/*閸ョ偛鍩屾い鍫曞劥*/
 .wqf_totop{
 	width: 81px; 
 	background: #fff;
@@ -693,7 +708,7 @@ nav.wqf_menu .wqf_banner .swiper-slide .message .mess{
 	right: 130px;   top: 50%;
 	transform: translate3d(0,-50%,0);
 	white-space:nowrap; 
-	font-family: "微软雅黑";
+	font-family: "寰蒋闆呴粦";
 	display: none;
 	opacity: 0;
 }

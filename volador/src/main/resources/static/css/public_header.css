@@ -11,7 +11,7 @@
 	float: left;
 }
 
-/*鐎佃壈鍩�*/
+/*閻庝絻澹堥崺锟�*/
 #public_header>.container>.menu{
 	float: left;
 	font-size: 14px;
@@ -25,9 +25,22 @@
 	text-align: center;
 }
 #public_header>.container>.menu>li a{
+	transition: color 0.3s;
 	color: #3e3e3e;
 	font-size:16px;
 }
+#public_header>.container>.menu>li a.active{
+	color: #e64444;
+	padding-bottom: 5px;
+	border-bottom: 2px solid #e64444;
+}
+#public_header>.container>.menu>li a:hover{
+	color: #e64444;
+	padding-bottom: 5px;
+	border-bottom: 2px solid #e64444;
+}
+
+
 #public_header>.container>.menu>li a>img{
 	vertical-align: middle;
 	margin-left: 5px;
@@ -108,7 +121,7 @@
 
 
 
-/*閻ц缍嶉悩鑸碉拷锟�*/
+/*闁谎嗩嚙缂嶅秹鎮╅懜纰夋嫹閿燂拷*/
 #public_header>.container .is_login{
 	float: right;
     font-size: 14px;
@@ -147,7 +160,7 @@
 	text-align: center;
 	border:1px solid #fff;
 }
-/*濞戝牊浼呭瑙勵攱*/
+/*婵炴垵鐗婃导鍛嚕鐟欏嫷鏀�*/
 #public_header>.container .login_yes>.message .message_box{
 	width: 300px; height: 254px;
 	background: #fff;
@@ -208,7 +221,7 @@
 	color: #fd6756;
 }
 
-/*娑擃亙姹夋稉顓炵妇濞戝牊浼呭瑙勵攱*/
+/*濞戞搩浜欏Ч澶嬬▔椤撶偟濡囨繛鎴濈墛娴煎懎顕ｇ憴鍕垫敱*/
 #public_header>.container .login_yes>.self .message_box{
 	width: 157px;
 	background: #fff;

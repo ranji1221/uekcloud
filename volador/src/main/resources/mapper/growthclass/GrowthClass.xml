@@ -17,7 +17,7 @@
 	</select>
 	
 	<!-- 查询全部GrowthClass -->
-	<select id="findAll" resultType="VoladorGrowthClass" parameterType="Map">
+	<select id="findAll" resultType="VoladorGrowthClass" >
 		select * from lemon_volador_growthclass
 	</select>
 		

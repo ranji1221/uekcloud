@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 	<meta charset="UTF-8">
 	<title>详情-评论页</title>
@@ -11,9 +11,11 @@
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/public_header.css">
 	<script src="js/jquery.min.js"></script>
-	<script src="js/headerfooter.js"></script>
+    <script src="js/headerfooter.js"></script>
+	<script src="js/layer.js"></script>
     
     <link rel="stylesheet" href="css/wzq_show_work.css">
+    <link rel="stylesheet" href="css/cp_video.css">
     <link rel="stylesheet" href="css/cp_comment.css">
 </head>
 <body>
@@ -48,7 +50,7 @@
             <div class="con_right">
                 <div class="con_son1">
                     <h3 class="hidden_one" th:text="${course.course_name}">Python课程初探</h3>
-                    <a href="#" class='group'>
+                    <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1582911029&site=qq&menu=yes" class='group'>
                         <img src="images/cp_11.png">
                         <span>
                             加群咨询
@@ -131,86 +133,77 @@
         </div>
         <div class="container">
             <div class="col_left">
-                <!--添加评论列表开始-->
-                <div class="wzq_show_comment_add">
-                    <form action="javascript:;" class="wzq_add_form wzq_clear">
-                        <div class="wzq_clear">
-                            <div class="wzq_user_img">
-                                <img src="images/wzq_user_img.jpg" th:src="${userInfo.head_image} == null? 'images/wzq_user_img.jpg': ${userInfo.head_image}" alt="">
+                <div class="cp_commentBox">
+                    <!--添加评论列表开始--> 
+                    <div class="wzq_show_comment_add">
+                        <form action="javascript:;" class="wzq_add_form wzq_clear">
+                            <div class="wzq_clear">
+                                <div class="wzq_user_img">
+                                    <img src="images/wzq_user_img.jpg" th:src="${userInfo.head_image} == null? 'images/wzq_user_img.jpg': ${userInfo.head_image}" alt="">
+                                </div>
+                                <div class="wzq_textarea">
+                                    <textarea name="" id="wzq_textarea" onfocus="if(value=='快来发布评论吧...') {value=''}" onblur="if(value=='') {value='快来发布评论吧...'}">快来发布评论吧...</textarea>
+                                </div>
+                                <input type="hidden" th:value="${course.id}" name="courseId" id="courseId">
+                                <input type="hidden" th:value="${userId}" name="userId" id="userId"> 
                             </div>
-                            <div class="wzq_textarea">
-                                <textarea name="" id="wzq_textarea" onfocus="if(value=='快来发布评论吧...') {value=''}" onblur="if(value=='') {value='快来发布评论吧...'}">快来发布评论吧...</textarea>
-                            </div>
-                            <input type="hidden" th:value="${course.id}" name="courseId" id="courseId">
-                            <input type="hidden" th:value="${userId}" name="userId" id="userId"> 
-                        </div>
-                        <div class="wzq_icon_add">
-                            <span data-icon-flag="true">添加表情</span>
-                            <div class="wzq_icon_box">
+                            <div class="wzq_icon_add">
+                                <span data-icon-flag="true">添加表情</span>
+                                <div class="wzq_icon_box">
 
-                            </div>
-                        </div>
-                        <div class="wzq_add_submit"><input type="button" value="发表评论"></div>
-                    </form>
-                </div>
-                <!--添加评论列表开结束-->
-
-                <!--评论列表开始-->
-                <ul class="wzq_show_comment_list wqf_comment">
-                    <li class="wzq_show_comment_item" th:each="c:${commentList}">
-                        <div class="wzq_clear">
-                            <div class="wzq_user_img">
-                                <img src="images/wzq_user_img.jpg"  th:src="${c.head_image}" alt="">
-                            </div>
-                            <!--评论区内容开始，回复评论区时候，添加此节点-->
-                            <div class="wzq_comment_item_info">
-                                <h6 class="wzq_comment_item_title" th:text="${c.nickName}">也入耳朵</h6>
-                                <span class="wzq_comment_item_time" th:text="${#calendars.format(c.updateTime,'yyyy')}+'年'+${#calendars.format(c.updateTime,'MM')}+'月'+${#calendars.format(c.updateTime,'dd')}+'日'">5小时前</span>
-                                <div class="wzq_comment_item_des">
-                                    <p class="hidd_more" th:text="${c.content}">向手写大佬低头～向手写大佬低头～向手写大佬低头～效果图？太牛了吧。什么软件做的？？？？效果图？太牛了吧。什么软件做的？？？？</p>
-                                    <div class="wzq_comment_reply">
-                                        <span class="wzq_jubao"><i class="fy_icon">&#xe652;</i>举报</span>
-                                        <span title="回复" class="wzq_comment_replys" data-flag="true"><i class="fy_icon">&#xe679;</i></span>
-                                        <span class="wzq_comment_zan wzq_comment_zanend"><i class="fy_icon">&#xe6b3;</i></span>
-                                    </div>
                                 </div>
                             </div>
-                            <!--评论区内容结束-->
-                        </div>
-                        <!--评论区回复表单开始-->
-                        <div class="wzq_reply">
-                            <form action="" class="wzq_reply_form">
-                                <div class="wzq_reply_text">
-                                    <span>回复</span>
-                                    <em class="wzq_reply_user hidden_one">小灰灰灰</em>
-                                    <textarea class="wzq_reply_textarea" name="" onfocus="if(value=='请回复...') {value=''}" onblur="if(value=='') {value='请回复...'}">请回复...</textarea>
-                                </div>
-                                <div class="wzq_clear">
-                                    <div class="wzq_icon_add">
-                                        <span data-icon-flag="true">添加表情</span>
-                                        <div class="wzq_icon_box">
+                            <div class="wzq_add_submit"><input type="button" value="发表评论"></div>
+                        </form>
+                    </div>
+                    <!--添加评论列表开结束-->
 
+                    <!--评论列表开始-->
+                    <ul class="wzq_show_comment_list wqf_comment">
+                        <li class="wzq_show_comment_item" th:each="c:${commentList}">
+                            <div class="wzq_clear">
+                                <div class="wzq_user_img">
+                                    <img src="images/wzq_user_img.jpg"  th:src="${c.head_image}" alt="">
+                                </div>
+                                <!--评论区内容开始，回复评论区时候，添加此节点-->
+                                <div class="wzq_comment_item_info">
+                                    <h6 class="wzq_comment_item_title" th:text="${c.nickName}">也入耳朵</h6>
+                                    <span class="wzq_comment_item_time" th:text="${#calendars.format(c.updateTime,'yyyy')}+'年'+${#calendars.format(c.updateTime,'MM')}+'月'+${#calendars.format(c.updateTime,'dd')}+'日'">5小时前</span>
+                                    <div class="wzq_comment_item_des">
+                                        <p class="hidd_more" th:text="${c.content}">向手写大佬低头～向手写大佬低头～向手写大佬低头～效果图？太牛了吧。什么软件做的？？？？效果图？太牛了吧。什么软件做的？？？？</p>
+                                        <div class="wzq_comment_reply">
+                                            <!-- <span class="wzq_jubao"><i class="fy_icon">&#xe652;</i>举报</span> -->
+                                            <span title="回复" class="wzq_comment_replys" data-flag="true"><i class="fy_icon">&#xe679;</i></span>
+                                            <span class="wzq_comment_zan wzq_comment_zanend"><i class="fy_icon">&#xe6b3;</i></span>
                                         </div>
                                     </div>
-                                    <div class="wzq_reply_submit"><input type="submit" value="回复"></div>
                                 </div>
-                            </form>
-                        </div>
-                        <!--评论区回复表单结束-->
-                </ul>
-                <!--评论列表结束-->
-                
+                                <!--评论区内容结束-->
+                            </div>
+                            <!--评论区回复表单开始-->
+                            <div class="wzq_reply">
+                                <form action="" class="wzq_reply_form">
+                                    <div class="wzq_reply_text">
+                                        <span>回复</span>
+                                        <em class="wzq_reply_user hidden_one">小灰灰灰</em>
+                                        <textarea class="wzq_reply_textarea" name="" onfocus="if(value=='请回复...') {value=''}" onblur="if(value=='') {value='请回复...'}">请回复...</textarea>
+                                    </div>
+                                    <div class="wzq_clear">
+                                        <div class="wzq_icon_add">
+                                            <span data-icon-flag="true">添加表情</span>
+                                            <div class="wzq_icon_box">
 
-                <!-- 查看更多评论开始 -->
-<!--                 <div class="wzq_show_comment_more">
-                    <div class="wzq_show_more">
-                        <span>查看更多评论</span>
-                        <i class="fy_icon">&#xe98f;</i>
-                    </div>
-                </div>  -->
-                <!-- 查看更多结束 -->
+                                            </div>
+                                        </div>
+                                        <div class="wzq_reply_submit"><input type="submit" value="回复"></div>
+                                    </div>
+                                </form>
+                            </div>
+                            <!--评论区回复表单结束-->
+                    </ul>
+                    <!--评论列表结束-->
                 
-
+                </div>
                 <!-- 无评论开始 -->
                 <!-- <div class="noComment">
                      <div class="con">
@@ -222,8 +215,15 @@
                 </div> -->
                 <!-- 无评论结束 -->
 
-
-
+                <!--分页开始-->
+                <div class="wzq_page" style='display:none'>
+                    <a href="javascript:;" class="wzq_page_index">首页</a>
+                    <a href="javascript:;" class="wzq_page_prev">上一页</a>
+                    <!-- <a href="" class="wzq_page_active">1</a> -->
+                    <a href="javascript:;" class="wzq_page_next">下一页</a>
+                    <a href="javascript:;" class="wzq_page_last">尾页</a>
+                </div>
+                <!--分页结束-->
             </div>
             <div class="col_right">
                 <div class="photo" style="background:url('images/cp_12.png') no-repeat center ;"  th:style="'background: url('+${teacher.teacher_image}+') no-repeat center /cover;'">
@@ -246,31 +246,31 @@
 		var userId=[[${userId}]]
 		var courseId=[[${course.id}]]
 		var isBuy = [[${isBuy}]];
-</script>
+    </script>
 <script src="js/layer.js"></script>
+<script src="js/cp_comment.js"></script>
 <script>
 	var buyBox = $(".buyBox")
-	if (!isBuy) {
+	if (isBuy == 0) {
 		buyBox.css({display:"none"})
+		layer.confirm('您未购买该课程？', {
+		  btn: ['去购买','取消'] //按钮
+		}, function(){
+		  location.href=""
+		});
 	}
-	$(".buyBox a:last-child").click(function(){
-		buyBox.css({display:"none"})
-	})
-	
 	
 	var loginBox = $(".loginBox")
 	$("#buy").click(function(){
 		if(userId){
 			location.href = "buy"
 		}else{
-			loginBox.css({display:"block"})
+			layer.confirm('您未登录？', {
+			  btn: ['去登陆','取消'] //按钮
+			}, function(){
+			  location.href="login"
+			});
 		}
-	})
-	$(".loginBox a:first-child").click(function(){
-		location.href = "login"
-	})
-	$(".loginBox a:last-child").click(function(){
-		loginBox.css({display:"none"})
 	})
 </script>
     
@@ -319,46 +319,13 @@
 		})
 	})
 </script>
-<script>
-    // 分享
-    window._bd_share_config = {
-        share : [{
-            "bdSize" : 16
-        }],
-    }
-    with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
-</script>
 
-  
     <script src="js/wzq_show_work.js"></script>
     
 	<!-- 底部 -->
 	<div id="public_footer" th:include="backend/wy_footer :: foot"></div>
-	<script th:include="backend/wy_header :: js_foot"></script>  
+	<script th:include="backend/wy_footer :: js_foot"></script>  
 	<!-- <div th:include="backend/wy_footer"></div>  -->
 	<!-- 底部  结束 -->
-	
-	<div class="isLogin_box loginBox" style="display:none">
-		<div class="isLogin">
-			<h2>温馨提示</h2>
-			<p>亲，您还没有登录哦~</p>
-			<div class="btn">
-				<a href="javascript:;">去登录</a>
-				<a href="javascript:;">取消</a>
-			</div>
-		</div>
-	</div>
-	
-	   	<div class="isLogin_box buyBox" style="display:none">
-		<div class="isLogin">
-			<h2>温馨提示</h2>
-			<p>亲，您还没有购买哦~</p>
-			<div class="btn">
-				<a href="">去购买</a>
-				<a href="javascript:;">取消</a>
-			</div>
-		</div>
-	</div>
-    
 </body>
 </html>

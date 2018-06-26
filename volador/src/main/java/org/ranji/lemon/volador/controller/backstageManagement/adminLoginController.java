@@ -67,7 +67,7 @@ public class adminLoginController {
 		pw.close();
 	}
 	
-	@RequestMapping(value="/admin",method=RequestMethod.GET)
+	@RequestMapping(value="/uekadmin",method=RequestMethod.GET)
 	public ModelAndView adminIndex(){
 		ModelAndView mv=new ModelAndView();
 		mv.setViewName("admin/index");

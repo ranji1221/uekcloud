@@ -9,7 +9,7 @@
 }
 
 
-/*鐠愶箑褰跨拋鍓х枂 瀵拷婵拷*/
+/*閻犳劧绠戣ぐ璺ㄦ媼閸撗呮瀭 鐎殿噯鎷峰┑顕嗘嫹*/
 .wqf_set_main{
 	background: #fff;
 	padding:40px 40px 100px;
@@ -44,13 +44,13 @@
 	transition:none;
 	border-bottom:2px solid #3e3e3e;
 }
-/*鐠愶箑褰跨拋鍓х枂 缂佹挻娼�*/
+/*閻犳劧绠戣ぐ璺ㄦ媼閸撗呮瀭 缂備焦鎸诲锟�*/
 
 
 
 
 
-/*閸╃儤婀扮挧鍕灐  瀵拷婵拷*/
+/*闁糕晝鍎ゅ﹢鎵導閸曨剚鐏�  鐎殿噯鎷峰┑顕嗘嫹*/
 .wqf_basic_main>form{
 	background: #fff;
 	padding:40px;
@@ -105,6 +105,11 @@
 	color: #3e3e3e;
 	font-size: 14px;
 }
+.wqf_basic_main>form>ul>li.name input[type=number]::-webkit-outer-spin-button,
+.wqf_basic_main>form>ul>li.name input[type=number]::-webkit-inner-spin-button{
+    -webkit-appearance: none !important;
+    margin: 0; 
+}
 
 .wqf_basic_main>form>ul>li.tel span:nth-child(2){
 	margin-left: 15px;
@@ -156,11 +161,11 @@
 	color: #fff;
 	border-radius: 4px;
 	font-size: 18px;
-	font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+	font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","寰蒋闆呴粦",Arial,sans-serif;
 	font-weight: bold;
 	cursor: pointer;
 }
 .wqf_basic_main>form  .submit button:hover{
 	background: #fcad86;
 }
-/*閸╃儤婀扮挧鍕灐  缂佹挻娼�*/
+/*闁糕晝鍎ゅ﹢鎵導閸曨剚鐏�  缂備焦鎸诲锟�*/

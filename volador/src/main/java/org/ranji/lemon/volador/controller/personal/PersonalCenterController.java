@@ -266,7 +266,7 @@ public class PersonalCenterController {
 			//计算返回页码
 			int pageCount;
 			if((pageCourse.getTotal()%3==0)){
-				pageCount=pageCourse.getTotal()%3;
+				pageCount=pageCourse.getTotal()/3;
 			}else{
 				pageCount=(pageCourse.getTotal()/3)+1;
 			}
@@ -429,7 +429,7 @@ public class PersonalCenterController {
 			
 			int pageCount;
 			if((pageCourse.getTotal()%6==0)){
-				pageCount=pageCourse.getTotal()%6;
+				pageCount=pageCourse.getTotal()/6;
 			}else{
 				pageCount=(pageCourse.getTotal()/6)+1;
 			}
@@ -582,7 +582,7 @@ public class PersonalCenterController {
 			
 			int pageCount;
 			if((pageCourse.getTotal()%3==0)){
-				pageCount=pageCourse.getTotal()%3;
+				pageCount=pageCourse.getTotal()/3;
 			}else{
 				pageCount=(pageCourse.getTotal()/3)+1;
 			}

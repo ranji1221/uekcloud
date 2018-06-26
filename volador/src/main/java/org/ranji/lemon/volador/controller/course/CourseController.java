@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -208,39 +209,100 @@ public class CourseController {
 		
 		//关键字搜索
 		List<Course> courseList=courseService.keywordSreachCourse(request.getParameter("c"));
+		int page;
+		if(request.getParameter("page")==null){
+			page=1;
+		}else{
+			try {
+				page=Integer.parseInt(request.getParameter("page"));
+			} catch (Exception e) {
+				// TODO: handle exception
+				mv.setViewName("backend/404");
+				return mv;
+			}
+			
+		}
 		if(courseList.size()==0){
 			mv.addObject("code",404);
 			mv.addObject("message",request.getParameter("c"));
 			courseList=courseService.findAll();
 			List<Map> courseMapList = new ArrayList<>();
-			for(Course course:courseList){
-				Map<String, Object> courseMap = new HashMap<String, Object>();
-				courseMap.put("id", course.getId());
-				courseMap.put("course_image_address", course.getCourse_image_address());
-				courseMap.put("time", courseService.findCourseTotalTime(course.getId()));
-				courseMap.put("course_name", course.getCourse_name());
-				courseMap.put("course_info", course.getCourse_info());
-				courseMap.put("student_count", course.getStudent_count());
-				courseMapList.add(courseMap);
+			int i;
+			int sise=courseList.size();
+			Random random=new Random();
+			int max;
+			if(sise<4){
+				max=sise;
+				for(i=0;i<max;i++){
+					Map<String, Object> courseMap = new HashMap<String, Object>();
+					courseMap.put("id", courseList.get(i).getId());
+					courseMap.put("course_image_address", courseList.get(i).getCourse_image_address());
+					courseMap.put("time", courseService.findCourseTotalTime(courseList.get(i).getId()));
+					courseMap.put("course_name", courseList.get(i).getCourse_name());
+					courseMap.put("course_info", courseList.get(i).getCourse_info());
+					courseMap.put("student_count", courseList.get(i).getStudent_count());
+					courseMapList.add(courseMap);
+				}
+			}else{
+				max=4;
+				for(int j=0;j<max;j++){
+					Map<String, Object> courseMap = new HashMap<String, Object>();
+					i=random.nextInt(sise);
+					courseMap.put("id", courseList.get(i).getId());
+					courseMap.put("course_image_address", courseList.get(i).getCourse_image_address());
+					courseMap.put("time", courseService.findCourseTotalTime(courseList.get(i).getId()));
+					courseMap.put("course_name", courseList.get(i).getCourse_name());
+					courseMap.put("course_info", courseList.get(i).getCourse_info());
+					courseMap.put("student_count", courseList.get(i).getStudent_count());
+					courseMapList.add(courseMap);
+				}
 			}
+
+			Map<String, Object> pageMap = new HashMap<String, Object>();
+			//page
+			pageMap.put("pageCount", 1);
+			pageMap.put("currentPage", 1);
+			pageMap.put("TotalNumber",4);
+			mv.addObject("page",pageMap);
 			mv.addObject("courseList",courseMapList);
 			
 		}else{
+			int totalCount=courseList.size();
+			int pageCount=1;
+			int limit=5;
+			if(totalCount%limit==0){
+				pageCount=totalCount/limit;	
+//				if(pageCount==0){
+//					pageCount=1;
+//				}
+			}else{
+				pageCount=(totalCount/limit)+1;
+			}
+			Map<String, Object> pageMap = new HashMap<String, Object>();
+			//page
+			pageMap.put("pageCount", pageCount);
+			pageMap.put("currentPage", page);
+			pageMap.put("TotalNumber",totalCount);
+			mv.addObject("page",pageMap);
 			List<Map> courseMapList = new ArrayList<>();
-			for(Course course:courseList){
-				Map<String, Object> courseMap = new HashMap<String, Object>();
-				courseMap.put("id", course.getId());
-				courseMap.put("course_image_address", course.getCourse_image_address());
-				courseMap.put("time", courseService.findCourseTotalTime(course.getId()));
-				courseMap.put("course_name", course.getCourse_name());
-				courseMap.put("course_info", course.getCourse_info());
-				courseMap.put("student_count", course.getStudent_count());
-				courseMapList.add(courseMap);
+			for(int i=(page-1)*limit;i<page*limit;i++){
+				try {
+					Map<String, Object> courseMap = new HashMap<String, Object>();
+					courseMap.put("id", courseList.get(i).getId());
+					courseMap.put("course_image_address", courseList.get(i).getCourse_image_address());
+					courseMap.put("time", courseService.findCourseTotalTime(courseList.get(i).getId()));
+					courseMap.put("course_name", courseList.get(i).getCourse_name());
+					courseMap.put("course_info", courseList.get(i).getCourse_info());
+					courseMap.put("student_count", courseList.get(i).getStudent_count());
+					courseMapList.add(courseMap);
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
 			}
 			mv.addObject("courseList",courseMapList);
 		}
 		
-		
+		mv.addObject("interfaceName","searchCourse?c="+request.getParameter("c")+"&");
 		mv.setViewName("backend/cp_courseChannel");
 		
 		
@@ -385,44 +447,37 @@ public class CourseController {
 			HttpServletRequest request){
 		ModelAndView mv = new ModelAndView();
 		//检测是否登录,并获取用户信息
-		try{
-			if(request.getSession().getAttribute("userId")!=null
-					&&request.getSession().getAttribute("userName")!=null){
-				int userId=(int) request.getSession().getAttribute("userId");
-				String userName=(String) request.getSession().getAttribute("userName");
-				mv =headerService.headInfo(userId, userName);
-				mv.addObject("pageUri", "/findCourse");
-				mv.addObject("pageUri", "/course_chapter?courseId="+courseId);
-				UserInfo userInfo=personalService.findUserInfoByUserId(userId);
-				mv.addObject(userInfo);
-				mv.addObject("login_yes","login_yes active");
-				mv.addObject("login_no","login_no");
-				mv.addObject("userName", userName);
-				mv.addObject("userId",userId);
-				//查询是否已经收藏该课程
-				List<Integer> courseIdList=personalService.findCollectCourseRelationByUserId(userId);
-				int display=0;
-				for(int courseNum:courseIdList){
-					if(courseNum == courseId){
-						display=1;
-					};
-				}
-				mv.addObject("display", display);
-			}else{
-				UserInfo userInfo=new UserInfo();
-				userInfo.setHead_image("images/wqf_user.png");
-				mv.addObject(userInfo);
-				mv.addObject("headLogin_yes","login_yes");
-				mv.addObject("headLogin_no","login_no active");
-				mv.addObject("display", 0);
-			}		
-			
-		}
-		catch (Exception e) {
-			mv.addObject("login_yes","login_yes");
-			mv.addObject("login_no","login_no active");
+		if(request.getSession().getAttribute("userId")!=null
+				&&request.getSession().getAttribute("userName")!=null){
+			int userId=(int) request.getSession().getAttribute("userId");
+			String userName=(String) request.getSession().getAttribute("userName");
+			mv =headerService.headInfo(userId, userName);
+			mv.addObject("pageUri", "/findCourse");
+			mv.addObject("pageUri", "/course_chapter?courseId="+courseId);
+			UserInfo userInfo=personalService.findUserInfoByUserId(userId);
+			mv.addObject(userInfo);
+			mv.addObject("login_yes","login_yes active");
+			mv.addObject("login_no","login_no");
+			mv.addObject("userName", userName);
+			mv.addObject("userId",userId);
+			//查询是否已经收藏该课程
+			List<Integer> courseIdList=personalService.findCollectCourseRelationByUserId(userId);
+			int display=0;
+			for(int courseNum:courseIdList){
+				if(courseNum == courseId){
+					display=1;
+				};
+			}
+			mv.addObject("display", display);
+		}else{
+			UserInfo userInfo=new UserInfo();
+			userInfo.setHead_image("images/wqf_user.png");
+			mv.addObject(userInfo);
+			mv.addObject("headLogin_yes","login_yes");
+			mv.addObject("headLogin_no","login_no active");
 			mv.addObject("display", 0);
-		}
+		}		
+			
 		if(null != courseId){
 			//查询课程
 			Course course=courseService.find(courseId);
@@ -454,10 +509,6 @@ public class CourseController {
 				teacher.setTeacher_name("神秘人");
 				mv.addObject(teacher);
 			}
-			
-			
-			
-			
 			//根据课程id获取评论列表
 			List<Comment> commentList = courseService.findCommentListByCourse(courseId);
 			//根据评论获取用户信息
@@ -475,9 +526,6 @@ public class CourseController {
 		}else{
 			mv.setViewName("redirect:/index");
 		}
-		
-		
-		
 		return mv;
 	}
 	
@@ -577,9 +625,8 @@ public class CourseController {
 					map.put("headImage", personalService.findUserInfoByUserId(Integer.parseInt(userId)).getHead_image());
 					map.put("content", content);
 					map.put("nickName", personalService.findUserInfoByUserId(Integer.parseInt(userId)).getNickname());
-//					map.put("data", data);
-					map.put("info", info);
-					
+					map.put("commentId", comment.getId());
+					//					map.put("data", data);
 					map.put("info", info);
 				}catch (Exception e) {
 					info = "异常！";
@@ -607,13 +654,17 @@ public class CourseController {
 	
 	//视频播放页面
 	@RequestMapping(value="/course_video", method=RequestMethod.GET)
-	public ModelAndView videoPage(@RequestParam(value="chapterId", required=false) Integer chapterId,
+	public ModelAndView videoPage(
 			HttpServletRequest request){
-		
+		String chapterIdStr=request.getParameter("chapterId");
 		ModelAndView mv = new ModelAndView();
-		if(chapterId == null){
+		int chapterId;
+		try {
+			chapterId=Integer.parseInt(chapterIdStr);
+		} catch (Exception e) {
+			// TODO: handle exception
 			//重定向到404页面
-			mv.setViewName("error/404");
+			mv.setViewName("backend/404");
 			return mv;
 		}
 		
@@ -621,7 +672,7 @@ public class CourseController {
 		Chapter chapter=chapterService.find(chapterId);
 		//如果查到的内容为空，重定向到404页面
 		if(chapter==null){
-			mv.setViewName("error/404");
+			mv.setViewName("backend/404");
 			return mv;
 		}
 		//根据章节id查找课程标题id,查找课程标题id查找课程id
@@ -752,47 +803,79 @@ public class CourseController {
 	}
 	
 	
-	//获取章节评论Ajax
-	@RequestMapping(value="/chapter_commentList",method=RequestMethod.POST)
-	public void chapterCommentList(HttpServletRequest request,HttpServletResponse response) throws IOException{
+	//获取章节评论与回复Ajax
+	@RequestMapping(value="/courseCommentList",method=RequestMethod.POST)
+	public void courseCommentAndReply(HttpServletRequest request,HttpServletResponse response) throws IOException{
 		
 		//设置返回格式
 		response.setHeader("Content-Type", "application/json;charset=utf-8");
 		PrintWriter pw = response.getWriter();
 		
-		//获取请求参数
-		int chapterId =Integer.parseInt(request.getParameter("chapterId"));
-		String headImage=null;
-		
-		if(request.getParameter("userId").equals("")){
-			headImage="images/wzq_user_img.jpg";
-		}else{
-			//获取用户头像
-			int userId=Integer.parseInt(request.getParameter("userId"));
-			headImage= personalService.findUserInfoByUserId(userId).getHead_image();
+		Map<String,Object> result=new HashMap<String,Object>();
+		try {
+			//获取请求参数
+			int courseId =Integer.parseInt(request.getParameter("courseId"));
+			Map<String,Object> data=new HashMap<String,Object>();
+			//获取当前用户信息
+			if(request.getParameter("userId").equals("")){
+				UserInfo userInfo=new UserInfo();
+				userInfo.setHead_image("images/wzq_user_img.jpg");
+				data.put("userInfo", userInfo);
+			}else{
+				//获取用户头像
+				int userId=Integer.parseInt(request.getParameter("userId"));
+				UserInfo userInfo= personalService.findUserInfoByUserId(userId);
+				data.put("userInfo", userInfo);
+			}
+			
+			//根据章节id获取评论列表
+			List<Comment> commentList = courseService.findCommentListByCourse(courseId);
+			
+			List<Map> commentAndReplyList=new ArrayList<>();
+			
+			
+			
+			for(Comment comment:commentList){
+				//根据评论获取用户信息
+				Map<String,Object> commentAndReplyMap=new HashMap<String,Object>();
+				int commentId=comment.getId();
+				int user_Id=commentService.findUserIdByCommentId(commentId).get(0);
+				UserInfo userInfo=personalService.findUserInfoByUserId(user_Id);
+				comment.setNickName(userInfo.getNickname());
+				comment.setHead_image(userInfo.getHead_image());
+				comment.setUserId(user_Id);
+				commentAndReplyMap.put("comment", comment);
+				
+				//获取回复信息
+				List<Reply> replyList=replyService.findReplyByCommentId(commentId);
+				
+				for(Reply reply:replyList){
+					if(reply.getUserId()!=0){
+						reply.setUserName(personalService.findUserInfoByUserId(reply.getUserId()).getNickname());
+					}
+					if(reply.getReplyUserId() !=0){
+						reply.setReplyUserName(personalService.findUserInfoByUserId(reply.getReplyUserId()).getNickname());
+					}
+				}
+				
+				commentAndReplyMap.put("reply", replyList);
+				commentAndReplyList.add(commentAndReplyMap);
+			}
+			
+			//拼接为Json返回
+			data.put("commentAndReply", commentAndReplyList);
+			result.put("code", 200);
+			result.put("message", "获取成功");
+			result.put("data", data);
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			result.put("code", 404);
+			result.put("message", "获取失败");
 		}
 		
-		
-		
-		//根据章节id获取评论列表
-		List<Comment> commentList = chapterService.findCommentListByChapter(chapterId);
-		
-		//根据评论获取用户信息
-		for(int i=0;i<commentList.size();i++){
-			int commentId=commentList.get(i).getId();
-			int user_Id=commentService.findUserIdByCommentId(commentId).get(0);
-			UserInfo userInfo=personalService.findUserInfoByUserId(user_Id);
-			commentList.get(i).setNickName(userInfo.getNickname());
-			commentList.get(i).setHead_image(userInfo.getHead_image());
-		}
-		
-		//拼接为Json返回
-		Map<String,Object> map=new HashMap<String,Object>();
-		System.out.println(commentList.toString());
-		map.put("UserHeadImage", headImage);
-		map.put("commentList", commentList);
-		
-		pw.write(JsonUtil.objectToJson(map));
+//		System.out.println(JsonUtil.objectToJson(result));
+		pw.write(JsonUtil.objectToJson(result));
 		pw.flush();
 		pw.close();
 	}
@@ -904,9 +987,16 @@ public class CourseController {
 				
 				//保存评论和用户关系
 				commentService.savaCommentAndUserRelation(comment.getId(), Integer.parseInt(userId.toString()));
-				
+					
 				info = "success";
+				//返回刚刚评论内容
+				map.put("headImage", personalService.findUserInfoByUserId(Integer.parseInt(userId)).getHead_image());
+				map.put("content", content);
+				map.put("nickName", personalService.findUserInfoByUserId(Integer.parseInt(userId)).getNickname());
+				map.put("commentId", comment.getId());
+				//					map.put("data", data);
 				map.put("info", info);
+				
 			  } catch (Exception e) {
 				info = "fail";
 				map.put("info",info);
@@ -933,29 +1023,39 @@ public class CourseController {
 
 		Map<String,Object> result=new HashMap<String,Object>();
 		
-		try {
-			Reply replyIn=new Reply();
-			int commentId=Integer.parseInt(request.getParameter("commentId"));
-			int userId=Integer.parseInt(request.getParameter("userId"));
-			int replyUserId=Integer.parseInt(request.getParameter("replyUserId"));
-			String reply=request.getParameter("reply");
-			
-			replyIn.setCommentId(commentId);
-			replyIn.setReply(reply);
-			replyIn.setReplyUserId(replyUserId);
-			replyIn.setUserId(userId);
-			
-			//保存回复信息
-			replyService.save(replyIn);
-			
-			result.put("code", 200);
-			result.put("message", "请求成功");
-		} catch (Exception e) {
-			// TODO: handle exception
+		if(request.getSession().getAttribute("userId")!=null){
+			try {
+				Reply replyIn=new Reply();
+				int commentId=Integer.parseInt(request.getParameter("commentId"));
+				int userId=(int) request.getSession().getAttribute("userId");
+				int replyUserId;
+				if(request.getParameter("replyUserId")==null){
+					replyUserId=0;
+				}else{
+					replyUserId=Integer.parseInt(request.getParameter("replyUserId"));
+				}
+				
+				String reply=request.getParameter("reply");
+				
+				replyIn.setCommentId(commentId);
+				replyIn.setReply(reply);
+				replyIn.setReplyUserId(replyUserId);
+				replyIn.setUserId(userId);
+				
+				//保存回复信息
+				replyService.save(replyIn);
+				
+				result.put("code", 200);
+				result.put("message", "请求成功");
+			} catch (Exception e) {
+				// TODO: handle exception
+				result.put("code", 404);
+				result.put("message", "请求失败");
+			}
+		}else{
 			result.put("code", 404);
-			result.put("message", "请求失败");
+			result.put("message", "未登陆");
 		}
-		
 		
 		
 		
@@ -1105,6 +1205,36 @@ public class CourseController {
 			commentService.update(updateComment);
 			result.put("code", 200);
 			result.put("message", "点赞成功");
+			result.put("good", comment.getGood()+1);
+		} catch (Exception e) {
+			// TODO: handle exception
+			result.put("code", 404);
+			result.put("message", "点赞失败");
+		}
+		
+		
+		writer.write(JsonUtil.objectToJson(result));
+		writer.flush();
+		writer.close();
+	}
+	
+	//点赞-1
+	@RequestMapping(value="/comment_good_down",method=RequestMethod.POST)
+	public void Good(HttpServletRequest request,HttpServletResponse response) throws IOException{
+		response.setHeader("Content-Type", "application/json;charset=utf-8");
+		PrintWriter writer = response.getWriter();
+		Map<String,Object> result=new HashMap<String,Object>();
+		
+		try {
+			int commentId=Integer.parseInt(request.getParameter("commentId"));
+			Comment comment=commentService.find(commentId);
+			Comment updateComment=new Comment();
+			updateComment.setId(commentId);
+			updateComment.setGood(comment.getGood()-1);
+			commentService.update(updateComment);
+			result.put("code", 200);
+			result.put("message", "点赞成功");
+			result.put("good", comment.getGood()-1);
 		} catch (Exception e) {
 			// TODO: handle exception
 			result.put("code", 404);

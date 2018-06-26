@@ -10,7 +10,8 @@
     <meta name="description" content="飞鱼平台" />
     <link rel="shortcut icon" href="favicon.ico" />
     <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/public_header.css">
+     <link rel="stylesheet" href="css/public_header.css">
+    <link rel="stylesheet" href="css/wzq_list_public.css">
     <script src="js/jquery.min.js"></script>
     <script src="js/headerfooter.js"></script>
 
@@ -94,42 +95,27 @@
 
     <!-- 分页 -->
     
-<!--     <ul class="cp_paging">
-        <li class='cp_first '><a href="#">首页</a></li>
-        <li class="cp_firstPage btn_active">
-            <a href="#">上一页</a>
-        </li>
-        <li class="cp_num">
-            <a href="#">1</a>
-        </li>
-        <li class="cp_num  num_active">
-            <a href="#">2</a>
-        </li>
-        <li class="cp_num" >
-            <a href="#">3</a>
-        </li>
-        <li class="cp_num" >
-            <a href="#">4</a>
-        </li>
-        <li class="cp_num" >
-            <a href="#">5</a>
-        </li>
-        <li class="cp_num" >
-            <a href="#">6</a>
-        </li>
-
-        <li class='cp_last'>
-            <a href="#">尾页</a>
-        </li>
-        <li class='cp_lastPage'>
-            <a href="#">下一页</a>
-        </li>
-    </ul> -->
+   <ul class=" wzq_page">
+  	
+    </ul>
     
    <!-- 底部 -->
    <div id="public_footer" th:include="backend/wy_footer :: foot"></div>
-   <script th:include="backend/wy_header :: js_foot"></script>  
+   <script th:include="backend/wy_footer :: js_foot"></script>  
    <!-- <div th:include="backend/wy_footer"></div>  -->
    <!-- 底部  结束 -->
+   
+<script type="text/javascript" th:inline="javascript">
+    // 分页功能
+    var page_date = {
+        pageCount: [[${page.pageCount}]],      // 总页数
+        TotalNumber: [[${page.TotalNumber}]],   // 总条数
+        currentPage: [[${page.currentPage}]],      // 当前页码
+        interfaceName: [[${interfaceName}]]
+    }
+</script>
+<script src="js/wqf_paging.js"></script>    <!-- 分页功能 -->
+
+
 </body>
 </html>

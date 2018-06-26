@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 	<meta charset="UTF-8">
 	<title>飞鱼平台-课程详情</title>
@@ -49,7 +49,7 @@
         <div class="con_right">
             <div class="con_son1">
                 <h3  th:text="${course.course_name}" >Python课程初探</h3>
-                <a href="#" class='group'>
+                <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1582911029&site=qq&menu=yes" class='group'>
                     <img src="images/cp_11.png">
                     <span>
                         加群咨询
@@ -170,36 +170,10 @@
     
     <!-- 底部 -->
     <div id="public_footer" th:include="backend/wy_footer :: foot"></div>
-    <script th:include="backend/wy_header :: js_foot"></script>  
+    <script th:include="backend/wy_footer :: js_foot"></script>  
     <!-- <div th:include="backend/wy_footer"></div>  -->
     <!-- 底部  结束 -->
 
-
-
-	<div class="isLogin_box buyBox">
-		<div class="isLogin">
-			<h2>温馨提示</h2>
-			<p>亲，您还没有购买哦~</p>
-			<div class="btn">
-				<a href="">去购买</a>
-				<a href="javascript:;">取消</a>
-			</div>
-		</div>
-	</div>
-	
-	<div class="isLogin_box loginBox" style="display:none">
-		<div class="isLogin">
-			<h2>温馨提示</h2>
-			<p>亲，您还没有登录哦~</p>
-			<div class="btn">
-				<a href="javascript:;">去登录</a>
-				<a href="javascript:;">取消</a>
-			</div>
-		</div>
-	</div>
-
-
-	
 
 
 </body>
@@ -212,27 +186,27 @@
 </script>
 <script>
 	var buyBox = $(".buyBox")
-	if (!isBuy) {
-		buyBox.css({display:"none"})
-	}
-	$(".buyBox a:last-child").click(function(){
-		buyBox.css({display:"none"})
-	})
 	
+	if (isBuy == 0) {
+		buyBox.css({display:"none"})
+		layer.confirm('您未购买该课程？', {
+		  btn: ['去购买','取消'] //按钮
+		}, function(){
+		  location.href=""
+		})
+	}
 	
 	var loginBox = $(".loginBox")
 	$("#buy").click(function(){
 		if(userId){
 			location.href = "buy"
 		}else{
-			loginBox.css({display:"block"})
+			layer.confirm('您未登录？', {
+			  btn: ['去登陆','取消'] //按钮
+			}, function(){
+			  location.href="login"
+			});
 		}
-	})
-	$(".loginBox a:first-child").click(function(){
-		location.href = "login"
-	})
-	$(".loginBox a:last-child").click(function(){
-		loginBox.css({display:"none"})
 	})
 </script>
 <script>
@@ -321,82 +295,7 @@
     //<span class="tishi">免费试听5分钟 <i>→</i></span>
     
     
-        // 控制信息提示
-    function getTips(msg,con='',url=''){
-        con = con||"";
-        url = url||"";
-        console.log(con,url)
-        if(!con){
-            $('<div class="cp_tips">').css({
-                "width":'300px',
-                "height":'50px',
-                "background":'rgba(0,0,0,0.9)',
-                "border-radius":'5px',
-                "position":'fixed',
-                "left":'0px',
-                "right":'0px',
-                "top":"0px",
-                "bottom":'0px',
-                "margin":"auto",
-                "color":'white',
-                "border":'1px solid #FD6756',
-                "line-height":'50px',
-                "padding-left":'50px',
-                "opacity":'1',
-                "transition":'1s'
-            }).html(msg).appendTo('body');   
-        }else{
-            $('<div class="cp_tips">').css({
-                "width":'300px',
-                "height":'50px',
-                "background":'rgba(0,0,0,0.6)',
-                "border-radius":'5px',
-                "position":'fixed',
-                "left":'0px',
-                "right":'0px',
-                "top":"0px",
-                "bottom":'0px',
-                "margin":"auto",
-                "color":'white',
-                "border":'1px solid #FD6756',
-                "line-height":'50px',
-                "padding-left":'50px',
-                "opacity":'1',
-                "transition":'1s'
-            }).html(msg+'<a href='+url+'>'+con+'</a>').appendTo('body');
-            $('.cp_tips a').css({'color':'#FD6756','textDecoration':'underline'});
-        }
-        $("<span>").css({
-            "position":'absolute',
-            "left":'20px',
-            "top":'0px',
-            "bottom":"0px",
-            "width":"20px",
-            "height":"20px",
-            "margin":"auto",
-            "lineHeight":'20px',
-            "cursor":'pointer',
-            "transition":'0.3s'
-        })
-        .hover(function(){
-            $(this).css({'color':'#FD6756'});
-        },function(){
-            $(this).css({'color':'white'});
-        })  
-        .html('x')
-        .appendTo($('.cp_tips'));
-        $('.cp_tips span').click(function(){
-            $('.cp_tips').remove();
-        })
-        // setTimeout(function(){
-        //     $('.cp_tips').css('opacity',0);
-        //     $('.cp_tips').on('webkitTransitionEnd',function(){
-        //         $('.cp_tips').remove();
-        //     })
-        // },2000)
-    }
 </script>
-
 
 
 </html>
