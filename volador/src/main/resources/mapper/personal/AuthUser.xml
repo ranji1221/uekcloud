@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.ranji.lemon.volador.model.personal.AuthUser"> 
+	<!-- 插入学员 -->
+	<insert id="save" parameterType="VoladorAuthUser" keyProperty="id" useGeneratedKeys="true">
+		insert into lemon_volador_personal_authuser (guid,createTime,updateTime,identity_type,userinfo_id,identifier,credential)
+		values (#{guid},#{createTime},#{updateTime},#{identity_type},#{userinfo_id},#{identifier},#{credential})
+	</insert>
+	
+	<!-- 删除某条学员 -->
+	<delete id="delete" parameterType="int" >
+		delete from lemon_volador_personal_authuser where id = #{id}
+	</delete>
+
+	<!-- 根据id查询学员 -->
+	<select id="find" parameterType="int" resultType="VoladorAuthUser">
+		select * from lemon_volador_personal_authuser where id = #{id}
+	</select>
+	
+	<!-- 查询全部学员 -->
+	<select id="findAll" resultType="VoladorAuthUser" parameterType="Map">
+		select * from lemon_volador_personal_authuser
+	</select>
+
+	<!-- 修改学员信息 -->
+	<update id="update" parameterType="VoladorAuthUser">
+		update lemon_volador_personal_authuser
+		<set>
+		    <if test="identity_type != null and identity_type != ''">identity_type = #{identity_type},</if>
+		    <if test="userinfo_id != null and userinfo_id != ''">userinfo_id = #{userinfo_id},</if>
+		    <if test="identifier != null and identifier != ''">identifier = #{identifier},</if>
+		    <if test="credential != null and credential != ''">credential = #{credential},</if>
+			<if test="updateTime != null ">updateTime = #{updateTime},</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<!-- 根据第三方登陆类型和账号查找 -->
+	<select id="findAuthUserByTypeAndIdentifier" resultType="VoladorAuthUser" parameterType="Map">
+		select * from lemon_volador_personal_authuser where identity_type = #{identity_type} and identifier = #{identifier}
+	</select>
+</mapper>
