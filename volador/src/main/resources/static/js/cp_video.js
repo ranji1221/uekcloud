@@ -33,7 +33,8 @@ $(function(){
                     let obj = record;
                     obj.chapterTitle.forEach(function(val,n){
                         let arr1 =  val.chapter_title.split(/：|:/);
-                        let parent = $('<ul class="hidden_one">').html('<span class="title">'+arr1[0]+'</span>'+arr1[1]);
+                        let parent = $('<ul class="hidden_one">').html('<span class="title">'+arr1[0]+'</span>');
+//                        let parent = $('<ul class="hidden_one">').html('<span class="title">'+arr1[0]+'</span>'+arr1[1]);
                         obj.chapterList['chapter'+n].forEach(function(k,j){
                             let arr2 = k.chapter_name.split(/\s/);
                             console.log(k.id)
@@ -157,7 +158,7 @@ $(function(){
                                 str+=`<div class="wqf_reply">
                                     <span uid="${ele.userId}">${ele.userName} 回复 ${ele.replyusername==null?'':'@'+ele.replyusername}：${ele.reply}</span>
                                     <div class="wzq_comment_reply">
-                                        <span title="回复" class="wzq_comment_replys" data-flag="true" replyusername="${ele.userName}"><i class="fy_icon">&#xe679;</i></span>
+                                    
                                     </div>
                                 </div>`   // wqf_reply 结束
                             }) 
@@ -313,7 +314,6 @@ $(function(){
                                     str+=`<div class="wqf_reply">
                                         <span uid="${ele.userId}">${ele.userName} 回复 ${ele.replyUserName==null?'':'@'+ele.replyUserName}：${ele.reply}</span>
                                         <div class="wzq_comment_reply">
-                                            <span title="回复" class="wzq_comment_replys" data-flag="true" replyusername="${ele.userName}" commentId="${ele.commentId}" replyUserId="${ele.userId}"><i class="fy_icon">&#xe679;</i></span>
                                         </div>
                                     </div>`   // wqf_reply 结束
                                 }) 
@@ -522,7 +522,6 @@ $(function(){
                                         let content = $('<div class="wqf_reply">').html(`<span uid="null">我 回复 ${user}：${reply}</span>
                                             <div class="wzq_comment_reply">
                                                                                                             
-                                                <span title="回复" class="wzq_comment_replys" data-flag="false" replyusername="${user}" ><i class="fy_icon"></i></span>
                                             </div>`).appendTo(my_parent.parents(".wzq_comment_item_info"));
                                         
                                         

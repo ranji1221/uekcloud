@@ -974,7 +974,7 @@ public class CourseController {
 		
 		if(!userId.equals("")){
 				try {			
-				System.out.println(userId);
+//				System.out.println(userId);
 				
 				Comment comment=new Comment();
 				
@@ -1080,7 +1080,7 @@ public class CourseController {
 			//查询用户所有用户笔记
 			List<Note> noteList = noteService.findNoteByUserId(userId,chapterId);
 			
-			System.out.println(JsonUtil.objectToJson(noteList));
+//			System.out.println(JsonUtil.objectToJson(noteList));
 			mv.addObject(noteList);
 			mv.addObject("noteCount", noteList.size());
 			mv.setViewName("backend/cp_videoWork");

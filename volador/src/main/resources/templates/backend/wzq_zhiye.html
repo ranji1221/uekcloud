@@ -106,13 +106,12 @@
     <div class="wzq_main_r">
         <div class="wzq_zhiye_mbx">
             <span th:text="'全部职业导航 '+${count}">全部职业导航 2</span>
-            <label for=""><input type="text" placeholder="请输入您需要查看的课程"><i class="fy_icon">&#xe64d;</i></label>
         </div>
         <ul class="wzq_zhiye_list clear_both">
             <li class="wzq_zhiye_item wzq_zhiye_item_active" data-zhiye-flag="false" th:each="growthClassAndStage:${growthClassAndStageList}">
                 <div class="wzq_zhiye_item_top">
                 <a th:href="'growth_system?growthClassId='+${growthClassAndStage.growthClassId}">
-                    <div class="wzq_zhiye_item_img"><img src="images/wzq_work_img.jpg" alt="" th:src="${growthClassAndStage.growthClassImage}"></div>
+                    <div class="wzq_zhiye_item_img" th:style="'background:url('+${growthClassAndStage.growthClassImage}+') no-repeat center /cover'"></div>
                     <div class="wzq_zhiye_item_info">
                         <h4 th:text="${growthClassAndStage.growthClassTitle}">UI设计进阶之路</h4>
                         <h5 th:text="${growthClassAndStage.growthClassSendword}">距离成为一个UI设计师，你还差了30%的距离</h5>

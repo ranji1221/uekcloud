@@ -568,6 +568,7 @@ public class PersonalCenterController {
 					studyingCourse.setUpdateChapter(updateChapter);
 				} catch (Exception e) {
 					// TODO: handle exception
+					studyingCourse.setUpdateChapter("无更新");
 				}
 				
 				studyingCoursesList.add(studyingCourse);	

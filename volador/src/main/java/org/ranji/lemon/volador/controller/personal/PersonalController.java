@@ -175,7 +175,7 @@ public class PersonalController {
 			
 			//获取职业导航相应链接
 			List<GrowthClass> growthClassList=growthClassService.findAll();
-			System.out.println(growthClassList.toString());
+//			System.out.println(growthClassList.toString());
 			for(int i=1;i<6;i++){
 				try {
 					mv.addObject("growthClassId"+i,growthClassList.get(i-1).getId());

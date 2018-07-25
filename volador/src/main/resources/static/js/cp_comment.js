@@ -58,7 +58,6 @@ $(function(){
                                 str+=`<div class="wqf_reply">
                                     <span uid="${ele.userId}">${ele.userName} 回复 ${ele.replyusername==null?'':'@'+ele.replyusername}：${ele.reply}</span>
                                     <div class="wzq_comment_reply">
-                                        <span title="回复" class="wzq_comment_replys" data-flag="true" replyusername="${ele.userName}" commentId="${ele.commentId}" replyUserId="${ele.userId}"><i class="fy_icon">&#xe679;</i></span>
                                     </div>
                                 </div>`   // wqf_reply 结束
                             }) 
@@ -213,7 +212,6 @@ $(function(){
                                     str+=`<div class="wqf_reply">
                                         <span uid="${ele.userId}">${ele.userName} 回复 ${ele.replyusername==null?'':'@'+ele.replyusername}：${ele.reply}</span>
                                         <div class="wzq_comment_reply">
-                                            <span title="回复" class="wzq_comment_replys" data-flag="true" replyusername="${ele.userName}" commentId="${ele.commentId}" replyUserId="${ele.userId}"><i class="fy_icon">&#xe679;</i></span>
                                         </div>
                                     </div>`   // wqf_reply 结束
                                 }) 
@@ -420,7 +418,6 @@ $(function(){
                                         let content = $('<div class="wqf_reply">').html(`<span uid="null">我 回复 ${user}：${reply}</span>
                                             <div class="wzq_comment_reply">
                                                                                                             
-                                                <span title="回复" class="wzq_comment_replys" data-flag="false" replyusername="${user}" commentId="${val.commentId}" replyuserid="${userId}"><i class="fy_icon"></i></span>
                                             </div>`).appendTo(my_parent.parents(".wzq_comment_item_info"));
                                          // replyuserName小写变大写
                                     }else if(val.info=='fail'){
